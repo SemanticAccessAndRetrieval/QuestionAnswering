@@ -1,0 +1,57 @@
+@prefix csdP: <http://swrc.ontoware.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix csd: <http://www.csd.uoc.gr/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix csdT: <http://linkedscience.org/teach/ns#> .
+
+
+csd:Computer_Science a csdP:Department ;
+	csdP:departmentName "Computer Science Department" ;
+	csdP:address "Voutes Campus 700 13 Heraklion Crete Greece" ;
+	csdP:contactInfo "Phone: +30 2810393500 Fax: +30 2810393501 Email: csd@csd.uoc.gr" ;
+	csdP:location "Heraklion Crete Greece" ;
+	csdP:facultyTitle "School of Sciences and Engineering" ;
+	csdP:foundationYear "1984"^^xsd:int .
+
+csd:AmphitheatreA a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:AmphitheatreA .
+
+csd:AmphitheatreB a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:AmphitheatreB .
+
+csd:A113 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:A113 .
+
+csd:A121 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:A121 .
+
+csd:A125 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:A125 .
+
+csd:H204 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:H204 .
+
+csd:H206 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:H206 .
+
+csd:H208 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:H208 .
+
+csd:E311 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:E311 .
+
+csd:E313 a csdT:Room .
+
+csd:Computer_Science csdP:hasRoom csd:E313 .

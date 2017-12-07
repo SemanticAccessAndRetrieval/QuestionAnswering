@@ -1,0 +1,47 @@
+﻿Antonis Argyros received his PhD in 1996 from the University of Crete, Greece. His research interests fall in the areas of Computational Vision with emphasis on Tracking, Human Gesture and Posture Recognition, 3D Reconstruction and Omnidirectional Vision. He is also interested in applications of computational vision in the fields of Robotics and Smart Environments. 
+
+Angelos Bilas received his Ph.D. in 1998 from Princeton University, USA. He held an Assistant Professor position in the Electrical and Computer Engineering Department in University of Toronto (1998-2002). His interests include the general area of computer systems, systems software, and computer architecture, lately with emphasis on storage systems and datacenter servers.
+
+Vassilis Christophides received his PhD from Conservatoir National des Arts et Metiers (CNAM, Paris), France. His research interests include Databases and Web Information Systems, Digital Libraries, and Scientific Systems. 
+
+Xenofontas Dimitropoulos  received a PhD degree from the Georgia Institute of Technology. His research focuses on Internet measurements and software defined networks. He has received grants from the European Research Council, the Marie Skłodowska-Curie Action, and the Fulbright Foundation. He has served on the program committee of ACM SIGCOMM and has won two best paper awards.
+
+Panagiota Fatourou received her PhD in 1999 from the University of Patras, Greece. Her research interests are in the broader areas of Distributed and Parallel Computing, Algorithms and Complexity, and Experimental Algorithmics. 
+
+Georgios Georgakopoulos received his PhD in 1989 from the National Technical University of Athens, Greece. His research interests are in the broader area of Theory of Computation and Algorithms.
+
+Manolis G.H. Katevenis received his PhD in 1983 from the University of California, Berkeley, USA. His research interests include Embedded and Scalable Multiprocessor System Architecture, Interprocessor Communication Mechanisms, Interconnection Network Architecture, Packet Switch Architecture, Computer Architecture, VLSI Systems. 
+
+Evangelos Markatos  received his PhD in 1993 from the University of Rochester, NY, USA. His research interests are in the broader area of Systems (Internet Systems and Monitoring, Systems and Network Security, World Wide Web, Internet Systems and Technologies , Operating Systems). 
+
+Athanassios Mouchtaris  received his PhD in 2003 from the University of Southern California, USA. His research interests are in the broader area of Audio and Speech Signal Processing (Immersive audio environments, Spatial audio, Audio coding, Multichannel audio modeling, Speech signal models for synthesis and enhancement and speaker identification).
+
+Maria Papadopouli received her PhD in 2002 from Columbia University, USA. Her research interests are in the broader area of Networks, Telecommunications, and Systems (Wireless Networks, Network Measurements and Modeling, Mobile Computing, Mobile P2P Computing, Cognitive Radios, Positioning Systems, Network monitoring, Internet systems and technologies, Pervasive Computing, Multimedia Systems). 
+
+Georgios Papagiannakis received his PhD in 2006 from the University of Geneva in Switzerland. His research and development interests are confined in the areas of mixed reality presence, illumination models and real-time rendering, interactive graphics, virtual heritage, GPU programming and real-time frameworks-engines for integrated VR/AR character simulation. 
+
+Dimitris Plexousakis  received his PhD in 1996 from the University of Toronto, Canada. His research interests are in the broader area of Data and Knowledge Management. 
+
+Polyvios Pratikakis received his PhD in 2008 from the University of Maryland, USA. His research interests include Programming Languages, Software Engineering, Type Systems and Static Analysis, and their Applications on Concurrent Software. 
+
+Antonios Savides received his PhD from the University of Kent at Canterbury, UK. His research interests are in the broader area of Programming Languages, Software Engineering and Applications. 
+
+Constantine Stephanidis  received his PhD in 1987 from the University of Kent at Canterbury, UK. His research interests are in the broader area of Human - Computer Interaction (Design for All, New methodologies, techniques and tools for the design, development and evaluation of applications and services that exhibit automatic adaptation, personalization and intelligent interface behavior, Ambient Intelligence environments). 
+
+Yannis Stylianou received his PhD in 1996 from ENST-Telecom, Paris, France. His research interests are in the broader area of  Signals and Systems Processing (Speech Signal Processing, Audio Signal Processing, Statistical Signal Processing, Biomedical Signal Processing and Bioacoustics). 
+
+Ioannis Tollis received his Ph.D. degree in Computer Science from the University of Illinois at Urbana-Champaign in Jan. 1988. Before coming to UOC he was Professor of Computer Science The University of Texas at Dallas, Dec. 1987-2004.
+He has been a visiting professor in several universities including:  Brown Univ., Univ. of Rome, Univ. of Perugia.
+His research interests are in Graph Drawing, Discovery, Design, Analysis, and Visualization of Networks, Information Visualization and Data Analytics, Biomedical Informatics, and Algorithms and Applications. 
+
+Apostolos Traganitis received his PhD in 1975 from Princeton University, USA. His research interests are in the broader areas of Communication Systems, Digital and Analog electronics. 
+
+Panos Trahanias received his PhD in 1988 from the National Technical University of Athens, Greece. His research interests are in the broader areas of Computational Vision (Articulated object tracking, Gesture recognition) and Autonomous Robots (Autonomous Robot Navigation, Human-Robot Interaction, Biologically-inspired Robot-control Architectures). 
+
+Panagiotis Tsakalides received his PhD in 1995 from the University of Southern California, USA. His research interests are in the broader areas of Digital Signal Processing, Information Theory/Mutimedia Signal Processing, and Telecommunication Systems. 
+
+Ioannis Tsamardinos received his Ph.D. in 2001 from Pittsburgh University, USA. His research interests are in the broader areas of Machine Learning, Bioinformatics, and Artificial Intelligence. 
+
+George Tziritas  received his PhD in 1981 from the Institute of National Polytechnique, Grenoble, France. His research interests include Digital Image Processing, Digital Video Processing, Computer Vision, Pattern Recognition, Image and Video Communication, Multimedia Systems.
+
+Yannis Tzitzikas received his PhD in 2002 from the University of Crete, Greece.  He was postdoctoral researcher at the University of Namur (Belgium) and ERCIM postdoctoral fellow at ISTI-CNR (Pisa, Italy) and at VTT Technical Research Centre of Finland. His research interests are in the broader areas of Information Indexing, Retrieval and Exploration, and Semantic Data Management with emphasis on Knowledge Evolution.

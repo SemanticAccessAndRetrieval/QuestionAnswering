@@ -1,0 +1,122 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix csd: <http://www.csd.uoc.gr/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix csdT: <http://linkedscience.org/teach/ns#> .
+
+
+csd:Courses_Enrollment a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#Dhlwseis_Ma8hmatwn> .
+
+csd:Certificates_Printing a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#%CE%95%CE%9A%CE%94%CE%9F%CE%A3%CE%97_%CE%A0%CE%99%CE%A3%CE%A4%CE%9F%CE%A0%CE%9F%CE%99%CE%97%CE%A4%CE%99%CE%9A%CE%A9%CE%9D> .
+
+csd:Student_Web a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#STUDENT_WEB> .
+
+csd:Graduation_Certificate_Printing a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=graduation> .
+
+csd:Studies_suspension a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#anastolh> .
+
+csd:Rankings a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=katatakseis> .
+
+csd:Academic_ID a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#%CE%A0%CE%91%CE%A3%CE%9F_> .
+
+csd:Students_Communication_within_UoC_with_email a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#E-MAIL> .
+
+csd:Health_book a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#%CE%92%CE%99%CE%92%CE%9B%CE%99%CE%91%CE%A1%CE%99%CE%9F_%CE%A5%CE%93%CE%95%CE%99%CE%91%CE%A3> .
+
+csd:Textbooks a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#Suggrammata> .
+
+csd:Participation_Confirmation_in_exams a csdT:Secretary_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=secretariat_services&openmenu=demoAcc5&lang=gr#Vevaiwsh_Summ_se_Ejetaseis> .
+
+csd:Email_access a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=email_service> .
+
+csd:Access_to_systems_end_electronic_services a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=useful_information> .
+
+csd:Laptop_connection a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=laptop_connection> .
+
+csd:Remote_access_to_Debian a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=remote_connection> .
+
+csd:Password_change a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=change_password> .
+
+csd:Email_filtering-redirection a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=email_filtering> .
+
+csd:Quota_problems a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=quota> .
+
+csd:Folder-directory_public_html a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=directory_public_html> .
+
+csd:Login_by_ssh_without_password a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=ssh_login> .
+
+csd:FTP a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=ftp> .
+
+csd:Printing_from_laptop_with_Linux_OS a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=printing> .
+
+csd:Free_space_for_data_storage_in_Linux_machines a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=free_storage> .
+
+csd:Subscription_to_mail_lists_of_courses a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=subscription> .
+
+csd:Using_turnin_program a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=use_the_turnin> .
+
+csd:Backup a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=backup> .
+
+<Browsers:cache-speed> a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=browsers> .
+
+csd:Useful_programs a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=IT_services_Xrisima_Programmata> .
+
+csd:Wing_E_maps a csdT:IT_Services ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?custom=IT_services_Xartes_Pterygas_E> .
+
+csd:choice-receipt_of_free_textbooks a csdT:TextBooks ;
+	csdT:serviceUrl <http://eudoxus.gr/> .
+
+csd:Transfers a csdT:Transfers ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=meteggrafes&openmenu=demoAcc5&lang=gr> .
+
+csd:Scholarship a csdT:Scholarships ;
+	csdT:serviceUrl <https://www.csd.uoc.gr/CSD/index.jsp?content=scholarships&openmenu=demoAcc5&lang=gr> .
+
+csd:Student_Care_Department a csdT:Feeding_and_Accomodation ;
+	csdT:serviceUrl <http://www.merimna.uoc.gr/index.php/el/> .
+
+csd:Food_Supplying a csdT:Feeding_and_Accomodation ;
+	csdT:serviceUrl <http://www.merimna.uoc.gr/index.php/el/paroxes/sitisi> .
+
+csd:Accommodation a csdT:Feeding_and_Accomodation ;
+	csdT:serviceUrl <http://www.merimna.uoc.gr/index.php/el/paroxes/stegash> .
+
+csd:Students_Advisory_Centre a csdT:Advisory_Centre ;
+	csdT:serviceUrl <http://skf.uoc.gr/advice/start.html> .
+
+csd:Heraklions_University_Gym a csdT:Sports ;
+	csdT:serviceUrl <http://unisport.uoc.gr/gymnasium> .
+
+csd:Cultural_Teams_of_University_of_Crete a csdT:Cultural_Groups ;
+	csdT:serviceUrl <http://www.uoc.gr/studies-at-uni/groups-gen/cult-groups.html> .

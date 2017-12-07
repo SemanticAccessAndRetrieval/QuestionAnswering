@@ -1,0 +1,51 @@
+CS-100 	Introduction to Computer Science, ects 8
+
+CS-120 	Digital Design, ects 8
+
+CS-110 	Calculus I, ects 8
+
+CS-112 	Physics I, ects 8
+
+CS-108 	English I, ects 4
+
+CS-150 	Programming, ects 8
+
+CS-111 	Calculus II, ects 6
+
+CS-119 	Linear Algebra, ects 6
+
+CS-118 	Discrete Mathematics, ects 6
+
+CS-109 	English II, ects 4
+
+CS-217 	Probability Theory I, ects 6
+
+CS-240 	Data Structures, ects 8
+
+CS-252 	Object-oriented Programming, ects 8
+
+CS-280 	Theory of Computation, ects 6
+
+CS-208 	English III, ects 4
+
+CS-180 	Logic, ects 6
+
+CS-215 	Applied Mathematics for Engineers, ects 8
+
+CS-225 	Computer Organization, ects 8
+
+CS-255 	Software Technology Laboratory, ects 6
+
+CS-209 	English IV, ects  4
+
+CS-345 	Operating Systems, ects 8
+
+CS-360 	Files and Databases, ects 8
+
+CS-335 	Computer Networks, ects 6
+
+CS-340 Languages and Compilers, ects 8
+
+CS-380 Algorithms and Computational Complexity, ects 8
+
+CS-499.1 Bachelor's Thesis, ects 9

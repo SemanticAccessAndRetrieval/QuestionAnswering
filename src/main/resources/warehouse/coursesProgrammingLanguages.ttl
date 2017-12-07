@@ -1,0 +1,387 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix csd: <http://www.csd.uoc.gr/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix csdT: <http://linkedscience.org/teach/ns#> .
+
+
+csd:CS-100 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-108 a csdT:Course .
+
+csd:CS-109 a csdT:Course .
+
+csd:CS-110 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-111 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-112 a csdT:Course .
+
+csd:CS-118 a csdT:Course .
+
+csd:CS-119 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-120 a csdT:Course .
+
+csd:CS-150 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-180 a csdT:Course .
+
+csd:CS-208 a csdT:Course .
+
+csd:CS-209 a csdT:Course .
+
+csd:CS-215 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-217 a csdT:Course .
+
+csd:CS-225 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Verilog , csd:Assembly .
+
+csd:CS-240 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C , <http://www.csd.uoc.gr/C++> , csd:Java .
+
+csd:CS-252 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+csd:CS-255 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-280 a csdT:Course .
+
+csd:CS-335 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C , <http://www.csd.uoc.gr/C++> , csd:Java .
+
+csd:CS-340 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-345 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-360 a csdT:Course ;
+	csdT:courseProgrammingLang csd:SQL , csd:PHP .
+
+csd:CS-380 a csdT:Course .
+
+csd:CS-499 a csdT:Course .
+
+csd:PHYS-331 a csdT:Course .
+
+csd:PHYS-338 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:PHYS-371 a csdT:Course .
+
+csd:PHYS-273 a csdT:Course .
+
+csd:PHYS-374 a csdT:Course .
+
+csd:PHYS-457 a csdT:Course .
+
+csd:CS-113 a csdT:Course .
+
+csd:CS-121 a csdT:Course .
+
+csd:CS-122 a csdT:Course .
+
+csd:CS-305 a csdT:Course .
+
+csd:MEM-202 a csdT:Course .
+
+csd:MEM-203 a csdT:Course .
+
+csd:MEM-204 a csdT:Course .
+
+csd:MEM-213 a csdT:Course .
+
+csd:MEM-223 a csdT:Course .
+
+csd:MEM-224 a csdT:Course .
+
+csd:MEM-233 a csdT:Course .
+
+csd:MEM-242 a csdT:Course .
+
+csd:MEM-251 a csdT:Course .
+
+csd:MEM-252 a csdT:Course .
+
+csd:MEM-254 a csdT:Course .
+
+csd:MEM-255 a csdT:Course .
+
+csd:MEM-262 a csdT:Course .
+
+csd:MEM-264 a csdT:Course .
+
+csd:MEM-281 a csdT:Course .
+
+csd:MEM-284 a csdT:Course .
+
+csd:MEM-293 a csdT:Course .
+
+csd:BIOL-205 a csdT:Course .
+
+csd:BIOL-207 a csdT:Course .
+
+csd:BIOL-315 a csdT:Course .
+
+csd:BIOL-405 a csdT:Course .
+
+csd:OIK-1002 a csdT:Course .
+
+csd:OIK-1005 a csdT:Course .
+
+csd:OIK-2003 a csdT:Course .
+
+csd:ETY-141 a csdT:Course .
+
+csd:ETY-242 a csdT:Course .
+
+csd:ETY-302 a csdT:Course .
+
+csd:CS-330 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C , <http://www.csd.uoc.gr/C++> .
+
+csd:CS-370 a csdT:Course .
+
+csd:CS-435 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-436 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Python .
+
+csd:CS-439 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-474 a csdT:Course .
+
+csd:CS-220 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Verilog .
+
+csd:CS-428 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-422 a csdT:Course .
+
+csd:CS-425 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-351 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+csd:CS-352 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-358 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-359 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , csd:Javascript , csd:Ajax , csd:XSLT , csd:XPATH , csd:XQUERY .
+
+csd:CS-452 a csdT:Course ;
+	csdT:courseProgrammingLang csd:XSLT , csd:XPATH , csd:XQUERY .
+
+csd:CS-454 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-455 a csdT:Course .
+
+csd:CS-457 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-459 a csdT:Course .
+
+<http://www.csd.uoc.gr/CS-490.40> a csdT:Course ;
+	csdT:courseProgrammingLang csd:OCaml .
+
+csd:CS-460 a csdT:Course ;
+	csdT:courseProgrammingLang csd:SQL .
+
+csd:CS-463 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+csd:CS-464 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Javascript .
+
+csd:CS-471 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-472 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-473 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-475 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-317 a csdT:Course .
+
+csd:CS-383 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , <http://www.csd.uoc.gr/C++> , csd:Matlab .
+
+csd:CS-387 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+<http://www.csd.uoc.gr/CS-390.51> a csdT:Course ;
+	csdT:courseProgrammingLang csd:R .
+
+csd:CS-482 a csdT:Course ;
+	csdT:courseProgrammingLang csd:R .
+
+csd:CS-486 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-302 a csdT:Course .
+
+csd:CS-403 a csdT:Course .
+
+csd:CS-404 a csdT:Course .
+
+csd:CS-407 a csdT:Course .
+
+csd:CS-527 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-531 a csdT:Course .
+
+csd:CS-533 a csdT:Course .
+
+csd:CS-534 a csdT:Course .
+
+csd:CS-539 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-540 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C , <http://www.csd.uoc.gr/C++> , csd:Java .
+
+csd:CS-541 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-553 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-555 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/JDL_(Job_Description_Language)> .
+
+csd:CS-556 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C .
+
+csd:CS-557 a csdT:Course .
+
+csd:CS-559 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , <http://www.csd.uoc.gr/C++> .
+
+csd:CS-562 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+csd:CS-564 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , csd:Javascript , csd:Ajax , <http://www.csd.uoc.gr/C+Sharp> .
+
+csd:CS-567 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Prolog .
+
+csd:CS-570 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , <http://www.csd.uoc.gr/C++> , csd:Matlab .
+
+csd:CS-573 a csdT:Course .
+
+csd:CS-572 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java , <http://www.csd.uoc.gr/C++> , csd:Matlab .
+
+csd:CS-575 a csdT:Course ;
+	csdT:courseProgrammingLang <http://www.csd.uoc.gr/C++> .
+
+csd:CS-577 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-578 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-580 a csdT:Course .
+
+csd:CS-583 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Java .
+
+csd:CS-586 a csdT:Course .
+
+csd:CS-587 a csdT:Course .
+
+<http://www.csd.uoc.gr/CS-590.45> a csdT:Course .
+
+csd:CS-625 a csdT:Course .
+
+csd:CS-637 a csdT:Course .
+
+csd:CS-639 a csdT:Course .
+
+csd:CS-661 a csdT:Course ;
+	csdT:courseProgrammingLang csd:SQL .
+
+csd:CS-662 a csdT:Course ;
+	csdT:courseProgrammingLang csd:SQL .
+
+csd:CS-672 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Matlab .
+
+csd:CS-675 a csdT:Course .
+
+csd:CS-693 a csdT:Course .
+
+csd:CS-529 a csdT:Course ;
+	csdT:courseProgrammingLang csd:C , <http://www.csd.uoc.gr/C++> , csd:Java , csd:Scala .
+
+csd:PHYS-102 a csdT:Course .
+
+csd:PHYS-103 a csdT:Course .
+
+csd:PHYS-201 a csdT:Course .
+
+csd:PHYS-277 a csdT:Course .
+
+csd:PHYS-361 a csdT:Course .
+
+csd:MEM-106 a csdT:Course .
+
+csd:MEM-108 a csdT:Course .
+
+csd:MEM-211 a csdT:Course .
+
+csd:MEM-221 a csdT:Course .
+
+csd:MEM-231 a csdT:Course .
+
+csd:MEM-245 a csdT:Course .
+
+csd:MEM-253 a csdT:Course .
+
+csd:MEM-271 a csdT:Course .
+
+csd:MEM-282 a csdT:Course .
+
+csd:MEM-297 a csdT:Course .
+
+csd:CS-543 a csdT:Course ;
+	csdT:courseProgrammingLang csd:Scala .
+
+csd:CS-558 a csdT:Course .
+
+csd:CS-561 a csdT:Course ;
+	csdT:courseProgrammingLang csd:SPARQL , csd:Java .
+
+csd:CS-565 a csdT:Course .
+
+csd:CS-592 a csdT:Course .
+
+csd:CS-593 a csdT:Course .
+
+csd:CS-594 a csdT:Course .

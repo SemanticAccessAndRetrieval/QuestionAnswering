@@ -1,0 +1,380 @@
+@prefix csdP: <http://swrc.ontoware.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix csd: <http://www.csd.uoc.gr/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix csdT: <http://linkedscience.org/teach/ns#> .
+
+
+<http://www.csd.uoc.gr/Georgios+Papagiannakis> a csdP:AssistantProfessor ;
+	csdP:name "Γεώργιος Παπαγιαννάκης"@el , "Georgios Papagiannakis"@en ;
+	csdP:email "papagian@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~papagian> ;
+	csdP:bio "Ο Γιώργος Παπαγιαννάκης πήρε το διδακτορικό του το 2006 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου της Γενεύης, Ελβετία όπου εργάστηκε σαν ερευνητής μέχρι το 2009. Τα ερευνητικά του ενδιαφέροντα περιλαμβάνουν τις περιοχές μεικτής πραγματικότητας, διαδραστικά γραφικά υπολογιστών, μοντέλα φωτισμού, απόδοση σε πραγματικό χρόνο, εικονική προσομοίωση συστημάτων, προγραμματισμό επιταχυντών γραφικών επεξεργαστών και ολοκληρωμένα συστήματα προσομοίωσης εικονικών χαρακτήρων."@el , "He got his PhD in 2006 from the University of Geneva in Switzerland. His research and development interests are confined in the areas of mixed reality presence, illumination models and real-time rendering, interactive graphics, virtual heritage, GPU programming and real-time frameworks-engines for integrated VR/AR character simulation."@en ;
+	csdP:position "Επίκουροι καθηγητές"@el , "Assistant Professors"@en .
+
+<http://www.csd.uoc.gr/Christos+-+Xenofontas+Dimitropoulos> a csdP:AssistantProfessor ;
+	csdP:name "Χρήστος - Ξενοφώντας Δημητρόπουλος"@el , "Christos - Xenofontas Dimitropoulos"@en ;
+	csdP:email "fontas@tik.ee.ethz.ch" ;
+	csdP:homepage <http://www.inspire.edu.gr/> ;
+	csdP:bio "Πήρε το Διδακτορικό του από το Πανεπιστήμιο Georgia Institute of Technology της Ατλάντα, ΗΠΑ, το 2006. Τα ερευνητικά του ενδιαφέροντα περιλαμβάνουν Δικτυακές μετρήσεις και ανάλυση δεδομένων, Δρομολόγηση σε δίκτυα υπολογιστων, Μοντελοποίηση δικτύων και εξομοίωση μεγάλης κλίμακας, Εποπτεία δικτύων και Ασφάλεια δικτύων και προσωπικών δεδομένων *."@el , "-"@en ;
+	csdP:position "Επίκουροι καθηγητές"@el , "Assistant Professors"@en .
+
+<http://www.csd.uoc.gr/Ioannis+Tsamardinos> a csdP:AssociateProfessor ;
+	csdP:name "Ιωάννης Τσαμαρδίνος"@el , "Ioannis Tsamardinos"@en ;
+	csdP:email "tsamard@csd.uoc.gr" ;
+	csdP:homepage <http://www.mensxmachina.org> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2001 από το Πανεπιστήμιο Pittsburgh, στις Η.Π.Α και εργάστηκε ως επίκουρος καθηγητής μέχρι το 2006 στο τμήμα Βιοϊατρικής Πληροφορικής του Πανεπιστημίου Vanderbilt. Τα ενδιαφέροντα του επικεντρώνονται στην Βιοϊατρική Πληροφορική, μηχανική μάθηση, τεχνητή νοημοσύνη και υπολογιστικές μεθόδους για ανακάλυψη αιτιότητας."@el , "He got his Ph.D. in 2001 from Pittsburgh University, USA. His research interests are in the broader areas of Machine Learning, Bioinformatics, and Artificial Intelligence."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Georgios+Georgakopoulos> a csdP:AssociateProfessor ;
+	csdP:name "Γιώργος Γεωργακόπουλος"@el , "Georgios Georgakopoulos"@en ;
+	csdP:email "ggeo@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1989 από τον Τομέα Πληροφορικής του Τμήματος Ηλεκτρολόγων του Εθν. Μετσ. Πολυτεχνείου Αθηνών. Τα ενδιαφέροντα του περιλαμβάνουν Θεωρία Υπολογισμού και Αλγόριθμους (ειδικότερα γράφων και γεωμετρίας) καθώς και Θεωρία Υπολογιστικής Πολυπλοκότητας."@el , "He got his PhD in 1989 from the National Technical University of Athens, Greece. His research interests are in the broader area of Theory of Computation and Algorithms."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Maria+Papadopouli> a csdP:AssociateProfessor ;
+	csdP:name "Μαρία Παπαδοπούλη"@el , "Maria Papadopouli"@en ;
+	csdP:email "maria@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~maria> ;
+	csdP:bio "Πήρε το διδακτορικό της το 2002 από το Πανεπιστήμιο Columbia, στις Η.Π.Α. Εργάστηκε ως επίκουρη καθηγήτηρια στο Πανεπιστήμιο της Βόρειας Καρολίνας στο Chapel Hill (UNC).Τα ενδιαφέροντά της περιλαμβάνουν ασύρματα κινητά δίκτυα, συστήματα εύρεσης θέσης, ανάλυση και βελτιστοποίηση απόδοσης δικτύων, σχεδιασμό και μελέτη συστημάτων υποστήριξης ασυρμάτων δικτύων (capacity planning, load balancing)."@el , "She got her PhD in 2002 from Columbia University, USA. Her research interests are in the broader area of Networks, Telecommunications, and Systems (Wireless Networks, Network Measurements and Modeling, Mobile Computing, Mobile P2P Computing, Cognitive Radios, Positioning Systems, Network monitoring, Internet systems and technologies, Pervasive Computing, Multimedia Systems)."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Athanassios+Mouchtaris> a csdP:AssociateProfessor ;
+	csdP:name "Αθανάσιος Μουχτάρης"@el , "Athanassios Mouchtaris"@en ;
+	csdP:email "mouchtar@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~mouchtar> ;
+	csdP:bio "Πήρε το Διδακτορικό του από το Πανεπιστήμιο της Νότιας Καλιφόρνια (USC) στο Λος Άντζελες, ΗΠΑ, το 2003. Ήταν μεταδιδακτορικός ερευνητής στο Πανεπιστήμιο της Πενσυλβάνια στη Φιλαδέλφεια, ΗΠΑ. Τα ερευνητικά του ενδιαφέροντα περιλαμβάνουν στατιστική επεξεργασία ψηφιακών σημάτων για εφαρμογές τρισδιάστατου και εικονικού ήχου, μοντελοποίηση πολυκαναλικού ήχου, σύνθεση φωνής με έμφαση σε μετατροπή φωνής, και βελτίωση φωνής σε συνθήκες θορύβου."@el , "He got his PhD in 2003 from the University of Southern California, USA. His research interests are in the broader area of Audio and Speech Signal Processing (Immersive audio environments, Spatial audio, Audio coding, Multichannel audio modeling, Speech signal models for synthesis and enhancement and speaker identification)."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Ioannis+Tzitzikas> a csdP:AssociateProfessor ;
+	csdP:name "Ιωάννης Τζίτζικας"@el , "Ioannis Tzitzikas"@en ;
+	csdP:email "tzitzik@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~tzitzik/> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2002 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Ήταν μεταδιδακτορικός ερευνητής στα: (α) Πανεπιστήμιο της Ναμύρ (FUNDP-Βέλγιο), (β) Εθνικό Συμβούλιο Ερευνών της Ιταλίας (CNR-ISTI, Pisa), και (γ) Τεχνολογικό Ερευνητικό Κέντρο της Φιλανδίας (VTT, Espoo). Τα ερευνητικά του ενδιαφέροντα περιλαμβάνουν θέματα Ευρετηρίασης, Ανάκτησης και Εξερεύνησης Πληροφοριών καθώς και θέματα Διαχείρισης Σημασιολογικών Δεδομένων με έμφαση στην Εξέλιξη Γνώσης."@el , "He got his PhD in 2002 from the University of Crete, Greece. He was postdoctoral researcher at the University of Namur (Belgium) and ERCIM postdoctoral fellow at ISTI-CNR (Pisa, Italy) and at VTT Technical Research Centre of Finland. His research interests are in the broader areas of Information Indexing, Retrieval and Exploration, and Semantic Data Management with emphasis on Knowledge Evolution."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Panagiota+Fatourou> a csdP:AssociateProfessor ;
+	csdP:name "Παναγιώτα Φατούρου"@el , "Panagiota Fatourou"@en ;
+	csdP:email "faturu@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~faturu/> ;
+	csdP:bio "Πήρε το διδακτορικό της το 1999 από το Πανεπιστήμιο Πατρών. Τα ενδιαφέροντα της επικεντρώνονται στις περιοχές των Κατανεμημένων Υπολογισμών, Αλγορίθμων και Πολυπλοκότητας και στην Πειραματική Ανάλυση Αλγορίθμων."@el , "She got her PhD in 1999 from the University of Patras, Greece. Her research interests are in the broader areas of Distributed and Parallel Computing, Algorithms and Complexity, and Experimental Algorithmics."@en ;
+	csdP:position "Αναπληρωτές καθηγητές"@el , "Associate Professors"@en .
+
+<http://www.csd.uoc.gr/Panagiota+Rizopoulou> a csdP:LaboratoryStaff ;
+	csdP:name "Παναγιώτα Ριζοπούλου"@el , "Panagiota Rizopoulou"@en ;
+	csdP:email "nrizop@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "Πήρε το MA της από το University of Sussex στον τομέα Applied Linguistics (Εφαρμοσμένη Γλωσσολογία)."@el , "She obtained her Master's Degree from the University of Sussex in the field of Applied Linguistics."@en ;
+	csdP:position "Ε.Δ.Ι.Π"@el , "E.D.I.P"@en .
+
+<http://www.csd.uoc.gr/Maria+Mamalaki> a csdP:LaboratoryStaff ;
+	csdP:name "Μαρία Μαμαλάκη"@el , "Maria Mamalaki"@en ;
+	csdP:email "mariam@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~mariam> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Δ.Ι.Π"@el , "E.D.I.P"@en .
+
+<http://www.csd.uoc.gr/Maria+Stavrakaki> a csdP:LaboratoryStaff ;
+	csdP:name "Μαρία Σταυρακάκη"@el , "Maria Stavrakaki"@en ;
+	csdP:email "mariast@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Δ.Ι.Π"@el , "E.D.I.P"@en .
+
+<http://www.csd.uoc.gr/Nikos+Komodakis> a csdP:LaboratoryStaff ;
+	csdP:name "Νικόλαος Κομοντάκης"@el , "Nikos Komodakis"@en ;
+	csdP:email "komod@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Δ.Ι.Π"@el , "E.D.I.P"@en .
+
+<http://www.csd.uoc.gr/Giannis+Fragkiadakis> a csdP:TechnicalStaff ;
+	csdP:name "Γιάννης Φραγκιαδάκης"@el , "Giannis Fragkiadakis"@en ;
+	csdP:email "jfragiad@ucnet.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Τ.Ε.Π"@el , "E.T.E.P"@en .
+
+<http://www.csd.uoc.gr/Cristina+Vaglini> a csdP:TechnicalStaff ;
+	csdP:name "Χριστίνα Βαλίνι"@el , "Cristina Vaglini"@en ;
+	csdP:email "cristina@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Τ.Ε.Π"@el , "E.T.E.P"@en .
+
+<http://www.csd.uoc.gr/Nikos+Krassas> a csdP:TechnicalStaff ;
+	csdP:name "Νίκος Κρασσάς"@el , "Nikos Krassas"@en ;
+	csdP:email "nkrassas@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Τ.Ε.Π"@el , "E.T.E.P"@en .
+
+<http://www.csd.uoc.gr/Giannis+Surlatzis> a csdP:TechnicalStaff ;
+	csdP:name "Γιάννης Σουρλαντζής"@el , "Giannis Surlatzis"@en ;
+	csdP:email "surlatzi@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Ε.Τ.Ε.Π"@el , "E.T.E.P"@en .
+
+<http://www.csd.uoc.gr/Antonis+Argyros> a csdP:Professor ;
+	csdP:name "Αντώνης Αργυρός"@el , "Antonis Argyros"@en ;
+	csdP:email "argyros@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~argyros> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1996 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Τα ενδιαφέροντα του περιλαμβάνουν Υπολογιστική Όραση,Ρ ομποτική, Οπτική Αντίληψη της Κίνησης και του 3Δ Χώρου, Ανάπτυξη Συμπεριφορών Ρομπότ με Χρήση Οπτικής Πληροφορίας,Γ νωσιακά Συστήματα Όρασης, Οπτική Παρακολούθηση Πολλαπλών Στόχων, Πανοραμική Όραση, Δίκτυα Καμερών και Εναλλακτικούς Οπτικούς Αισθητήρες."@el , "He got his PhD in 1996 from the University of Crete, Greece. His research interests fall in the areas of Computational Vision with emphasis on Tracking, Human Gesture and Posture Recognition, 3D Reconstruction and Omnidirectional Vision. He is also interested in applications of computational vision in the fields of Robotics and Smart Environments."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Manolis+G.H.+Katevenis> a csdP:Professor ;
+	csdP:name "Μανόλης Κατεβαίνης"@el , "Manolis G.H. Katevenis"@en ;
+	csdP:email "kateveni@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~kateveni/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1983 από το Πανεπιστήμιο της Καλιφόρνια στο Berkeley στις Η.Π.Α. ΄Ηταν επίκουρος καθηγητής στο Πανεπιστήμιο Stanford στις Η.Π.Α. Τα ενδιαφέροντα του περιλαμβάνουν Αρχιτεκτονική Μεταγωγέων Πακέτων, Αρχιτεκτονική Δικτύων Υψηλών Ταχυτήτων, Αρχιτεκτονική Υπολογιστών, Συστήματα VLSI."@el , "He got his PhD in 1983 from the University of California, Berkeley, USA. His research interests include Embedded and Scalable Multiprocessor System Architecture, Interprocessor Communication Mechanisms, Interconnection Network Architecture, Packet Switch Architecture, Computer Architecture, VLSI Systems."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Evangelos+Markatos> a csdP:Professor ;
+	csdP:name "Ευάγγελος Μαρκάτος"@el , "Evangelos Markatos"@en ;
+	csdP:email "markatos@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=evangelos_markatos> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1993 από το Πανεπιστήμιο του Rochester στις Η.Π.Α. Τα ενδιαφέροντα του περιλαμβάνουν Συστήματα και Τεχνολογίες για το Διαδίκτυο, Παγκόσμιος Ιστός, Συστήματα τύπου GRID, Ομότιμα Δίκτυα και Εφαρμογές, Παράλληλα και Κατανεμημένα Συστήματα, Λειτουργικά Συστήματα, Αρχιτεκτονική Υπολογιστών."@el , "He got his PhD in 1993 from the University of Rochester, NY, USA. His research interests are in the broader area of Systems (Internet Systems and Monitoring, Systems and Network Security, World Wide Web, Internet Systems and Technologies , Operating Systems)."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Angelos+Bilas> a csdP:Professor ;
+	csdP:name "Άγγελος Μπίλας"@el , "Angelos Bilas"@en ;
+	csdP:email "bilas@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~bilas/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1998 από το Πανεπιστήμιο Princeton των Η.Π.Α. Εργάστηκε ως Επίκουρος Καθηγητής στο Πανεπιστήμιο του Τορόντο. Τα ενδιαφέροντά του περιλαμβάνουν Αρχιτεκτονική Υπολογιστών Μεγάλης Κλίμακας, Λογισμικό Συστημάτων, Διασυνδετικά Δίκτυα Υψηλών Ταχυτήτων, Μικρο-υπολογιστικά Συστήματα."@el , "He got his PhD in 1998 from the University of Princeton, USA. His research interests are in the broader areas of Scalable Systems and Networks, Miniaturization of Computer Systems, and Computer Systems Security."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Dimitris+Plexousakis> a csdP:Professor ;
+	csdP:name "Δημήτρης Πλεξουσάκης"@el , "Dimitris Plexousakis"@en ;
+	csdP:email "dp@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=dimitris_pleksousakis> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1996 από το Πανεπιστήμιο του Τορόντο. Τα ενδιαφέροντα του περιλαμβάνουν Ενεργούς και παραγωγικές Βάσεις Δεδομένων, Σσυστήματα Διαχείρισης Βάσεων Γνώσεων, Παράσταση Γνώσεων, Προσομοίωση και Ανάλυση Επιχειρησιακών Διεργασιών με Λογικό Προγραμματισμό."@el , "He got his PhD in 1996 from the University of Toronto, Canada. His research interests are in the broader area of Data and Knowledge Management."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Constantine+Stephanidis> a csdP:Professor ;
+	csdP:name "Κωνσταντίνος Στεφανίδης"@el , "Constantine Stephanidis"@en ;
+	csdP:email "cs@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=constantine_stephanidis> ;
+	csdP:bio "Πήρε το διδακτορικό του το 1987 από το Πανεπιστήμιο του Kent at Canterbury. Τα ερευνητικά του ενδιαφέροντα περιλαμβάνουν το Σχεδιασμό και την Ανάπτυξη Μεθοδολογιών και Εργαλείων για τη σχεδίαση, ανάπτυξη και αξιολόγηση διεπαφών, με ιδιαίτερη έμφαση στην Καθολική Σχεδίαση και την Καθολική Πρόσβαση."@el , "He got his PhD in 1987 from the University of Kent at Canterbury, UK. His research interests are in the broader area of Human - Computer Interaction (Design for All, New methodologies, techniques and tools for the design, development and evaluation of applications and services that exhibit automatic adaptation, personalization and intelligent interface behavior, Ambient Intelligence environments)."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Antonios+Savides> a csdP:Professor ;
+	csdP:name "Αντώνιος Σαββίδης"@el , "Antonios Savides"@en ;
+	csdP:email "savidis@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/hci/index_main.php?l=g&c=517> ;
+	csdP:bio "Πήρε το διδακτορικό του το 1999 από το Πανεπιστήμιο του Kent της Αγγλίας. Τα ερευνητικά του ενδιαφέροντα εστιάζονται σε: Ανάπτυξη Δηλωτικών και Δυναμικών Γλωσσών Προγραμματισμού, Κατασκευή Εκσφαλματωτών Πηγαίου Κώδικα, Αμυντικό και Ακραίο Προγραμματισμό, Τεχνολογία Λογισμικού, Προγραμματιστικές Βιβλιοθήκες Δημιουργίας Περιβαλλόντων Διάχυτης Ευφυΐας, Μηχανές Λογισμικού και Εργαλεία Ανάπτυξης Προηγμένων Δισδιάστατων Παιχνιδιών."@el , "He got his PhD from the University of Kent at Canterbury, UK. His research interests are in the broader area of Programming Languages, Software Engineering and Applications."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Yannis+Stylianou> a csdP:Professor ;
+	csdP:name "Ιωάννης Στυλιανού"@el , "Yannis Stylianou"@en ;
+	csdP:email "yannis@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=yannis_stylianou> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1996 από την Ανώτατη Σχολή Τηλεπικοινωνιών της Γαλλίας (Ecole Nationale Superieure de Telecommunications, ΕNST-Telecom, Paris). Ηταν ερευνητής στα εργαστήρια της ATT (ATT Labs, Bell-Labs) στο Murray Hill, NJ στις Η.Π.Α. Τα ενδιαφέροντα του περιλαμβάνουν Ψηφιακή Επεξεργασία Σήματος, Ανάλυση Χρονοσειρών και Αναγνώριση Προτύπων."@el , "He got his PhD in 1996 from ENST-Telecom, Paris, France. His research interests are in the broader area of &nbsp;Signals and Systems Processing (Speech Signal Processing, Audio Signal Processing, Statistical Signal Processing, Biomedical Signal Processing and Bioacoustics)."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/George+Tziritas> a csdP:Professor ;
+	csdP:name "Γιώργος Τζιρίτας"@el , "George Tziritas"@en ;
+	csdP:email "tziritas@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~tziritas/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1981 από το Πολυτεχνικό Ινστιτούτο της Grenoble στη Γαλλία. ΄Ηταν ερευνητής στο Εθνικό Κέντρο Επιστημονικής Έρευνας (C.N.R.S.) της Γαλλίας. Τα ενδιαφέροντα του περιλαμβάνουν Ψηφιακή Eπεξεργασία Εικόνων και Σημάτων, Αναγνώριση Προτύπων και Ανάλυση Εικόνων, και Συστήματα Πολυμέσων."@el , "He got his PhD in 1981 from the Institute of National Polytechnique, Grenoble, France. His research interests include Digital Image Processing, Digital Video Processing, Computer Vision, Pattern Recognition, Image and Video Communication, Multimedia Systems."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Apostolos+Traganitis> a csdP:Professor ;
+	csdP:name "Απόστολος Τραγανίτης"@el , "Apostolos Traganitis"@en ;
+	csdP:email "tragani@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=apostolos_traganitis> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1975 από το Πανεπιστήμιο Princeton στις ΗΠΑ. Εργάστηκε στο Ερευνητικό Κέντρο του Ελλ. Πολ. Ναυτικού, στο Ε. Μ. Πολυτεχνείο και ήταν επίκουρος καθηγητής στο Αριστ. Πανεπ. Θεσσαλονίκης. Τα ενδιαφέροντα του περιλαμβάνουν Ψηφιακές Επικοινωνίες, Δίκτυα Υπολογιστών και Ψηφιακά Συστήματα."@el , "He got his PhD in 1975 from Princeton University, USA. His research interests are in the broader areas of Communication Systems, Digital and Analog electronics."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Ioannis+Tollis> a csdP:Professor ;
+	csdP:name "Ιωάννης Τόλλης"@el , "Ioannis Tollis"@en ;
+	csdP:email "tollis@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/CSD/index.jsp?custom=ioannis_tollis> ;
+	csdP:bio "Πήρε το Διδακτορικό του τον Ιαν. 1988 από το Πανεπιστήμιο του Illinois at Urbana-Champaign, Η.Π.Α. Πριν το Π.Κ. ήταν καθηγητής στο Πανεπιστήμιο του Τέξας από τον Δεκ. 1987 εως το 2004. Εχει διατελέσει επισκέπτης καθηγητής σε διαφορα Πανεπιστήμια (σαν το Brown Univ., Univ. of Rome, Univ. of Perugia, κ.α.) Τα ενδιαφέροντα του περιλαμβάνουν Οπτικοποίηση Γράφων, Έυρεση-Σχεδίαση-Ανάλυση-Οπτικοποίηση Δικτύων, Ανάλυση Πληροφορίας/Δεδομενων, Βιοιατρική Πληροφορική, Αλγόριθμους Γράφων, Αλγόριθμους και Εφαρμογές"@el , "He received his Ph.D. degree in Computer Science from the University of Illinois at Urbana-Champaign in Jan. 1988. Before coming to UOC he was Professor of Computer Science The University of Texas at Dallas, Dec. 1987-2004.<br /> He has been a visiting professor in several universities including: Brown Univ., Univ. of Rome, Univ. of Perugia.<br /> His research interests are in Graph Drawing, Discovery, Design, Analysis, and Visualization of Networks, Information Visualization and Data Analytics, Biomedical Informatics, and Algorithms and Applications."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Panos+Trahanias> a csdP:Professor ;
+	csdP:name "Πάνος Τραχανιάς"@el , "Panos Trahanias"@en ;
+	csdP:email "trahania@csd.uoc.gr" ;
+	csdP:homepage <http://users.ics.forth.gr/~trahania/home.html> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1988 από το Εθνικό Μετσόβιο Πολυτεχνείο. Ήταν ερευνητής στο Πανεπιστήμιο του Toronto στον Καναδά. Τα ενδιαφέροντα του περιλαμβάνουν Eπεξεργασία Εικόνων, Αναγνώριση Προτύπων και Μηχανική Όραση."@el , "He got his PhD in 1988 from the National Technical University of Athens, Greece. His research interests are in the broader areas of Computational Vision (Articulated object tracking, Gesture recognition) and Autonomous Robots (Autonomous Robot Navigation, Human-Robot Interaction, Biologically-inspired Robot-control Architectures)."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Panagiotis+Tsakalides> a csdP:Professor ;
+	csdP:name "Παναγιώτης Τσακαλίδης"@el , "Panagiotis Tsakalides"@en ;
+	csdP:email "tsakalid@csd.uoc.gr" ;
+	csdP:homepage <http://users.ics.forth.gr/~tsakalid/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 1995 από το University of Southern California (USC) στις Η.Π.Α. Εργάστηκε ως επισκέπτης επίκουρος καθηγητής στο USC και στο Πανεπιστήμιο Πατρών, καθώς και ως σύμβουλος στην εταιρία MultiSpec στο Huntington Beach της Καλιφόρνια. Τα ενδιαφέροντα του περιλαμβάνουν Τηλεπικοινωνιακά Συστήματα, Στατιστική Επεξεργασία Σημάτων, Συστήματα Πολυμέσων, και Ανάλυση μη-Γκαουσιανών Χρονοσειρών."@el , "He got his PhD in 1995 from the University of Southern California, USA. His research interests are in the broader areas of Digital Signal Processing, Information Theory/Mutimedia Signal Processing, and Telecommunication Systems."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Vassilis+Christophides> a csdP:Professor ;
+	csdP:name "Βασίλης Χριστοφίδης"@el , "Vassilis Christophides"@en ;
+	csdP:email "christop@ics.forth.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=vassilis_christophides> ;
+	csdP:bio "Πήρε το Διδακτορικό του από το Conservatoir National des Arts et Metiers (CNAM, Paris) της Γαλλίας. Τα ενδιαφέροντά του περιλαμβάνουν: Βάσεις Δεδομένων και Πληροφοριακά Συστήματα για τον Παγκόσμιο Ιστό (Σχήματα Αποθήκευσης και Ευρετηρίασης XML/RDF, Μοντέλα και Γλώσσες Επερωτήσεων Δεδομένων και Γνώσεων, Ολοκλήρωση Ετερογενών Πληροφοριών, Διαχείριση Αλλαγών XML/RDF, Γραφικές Γλώσσες Επερωτήσεων) Ψηφιακές Βιβλιοθήκες (Προσωποποίηση Πληροφορίας και Διαχείριση Προτιμήσεων, Διομότιμα Συστήματα Διαχείρισης Δεδομένων και Γνώσεων, Εξόρυξη Δεδομένων Γράφων και Κανόνες Δύναμης), Συστήματα Επιστημονικών Δεδομένων (Συστήματα Διαχείρισης Ροής Εργασιών, Περιγραφή και Σύνθεση Ηλεκτρονικών Υπηρεσιών, Προέλευση Δεδομένων και Διαχείριση Υπομνηματισμών)."@el , "He got his PhD from Conservatoir National des Arts et Metiers (CNAM, Paris), France. His research interests include Databases and Web Information Systems, Digital Libraries, and Scientific Systems."@en ;
+	csdP:position "Καθηγητές"@el , "Professors"@en .
+
+<http://www.csd.uoc.gr/Rena+Kalaitzaki> a csdP:AdministrativeStaff ;
+	csdP:name "Ρένα Καλαϊτζάκη"@el , "Rena Kalaitzaki"@en ;
+	csdP:email "rena@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Γραμματεία"@el , "Secretary"@en .
+
+<http://www.csd.uoc.gr/Evie+Spanaki> a csdP:AdministrativeStaff ;
+	csdP:name "Ήβη Σπανάκη"@el , "Evie Spanaki"@en ;
+	csdP:email "evie@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Γραμματεία"@el , "Secretary"@en .
+
+<http://www.csd.uoc.gr/Stella+Syntichaki> a csdP:AdministrativeStaff ;
+	csdP:name "Στέλλα Συντιχάκη"@el , "Stella Syntichaki"@en ;
+	csdP:email "sintis@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Γραμματεία"@el , "Secretary"@en .
+
+<http://www.csd.uoc.gr/Gelly+Kosma> a csdP:AdministrativeStaff ;
+	csdP:name "Ευαγγελία Κοσμά"@el , "Gelly Kosma"@en ;
+	csdP:email "kosma@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Γραμματεία"@el , "Secretary"@en .
+
+<http://www.csd.uoc.gr/Niki+Pantelaki> a csdP:AdministrativeStaff ;
+	csdP:name "Νίκη Παντελάκη"@el , "Niki Pantelaki"@en ;
+	csdP:email "pantelaki@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "-"@el , "-"@en ;
+	csdP:position "Γραμματεία"@el , "Secretary"@en .
+
+<http://www.csd.uoc.gr/Xenophon+Zabulis> a csdP:VisitingProfessor ;
+	csdP:name "Ξενοφών Ζαμπούλης"@el , "Xenophon Zabulis"@en ;
+	csdP:email "zabulis@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~zabulis/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 2002 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Τα ερευνητικά του ενδιαφέροντα βρίσκονται στo χώρο της υπολογιστική όρασης και πιο συγκεκριμένα στις παρακάτω περιοχές: στερεοπτική όραση και όραση πολλαπλών όψεων, 3Δ ανακατασκευή στατικών και δυναμικών σκηνών, ανάκληση οπτικής πληροφορίας με βάση το περιεχόμενο, υπολογιστικά θέματα της ανθρώπινης οπτικής αντίληψης, δίκτυα από κάμερες καθώς και εφαρμογές τηλε-εμβύθισης και Διάχυτης Νοημοσύνης."@el , "He got his Ph.D. in 2001 from the University of Crete, Greece. His research interests include Stereo Multiple-View Vision, Real-Time 3D Reconstruction of Static Dynamic Scenes, Person Localization and Head Pose Estimation, Camera Networks, and Applications of Computer Vision in Interactive Environments."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Sotiris+Ioannidis> a csdP:VisitingProfessor ;
+	csdP:name "Σωτήριος Ιωαννίδης"@el , "Sotiris Ioannidis"@en ;
+	csdP:email "si@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~sotiris/> ;
+	csdP:bio "Πήρε το διδακτορικό του απο το Πανεπιστήμιο της Πεννσυλβανίας το 2005. Έιναι Ερευνητής στο Ιδρυμα Τεχνολογίας και Ερευνας. Τα ενδιαφέροντά του είναι ασφάλεια δικτύων και υπολογιστών, ιδιωτικότητα, πολιτικές ασφαλείας και συστήματα."@el , "He got his PhD in 2005 from the University of Pennsylvania, USA. His research interests inlude Systems and Network Security, Privacy, Security Policy, Operating Systems, Network Monitoring and Management."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Kostas+Magoutis> a csdP:VisitingProfessor ;
+	csdP:name "Κώστας Μαγκούτης"@el , "Kostas Magoutis"@en ;
+	csdP:email "magoutis@ics.forth.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~magoutis/> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2003 από το Πανεπιστήμιο Harvard. Εργάστηκε σαν ερευνητής στο IBM T. J. Watson Research Center απο το 2003 ως το 2009 και στο Ινστιτούτο Πληροφορικής του ΙΤΕ απο το 2009 ως σήμερα. Τα ερευνητικά του ενδιαφέροντα εστιάζονται στα κλιμακώσιμα υπολογιστικά συστήματα και στις υπηρεσίες υποδομής νέφους (Cloud)."@el , "He got his PhD in 2003 from Harvard University, USA. His research interests are in the broader areas of Scalable Computer Systems and IT Services Engineering."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Marina+Bitsaki> a csdP:VisitingProfessor ;
+	csdP:name "Μαρίνα Μπιτσάκη"@el , "Marina Bitsaki"@en ;
+	csdP:email "marina@csd.uoc.gr" ;
+	csdP:homepage <http://www.tem.uoc.gr/~marina/> ;
+	csdP:bio "Πήρε το διδακτορικό της το 2004 από το Πανεπιστήμιο Κρήτης.Τα ερευνητικά της ενδιαφέροντα επικεντρώνονται στην ανάλυση, μοντελοποίηση και διαχείριση επιχειρηματικών διαδικασιών και υπηρεσιών σε δίκτυα αξιών (value networks), στη θεωρία δημοπρασιών πολλαπλών αντικειμένων και την εφαρμογή τους στην ανάπτυξη μηχανισμών χρέωσης για πώληση εύρους ζώνης και πολυπαραμετρικών συμβολαίων σε δίκτυα, καθώς και στη σχεδίαση ιεραρχικών μοντέλων για μεταπώληση εύρους ζώνης από ενδιάμεσους παρόχους υπηρεσιών. Άλλα ενδιαφέροντα περιλαμβάνουν τη θεωρία παιγνίων, τη θεωρία ουρών, την επιχειρησιακή έρευνα, τις εφαρμοσμένες πιθανότητες και τη στατιστική."@el , "She got her PhD in 2004 from the University of Crete, Greece. Her research interests include Business Process Management and Service Value Networks, Auction Theory, Network Economics, Network Management, Game Theory, Queuing Theory, Operational Research, Applied Probabilities, Stochastic Processes, Statistics."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Harry+Manifavas> a csdP:VisitingProfessor ;
+	csdP:name "Χάρης Μανιφάβας"@el , "Harry Manifavas"@en ;
+	csdP:email "manifava@csd.uoc.gr" ;
+	csdP:homepage <http://www.epp.teicrete.gr/files/cvs/cv-en-short-Harry-Manifavas.pdf> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2003 από το Τμήμα Επιστήμης Υπολογιστών του Cambridge στη Μεγ. Βρετανία. Τα ενδιαφέροντά του περιλαμβάνουν: Ασφάλεια πληροφοριακών συστημάτων και δικτύων, ηλεκτρονικό εμπόριο και οικονομικά της ασφάλειας."@el , "He got his PhD in 2000 from Cambridge University, UK. His areas of interest include security protocols, authentication privacy infrastructures, lightweight cryptography, embedded systems security, e-commerce payment mechanisms, digital copyright, security assessment, penetration testing, digital forensics, security policies and information security management."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Kostas+Marias> a csdP:VisitingProfessor ;
+	csdP:name "Κώστας Μαριάς"@el , "Kostas Marias"@en ;
+	csdP:email "kmarias@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/index.jsp?custom=kostas_marias> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 2001 από το Πανεπιστήμιο της Οξφόρδης. Είναι ερευνητής του Ινστιτούτου Πληροφορικής του Ιδρύματος Τεχνολογίας και Ερευνας. Τα ενδιαφέροντά του περιλαμβάνουν Ανάλυση Ιατρικής Εικόνας, Αλγόριθμους Ανάκλησης και Σύντηξης Δεδομένων, Μοριακή/Γενετική Απεικόνιση."@el , "He got his PhD in 2001 from the University of Oxford, UK. His research interests are in the broader area of Algorithms and Applications (Medical Image Analysis, Computational Oncology, Biomedical Informatics, Image Processing and Computer Vision, Molecular Imaging, Gene-Expression Imaging, Computer Aided Diagnosis, Biomedical Image Analysis, Image Retrieval, Data Fusion, Molecular-Genetic Imaging)."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Emmanouil+Spanakis> a csdP:VisitingProfessor ;
+	csdP:name "Εμμανουήλ Σπανάκης"@el , "Emmanouil Spanakis"@en ;
+	csdP:email "spanakis@ics.forth.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/%7Espanakis/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 2009 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Τα ενδιαφέροντα του περιλαμβάνουν: Ασύρματες Κινητές Επικοινωνίες, και Ιατρική Πληροφορική."@el , "-"@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Iakovos+Mavroidis> a csdP:VisitingProfessor ;
+	csdP:name "Ιάκωβος Μαυροειδής"@el , "Iakovos Mavroidis"@en ;
+	csdP:email "-" ;
+	csdP:homepage <http://archvlsi.ics.forth.gr/~jacob/> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2011 από το Πολυτεχνείο Κρήτης. Τα ενδιαφέροντά του περιλαμβάνουν: Αρχιτεκτονική Υπολογιστών, Γλώσσες Προγραμματισμού, Παράλληλο Προγραμματισμό."@el , "-"@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Constantinos+Panagiotakis> a csdP:VisitingProfessor ;
+	csdP:name "Κωνσταντίνος Παναγιωτάκης"@el , "Constantinos Panagiotakis"@en ;
+	csdP:email "cpanag@csd.uoc.gr" ;
+	csdP:homepage <http://www.csd.uoc.gr/~cpanag/> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 2007 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Τα ενδιαφέροντα του περιλαμβάνουν Επεξεργασία και Ανάλυση Βίντεο-Εικόνων-Ήχου και Σημάτων, Πολυμέσα, Ανάλυση και Σύνθεση Κίνησης, Γραφική, Αναγνώριση Προτύπων, Αλγόριθμοι και Πολυπλοκότητα."@el , "He got his PhD in 2007 from the University of Crete, Greece. His research interests include signal processing, image and video analysis, 3D animation, multimedia and pattern recognition."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Polyvios+Pratikakis> a csdP:VisitingProfessor ;
+	csdP:name "Πολύβιος Πρατικάκης"@el , "Polyvios Pratikakis"@en ;
+	csdP:email "polyvios@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~polyvios/> ;
+	csdP:bio "Πήρε το διδακτορικό του το 2008 από το Πανεπιστήμιο του Μέριλαντ. Τα ερευνητικά του ενδιαφέροντα εστιάζουν στην βελτίωση της ποιότητας του λογισμικού, και περιλαμβάνουν περιοχές όπως οι γλώσσες προγραμματισμού, τα συστήματα τύπων, η στατική ανάλυση, ο παραλληλισμός, η πιστοποίηση και ορθότητα προγραμμάτων και οι μηχανικές αποδείξεις."@el , "He got his PhD in 2008 from the University of Maryland, USA. His research interests include Programming Languages, Software Engineering, Type Systems and Static Analysis, and their Applications on Concurrent Software."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Maria+Pateraki> a csdP:VisitingProfessor ;
+	csdP:name "Μαρία Πατεράκη"@el , "Maria Pateraki"@en ;
+	csdP:email "pateraki@ics.forth.gr" ;
+	csdP:homepage <http://www.mpateraki.org/> ;
+	csdP:bio "Πήρε το Διδακτορικό της το 2005 από το Ομοσπονδιακό Πανεπιστήμιο της Ζυρίχης (ETHZ). Τα ενδιαφέροντα της περιλαμβάνουν: Ψηφιακή Επεξεργασία Εικόνων, Μηχανική Οραση, Ρομποτική, Τεχνολογία Πολυμέσων."@el , "-"@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Nicolas+Spyratos> a csdP:VisitingProfessor ;
+	csdP:name "Νίκος Σπυράτος"@el , "Nicolas Spyratos"@en ;
+	csdP:email "spiratos@csd.uoc.gr" ;
+	csdP:homepage <http://www.lri.fr/~spyratos/> ;
+	csdP:bio "Καθηγητής στο Πανεπιστήμιο του Παρισιού στο Orsay στη Γαλλία. Τα ενδιαφέροντα του περιλαμβάνουν Θεωρία Βάσεων Δεδομένων και Γνώσεων."@el , "He got his PhD in 1979 from Universita di Pisa, Italy. His current research interests include Information Integration (mediators, data warehouses, data mining), Conceptual Modeling, Logic, and Databases."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Manolis+Tsiknakis> a csdP:VisitingProfessor ;
+	csdP:name "Μανόλης Τσικνάκης"@el , "Manolis Tsiknakis"@en ;
+	csdP:email "tsiknaki@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/cbml/index_main.php?l=e&c=544> ;
+	csdP:bio "Ερευνητής στο Ινστιτούτο Πληροφορικής του Ιδρύματος Τεχνολογίας και Ερευνας. Τα ενδιαφέροντά του περιλαμβάνουν Ιατρικά Πληροφοριακά Συστήματα και Τηλεϊατρική."@el , "He got his PhD in 1989 from the University of Bradford, Bradford, UK. His research interests are in the following areas (biomedical informatics and engineering, service oriented SW architectures and their application in biomedicine, approaches for semantic health data integration, enterprise integration strategies and patterns, smart eHealth and mHealth service platforms, managing technological change and socio-economic aspects of eHealth technologies and services)."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Dimitris+P.+Tsakiris> a csdP:VisitingProfessor ;
+	csdP:name "Δημήτρης Τσακίρης"@el , "Dimitris P. Tsakiris"@en ;
+	csdP:email "tsakiris@ics.forth.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/~tsakiris/> ;
+	csdP:bio "Πήρε το Διδακτορικό του από το Πανεπιστήμιο του Maryland, College Park, ΗΠΑ. Ερευνητής του Ινστιτούτου Πληροφορικής του ΙΤΕ. Τα ενδιαφέροντά του περιλαμβάνουν: Ρομποτική, Αυτόματος Έλεγχος, Υπολογιστική Όραση."@el , "He got his PhD from the University of Maryland, USA. His research interests lie in the broader area of Biologically-inspired robotics (Modeling and Control of Continuum Octopus Arm-like Robots, Pedundulatory Locomotion of Polychaete-like Robots, Undulatory Locomotion of Nonholonomic G-Snakes, Insect-like Centering Behavior, Vision-based Stabilization of Nonholonomic Mobile Robots, Robotic Motion Planning and Control, Nonlinear Geometric Control, Geometric Mechanics, Image Understanding and Computational Vision)."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Irene+Fountoulaki> a csdP:VisitingProfessor ;
+	csdP:name "Ειρήνη Φουντουλάκη"@el , "Irene Fountoulaki"@en ;
+	csdP:email "fundul@csd.uoc.gr" ;
+	csdP:homepage <http://www.ics.forth.gr/isl/index_main.php?l=e&c=542> ;
+	csdP:bio "Πήρε το διδακτορικό της από το Conservatoire National des Arts et Metiers, (Παρίσι) το 2003. Μετά το διδακτορικό της δούλεψε στην ομάδα Network Data and Services Research Department των Bell Labs και στην ομάδα βάσεων δεδομένων του Πανεπιστημίου του Εδιμβούργου. Τα ενδιαφέροντα της περιλαμβάνουν: Ασφάλεια και Έλεγχος Πρόσβασης, Γλώσσες Επερώτησης και Ενημέρωσης,με βάρος σε Τεχνικές Προσωποποιημένης Πρόσβασης (Personalization) και Ολοκλήρωση Ετερογενών XML δεδομένων."@el , "She got her PhD in 2000 from Institut National de Recherche en Informatique et Automatique (I.N.R.I.A), France. Her research interests lie mainly in the areas of Databases and Web Information Systems (Provenance Models for RDF Data, Storage and Indexing Schemes for RDF Provenance, Storage Indexing and Scalable RDF Query Processing, Access Control for RDF and XML Data, XML Full Text Search with a focus on Personalization, XML Data Integration, User Profile Data Management, Identity Management)."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Stefanos+Papadakis> a csdP:VisitingProfessor ;
+	csdP:name "Στέφανος Παπαδάκης"@el , "Stefanos Papadakis"@en ;
+	csdP:email "-" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "Πήρε το Διδακτορικό του το 2009 από το Τμήμα Επιστήμης Υπολογιστών του Πανεπιστημίου Κρήτης. Τα ενδιαφέροντα του περιλαμβάνουν: Ασύρματες Κινητές Επικοινωνίες, Εντοπισμός θέσης συσκευών ασυρμάτων και κινητών δικτύων, Διάδοση μικροκυμάτων και απώλειες διάδοσης."@el , "-"@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Katerina+Tsakona> a csdP:VisitingProfessor ;
+	csdP:name "Κατερίνα Τσάκωνα"@el , "Katerina Tsakona"@en ;
+	csdP:email "-" ;
+	csdP:homepage <http://www.csd.uoc.gr/-> ;
+	csdP:bio "Πήρε το διδακτορικό της το 2002 από το Strathclyde University of Glasgow. Τα ενδιαφέροντά της περιλαμβάνουν Δίκαιο εφαρμογών πληροφορικής και τηλεπικοινωνιών εφαρμογές,προϊόντα και υπηρεσίες πληροφορικής τηλεπικοινωνιών, πολυμέσα, ηλεκτρονικό εμπόριο, εμπορικό δίκαιο, δίκαιο πνευματικής και βιομηχανικής ιδιοκτησίας."@el , "She got her Ph.D. in 2002 in Information Technology and Telecommunications Law from the Strathclyde University of Glasgow, UK. Her research interests include IT/IP and Telecommunications law, legal aspects of information technology and telecommunications, new forms of communications services and computing applications, multimedia, e-commerce."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .
+
+<http://www.csd.uoc.gr/Michail+Fasoulakis> a csdP:VisitingProfessor ;
+	csdP:name "Μιχαήλ Φασουλάκης"@el , "Michail Fasoulakis"@en ;
+	csdP:email "mfasoul@ics.forth.gr" ;
+	csdP:homepage <https://uk.linkedin.com/in/michail-fasoulakis-b1697368> ;
+	csdP:bio "Πήρε το διδακτορικό του από το Πανεπιστήμιο του Warwick το 2017. Τα ενδιαφέροντά του περιλαμβάνουν την (αλγοριθμική) θεωρία παιγνίων, τους αλγόριθμους, τη θεωρία πληροφορίας, τις τηλεπικοινωνίες και την επεξεργασία σήματος."@el , "He got his PhD in 2017 from University of Warwick, UK. His research interests include (algorithmic) game theory, algorithms, information theory, communications and signal processing."@en ;
+	csdP:position "Επισκέπτες καθηγητές"@el , "Visiting Professors"@en .

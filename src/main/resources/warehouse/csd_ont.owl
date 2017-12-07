@@ -1,0 +1,2451 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/csd_ont#"
+     xml:base="http://www.semanticweb.org/csd_ont"
+     xmlns:ns="http://linkedscience.org/teach/ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ns1="http://purl.org/net/provenance/ns#"
+     xmlns:ontology2="http://dbpedia.org/ontology/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:vocab="http://www.w3.org/1999/xhtml/vocab#"
+     xmlns:ontology="http://swrc.ontoware.org/ontology#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/csd_ont">
+        <terms:creator rdf:resource="http://kauppinen.net/tomi#me"/>
+        <ns1:createdBy>
+            <rdf:Description>
+                <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+                <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+                <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+            </rdf:Description>
+        </ns1:createdBy>
+        <ns1:createdBy>
+            <rdf:Description>
+                <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+                <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+                <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+            </rdf:Description>
+        </ns1:createdBy>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</terms:created>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://dbpedia.org/ontology/related -->
+
+    <owl:AnnotationProperty rdf:about="http://dbpedia.org/ontology/related"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/conformsTo -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/conformsTo"/>
+    
+
+
+    <!-- http://purl.org/net/provenance/ns#performedAt -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/net/provenance/ns#performedAt"/>
+    
+
+
+    <!-- http://purl.org/net/provenance/ns#performedBy -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/net/provenance/ns#performedBy"/>
+    
+
+
+    <!-- http://www.w3.org/1999/xhtml/vocab#license -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/1999/xhtml/vocab#license"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/homepage -->
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/homepage"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/name -->
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/name"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/primaryTopic -->
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/primaryTopic"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#academicTerm -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#academicTerm">
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Academic_term"/>
+        <rdfs:comment xml:lang="en">academicTerm is an abstract property to express the academic term (e.g. Summer 2011) of the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#academicTerm"/>
+        <rdfs:label xml:lang="en">academicTerm</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#arrangedAt -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#arrangedAt">
+        <rdfs:range rdf:resource="http://www.w3.org/2002/12/cal/icaltzd#"/>
+        <rdfs:comment xml:lang="en">arrangedAt is an abstract property to explicate the date/time when the seminar is arranged at. It can be defined as in the following example:
+  http://www.w3.org/TR/rdfcal/#L21805</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#arrangedAt"/>
+        <rdfs:label xml:lang="en">arrangedAt</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#building -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#building">
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/Building"/>
+        <rdfs:comment xml:lang="en">building is an abstract property to express the building where the course/seminar takes place.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#building"/>
+        <rdfs:label xml:lang="en">building</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseRoom -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#courseRoom">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://linkedscience.org/teach/ns#Room"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#deadline -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#deadline">
+        <rdfs:comment xml:lang="en">deadline is an abstract property explicate the deadline for a draft project report.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#deadline"/>
+        <rdfs:label xml:lang="en">deadline</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#deadlineDraftReport -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#deadlineDraftReport">
+        <rdfs:comment xml:lang="en">deadlineDraftReport is an abstract property explicate the deadline for a draft project report.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#deadlineDraftReport"/>
+        <rdfs:label xml:lang="en">deadlineDraftReport</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#deadlineFinalReport -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#deadlineFinalReport">
+        <rdfs:comment xml:lang="en">deadlineFinalReport is an abstract property to explicate the deadline for a final project report.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#deadlineFinalReport"/>
+        <rdfs:label xml:lang="en">deadlineFinalReport</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#deadlineReviewReport -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#deadlineReviewReport">
+        <rdfs:comment xml:lang="en">deadlineReviewReport is an abstract property to explicate the deadline for review reports (opponent works).</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#deadlineReviewReport"/>
+        <rdfs:label xml:lang="en">deadlineReviewReport</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#grading -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#grading">
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/Grading"/>
+        <rdfs:comment xml:lang="en">grading is an abstract property to relate the course/seminar to the description about its grading.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#grading"/>
+        <rdfs:label xml:lang="en">grading</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#hasTeachingMethod -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#hasTeachingMethod">
+        <rdfs:comment xml:lang="en">Describes the teaching method used in the course/seminar. property &quot;hasTeachingMethod&quot; inspired by an interview of Nobel Laureate Carl Wieman in &quot;Transformation Is Possible
+If a University Really Cares&quot;, SCIENCE, Vol 340, April 19th, 2013: &quot;Wieman came up with his simple, market-driven first step: Require universities to compile and release data on their teaching methods as a condition for receiving federal research funds. As students began using the data released by universities to help choose a college, he reasoned, universities would feel compelled to improve their teaching practices in order to attract the best applicants.&quot; The idea is that with the hasTeachingMethod-property universities can start publishing the teaching methods they use as Linked Open Data. Let us see which university implements the idea first.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#hasTeachingMethod"/>
+        <rdfs:label xml:lang="en">hasTeachingMethod</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#nextReading -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#nextReading">
+        <rdfs:comment xml:lang="en">nextReading is an abstract property for dynamically stating the reading required to be read by the next session of the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#nextReading"/>
+        <rdfs:label xml:lang="en">nextReading</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#notArrangedAt -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#notArrangedAt">
+        <rdfs:subPropertyOf rdf:resource="http://linkedscience.org/teach/ns#opponentOf"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#datetime"/>
+        <rdfs:comment xml:lang="en">notArrangedAt is an abstract property to explicate the date/time when the seminar has an exception in its schedule and thus is not arranged at.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#notArrangedAt"/>
+        <rdfs:label xml:lang="en">notArrangedAt</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#opponentOf -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#opponentOf">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+        <rdfs:comment xml:lang="en">opponentOf is an abstract property to state that a student is an opponent of another, i.e. that he/she makes review of the other student&apos;s seminar work.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#opponentOf"/>
+        <rdfs:label xml:lang="en">opponentOf</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#reading -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#reading">
+        <rdfs:comment xml:lang="en">reading is an abstract property to relate required readings to the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#reading"/>
+        <rdfs:label xml:lang="en">reading</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#reportTemplate -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#reportTemplate">
+        <rdfs:comment xml:lang="en">reportTemplate is an abstract property to relate a report template to the course/seminar so that students may use it to write their reports.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#reportTemplate"/>
+        <rdfs:label xml:lang="en">reportTemplate</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#reviewTemplate -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#reviewTemplate">
+        <rdfs:comment xml:lang="en">reviewTemplate is an abstract property to relate a review template to the course/seminar so that students may use it to write their reviews of other student&apos;s reports.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#reviewTemplate"/>
+        <rdfs:label xml:lang="en">reviewTemplate</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#room -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#room">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://linkedscience.org/teach/ns#Room"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/Room"/>
+        <rdfs:comment xml:lang="en">room is an abstract property to express the room where the course/seminar takes place.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#room"/>
+        <rdfs:label xml:lang="en">room</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#studentGroup -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#studentGroup">
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/TEACHER"/>
+        <rdfs:comment xml:lang="en">studentGroup is an abstract property to relate a student group to the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#studentGroup"/>
+        <rdfs:label xml:lang="en">studentGroup</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#teacher -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#teacher">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://swrc.ontoware.org/ontology#FacultyMember"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/TEACHER"/>
+        <rdfs:comment xml:lang="en">teacher is an abstract property to relate a teacher to a course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#teacher"/>
+        <rdfs:label xml:lang="en">teacher</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#teacherOf -->
+
+    <owl:ObjectProperty rdf:about="http://linkedscience.org/teach/ns#teacherOf">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Teacher"/>
+        <rdfs:range rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/TEACHER"/>
+        <rdfs:comment xml:lang="en">teacherOf is an abstract property to relate a teacher to a course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#teacherOf"/>
+        <rdfs:label xml:lang="en">teacherOf</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Root -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#Root"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#RootRelation -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#RootRelation"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#affiliation -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#affiliation">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#employs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#atEvent -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#atEvent">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#hasPartEvent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#author -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#author"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#carriedOutBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#carriedOutBy">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#carriesOut"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#carriesOut -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#carriesOut"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#cite -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#cite">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#citedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#citedBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#citedBy">
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#cooperateWith -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#cooperateWith"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#dealtWithIn -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#dealtWithIn"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#describesProject -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#describesProject">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#projectInfo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#developedBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#developedBy">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#develops"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#develops -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#develops"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#editor -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#editor"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#employs -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#employs"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#financedBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#financedBy"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#finances -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#finances"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#givenBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#givenBy"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#hasPartEvent -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#hasPartEvent"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#hasParts -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#hasParts"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#hasRoom -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#hasRoom">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Department"/>
+        <rdfs:range rdf:resource="http://linkedscience.org/teach/ns#Room"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#head -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#head">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#headOfGroup"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#headOf -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#headOf"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#headOfGroup -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#headOfGroup"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#institution -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#institution"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#isAbout -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#isAbout"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#isWorkedOnBy -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#isWorkedOnBy"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#member -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#member"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#memberOfPC -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#memberOfPC"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#organization -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#organization"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#organizerOrChairOf -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#organizerOrChairOf"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#participant -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#participant"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#product -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#product"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#projectInfo -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#projectInfo"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#publication -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#publication"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#publisher -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#publisher">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#publishes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#publishes -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#publishes"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#school -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#school"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#student -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#student"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#studiesAt -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#studiesAt"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#supervises -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#supervises">
+        <owl:inverseOf rdf:resource="http://swrc.ontoware.org/ontology#supervisor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#supervisor -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#supervisor"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#technicalReport -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#technicalReport"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#worksAtProject -->
+
+    <owl:ObjectProperty rdf:about="http://swrc.ontoware.org/ontology#worksAtProject"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#academicYear -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#academicYear">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseACMid -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseACMid">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseBook -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseBook">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseCode -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseCode">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/description"/>
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Course_(education)"/>
+        <rdfs:comment xml:lang="en">courseCode is an abstract property to uniquely identify the course. This identifier should be defined and provided by the operator of the course.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#courseCode"/>
+        <rdfs:label xml:lang="en">courseCode</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseDescription">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/description"/>
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Course_(education)"/>
+        <rdfs:comment xml:lang="en">courseDescription is subproperty of dc:description to specify the course description</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#courseDescription"/>
+        <rdfs:label xml:lang="en">courseDescription</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseEmail">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseProgrammingLang -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseProgrammingLang">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseRequired -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseRequired">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseSemester -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseSemester">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseSuggested -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseSuggested">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseTA -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseTA">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseTitle">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/title"/>
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Course_(education)"/>
+        <rdfs:comment xml:lang="en">courseTitle is subproperty of dc:title to specify the course title</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#courseTitle"/>
+        <rdfs:label xml:lang="en">courseTitle</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseTopic -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseTopic">
+        <rdfs:subPropertyOf rdf:resource="http://linkedscience.org/teach/ns#courseUrl"/>
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#courseUrl -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#courseUrl">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#ects -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#ects">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/European_Credit_Transfer_and_Accumulation_System"/>
+        <rdfs:comment xml:lang="en">ects is an abstract property to express the ects (European Credit Transfer System) of the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#ects"/>
+        <rdfs:label xml:lang="en">ects</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#hasDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#hasDescription">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/description"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Course_(education)"/>
+        <rdfs:comment xml:lang="en">hasDescription is subproperty of dc:description to specify needed descriptions of entities within the course, e.g. the description of course materials, assignments, etc.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#hasDescription"/>
+        <rdfs:label xml:lang="en">hasDescription</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#hasTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#hasTitle">
+        <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/title"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/page/Course_(education)"/>
+        <rdfs:comment xml:lang="en">hasTitle is subproperty of dc:title  to specify needed titles of entities within the course, e.g. the title of course materials, assignments, etc.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#hasTitle"/>
+        <rdfs:label xml:lang="en">hasTitle</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#module -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#module">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <ontology2:related rdf:resource="http://dbpedia.org/resource/Module"/>
+        <rdfs:comment xml:lang="en">Describes the module of the study program with which the course/seminar is associated.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#module"/>
+        <rdfs:label xml:lang="en">moduleName</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#moduleCode -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#moduleCode">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#roomCapacity -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#roomCapacity">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Room"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#serviceUrl -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#serviceUrl">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#studyProgram -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#studyProgram">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Describes the study program which is associated with the course/seminar.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns#studyProgram"/>
+        <rdfs:label xml:lang="en">studyProgram</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#weeklyHours -->
+
+    <owl:DatatypeProperty rdf:about="http://linkedscience.org/teach/ns#weeklyHours">
+        <rdfs:domain rdf:resource="http://linkedscience.org/teach/ns#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#abstract -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#abstract">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#address -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#address">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#bio -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#bio">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>This property is used to specify a short biography of a Student and/or Employee</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#booktitle -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#booktitle"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#chapter -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#chapter"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#contactInfo -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#contactInfo">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Department"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#date -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#date"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#departmentName -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#departmentName">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Department"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#edition -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#edition"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#email -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#email">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#eventTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#eventTitle"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#facultyTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#facultyTitle">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Department"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#fax -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#fax"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#foundationYear -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#foundationYear">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#hasPrice -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#hasPrice"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#homepage -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#homepage">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#howpublished -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#howpublished"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#isbn -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#isbn"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#journal -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#journal"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#keywords -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#keywords"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#location -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#location">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#month -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#month"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#name -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#name">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#note -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#note"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#number -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#number"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#pages -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#pages"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#phone -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#phone"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#photo -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#photo"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#position -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#position">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#price -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#price"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#series -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#series"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#source -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#source"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#title -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#title">
+        <rdfs:domain rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#type -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#type"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#volume -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#volume"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#year -->
+
+    <owl:DatatypeProperty rdf:about="http://swrc.ontoware.org/ontology#year"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Advisory_Centre -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Advisory_Centre">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Assignment -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Assignment">
+        <rdfs:comment xml:lang="en">Assignment of a course, for example an exercise.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Assignment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Building -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Building">
+        <rdfs:comment xml:lang="en">Building where the course is taking place.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Building</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Course -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Course">
+        <rdfs:comment xml:lang="en">Course is where students are supposed to learn something.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Course</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Cultural_Groups -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Cultural_Groups">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Feeding_and_Accomodation -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Feeding_and_Accomodation">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#IT_Services -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#IT_Services">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Lecture -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Lecture">
+        <rdfs:comment xml:lang="en">Lecture of the course.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Lecture</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Material -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Material">
+        <rdfs:comment xml:lang="en">Material of the course.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Module -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Module">
+        <rdfs:comment xml:lang="en">Module (i.e. a set of courses) which the course belongs to.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Module</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Room -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Room">
+        <rdfs:comment xml:lang="en">Room where the course is taking place.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Room</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Scholarships -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Scholarships">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Secretary_Services -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Secretary_Services">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Sports -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Sports">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Student -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Student">
+        <rdfs:comment xml:lang="en">Student of the course.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Student</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#StudentGroup -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#StudentGroup">
+        <rdfs:comment xml:lang="en">StudentGroup of the course.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">StudentGroup</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#StudentService -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#StudentService"/>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#StudyProgram -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#StudyProgram">
+        <rdfs:comment xml:lang="en">StudyProgram which the course is part of.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">StudyProgram</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Teacher -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Teacher">
+        <rdfs:comment xml:lang="en">Teacher of the course.
+</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://linkedscience.org/teach/ns"/>
+        <rdfs:label xml:lang="en">Teacher</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Textbooks -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Textbooks">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns#Transfers -->
+
+    <owl:Class rdf:about="http://linkedscience.org/teach/ns#Transfers">
+        <rdfs:subClassOf rdf:resource="http://linkedscience.org/teach/ns#StudentService"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/provenance/ns#DataCreation -->
+
+    <owl:Class rdf:about="http://purl.org/net/provenance/ns#DataCreation"/>
+    
+
+
+    <!-- http://purl.org/net/provenance/ns#DataItem -->
+
+    <owl:Class rdf:about="http://purl.org/net/provenance/ns#DataItem"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#AcademicStaff -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#AcademicStaff">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#cooperateWith"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#AcademicStaff"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#headOf"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#headOfGroup"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#ResearchGroup"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#memberOfPC"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#organizerOrChairOf"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publication"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#supervises"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#PhDStudent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#worksAtProject"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#AdministrativeStaff -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#AdministrativeStaff">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Article -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Article">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#AssistantProfessor -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#AssistantProfessor">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#FacultyMember"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#AssociateProfessor -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#AssociateProfessor">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#FacultyMember"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Association -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Association">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Book -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Book">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publisher"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Booklet -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Booklet">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Conference -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Conference">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Department -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Department">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#hasParts"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Institute"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#DevelopmentProject -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#DevelopmentProject">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Employee -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Employee">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#affiliation"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Enterprise -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Enterprise">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Event -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Event">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#atEvent"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#hasPartEvent"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Exhibition -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Exhibition">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#FacultyMember -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#FacultyMember">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#AcademicStaff"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Graduate -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Graduate">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#InBook -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#InBook">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publisher"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#InCollection -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#InCollection">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publisher"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#InProceedings -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#InProceedings">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#organization"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publisher"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Institute -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Institute">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#cooperateWith"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Institute"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#hasParts"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#ResearchGroup"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#LaboratoryStaff -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#LaboratoryStaff">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Lecture -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Lecture">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#givenBy"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Lecturer -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Lecturer">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#AcademicStaff"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Manual -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Manual">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#organization"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#MasterThesis -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#MasterThesis">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Thesis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Meeting -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Meeting">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#participant"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Misc -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Misc">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Organization -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Organization">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#carriesOut"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#develops"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Product"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#employs"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#finances"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publishes"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#technicalReport"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#TechnicalReport"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Person -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Person"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#PhDStudent -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#PhDStudent">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Graduate"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publication"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#supervisor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#AcademicStaff"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#worksAtProject"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#PhDThesis -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#PhDThesis">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Thesis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Proceedings -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Proceedings">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#editor"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#organization"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#publisher"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Product -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Product">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#developedBy"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Professor -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Professor">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#FacultyMember"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Project -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Project">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#carriedOutBy"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#financedBy"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#head"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#isAbout"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#ResearchTopic"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#member"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#projectInfo"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#ProjectMeeting -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#ProjectMeeting">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Meeting"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#ProjectReport -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#ProjectReport">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Report"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#describesProject"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Publication -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Publication">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#cite"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Report -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Report">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#ResearchGroup -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#ResearchGroup">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#head"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#member"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#ResearchProject -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#ResearchProject">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#ResearchTopic -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#ResearchTopic">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Topic"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#dealtWithIn"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Project"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#isWorkedOnBy"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#AcademicStaff"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#SoftwareComponent -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#SoftwareComponent">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#SoftwareProject -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#SoftwareProject">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#DevelopmentProject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#product"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Product"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Student -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Student">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#studiesAt"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#University"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#TechnicalReport -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#TechnicalReport">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Report"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#organization"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#TechnicalStaff -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#TechnicalStaff">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Employee"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Thesis -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Thesis">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#school"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#University"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Topic -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Topic"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Undergraduate -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Undergraduate">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#University -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#University">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Organization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#hasParts"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Department"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#student"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Student"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Unpublished -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Unpublished">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Publication"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swrc.ontoware.org/ontology#author"/>
+                <owl:allValuesFrom rdf:resource="http://swrc.ontoware.org/ontology#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#VisitingProfessor -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#VisitingProfessor">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#FacultyMember"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Workshop -->
+
+    <owl:Class rdf:about="http://swrc.ontoware.org/ontology#Workshop">
+        <rdfs:subClassOf rdf:resource="http://swrc.ontoware.org/ontology#Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#datetime -->
+
+    <owl:Class rdf:about="http://www.w3.org/2001/XMLSchema#datetime"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+    
+
+
+    <!-- http://www.w3.org/2002/12/cal/icaltzd# -->
+
+    <owl:Class rdf:about="http://www.w3.org/2002/12/cal/icaltzd#"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Agent -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Document -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Document"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Group -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Group"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://http://ifgi.uni-muenster.de/~j_tram02/foaf.rdf -->
+
+    <owl:NamedIndividual rdf:about="http://http://ifgi.uni-muenster.de/~j_tram02/foaf.rdf">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <foaf:homepage rdf:resource="http://ifgi.uni-muenster.de/~j_tram02/"/>
+        <foaf:homepage rdf:resource="http://www.xing.com/profile/Andres_Westermann"/>
+        <foaf:name xml:lang="en">Andres Westermann</foaf:name>
+        <foaf:name xml:lang="en">Johannes Trame</foaf:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://kauppinen.net/tomi#me -->
+
+    <owl:NamedIndividual rdf:about="http://kauppinen.net/tomi#me">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <foaf:homepage rdf:resource="http://kauppinen.net/tomi"/>
+        <foaf:name xml:lang="en">Tomi Kauppinen</foaf:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns -->
+
+    <owl:NamedIndividual rdf:about="http://linkedscience.org/teach/ns">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+        <terms:description xml:lang="en">This documents specifies the classes and properties introduced by the TEACH core vocabulary.</terms:description>
+        <terms:title xml:lang="en">Teaching Core Vocabulary Specification</terms:title>
+        <terms:conformsTo rdf:resource="http://www.w3.org/TR/rdfa-syntax"/>
+        <vocab:license rdf:resource="http://creativecommons.org/licenses/by/1.0/"/>
+        <rdfs:label xml:lang="en">Document that defines the Teaching Core Vocabulary</rdfs:label>
+        <foaf:primaryTopic rdf:resource="http://linkedscience.org/teach/ns#"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://linkedscience.org/teach/ns# -->
+
+    <owl:NamedIndividual rdf:about="http://linkedscience.org/teach/ns#">
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataItem"/>
+        <terms:description xml:lang="en">TEACH, the Teaching Core Vocabulary,
+is a lightweight vocabulary providing terms to enable teachers to relate things in their courses together.
+The Teaching Core Vocabulary is based on practical requirements set by providing seminar and course descriptions as Linked Data.
+</terms:description>
+        <terms:title xml:lang="en">Teaching Core Vocabulary namespace</terms:title>
+    </owl:NamedIndividual>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://purl.org/net/provenance/ns#DataCreation"/>
+        <ns1:performedAt rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-25T18:09:00Z</ns1:performedAt>
+        <ns1:performedBy rdf:resource="http://kauppinen.net/tomi#me"/>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+
