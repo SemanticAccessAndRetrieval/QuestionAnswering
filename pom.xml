@@ -121,6 +121,11 @@
             <version>0.9.1</version>
         </dependency>
         <!-- end -->
-
+        <!-- WordNet -->
+        <dependency>
+            <groupId>edu.mit</groupId>
+            <artifactId>jwi</artifactId>
+            <version>2.2.3</version>
+        </dependency>
     </dependencies>
 </project>
