@@ -9,13 +9,18 @@
  */
 package gr.forth.ics.isl.main;
 
+import com.crtomirmajer.wmd4j.WordMovers;
+import edu.mit.jwi.Dictionary;
+import edu.mit.jwi.IDictionary;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.nlp.models.Question;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,6 +30,8 @@ import java.util.HashSet;
 import javax.swing.JOptionPane;
 import mitos.stemmer.trie.Trie;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
+import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
@@ -36,7 +43,7 @@ import org.openrdf.repository.RepositoryException;
 public class demo_main {
 
     //Number of top comments to retrieve
-    static int topK = 1;
+    static int topK = 10;
 
     //The paths for the stopWords Files.
     public static String filePath_en = "src/main/resources/stoplists/stopwordsEn.txt";
@@ -50,10 +57,21 @@ public class demo_main {
         //Create the list of stopWords to use
         StringUtils.generateStopLists(filePath_en, filePath_gr);
 
-        QAInfoBase KB = new QAInfoBase();
+        File gModel = new File("C:/Users/Sgo/Desktop/Developer/Vector Models/GoogleNews-vectors-negative300.bin.gz");
+        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
+        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
 
+        String wnhome = System.getenv("WNHOME");
+        String path = wnhome + File.separator + "dict";
+        URL url = new URL("file", null, path);
+        // construct the dictionary object and open it
+        IDictionary dict = new Dictionary(url);
+        dict.open();
+
+        QAInfoBase KB = new QAInfoBase();
         HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
 
+        System.out.println("External Resources were loaded successfully");
 
         while (true) {
             //Get the user's question
@@ -78,7 +96,7 @@ public class demo_main {
 
             //Calculate score for each comment
             for (Comment com : comments) {
-                com.calculateScore();
+                com.calculateScore(wm, question, vec, dict);
             }
 
             System.out.println(comments);

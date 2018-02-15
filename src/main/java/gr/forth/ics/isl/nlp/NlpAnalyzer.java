@@ -19,13 +19,13 @@
 package gr.forth.ics.isl.nlp;
 
 
-import gr.forth.ics.isl.nlp.models.Word;
-import gr.forth.ics.isl.nlp.models.RelatedSentences;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import gr.forth.ics.isl.nlp.models.RelatedSentences;
+import gr.forth.ics.isl.nlp.models.Word;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -228,8 +228,65 @@ public class NlpAnalyzer {
         return new RelatedSentences(sentencesWithWords);
         //return sentencesWithWords;
     }
-    
-    //To implement
+
+    public static ArrayList<String> getCleanTokens(String text) {
+        Properties props = new Properties();
+
+        props.put("annotators", "tokenize, ssplit");
+        props.put("tokenize.language", "en");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+        //apply
+        Annotation document = new Annotation(text);
+        pipeline.annotate(document);
+
+        List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
+
+        ArrayList<String> final_tokens = new ArrayList<>();
+
+        String tmp_token = "";
+        for (CoreLabel tok : tokens) {
+            tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            if (!tmp_token.isEmpty()) {
+                final_tokens.add(tmp_token);
+            }
+        }
+
+        return final_tokens;
+    }
+
+    public static HashMap<String, String> getCleanTokensWithPos(String text) {
+        Properties props = new Properties();
+
+        props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
+        props.put("tokenize.language", "en");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+        //apply
+        Annotation document = new Annotation(text);
+        pipeline.annotate(document);
+
+        List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
+
+        HashMap<String, String> final_tokens = new HashMap<>();
+
+        String tmp_token = "";
+        for (CoreLabel tok : tokens) {
+            tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            if (!tmp_token.isEmpty()) {
+                //Get the POS tag of the token
+                String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                final_tokens.put(tmp_token, pos);
+
+            }
+
+        }
+
+        return final_tokens;
+
+    }
+
+        //To implement
     public static void scoreRelatedSentences(HashMap<String, ArrayList<Word>> sentences){
     
             System.out.println(sentences);

@@ -52,6 +52,9 @@ public class WordNet {
 
         // get index word index
         IIndexWord idxWord = dict.getIndexWord(inputWord, pos);
+        if (idxWord == null) {
+            return null;
+        }
         // get word id
         List<IWordID> wordIDs = idxWord.getWordIDs();
         for (int i = 0; i < wordIDs.size(); i++) {
@@ -90,6 +93,9 @@ public class WordNet {
 
         // get  the  synset
         IIndexWord idxWord = dict.getIndexWord(inputWord, pos);
+        if (idxWord == null) {
+            return null;
+        }
         List<IWordID> wordIDs = idxWord.getWordIDs();
         for (int i = 0; i < wordIDs.size(); i++) {
             IWordID wordID = wordIDs.get(i);
@@ -124,6 +130,9 @@ public class WordNet {
 
         // look up  first  sense of the input word
         IIndexWord idxWord = dict.getIndexWord(inputWord, pos);
+        if (idxWord == null) {
+            return null;
+        }
         List<IWordID> wordIDs = idxWord.getWordIDs();
         for (int i = 0; i < wordIDs.size(); i++) {
             IWordID wordID = wordIDs.get(i);
