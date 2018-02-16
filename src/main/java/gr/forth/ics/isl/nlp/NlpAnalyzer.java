@@ -26,6 +26,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import gr.forth.ics.isl.nlp.models.RelatedSentences;
 import gr.forth.ics.isl.nlp.models.Word;
+import gr.forth.ics.isl.utilities.StringUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -229,10 +230,11 @@ public class NlpAnalyzer {
         //return sentencesWithWords;
     }
 
+    // Apply: 1) Tokenization 2) Lemmatization 3) Remove punctuations 4) Remove stopwords
     public static ArrayList<String> getCleanTokens(String text) {
         Properties props = new Properties();
 
-        props.put("annotators", "tokenize, ssplit");
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
         props.put("tokenize.language", "en");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
@@ -246,8 +248,8 @@ public class NlpAnalyzer {
 
         String tmp_token = "";
         for (CoreLabel tok : tokens) {
-            tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
-            if (!tmp_token.isEmpty()) {
+            tmp_token = tok.get(CoreAnnotations.LemmaAnnotation.class).replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            if (!tmp_token.isEmpty() && !StringUtils.isStopWord(tmp_token)) {
                 final_tokens.add(tmp_token);
             }
         }
@@ -273,7 +275,7 @@ public class NlpAnalyzer {
         String tmp_token = "";
         for (CoreLabel tok : tokens) {
             tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
-            if (!tmp_token.isEmpty()) {
+            if (!tmp_token.isEmpty() && !StringUtils.isStopWord(tmp_token)) {
                 //Get the POS tag of the token
                 String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                 final_tokens.put(tmp_token, pos);

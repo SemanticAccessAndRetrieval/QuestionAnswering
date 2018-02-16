@@ -24,6 +24,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import gr.forth.ics.isl.utilities.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -162,7 +163,7 @@ public class Question {
     
 
     //This function is used to prepare a given text before applying Jaccard Similarity
-    //The preparation contains: tokenization, lemmatization etc
+    //The preparation contains: tokenization, lemmatization, remove stopwords etc
     public String[] prepareText(String text) {
 
         Properties props = new Properties();
@@ -188,9 +189,9 @@ public class Question {
                 // this is the NER label of the token
                 String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                //if (!DataImport.isStopWord(word)) {
+                if (!StringUtils.isStopWord(word)) {
                 result.add(word);
-                //}
+                }
 
             }
 

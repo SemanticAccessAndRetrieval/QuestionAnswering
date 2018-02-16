@@ -13,7 +13,6 @@ import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import gr.forth.ics.isl.nlp.models.Comment;
-import gr.forth.ics.isl.nlp.models.Question;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
@@ -22,11 +21,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 import mitos.stemmer.trie.Trie;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -74,50 +73,99 @@ public class demo_main {
         System.out.println("External Resources were loaded successfully");
 
         while (true) {
-            //Get the user's question
-            String question = JOptionPane.showInputDialog("Submit your question", "");
+            try {
+                Scanner in = new Scanner(System.in);
 
-            //Create a Question instance for the submitted question
-            Question quest = new Question();
-            quest.setQuestion(question);
+                //Get the user's question
+                String question = JOptionPane.showInputDialog("Submit your question", "");
 
-            // Apply tokenization and lemmatization in the input question
-            ArrayList<String> words = new ArrayList<>(Arrays.asList(quest.prepareText(question)));
+                //Get the weights for the scoring
+                System.out.println("Enter word2vec weight: ");
+                float word2vec_w = in.nextFloat();
+                System.out.println("Enter wordNet weight: ");
+                float wordNet_w = in.nextFloat();
+                //Get the threshold for relevancy
+                System.out.println("Enter threshold: ");
+                float threshold = in.nextFloat();
 
-            System.out.println(words);
+                // Get all the comments
+                ArrayList<Comment> comments = getComments(hotels, KB);
 
-            // Remove the stopwords from the question
-            words = StringUtils.removeStopWords(words);
-
-            System.out.println(words);
-
-            // Get all the comments
-            ArrayList<Comment> comments = getComments(hotels, KB);
-
-            //Calculate score for each comment
-            for (Comment com : comments) {
-                com.calculateScore(wm, question, vec, dict);
-            }
-
-            System.out.println(comments);
-
-            // Sort comments by date (from the most recent to the least)
-            Collections.sort(comments, new Comparator<Comment>() {
-                public int compare(Comment c1, Comment c2) {
-                    if (c1.getDate() == null || c2.getDate() == null) {
-                        return 0;
+                double max_dist = Double.MIN_VALUE;
+                //Calculate score for each comment
+                //Also calculate max word mover distance
+                for (Comment com : comments) {
+                    com.calculateScores(wm, question, vec, dict);
+                    if (com.getWordScore() >= max_dist) {
+                        max_dist = com.getWordScore();
                     }
-                    return -c1.getDate().compareTo(c2.getDate());
                 }
-            });
 
-            // System out the comments
-            System.out.println(comments);
+                //Normalize WordMoverDistance, and update comments with the final scores
+                for (Comment com : comments) {
+                    com.calculateWordScore(max_dist);
+                    com.calculateScore(word2vec_w, wordNet_w);
+                }
 
-            // Get the best comments based on their score
-            ArrayList<Comment> topComments = getTopKComments(comments, topK);
+                // Get the best comments based on their score (currently all of them)
+                ArrayList<Comment> topComments = getTopKComments(comments, topK);
 
-            System.out.println(topComments);
+
+                ArrayList<Comment> relevantComments = new ArrayList<>();
+                HashMap<String, ArrayList<Comment>> commentsPerHotel = new HashMap<>();
+                ArrayList<Comment> tmp;
+                int rank = 1;
+
+                for (Comment c : topComments) {
+                    System.out.println("\nRank:" + rank + "\nComment:" + c.getText() + "\nScore:" + String.format("%.3f", c.getScore()) + "\nFor Hotel:" + c.getHotelId());
+                    rank++;
+
+                    // Filter comments based on the threshold
+                    if (c.getScore() >= threshold) {
+                        relevantComments.add(c);
+                    }
+                    // Group comments based on the hotel (commentsPerHotel)
+                    if (!commentsPerHotel.containsKey(c.getHotelId())) {
+                        tmp = new ArrayList<>();
+                        tmp.add(c);
+                        commentsPerHotel.put(c.getHotelId(), tmp);
+                    } else {
+                        tmp = commentsPerHotel.get(c.getHotelId());
+                        tmp.add(c);
+                        commentsPerHotel.put(c.getHotelId(), tmp);
+                    }
+                }
+
+                //System.out.println(relevantComments);
+
+                System.out.println("\nI have found " + relevantComments.size() + " comments.(" + String.format("%.1f", ((float) relevantComments.size() / topComments.size()) * 100.0) + "%)");
+                System.out.println("The most related comment says: " + relevantComments.get(0).getText());
+
+                // Sort comments by date (from the most recent to the least)
+                Collections.sort(relevantComments, new Comparator<Comment>() {
+                    public int compare(Comment c1, Comment c2) {
+                        if (c1.getDate() == null || c2.getDate() == null) {
+                            return 0;
+                        }
+                        return -c1.getDate().compareTo(c2.getDate());
+                    }
+                });
+                System.out.println("The most recent comment says: " + relevantComments.get(0).getText());
+
+                for (String hotel_id : commentsPerHotel.keySet()) {
+                    System.out.println("=================================================");
+                    System.out.println("Comments for hotel: " + hotel_id + "\n");
+                    for (Comment c : commentsPerHotel.get(hotel_id)) {
+                        System.out.println("TEXT: " + c.getText());
+                        System.out.println("SCORE: " + String.format("%.3f", c.getScore()) + "\n");
+                    }
+                }
+
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
         }
 
     }
@@ -135,7 +183,7 @@ public class demo_main {
                     String date = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasDate").iterator().next();
                     String text = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasText").iterator().next();
 
-                    Comment tmpComment = new Comment(prop, commentId, text, date);
+                    Comment tmpComment = new Comment(sub.getUri(), commentId, text, date);
                     comments.add(tmpComment);
                 }
             }

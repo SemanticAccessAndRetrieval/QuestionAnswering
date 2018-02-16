@@ -37,6 +37,8 @@ public class Comment {
     private String text;
     private Date date;
     private double score;
+    private double word_score;
+    private double synset_score;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     public Comment(String hotel_id, String id, String text, String date) {
@@ -49,6 +51,8 @@ public class Comment {
             Logger.getLogger(Comment.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.score = 0;
+        this.word_score = 0;
+        this.synset_score = 0;
     }
 
     public String getHotelId() {
@@ -95,7 +99,19 @@ public class Comment {
         this.score = score;
     }
 
-    public double calculateWordSimilarity(WordMovers wm, String query, Word2Vec vec) {
+    public void setSynsetScore(double score) {
+        this.synset_score = score;
+    }
+
+    public void setWordScore(double score) {
+        this.word_score = score;
+    }
+
+    public double getWordScore() {
+        return this.word_score;
+    }
+
+    public void calculateWordDistance(WordMovers wm, String query, Word2Vec vec) {
         double score = 0;
 
         ArrayList<String> querySet = NlpAnalyzer.getCleanTokens(query);
@@ -114,163 +130,54 @@ public class Comment {
             }
         }
 
-        score = 1 - wm.distance(commentClean, queryClean);
+        score = wm.distance(commentClean, queryClean);
 
-        return score;
+        this.word_score = score;
+        //return score;
     }
 
-    public double calculateSynsetSimilarity(String query, IDictionary dict) throws IOException {
+    public void calculateWordScore(double max_dist) {
+        double score = this.word_score;
+        this.word_score = 1 - score / max_dist;
+    }
 
-        //dict.open();
-
+    public void calculateSynsetSimilarity(String query, IDictionary dict) throws IOException {
         double score = 0.0;
+        String crntTermPosTag;
 
-        HashSet<String> crntSynset = new HashSet<>();
         HashMap<String, String> queryMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(query);
         HashSet<String> querySynset = new HashSet<>();
 
         for (String queryTerm : queryMapWithPosTags.keySet()) {
 
-            String crntTermPosTag = queryMapWithPosTags.get(queryTerm);
-            HashSet<String> synset = new HashSet<>();
+            crntTermPosTag = queryMapWithPosTags.get(queryTerm);
 
-            if (crntTermPosTag.startsWith("J")) {
-                crntSynset = WordNet.getSynonyms(dict, queryTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, queryTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, queryTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("R")) {
-                crntSynset = WordNet.getSynonyms(dict, queryTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, queryTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, queryTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("N")) {
-                crntSynset = WordNet.getSynonyms(dict, queryTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, queryTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, queryTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("V")) {
-                crntSynset = WordNet.getSynonyms(dict, queryTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, queryTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, queryTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            }
-
-            querySynset.addAll(synset);
+            querySynset.addAll(getWordNetResources(crntTermPosTag, dict, queryTerm));
         }
 
         HashMap<String, String> commentMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(this.text);
         HashSet<String> commentSynset = new HashSet<>();
 
         for (String commentTerm : commentMapWithPosTags.keySet()) {
-
-            String crntTermPosTag = commentMapWithPosTags.get(commentTerm);
-            HashSet<String> synset = new HashSet<>();
-
-            if (crntTermPosTag.startsWith("J")) {
-                crntSynset = WordNet.getSynonyms(dict, commentTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, commentTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, commentTerm, POS.ADJECTIVE);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("R")) {
-                crntSynset = WordNet.getSynonyms(dict, commentTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, commentTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, commentTerm, POS.ADVERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("N")) {
-                crntSynset = WordNet.getSynonyms(dict, commentTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, commentTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, commentTerm, POS.NOUN);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            } else if (crntTermPosTag.startsWith("V")) {
-                crntSynset = WordNet.getSynonyms(dict, commentTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getAntonyms(dict, commentTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-                crntSynset = WordNet.getHypernyms(dict, commentTerm, POS.VERB);
-                if (crntSynset != null) {
-                    synset.addAll(crntSynset);
-                }
-
-            }
-
-            commentSynset.addAll(synset);
+            crntTermPosTag = commentMapWithPosTags.get(commentTerm);
+            commentSynset.addAll(getWordNetResources(crntTermPosTag, dict, commentTerm));
         }
 
         score = StringUtils.JaccardSim((String[]) commentSynset.toArray(new String[0]), (String[]) querySynset.toArray(new String[0]));
 
-        return score;
+        this.synset_score = score;
+        //return score;
     }
 
-    public void calculateScore(WordMovers wm, String query, Word2Vec vec, IDictionary dict) throws IOException {
-        this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
+    public void calculateScores(WordMovers wm, String query, Word2Vec vec, IDictionary dict) throws IOException {
+        calculateWordDistance(wm, query, vec);
+        calculateSynsetSimilarity(query, dict);
+        //this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
+    }
+
+    public void calculateScore(float word2vec_w, float wordNet_w) {
+        this.score = word2vec_w * this.word_score + wordNet_w * this.synset_score;
+        //this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
     }
 
     @Override
@@ -278,4 +185,66 @@ public class Comment {
         return "Comment for hotel: " + this.hotel_id + " with id: " + this.id + " says: " + this.text + " posted at: " + this.date + " with score: " + this.score;
     }
 
+    public HashSet<String> getWordNetResources(String pos, IDictionary dict, String token) throws IOException {
+        HashSet<String> synset = new HashSet<>();
+        HashSet<String> crntSynset = new HashSet<>();
+        if (pos.startsWith("J")) {
+            crntSynset = WordNet.getSynonyms(dict, token, POS.ADJECTIVE);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getAntonyms(dict, token, POS.ADJECTIVE);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getHypernyms(dict, token, POS.ADJECTIVE);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+
+        } else if (pos.startsWith("R")) {
+            crntSynset = WordNet.getSynonyms(dict, token, POS.ADVERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getAntonyms(dict, token, POS.ADVERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getHypernyms(dict, token, POS.ADVERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+
+        } else if (pos.startsWith("N")) {
+            crntSynset = WordNet.getSynonyms(dict, token, POS.NOUN);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getAntonyms(dict, token, POS.NOUN);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getHypernyms(dict, token, POS.NOUN);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+
+        } else if (pos.startsWith("V")) {
+            crntSynset = WordNet.getSynonyms(dict, token, POS.VERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getAntonyms(dict, token, POS.VERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+            crntSynset = WordNet.getHypernyms(dict, token, POS.VERB);
+            if (crntSynset != null) {
+                synset.addAll(crntSynset);
+            }
+
+        }
+        return synset;
+    }
 }

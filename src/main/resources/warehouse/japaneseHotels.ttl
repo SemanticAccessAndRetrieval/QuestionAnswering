@@ -1903,7 +1903,7 @@ hippalus:c1 a owl:NamedIndividual , hippalus:review ;
 
 hippalus:c10 a owl:NamedIndividual , hippalus:review ;
 	hippalus:hasDate "12-01-2018" ;
-	hippalus:hasText "I didn't sleep well because the hotel is very close to camp Nou." .
+	hippalus:hasText "I didn't sleep well because the hotel is very close to Camp Nou." .
 # 
 # http://ics.forth.gr/isl/hippalus/#c2
 
@@ -1915,13 +1915,13 @@ hippalus:c2 a owl:NamedIndividual , hippalus:review ;
 
 hippalus:c3 a owl:NamedIndividual , hippalus:review ;
 	hippalus:hasDate "07-03-2015" ;
-	hippalus:hasText "Sound-proof of rooms." .
+	hippalus:hasText "The rooms are totally soundproof." .
 # 
 # http://ics.forth.gr/isl/hippalus/#c4
 
 hippalus:c4 a owl:NamedIndividual , hippalus:review ;
 	hippalus:hasDate "02-02-2016" ;
-	hippalus:hasText "The walls are very thin (also double-sided glasses)." .
+	hippalus:hasText "The walls were so thin, i could hear the TV from the other rooms." .
 # 
 # http://ics.forth.gr/isl/hippalus/#c5
 
@@ -1933,7 +1933,7 @@ hippalus:c5 a owl:NamedIndividual , hippalus:review ;
 
 hippalus:c6 a owl:NamedIndividual , hippalus:review ;
 	hippalus:hasDate "03-06-2017" ;
-	hippalus:hasText "Appliances are noisy (air-condition, refridgerator)." .
+	hippalus:hasText "Appliances are noisy (air-condition, refrigerator)." .
 # 
 # http://ics.forth.gr/isl/hippalus/#c7
 
