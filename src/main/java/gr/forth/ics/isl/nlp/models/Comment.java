@@ -33,6 +33,7 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
 public class Comment {
 
     private String hotel_id;
+    private String hotel_name;
     private String id;
     private String text;
     private Date date;
@@ -41,7 +42,8 @@ public class Comment {
     private double synset_score;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    public Comment(String hotel_id, String id, String text, String date) {
+    public Comment(String hotel_name, String hotel_id, String id, String text, String date) {
+        this.hotel_name = hotel_name;
         this.hotel_id = hotel_id;
         this.id = id;
         this.text = text;
@@ -53,6 +55,10 @@ public class Comment {
         this.score = 0;
         this.word_score = 0;
         this.synset_score = 0;
+    }
+
+    public String getHotelName() {
+        return this.hotel_name;
     }
 
     public String getHotelId() {
@@ -77,6 +83,10 @@ public class Comment {
 
     public void setHotelId(String hotel_id) {
         this.hotel_id = hotel_id;
+    }
+
+    public void setHotelName(String hotel_name) {
+        this.hotel_name = hotel_name;
     }
 
     public void setId(String id) {

@@ -137,9 +137,26 @@ public class demo_main {
                 }
 
                 //System.out.println(relevantComments);
-
+                // Open comment exploratory dialogue based on comment relevance.
                 System.out.println("\nI have found " + relevantComments.size() + " comments.(" + String.format("%.1f", ((float) relevantComments.size() / topComments.size()) * 100.0) + "%)");
-                System.out.println("The most related comment says: " + relevantComments.get(0).getText());
+                System.out.println("The most related comment is for hotel " + relevantComments.get(0).getHotelName() + " and says: " + relevantComments.get(0).getText());
+
+                String showNextComment = "";
+                int commentIdx = 0;
+                while (true) {
+                    System.out.println("Would you like to see the next most related comment? (yes/no)");
+                    in = new Scanner(System.in);
+                    showNextComment = in.nextLine();
+                    if (showNextComment.equals("yes")) {
+                        commentIdx++;
+                        if (commentIdx == relevantComments.size()) {
+                            break;
+                        }
+                        System.out.println("The next most related comment is for hotel " + relevantComments.get(commentIdx).getHotelName() + " and says: " + relevantComments.get(commentIdx).getText());
+                    } else {
+                        break;
+                    }
+                }
 
                 // Sort comments by date (from the most recent to the least)
                 Collections.sort(relevantComments, new Comparator<Comment>() {
@@ -150,8 +167,27 @@ public class demo_main {
                         return -c1.getDate().compareTo(c2.getDate());
                     }
                 });
+                // Open comment exploratory dialogue based on comment recency.
                 System.out.println("The most recent comment says: " + relevantComments.get(0).getText());
 
+                showNextComment = "";
+                commentIdx = 0;
+                while (true) {
+                    System.out.println("Would you like to see the next most recent comment? (yes/no)");
+                    in = new Scanner(System.in);
+                    showNextComment = in.nextLine();
+                    if (showNextComment.equals("yes")) {
+                        commentIdx++;
+                        if (commentIdx == relevantComments.size()) {
+                            break;
+                        }
+                        System.out.println("The next most recent comment is for hotel " + relevantComments.get(commentIdx).getHotelName() + " and says: " + relevantComments.get(commentIdx).getText());
+                    } else {
+                        break;
+                    }
+                }
+
+                // Print further information
                 for (String hotel_id : commentsPerHotel.keySet()) {
                     System.out.println("=================================================");
                     System.out.println("Comments for hotel: " + hotel_id + "\n");
@@ -183,7 +219,7 @@ public class demo_main {
                     String date = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasDate").iterator().next();
                     String text = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasText").iterator().next();
 
-                    Comment tmpComment = new Comment(sub.getUri(), commentId, text, date);
+                    Comment tmpComment = new Comment(sub.getLabel(), sub.getUri(), commentId, text, date);
                     comments.add(tmpComment);
                 }
             }
