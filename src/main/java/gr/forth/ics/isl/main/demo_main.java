@@ -95,7 +95,7 @@ public class demo_main {
                 //Calculate score for each comment
                 //Also calculate max word mover distance
                 for (Comment com : comments) {
-                    com.calculateScores(wm, question, vec, dict);
+                    com.calculateScores(wm, question, vec, dict, word2vec_w, wordNet_w);
                     if (com.getWordScore() >= max_dist) {
                         max_dist = com.getWordScore();
                     }
@@ -193,6 +193,7 @@ public class demo_main {
                     System.out.println("Comments for hotel: " + hotel_id + "\n");
                     for (Comment c : commentsPerHotel.get(hotel_id)) {
                         System.out.println("TEXT: " + c.getText());
+                        System.out.println("BEST_SENT.: " + c.getBestSentence());
                         System.out.println("SCORE: " + String.format("%.3f", c.getScore()) + "\n");
                     }
                 }

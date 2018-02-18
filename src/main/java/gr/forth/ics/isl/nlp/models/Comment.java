@@ -36,6 +36,7 @@ public class Comment {
     private String hotel_name;
     private String id;
     private String text;
+    private String best_sentence;
     private Date date;
     private double score;
     private double word_score;
@@ -55,6 +56,7 @@ public class Comment {
         this.score = 0;
         this.word_score = 0;
         this.synset_score = 0;
+        this.best_sentence = "";
     }
 
     public String getHotelName() {
@@ -71,6 +73,10 @@ public class Comment {
 
     public String getText() {
         return this.text;
+    }
+
+    public String getBestSentence() {
+        return this.best_sentence;
     }
 
     public Date getDate() {
@@ -121,7 +127,8 @@ public class Comment {
         return this.word_score;
     }
 
-    public void calculateWordDistance(WordMovers wm, String query, Word2Vec vec) {
+    //private void calculateWordDistance(WordMovers wm, String query, Word2Vec vec) {
+    private double calculateWordDistance(WordMovers wm, String query, String text, Word2Vec vec) {
         double score = 0;
 
         ArrayList<String> querySet = NlpAnalyzer.getCleanTokens(query);
@@ -132,7 +139,7 @@ public class Comment {
             }
         }
 
-        ArrayList<String> commentSet = NlpAnalyzer.getCleanTokens(this.text);
+        ArrayList<String> commentSet = NlpAnalyzer.getCleanTokens(text);
         String commentClean = "";
         for (String commentTerm : commentSet) {
             if (vec.hasWord(commentTerm)) {
@@ -142,8 +149,8 @@ public class Comment {
 
         score = wm.distance(commentClean, queryClean);
 
-        this.word_score = score;
-        //return score;
+        //this.word_score = score;
+        return score;
     }
 
     public void calculateWordScore(double max_dist) {
@@ -151,7 +158,9 @@ public class Comment {
         this.word_score = 1 - score / max_dist;
     }
 
-    public void calculateSynsetSimilarity(String query, IDictionary dict) throws IOException {
+    //private void calculateSynsetSimilarity(String query, IDictionary dict) throws IOException {
+    private double calculateSynsetSimilarity(String query, String text, IDictionary dict) throws IOException {
+
         double score = 0.0;
         String crntTermPosTag;
 
@@ -165,7 +174,7 @@ public class Comment {
             querySynset.addAll(getWordNetResources(crntTermPosTag, dict, queryTerm));
         }
 
-        HashMap<String, String> commentMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(this.text);
+        HashMap<String, String> commentMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(text);
         HashSet<String> commentSynset = new HashSet<>();
 
         for (String commentTerm : commentMapWithPosTags.keySet()) {
@@ -175,13 +184,31 @@ public class Comment {
 
         score = StringUtils.JaccardSim((String[]) commentSynset.toArray(new String[0]), (String[]) querySynset.toArray(new String[0]));
 
-        this.synset_score = score;
-        //return score;
+        //this.synset_score = score;
+        return score;
     }
 
-    public void calculateScores(WordMovers wm, String query, Word2Vec vec, IDictionary dict) throws IOException {
-        calculateWordDistance(wm, query, vec);
-        calculateSynsetSimilarity(query, dict);
+    public void calculateScores(WordMovers wm, String query, Word2Vec vec, IDictionary dict, float word2vec_w, float wordNet_w) throws IOException {
+        double maxWordScore = Double.MIN_VALUE;
+        double maxSynsetScore = Double.MIN_VALUE;
+        double maxScore = Double.MIN_VALUE;
+        String best_sentence = "";
+        double tmpWordScore, tmpSynsetScore, tmpScore;
+        for (String sentence : NlpAnalyzer.getSentences(this.text)) {
+            tmpWordScore = calculateWordDistance(wm, query, sentence, vec);
+            tmpSynsetScore = calculateSynsetSimilarity(query, sentence, dict);
+
+            tmpScore = word2vec_w * tmpWordScore + wordNet_w * tmpSynsetScore;
+            if (tmpScore >= maxScore) {
+                maxWordScore = tmpWordScore;
+                maxSynsetScore = tmpSynsetScore;
+                maxScore = tmpScore;
+                best_sentence = sentence;
+            }
+        }
+        this.best_sentence = best_sentence;
+        this.word_score = maxWordScore;
+        this.synset_score = maxSynsetScore;
         //this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
     }
 
