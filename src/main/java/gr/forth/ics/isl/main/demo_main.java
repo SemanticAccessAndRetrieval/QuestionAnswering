@@ -198,7 +198,6 @@ public class demo_main {
                     }
                 }
 
-
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 continue;
