@@ -188,6 +188,30 @@ public class Comment {
         return score;
     }
 
+    /*public void calculateScores(String query, IDictionary dict, float wordNet_w) throws IOException {
+        double maxWordScore = Double.MIN_VALUE;
+        double maxSynsetScore = Double.MIN_VALUE;
+        double maxScore = Double.MIN_VALUE;
+        String best_sentence = "";
+        double tmpWordScore, tmpSynsetScore, tmpScore;
+        for (String sentence : NlpAnalyzer.getSentences(this.text)) {
+            //tmpWordScore = calculateWordDistance(wm, query, sentence, vec);
+            tmpSynsetScore = calculateSynsetSimilarity(query, sentence, dict);
+
+            tmpScore = wordNet_w * tmpSynsetScore;
+            if (tmpScore >= maxScore) {
+                //maxWordScore = tmpWordScore;
+                maxSynsetScore = tmpSynsetScore;
+                maxScore = tmpScore;
+                best_sentence = sentence;
+            }
+        }
+        this.best_sentence = best_sentence;
+        //this.word_score = maxWordScore;
+        this.synset_score = maxSynsetScore;
+        //this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
+    }*/
+
     public void calculateScores(WordMovers wm, String query, Word2Vec vec, IDictionary dict, float word2vec_w, float wordNet_w) throws IOException {
         double maxWordScore = Double.MIN_VALUE;
         double maxSynsetScore = Double.MIN_VALUE;

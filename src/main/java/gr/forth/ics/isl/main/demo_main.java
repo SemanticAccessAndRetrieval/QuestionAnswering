@@ -228,6 +228,28 @@ public class demo_main {
         return comments;
     }
 
+    public static HashMap<String, Comment> getCommentsAsMap(HashSet<Subject> allSubjectsOfType, QAInfoBase KB) throws RepositoryException, MalformedQueryException, QueryEvaluationException {
+        HashMap<String, Comment> comments = new HashMap<>();
+
+        for (Subject sub : allSubjectsOfType) {
+            HashMap<String, HashSet<String>> crntHotelObjectProps = sub.getObjectPropsWithObjectValues();
+            for (String prop : crntHotelObjectProps.keySet()) {
+                HashSet<String> crntHotelCommentIds = crntHotelObjectProps.get(prop);
+                for (String commentId : crntHotelCommentIds) {
+                    HashMap<String, HashSet<String>> commentProps = KB.getAllUndeclaredDataTypePropertiesWithValuesOf(commentId);
+
+                    String date = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasDate").iterator().next();
+                    String text = commentProps.get("http://ics.forth.gr/isl/hippalus/#hasText").iterator().next();
+
+                    Comment tmpComment = new Comment(sub.getLabel(), sub.getUri(), commentId, text, date);
+                    comments.put(tmpComment.getId(), tmpComment);
+                }
+            }
+        }
+
+        return comments;
+    }
+
     public static ArrayList<Comment> getTopKComments(ArrayList<Comment> comments, int topK) {
         ArrayList<Comment> topComments = new ArrayList<>();
 
