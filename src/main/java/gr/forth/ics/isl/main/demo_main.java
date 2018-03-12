@@ -12,10 +12,12 @@ package gr.forth.ics.isl.main;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import gr.forth.ics.isl.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
+import gr.forth.ics.isl.utilities.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,14 +81,22 @@ public class demo_main {
                 //Get the user's question
                 String question = JOptionPane.showInputDialog("Submit your question", "");
 
+                //Get best performing model
+                ModelHyperparameters retrievalModel = (ModelHyperparameters) Utils.getSavedObject("BPREFbased_BestModel");
                 //Get the weights for the scoring
-                System.out.println("Enter word2vec weight: ");
-                float word2vec_w = in.nextFloat();
-                System.out.println("Enter wordNet weight: ");
-                float wordNet_w = in.nextFloat();
+                //System.out.println("Enter word2vec weight: ");
+                //float word2vec_w = in.nextFloat();
+                float word2vec_w = retrievalModel.getWord2vecWeight();
+                System.out.println("word2vec weight: " + word2vec_w);
+                //System.out.println("Enter wordNet weight: ");
+                //float wordNet_w = in.nextFloat();
+                float wordNet_w = retrievalModel.getWordNetWeight();
+                System.out.println("wordNet weight: " + wordNet_w);
                 //Get the threshold for relevancy
-                System.out.println("Enter threshold: ");
-                float threshold = in.nextFloat();
+                //System.out.println("Enter threshold: ");
+                //float threshold = in.nextFloat();
+                float threshold = retrievalModel.getThreshold();
+                System.out.println("threshold: " + threshold);
 
                 // Get all the comments
                 ArrayList<Comment> comments = getComments(hotels, KB);
