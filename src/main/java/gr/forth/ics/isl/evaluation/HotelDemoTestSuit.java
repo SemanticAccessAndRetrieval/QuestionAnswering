@@ -12,6 +12,7 @@ package gr.forth.ics.isl.evaluation;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import gr.forth.ics.isl.auxiliaryClasses.Timer;
 import gr.forth.ics.isl.evaluation.models.EvaluationComment;
 import gr.forth.ics.isl.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.evaluation.models.EvaluationQuery;
@@ -56,13 +57,21 @@ public class HotelDemoTestSuit {
     public static HashMap<String, Trie> stopLists = new HashMap<>();
 
     public static void main(String[] args) throws IOException, RepositoryException, MalformedQueryException, QueryEvaluationException {
+        //Intance of class timer, for time measurements
+        Timer timer = new Timer();
+
         // Create the list of stopWords to use
         StringUtils.generateStopLists(filePath_en, filePath_gr);
 
         // Create Word2Vec model
         File gModel = new File("C:/Users/Sgo/Desktop/Developer/Vector Models/GoogleNews-vectors-negative300.bin.gz");
+
+        timer.start();
         Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
         WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
+        timer.end();
+        long word2vecTime = timer.getTotalTime();
+        System.out.println("Time to load word2vec: " + word2vecTime);
 
         // Create WodNet Dictionary
         String wnhome = System.getenv("WNHOME");
@@ -75,8 +84,13 @@ public class HotelDemoTestSuit {
 
         // Create hotel database
         QAInfoBase KB = new QAInfoBase();
+
+        timer.start();
         // Retrieve hotels
         HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+        timer.end();
+        long resourcesTime = timer.getTotalTime();
+        System.out.println("Time to load resources: " + resourcesTime);
 
         System.out.println("External Resources were loaded successfully");
         // Create a List of queries
@@ -136,6 +150,8 @@ public class HotelDemoTestSuit {
                         System.out.println("threshold: " + threshold);
 
                         double max_dist = Double.MIN_VALUE;
+
+                        timer.start();
                         //Calculate score for each comment
                         //Also calculate max word mover distance
                         for (String comId : comments.keySet()) {
@@ -155,6 +171,9 @@ public class HotelDemoTestSuit {
                             com.calculateScore(word2vec_w, wordNet_w);
                             comments.put(comId, com);
                         }
+                        timer.end();
+                        long calculateAllScores = timer.getTotalTime();
+                        System.out.println("Average Time to calculate score: " + calculateAllScores / comments.size());
 
                         // Get the ground truth for the current query
                         ArrayList<EvaluationPair> evalPairsWithQueryId = gt.get("q" + cnt);
