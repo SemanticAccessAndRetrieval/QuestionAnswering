@@ -9,6 +9,10 @@
  */
 package gr.forth.ics.isl.evaluation;
 
+import gr.forth.ics.isl.evaluation.models.ModelHyperparameters;
+import static gr.forth.ics.isl.utilities.Utils.getSavedObject;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,7 +28,7 @@ public class EvaluationMetrics {
 
         int truePred = 0;
 
-        for (int i = 0; i < R; i++) {
+        for (int i = 0; i < Math.min(answerRels.size(), R); i++) {
             if (Objects.equals(answerRels.get(i), groundTruth.get(i))) {
                 truePred++;
             }
@@ -46,39 +50,28 @@ public class EvaluationMetrics {
         return Sum / R;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Integer> answer = new ArrayList<>();
-        answer.add(1);
-        answer.add(1);
-        answer.add(0);
-        answer.add(1);
-        answer.add(0);
-        answer.add(1);
-        answer.add(0);
-        answer.add(0);
-        answer.add(0);
-        answer.add(0);
-        answer.add(0);
-        answer.add(0);
-        answer.add(1);
-        answer.add(0);
+    public static double BPREF(ArrayList<Integer> answerRels, ArrayList<Integer> groundTruth, int R) {
+        double Sum = 0.0;
+        int nonRels = 0;
 
-        ArrayList<Integer> gt = new ArrayList<>();
-        gt.add(1);
-        gt.add(1);
-        gt.add(1);
-        gt.add(1);
-        gt.add(1);
-        gt.add(1);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
-        gt.add(0);
+        for (int i = 0; i < Math.min(answerRels.size(), R); i++) {
+            if (Objects.equals(answerRels.get(i), groundTruth.get(i))) {
+                Sum += 1.0 - ((double) nonRels) / R;
+            } else {
+                nonRels++;
+            }
+        }
 
-        System.out.println(R_Precision(answer, gt, 6));
+        return Sum / R;
+    }
+
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
+        ModelHyperparameters m1 = (ModelHyperparameters) getSavedObject("AVEPbased_BestModel");
+        ModelHyperparameters m2 = (ModelHyperparameters) getSavedObject("rPrecisionbased_BestModel");
+
+        System.out.println("======AVEP=======");
+        System.out.println(m1);
+        System.out.println("===R_Precision===");
+        System.out.println(m2);
     }
 }

@@ -17,6 +17,9 @@ package gr.forth.ics.isl.evaluation.models;
 
 public class ModelHyperparameters implements Comparable<ModelHyperparameters>, java.io.Serializable {
     private double score;
+    private double AveP;
+    private double R_Precision;
+    private double BPREF;
     private float word2vec_w;
     private float wordNet_w;
     private float threshold;
@@ -26,6 +29,18 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
         this.threshold = threshold;
         this.word2vec_w = word2vec_w;
         this.wordNet_w = wordNet_w;
+    }
+
+    public double getAveP() {
+        return this.AveP;
+    }
+
+    public double getR_Precision() {
+        return this.R_Precision;
+    }
+
+    public double getBPREF() {
+        return this.BPREF;
     }
 
     public double getScore() {
@@ -44,9 +59,24 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
         return this.wordNet_w;
     }
 
+    public void setAveP(double avep) {
+        this.AveP = avep;
+    }
+
+    public void setBPREF(double bpref) {
+        this.BPREF = bpref;
+    }
+
+    public void setR_Precision(double rPrecision) {
+        this.R_Precision = rPrecision;
+    }
+
     @Override
     public String toString() {
         return "Score: " + this.score + "\n"
+                + "BPREF: " + this.BPREF + "\n"
+                + "R_Precision: " + this.R_Precision + "\n"
+                + "AveP: " + this.AveP + "\n"
                 + "Threshold: " + this.threshold + "\n"
                 + "Word2vec Weight: " + this.word2vec_w + "\n"
                 + "WordNet Weight: " + this.wordNet_w;
