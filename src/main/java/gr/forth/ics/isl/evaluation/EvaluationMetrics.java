@@ -73,5 +73,31 @@ public class EvaluationMetrics {
         System.out.println(m1);
         System.out.println("===R_Precision===");
         System.out.println(m2);
+
+        ArrayList<Integer> answerRels = new ArrayList<>();
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        answerRels.add(1);
+        ArrayList<Integer> groundTruth = new ArrayList<>();
+        groundTruth.add(1);
+        groundTruth.add(1);
+        groundTruth.add(0);
+        groundTruth.add(1);
+        groundTruth.add(1);
+        groundTruth.add(0);
+        groundTruth.add(0);
+        groundTruth.add(1);
+        groundTruth.add(1);
+        groundTruth.add(0);
+
+        System.out.println(R_Precision(answerRels, groundTruth, 10));
+        System.out.println(AVEP(answerRels, groundTruth, 10));
     }
 }

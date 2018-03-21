@@ -9,6 +9,8 @@
  */
 package gr.forth.ics.isl.evaluation.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Sgo
@@ -23,12 +25,27 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
     private float word2vec_w;
     private float wordNet_w;
     private float threshold;
+    private ArrayList<Integer> resultSet;
+    private ArrayList<Integer> trueSet;
+    private ArrayList<Double> scoreSet;
 
-    public ModelHyperparameters(double score, float word2vec_w, float wordNet_w, float threshold) {
+    public ModelHyperparameters(double score, float word2vec_w, float wordNet_w) {
         this.score = score;
-        this.threshold = threshold;
+        //this.threshold = threshold;
         this.word2vec_w = word2vec_w;
         this.wordNet_w = wordNet_w;
+    }
+
+    public ArrayList<Integer> getResultSet() {
+        return this.resultSet;
+    }
+
+    public ArrayList<Integer> getTrueSet() {
+        return this.trueSet;
+    }
+
+    public ArrayList<Double> getScoreSet() {
+        return this.scoreSet;
     }
 
     public double getAveP() {
@@ -71,6 +88,18 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
         this.R_Precision = rPrecision;
     }
 
+    public void setResultSet(ArrayList<Integer> resultSet) {
+        this.resultSet = resultSet;
+    }
+
+    public void setTrueSet(ArrayList<Integer> trueSet) {
+        this.trueSet = trueSet;
+    }
+
+    public void setScoreSet(ArrayList<Double> scoreSet) {
+        this.scoreSet = scoreSet;
+    }
+
     @Override
     public String toString() {
         return "Score: " + this.score + "\n"
@@ -79,7 +108,10 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
                 + "AveP: " + this.AveP + "\n"
                 + "Threshold: " + this.threshold + "\n"
                 + "Word2vec Weight: " + this.word2vec_w + "\n"
-                + "WordNet Weight: " + this.wordNet_w;
+                + "WordNet Weight: " + this.wordNet_w + "\n"
+                + "TrueSet: " + this.trueSet + "\n"
+                + "ResultSet: " + this.resultSet + "\n"
+                + "ResultScoreSet: " + this.scoreSet;
     }
 
     @Override

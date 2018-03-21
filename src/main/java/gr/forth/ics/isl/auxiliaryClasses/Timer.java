@@ -10,8 +10,8 @@
 package gr.forth.ics.isl.auxiliaryClasses;
 
 public class Timer {
-    private long startTime = 0;
-    private long endTime = 0;
+    private long startTime = 0L;
+    private long endTime = 0L;
 
     public void start() {
         this.startTime = System.currentTimeMillis();
@@ -30,6 +30,6 @@ public class Timer {
     }
 
     public long getTotalTime() {
-        return (this.endTime - this.startTime) / 1000L;
+        return (this.endTime - this.startTime);
     }
 }

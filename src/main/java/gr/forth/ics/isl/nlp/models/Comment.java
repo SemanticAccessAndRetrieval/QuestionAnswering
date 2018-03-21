@@ -41,7 +41,9 @@ public class Comment {
     private double score;
     private double word_score;
     private double synset_score;
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    public long time = 0L;
+    //private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public Comment(String hotel_name, String hotel_id, String id, String text, String date) {
         this.hotel_name = hotel_name;
@@ -146,9 +148,11 @@ public class Comment {
                 commentClean += " " + commentTerm;
             }
         }
-
-        score = wm.distance(commentClean, queryClean);
-
+        try {
+            score = wm.distance(commentClean, queryClean);
+        } catch (Exception e) {
+            return 0.0;
+        }
         //this.word_score = score;
         return score;
     }
@@ -188,29 +192,40 @@ public class Comment {
         return score;
     }
 
-    /*public void calculateScores(String query, IDictionary dict, float wordNet_w) throws IOException {
-        double maxWordScore = Double.MIN_VALUE;
-        double maxSynsetScore = Double.MIN_VALUE;
+    public void calculateWordNetScore(String query, IDictionary dict) throws IOException {
+
         double maxScore = Double.MIN_VALUE;
         String best_sentence = "";
-        double tmpWordScore, tmpSynsetScore, tmpScore;
+        double tmpScore;
         for (String sentence : NlpAnalyzer.getSentences(this.text)) {
             //tmpWordScore = calculateWordDistance(wm, query, sentence, vec);
-            tmpSynsetScore = calculateSynsetSimilarity(query, sentence, dict);
+            tmpScore = calculateSynsetSimilarity(query, sentence, dict);
 
-            tmpScore = wordNet_w * tmpSynsetScore;
             if (tmpScore >= maxScore) {
-                //maxWordScore = tmpWordScore;
-                maxSynsetScore = tmpSynsetScore;
                 maxScore = tmpScore;
                 best_sentence = sentence;
             }
         }
         this.best_sentence = best_sentence;
-        //this.word_score = maxWordScore;
-        this.synset_score = maxSynsetScore;
-        //this.setScore((0.5 * calculateWordSimilarity(wm, query, vec)) + (0.5 * calculateSynsetSimilarity(query, dict)));
-    }*/
+        this.score = maxScore;
+    }
+
+    public void calculateWord2Score(WordMovers wm, String query, Word2Vec vec) throws IOException {
+
+        double maxScore = Double.MIN_VALUE;
+        String best_sentence = "";
+        double tmpScore;
+        for (String sentence : NlpAnalyzer.getSentences(this.text)) {
+            tmpScore = calculateWordDistance(wm, query, sentence, vec);
+
+            if (tmpScore >= maxScore) {
+                maxScore = tmpScore;
+                best_sentence = sentence;
+            }
+        }
+        this.best_sentence = best_sentence;
+        this.score = maxScore;
+    }
 
     public void calculateScores(WordMovers wm, String query, Word2Vec vec, IDictionary dict, float word2vec_w, float wordNet_w) throws IOException {
         double maxWordScore = Double.MIN_VALUE;
@@ -307,5 +322,32 @@ public class Comment {
 
         }
         return synset;
+    }
+
+    public void calculateBaseScore(String query) throws IOException {
+        double maxScore = Double.MIN_VALUE;
+        double tmpScore;
+        for (String sentence : NlpAnalyzer.getSentences(this.text)) {
+            tmpScore = calculateJacc(query, sentence);
+
+            if (tmpScore >= maxScore) {
+                maxScore = tmpScore;
+                best_sentence = sentence;
+            }
+        }
+        this.score = maxScore;
+    }
+
+    private double calculateJacc(String query, String text) throws IOException {
+
+        double tmp_score;
+
+        ArrayList<String> queryWords = NlpAnalyzer.getCleanTokens(query);
+        ArrayList<String> textWords = NlpAnalyzer.getCleanTokens(text);
+
+        tmp_score = StringUtils.JaccardSim((String[]) textWords.toArray(new String[0]), (String[]) queryWords.toArray(new String[0]));
+        //System.out.println(tmp_score);
+        //this.synset_score = score;
+        return tmp_score;
     }
 }

@@ -274,7 +274,8 @@ public class NlpAnalyzer {
 
         String tmp_token = "";
         for (CoreLabel tok : tokens) {
-            tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            //tmp_token = tok.value().replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            tmp_token = tok.get(CoreAnnotations.LemmaAnnotation.class).replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
             if (!tmp_token.isEmpty() && !StringUtils.isStopWord(tmp_token)) {
                 //Get the POS tag of the token
                 String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);

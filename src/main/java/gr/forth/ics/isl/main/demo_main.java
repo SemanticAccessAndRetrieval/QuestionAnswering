@@ -55,6 +55,16 @@ public class demo_main {
 
     public static void main(String[] args) throws IOException, ParseException, FileNotFoundException, ClassNotFoundException, RepositoryException, MalformedQueryException, QueryEvaluationException {
 
+        /*QAInfoBase KB = new QAInfoBase();
+        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+        ArrayList<Comment> comments = getComments(hotels, KB);
+
+        int total = 0;
+
+        for (Comment c : comments) {
+            total += c.getText().split(" ").length;
+        }
+        System.out.println(total / 40.0f);*/
         //Create the list of stopWords to use
         StringUtils.generateStopLists(filePath_en, filePath_gr);
 
@@ -82,7 +92,7 @@ public class demo_main {
                 String question = JOptionPane.showInputDialog("Submit your question", "");
 
                 //Get best performing model
-                ModelHyperparameters retrievalModel = (ModelHyperparameters) Utils.getSavedObject("BPREFbased_BestModel");
+                ModelHyperparameters retrievalModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
                 //Get the weights for the scoring
                 //System.out.println("Enter word2vec weight: ");
                 //float word2vec_w = in.nextFloat();
@@ -214,6 +224,22 @@ public class demo_main {
             }
         }
 
+    }
+
+    public static ArrayList<Comment> getCommentsFromTextOnlyKB(HashSet<Subject> reviews) {
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        for (Subject sub : reviews) {
+            HashMap<String, HashSet<String>> crntCommentsProps = sub.getUndeclaredDataTypePropsWithValues();
+
+            String date = crntCommentsProps.get("http://ics.forth.gr/isl/hippalus/#hasDate").iterator().next();
+            String text = crntCommentsProps.get("http://ics.forth.gr/isl/hippalus/#hasText").iterator().next();
+
+            Comment tmpComment = new Comment("", "", sub.getUri(), text, date);
+            comments.add(tmpComment);
+        }
+
+        return comments;
     }
 
     public static ArrayList<Comment> getComments(HashSet<Subject> allSubjectsOfType, QAInfoBase KB) throws RepositoryException, MalformedQueryException, QueryEvaluationException {
