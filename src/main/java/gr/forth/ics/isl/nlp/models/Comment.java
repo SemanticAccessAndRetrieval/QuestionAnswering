@@ -105,6 +105,10 @@ public class Comment {
         this.text = text;
     }
 
+    public void setBestSentence(String sentence) {
+        this.best_sentence = sentence;
+    }
+
     public void setDate(String date) {
         try {
             this.date = sdf.parse(date);
