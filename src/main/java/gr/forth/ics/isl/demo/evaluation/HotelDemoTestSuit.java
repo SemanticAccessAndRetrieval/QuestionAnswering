@@ -297,18 +297,25 @@ public class HotelDemoTestSuit {
             // use comma as separator
             String[] tuple = line.split(",");
 
-            EvaluationQuery evalQuery = new EvaluationQuery(tuple[1]);
-            EvaluationComment evalComment = new EvaluationComment(tuple[2], tuple[3]);
-            EvaluationPair evalPair = new EvaluationPair(Integer.parseInt(tuple[0]), evalQuery, evalComment, Integer.parseInt(tuple[4]));
+            int eval_pair_id = Integer.parseInt(tuple[0]);
+            String query_id = tuple[1];
+            String comment_id = tuple[2];
+            String comment_date = tuple[3];
+            int relevance = Integer.parseInt(tuple[4]);
 
-            HashMap<String, EvaluationPair> pairsWithQueryId = groundTruth.get(tuple[1]);
+
+            EvaluationQuery evalQuery = new EvaluationQuery(query_id);
+            EvaluationComment evalComment = new EvaluationComment(comment_id, comment_date);
+            EvaluationPair evalPair = new EvaluationPair(eval_pair_id, evalQuery, evalComment, relevance);
+
+            HashMap<String, EvaluationPair> pairsWithQueryId = groundTruth.get(query_id);
             if (pairsWithQueryId == null) {
                 pairsWithQueryId = new HashMap<>();
                 pairsWithQueryId.put(evalPair.getComment().getId(), evalPair);
-                groundTruth.put(tuple[1], pairsWithQueryId);
+                groundTruth.put(query_id, pairsWithQueryId);
             } else {
                 pairsWithQueryId.put(evalPair.getComment().getId(), evalPair);
-                groundTruth.put(tuple[1], pairsWithQueryId);
+                groundTruth.put(query_id, pairsWithQueryId);
             }
 
         }
