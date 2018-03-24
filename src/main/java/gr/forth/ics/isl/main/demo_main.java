@@ -12,12 +12,10 @@ package gr.forth.ics.isl.main;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
-import gr.forth.ics.isl.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
-import gr.forth.ics.isl.utilities.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,8 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
 import mitos.stemmer.trie.Trie;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -83,7 +79,7 @@ public class demo_main {
         HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
 
         System.out.println("External Resources were loaded successfully");
-
+        /*
         while (true) {
             try {
                 Scanner in = new Scanner(System.in);
@@ -222,7 +218,7 @@ public class demo_main {
                 System.out.println(e.getMessage());
                 continue;
             }
-        }
+        }*/
 
     }
 

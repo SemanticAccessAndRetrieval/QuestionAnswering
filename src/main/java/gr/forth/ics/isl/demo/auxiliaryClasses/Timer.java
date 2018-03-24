@@ -7,7 +7,7 @@
  *  It is published for reasons of research results reproducibility.
  *  (c) 2017 Semantic Access and Retrieval group, All rights reserved
  */
-package gr.forth.ics.isl.auxiliaryClasses;
+package gr.forth.ics.isl.demo.auxiliaryClasses;
 
 public class Timer {
     private long startTime = 0L;

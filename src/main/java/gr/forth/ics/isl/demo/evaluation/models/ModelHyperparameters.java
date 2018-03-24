@@ -7,7 +7,7 @@
  *  It is published for reasons of research results reproducibility.
  *  (c) 2017 Semantic Access and Retrieval group, All rights reserved
  */
-package gr.forth.ics.isl.evaluation.models;
+package gr.forth.ics.isl.demo.evaluation.models;
 
 import java.util.ArrayList;
 
@@ -106,11 +106,11 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
                 + "BPREF: " + this.BPREF + "\n"
                 + "R_Precision: " + this.R_Precision + "\n"
                 + "AveP: " + this.AveP + "\n"
-                + "Threshold: " + this.threshold + "\n"
+                //+ "Threshold: " + this.threshold + "\n"
                 + "Word2vec Weight: " + this.word2vec_w + "\n"
                 + "WordNet Weight: " + this.wordNet_w + "\n"
                 + "TrueSet: " + this.trueSet + "\n"
-                + "ResultSet: " + this.resultSet + "\n"
+                //+ "ResultSet: " + this.resultSet + "\n"
                 + "ResultScoreSet: " + this.scoreSet;
     }
 

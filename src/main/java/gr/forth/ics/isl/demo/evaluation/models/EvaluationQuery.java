@@ -7,7 +7,7 @@
  *  It is published for reasons of research results reproducibility.
  *  (c) 2017 Semantic Access and Retrieval group, All rights reserved
  */
-package gr.forth.ics.isl.evaluation.models;
+package gr.forth.ics.isl.demo.evaluation.models;
 
 /**
  *
