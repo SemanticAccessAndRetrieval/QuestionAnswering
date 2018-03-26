@@ -12,8 +12,8 @@ package gr.forth.ics.isl.demo.evaluation;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
-import static gr.forth.ics.isl.demo.evaluation.HotelDemoTestSuit.getNumOfRels;
-import static gr.forth.ics.isl.demo.evaluation.HotelDemoTestSuit.readEvaluationSet;
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.getNumOfRels;
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
@@ -46,7 +46,7 @@ public class HotelDemoTrain {
 //Number of top comments to retrieve
 
     static int topK = 40;//71;
-    static String evalCollection = "hotelsTestCollectionA.csv";
+    static String evalCollection = "FRUCE.csv";
 
     //The paths for the stopWords Files.
     public static String filePath_en = "src/main/resources/stoplists/stopwordsEn.txt";
@@ -85,21 +85,23 @@ public class HotelDemoTrain {
 
         System.out.println("External Resources were loaded successfully");
 
+        // This structure will contain the ground truth relevance between each
+        // query and each comment
+        HashMap<String, HashMap<String, EvaluationPair>> gt = new HashMap<>();
+        gt = readEvaluationSet(evalCollection);
+
         // Create a List of queries
-        ArrayList<String> queryList = new ArrayList<>();
-        queryList.add("Has anyone reported a problem about noise?");
-        queryList.add("Is this hotel quiet?");
+        HashMap<String, String> queryList = new HashMap<>();
+        for (String query_id : gt.keySet()) {
+            HashMap<String, EvaluationPair> evalPairs = gt.get(query_id);
+            queryList.put(query_id, evalPairs.values().iterator().next().getQuery().getText());
+        }
 
         // Get all the comments
         // uncomment this for hybrid data set
         ArrayList<Comment> comments = getComments(hotels, KB);
         // uncomment this for revies only data set
         //ArrayList<Comment> comments = getCommentsFromTextOnlyKB(reviews);
-
-        // This structure will contain the ground truth relevance between each
-        // query and each comment
-        HashMap<String, HashMap<String, EvaluationPair>> gt = new HashMap<>();
-        gt = readEvaluationSet(evalCollection);
 
         ArrayList<ModelHyperparameters> models_to_test = new ArrayList<>();
 
@@ -142,7 +144,7 @@ public class HotelDemoTrain {
                     testSet = new ArrayList<>();
 
                     //Get the user's question
-                    String question = queryList.get(cnt - 1);
+                    String question = queryList.get("q" + cnt);
 
                     System.out.println("========================");
 

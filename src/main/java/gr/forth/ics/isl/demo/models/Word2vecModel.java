@@ -100,9 +100,9 @@ public class Word2vecModel extends Model {
             distance = wm.distance(commentClean, queryClean);
 
         } catch (Exception e) {
-            System.out.println("Comment: " + commentClean);
-            System.out.println("Query: " + queryClean);
-            e.printStackTrace();
+            //System.out.println("Comment: " + commentClean);
+            //System.out.println("Query: " + queryClean);
+            //e.printStackTrace();
             //System.out.println(e.getMessage());
             return -1.0;
         }

@@ -19,10 +19,16 @@ public class EvaluationComment {
 
     private String id;
     private String date;
+    private String text;
 
-    public EvaluationComment(String id, String date) {
+    public EvaluationComment(String id, String text, String date) {
         this.id = id;
+        this.text = text;
         this.date = date;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setId(String id) {
@@ -31,6 +37,10 @@ public class EvaluationComment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getText() {
+        return this.text;
     }
 
     public String getId() {

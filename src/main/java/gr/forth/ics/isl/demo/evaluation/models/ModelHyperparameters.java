@@ -9,8 +9,6 @@
  */
 package gr.forth.ics.isl.demo.evaluation.models;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Sgo
@@ -19,15 +17,8 @@ import java.util.ArrayList;
 
 public class ModelHyperparameters implements Comparable<ModelHyperparameters>, java.io.Serializable {
     private double score;
-    private double AveP;
-    private double R_Precision;
-    private double BPREF;
     private float word2vec_w;
     private float wordNet_w;
-    private float threshold;
-    private ArrayList<Integer> resultSet;
-    private ArrayList<Integer> trueSet;
-    private ArrayList<Double> scoreSet;
 
     public ModelHyperparameters(double score, float word2vec_w, float wordNet_w) {
         this.score = score;
@@ -36,36 +27,8 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
         this.wordNet_w = wordNet_w;
     }
 
-    public ArrayList<Integer> getResultSet() {
-        return this.resultSet;
-    }
-
-    public ArrayList<Integer> getTrueSet() {
-        return this.trueSet;
-    }
-
-    public ArrayList<Double> getScoreSet() {
-        return this.scoreSet;
-    }
-
-    public double getAveP() {
-        return this.AveP;
-    }
-
-    public double getR_Precision() {
-        return this.R_Precision;
-    }
-
-    public double getBPREF() {
-        return this.BPREF;
-    }
-
     public double getScore() {
         return this.score;
-    }
-
-    public float getThreshold() {
-        return this.threshold;
     }
 
     public float getWord2vecWeight() {
@@ -76,42 +39,11 @@ public class ModelHyperparameters implements Comparable<ModelHyperparameters>, j
         return this.wordNet_w;
     }
 
-    public void setAveP(double avep) {
-        this.AveP = avep;
-    }
-
-    public void setBPREF(double bpref) {
-        this.BPREF = bpref;
-    }
-
-    public void setR_Precision(double rPrecision) {
-        this.R_Precision = rPrecision;
-    }
-
-    public void setResultSet(ArrayList<Integer> resultSet) {
-        this.resultSet = resultSet;
-    }
-
-    public void setTrueSet(ArrayList<Integer> trueSet) {
-        this.trueSet = trueSet;
-    }
-
-    public void setScoreSet(ArrayList<Double> scoreSet) {
-        this.scoreSet = scoreSet;
-    }
-
     @Override
     public String toString() {
         return "Score: " + this.score + "\n"
-                + "BPREF: " + this.BPREF + "\n"
-                + "R_Precision: " + this.R_Precision + "\n"
-                + "AveP: " + this.AveP + "\n"
-                //+ "Threshold: " + this.threshold + "\n"
                 + "Word2vec Weight: " + this.word2vec_w + "\n"
-                + "WordNet Weight: " + this.wordNet_w + "\n"
-                + "TrueSet: " + this.trueSet + "\n"
-                //+ "ResultSet: " + this.resultSet + "\n"
-                + "ResultScoreSet: " + this.scoreSet;
+                + "WordNet Weight: " + this.wordNet_w;
     }
 
     @Override
