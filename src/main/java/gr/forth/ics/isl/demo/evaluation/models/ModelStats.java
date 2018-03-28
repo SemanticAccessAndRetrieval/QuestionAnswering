@@ -14,6 +14,7 @@ import gr.forth.ics.isl.demo.evaluation.EvaluationMetrics;
 import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import gr.forth.ics.isl.nlp.models.Comment;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ import java.util.HashMap;
  *
  * @author Sgo
  */
-public class ModelStats {
+public class ModelStats implements Serializable {
 
     private Model model;
     private double Precision_2;

@@ -136,5 +136,13 @@
             <version>1</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- jFreeChart -->
+        <!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+        </dependency>
     </dependencies>
 </project>

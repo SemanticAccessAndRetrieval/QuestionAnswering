@@ -159,6 +159,8 @@ public class HotelDemoTestSuit {
             ModelStats model_stats = new ModelStats(tmp_model);
             model_stats.evaluate(comments, gt);
             System.out.println(model_stats);
+            Utils.saveObject(model_stats.getScoreSet(), tmp_model.getDescription() + "_ScoreSet");
+            Utils.saveObject(model_stats.getTestSet(), tmp_model.getDescription() + "_TestSet");
         }
 
         overallTimer.end();
