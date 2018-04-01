@@ -29,14 +29,15 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
+ * Experiment 1: We plot the data as a function of (floating point) estimated
+ * and true (binary) relevance to see how well, each model, can classify the
+ * reviews.
  *
  * @author Sgo
  */
-public class DemoCharts extends JFrame {
+public class Experiment1 extends JFrame {
 
-    //private static final long serialVersionUID = 6294689542092367723L;
-
-    public DemoCharts(String title, String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
+    public Experiment1(String title, String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
         super(title);
 
         // Create dataset
@@ -83,33 +84,33 @@ public class DemoCharts extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                DemoCharts baseline = new DemoCharts("Japanese Hotel Reviews: Estimated vs True Relevance", "Baseline model (Jaccard Similarity)");
+                Experiment1 baseline = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Baseline model (Jaccard Similarity)");
                 baseline.setSize(800, 400);
                 baseline.setLocationRelativeTo(null);
                 baseline.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 baseline.setVisible(true);
 
-                DemoCharts wordnet = new DemoCharts("Japanese Hotel Reviews: Estimated vs True Relevance", "Wordnet model");
+                Experiment1 wordnet = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Wordnet model");
                 wordnet.setSize(800, 400);
                 wordnet.setLocationRelativeTo(null);
                 wordnet.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 wordnet.setVisible(true);
 
-                DemoCharts word2vec = new DemoCharts("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec model");
+                Experiment1 word2vec = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec model");
                 word2vec.setSize(800, 400);
                 word2vec.setLocationRelativeTo(null);
                 word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 word2vec.setVisible(true);
 
-                DemoCharts wordnet_word2vec = new DemoCharts("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and Wordnet");
+                Experiment1 wordnet_word2vec = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and Wordnet");
                 wordnet_word2vec.setSize(800, 400);
                 wordnet_word2vec.setLocationRelativeTo(null);
                 wordnet_word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 wordnet_word2vec.setVisible(true);
             } catch (IOException ex) {
-                Logger.getLogger(DemoCharts.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DemoCharts.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

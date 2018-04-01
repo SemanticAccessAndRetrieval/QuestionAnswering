@@ -34,6 +34,30 @@ public class EvaluationMetrics {
         return (double) truePred / R;
     }
 
+    public static double Recall(ArrayList<Integer> groundTruth, int R, int numOfRels) {
+
+        int truePred = 0;
+
+        for (int i = 0; i < R; i++) {
+            if (Objects.equals(1, groundTruth.get(i))) {
+                truePred++;
+            }
+        }
+        return (double) truePred / numOfRels;
+    }
+
+    public static double Fallout(ArrayList<Integer> groundTruth, int R, int numOfNonRels) {
+
+        int falsePred = 0;
+
+        for (int i = 0; i < R; i++) {
+            if (Objects.equals(0, groundTruth.get(i))) {
+                falsePred++;
+            }
+        }
+        return (double) falsePred / numOfNonRels;
+    }
+
     public static double AVEP(ArrayList<Integer> groundTruth, int R) {
         double Sum = 0.0;
         int rels = 0;

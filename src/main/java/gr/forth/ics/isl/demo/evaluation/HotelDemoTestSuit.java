@@ -158,9 +158,15 @@ public class HotelDemoTestSuit {
         for (Model tmp_model : models_to_test) {
             ModelStats model_stats = new ModelStats(tmp_model);
             model_stats.evaluate(comments, gt);
+//            model_stats.getAllMetricsBoundedR(1, 33, comments, gt);
+//
+//            Utils.saveObject(model_stats.getScoreSet(), tmp_model.getDescription() + "_ScoreSet");
+//            Utils.saveObject(model_stats.getTestSet(), tmp_model.getDescription() + "_TestSet");
+//            Utils.saveObject(model_stats.getAllPrecisions_R(), tmp_model.getDescription() + "_all_Precisions_R");
+//            Utils.saveObject(model_stats.getAllAveps_R(), tmp_model.getDescription() + "_all_Aveps_R");
+//            Utils.saveObject(model_stats.getAllBprefs_R(), tmp_model.getDescription() + "_all_Bprefs_R");
+
             System.out.println(model_stats);
-            Utils.saveObject(model_stats.getScoreSet(), tmp_model.getDescription() + "_ScoreSet");
-            Utils.saveObject(model_stats.getTestSet(), tmp_model.getDescription() + "_TestSet");
         }
 
         overallTimer.end();
