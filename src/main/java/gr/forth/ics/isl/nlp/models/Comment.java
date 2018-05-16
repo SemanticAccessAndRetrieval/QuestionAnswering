@@ -32,6 +32,16 @@ public class Comment implements Serializable {
     //private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+    public Comment(String hotel_name, String hotel_id, String id, String text) {
+        this.hotel_name = hotel_name;
+        this.hotel_id = hotel_id;
+        this.id = id;
+        this.text = text;
+        this.date = null;
+        this.score = 0;
+        this.best_sentence = "";
+    }
+
     public Comment(String hotel_name, String hotel_id, String id, String text, String date) {
         this.hotel_name = hotel_name;
         this.hotel_id = hotel_id;

@@ -22,7 +22,10 @@ import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.Word2vecModel;
 import gr.forth.ics.isl.demo.models.WordnetModel;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
-import static gr.forth.ics.isl.main.demo_main.getCommentsFromTextOnlyKB;
+import gr.forth.ics.isl.demo.models.WordnetWord2vecModel_II;
+import static gr.forth.ics.isl.main.demo_main.getComments;
+import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
+import static gr.forth.ics.isl.main.demo_main.getCommentsFromWebAP;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
@@ -50,8 +53,9 @@ public class HotelDemoTestSuit {
 
     //Number of top comments to retrieve
     //static int topK = 40;//2000;
-    //static String evalCollection = "FRUCE.csv";
-    static String evalCollection = "BookingEvalCollection.csv";
+    //static String evalCollection = "webAP.csv";
+    static String evalCollection = "FRUCE_v2.csv";
+    //static String evalCollection = "BookingEvalCollection.csv";
 
     //The paths for the stopWords Files.
     public static String filePath_en = "src/main/resources/stoplists/stopwordsEn.txt";
@@ -96,11 +100,21 @@ public class HotelDemoTestSuit {
         // Create hotel database
         QAInfoBase KB = new QAInfoBase();
 
-        // Retrieve hotels
-        // Uncomment this for hybrid data set
-        //HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
-        // Uncomment this for reviews only data set
-        HashSet<Subject> reviews = KB.getAllSubjectsOfType("hip", "review");
+        HashSet<Subject> hotels = new HashSet<>();
+        HashSet<Subject> reviews = new HashSet<>();
+        int relThreshold = 0;
+
+        if (evalCollection.contains("FRUCE")) {
+            // Retrieve hotels
+            hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+            relThreshold = 0;
+        } else if (evalCollection.contains("webAP")) {
+            System.out.println("KB subject retrieval bypassed.");
+            relThreshold = 2;
+        } else {
+            relThreshold = 0;
+            reviews = KB.getAllSubjectsOfType("hip", "review");
+        }
         timer.end();
         long resourcesTime = timer.getTotalTime();
         System.out.println("Time to load resources: " + resourcesTime);
@@ -111,19 +125,24 @@ public class HotelDemoTestSuit {
         //queryList.add("Has anyone reported a problem about noise?");
         //queryList.add("Is this hotel quiet?");
 
+        ArrayList<Comment> comments = new ArrayList<>();
         // Get all the comments
-        // uncomment this for hybrid data set
-        //ArrayList<Comment> comments = getComments(hotels, KB);
-        // uncomment this for revies only data set
-        ArrayList<Comment> comments = getCommentsFromTextOnlyKB(reviews);
+        if (evalCollection.contains("FRUCE")) {
+            comments = getComments(hotels, KB);
+        } else if (evalCollection.contains("webAP")) {
+            System.out.println("Loading sentences");
+            comments = getCommentsFromWebAP();
+            System.out.println("Loaded sentences");
+        } else {
+            comments = getCommentsFromBooking(reviews);
+        }
 
         // This structure will contain the ground truth relevance between each
         // query and each comment
         HashMap<String, HashMap<String, EvaluationPair>> gt = new HashMap<>();
         gt = readEvaluationSet(evalCollection);
 
-        System.out.println(gt.get("q1").size());
-        System.out.println(gt.get("q2").size());
+        System.out.println("Num of Queries: " + gt.size());
 
         // Retrieve hyperparameters
         ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
@@ -143,25 +162,35 @@ public class HotelDemoTestSuit {
 
         // Instantiate models
         BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments);
+        //WordnetModel wordnetNoHyp = new WordnetModel("Wordnet model No Hypernyms", dict, new ArrayList<>(wordnetResources.subList(0, 2)), comments);
         WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
         Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
+        //WordnetWord2vecModel combinationNoHyp = new WordnetWord2vecModel("Word2vec and WordnetNoHyp", dict, new ArrayList<>(wordnetResources.subList(0, 2)), wm, vec, model_weights, comments);
         WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
+        WordnetWord2vecModel_II combination_II = new WordnetWord2vecModel_II("Word2vec and Wordnet II", dict, wordnetResources, wm, vec, comments);
 
         // Add models to an ArrayList that contains all models to be tested
         ArrayList<Model> models_to_test = new ArrayList<>();
         models_to_test.add(baseline);
+        //models_to_test.add(wordnetNoHyp);
         models_to_test.add(wordnet);
         models_to_test.add(word2vec);
+        //models_to_test.add(combinationNoHyp);
         models_to_test.add(combination);
+        models_to_test.add(combination_II);
 
         // for all models
         for (Model tmp_model : models_to_test) {
-            ModelStats model_stats = new ModelStats(tmp_model);
-            model_stats.evaluate(comments, gt);
+            ModelStats model_stats = new ModelStats(tmp_model.getDescription());
+            System.out.println("Evaluating model");
+            model_stats.evaluate(tmp_model, comments, gt, relThreshold);
+            System.out.println("Evaluated model");
+            //ModelStats model_stats = new ModelStats(tmp_model);
+            //model_stats.evaluate(comments, gt);
 //            model_stats.getAllMetricsBoundedR(1, 33, comments, gt);
 //
-//            Utils.saveObject(model_stats.getScoreSet(), tmp_model.getDescription() + "_ScoreSet");
-//            Utils.saveObject(model_stats.getTestSet(), tmp_model.getDescription() + "_TestSet");
+            Utils.saveObject(model_stats.getScoreSet(), tmp_model.getDescription() + "_ScoreSet");
+            Utils.saveObject(model_stats.getTestSet(), tmp_model.getDescription() + "_TestSet");
 //            Utils.saveObject(model_stats.getAllPrecisions_R(), tmp_model.getDescription() + "_all_Precisions_R");
 //            Utils.saveObject(model_stats.getAllAveps_R(), tmp_model.getDescription() + "_all_Aveps_R");
 //            Utils.saveObject(model_stats.getAllBprefs_R(), tmp_model.getDescription() + "_all_Bprefs_R");

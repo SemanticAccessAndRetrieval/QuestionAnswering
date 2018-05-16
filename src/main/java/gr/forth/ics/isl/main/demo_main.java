@@ -12,12 +12,19 @@ package gr.forth.ics.isl.main;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
+import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
+import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
+import gr.forth.ics.isl.utilities.Utils;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +48,11 @@ public class demo_main {
 
     //Number of top comments to retrieve
     static int topK = 10;
+
+    static String evalFileName = "FRUCE_v2";
+    //static String evalFileName = "webAP";
+    //static String evalFileName = "BookingEvalCollection";
+    static String evalCollection = evalFileName + ".csv";
 
     //The paths for the stopWords Files.
     public static String filePath_en = "src/main/resources/stoplists/stopwordsEn.txt";
@@ -79,6 +91,72 @@ public class demo_main {
         HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
 
         System.out.println("External Resources were loaded successfully");
+
+        // Get all the comments
+        ArrayList<Comment> comments = getComments(hotels, KB);
+
+        // Choose wordnet sources to be used
+        ArrayList<String> wordnetResources = new ArrayList<>();
+        wordnetResources.add("synonyms");
+        wordnetResources.add("antonyms");
+        wordnetResources.add("hypernyms");
+
+        // Retrieve hyperparameters
+        ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
+        float word2vec_w = bestModel.getWord2vecWeight();
+        float wordNet_w = bestModel.getWordNetWeight();
+        // Choose weights to be used in model IV
+        HashMap<String, Float> model_weights = new HashMap<>();
+        model_weights.put("wordnet", wordNet_w);
+        model_weights.put("word2vec", word2vec_w);
+
+        WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
+
+        // This structure will contain the ground truth relevance between each
+        // query and each comment
+        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(evalCollection);
+        int cnt = 0;
+
+        combination.scoreComments("Has anyone reported a problem about cleanliness?");
+        ArrayList<Comment> resultComs = combination.getTopComments(comments.size());
+
+        // Get the ground truth for the current query
+        HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get("q3");
+
+        // for all retrieved comments
+        for (Comment resultCom : resultComs) {
+            // keep truck of comment's true and calculated relevance value
+            // if comment is unjudged skip it
+            EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
+            if (p != null) {
+                if (cnt < 2) {
+                    cnt++;
+                    System.out.println(p.getComment().getText());
+                }
+            }
+        }
+        cnt = 0;
+
+        combination.scoreComments("Is the hotel staff helpful?");
+        resultComs = combination.getTopComments(comments.size());
+
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q6");
+
+        // for all retrieved comments
+        for (Comment resultCom : resultComs) {
+            // keep truck of comment's true and calculated relevance value
+            // if comment is unjudged skip it
+            EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
+            if (p != null) {
+                if (cnt < 2) {
+                    cnt++;
+                    System.out.println(p.getComment().getText());
+                }
+            }
+        }
+        cnt = 0;
+
         /*
         while (true) {
             try {
@@ -222,7 +300,41 @@ public class demo_main {
 
     }
 
-    public static ArrayList<Comment> getCommentsFromTextOnlyKB(HashSet<Subject> reviews) {
+    public static ArrayList<Comment> getCommentsFromWebAP() {
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        String corpusPath = "src/main/resources/corpus/";
+        String csvFile = corpusPath + "webAP.txt";
+
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ";;";
+
+        try {
+
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] comment = line.split(cvsSplitBy);
+
+                String commentId = comment[0];
+                String commentText = comment[1];
+
+                Comment tmpComment = new Comment("", "", commentId, commentText);
+                comments.add(tmpComment);
+
+            }
+
+            return comments;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<Comment> getCommentsFromBooking(HashSet<Subject> reviews) {
         ArrayList<Comment> comments = new ArrayList<>();
 
         for (Subject sub : reviews) {

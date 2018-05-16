@@ -14,7 +14,7 @@ import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationQuery;
 import static gr.forth.ics.isl.main.demo_main.filePath_en;
 import static gr.forth.ics.isl.main.demo_main.filePath_gr;
-import static gr.forth.ics.isl.main.demo_main.getCommentsFromTextOnlyKB;
+import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
@@ -51,7 +51,7 @@ public class EvalCollectionManipulator {
         //Retrieve the available comments
         QAInfoBase KB = new QAInfoBase();
         HashSet<Subject> commentsAsSubs = KB.getAllSubjectsOfType("hip", "review");
-        ArrayList<Comment> comments = getCommentsFromTextOnlyKB((commentsAsSubs));
+        ArrayList<Comment> comments = getCommentsFromBooking((commentsAsSubs));
 
         //Create the list of stopWords to use
         StringUtils.generateStopLists(filePath_en, filePath_gr);
@@ -142,13 +142,14 @@ public class EvalCollectionManipulator {
             // use comma as separator
             String[] tuple = line.split(";;");
 
-            int eval_pair_id = Integer.parseInt(tuple[0]);
+            int eval_pair_id = Integer.parseInt(tuple[0].trim());
+            //System.out.println(eval_pair_id);
             String query_id = tuple[1];
             String query_text = tuple[2];
             String comment_id = tuple[3];
             String comment_text = tuple[4];
             String comment_date = tuple[5];
-            int relevance = Integer.parseInt(tuple[6]);
+            int relevance = Integer.parseInt(tuple[6].trim());
 
             EvaluationQuery evalQuery = new EvaluationQuery(query_id, query_text);
             EvaluationComment evalComment = new EvaluationComment(comment_id, comment_text, comment_date);
@@ -176,10 +177,10 @@ public class EvalCollectionManipulator {
      * @param evalPairsWithQueryId
      * @return
      */
-    public static int getNumOfRels(HashMap<String, EvaluationPair> evalPairsWithQueryId) {
+    public static int getNumOfRels(HashMap<String, EvaluationPair> evalPairsWithQueryId, int relThreshold) {
         int R = 0;
         for (EvaluationPair ep : evalPairsWithQueryId.values()) {
-            if (ep.getRelevance() == 1) {
+            if (ep.getRelevance() > relThreshold) {
                 R++;
             }
         }

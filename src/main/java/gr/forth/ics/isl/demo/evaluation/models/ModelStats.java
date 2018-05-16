@@ -9,11 +9,14 @@
  */
 package gr.forth.ics.isl.demo.evaluation.models;
 
-import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.getNumOfRels;
+import gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator;
 import gr.forth.ics.isl.demo.evaluation.EvaluationMetrics;
 import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import gr.forth.ics.isl.nlp.models.Comment;
+import gr.forth.ics.isl.utilities.Utils;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,40 +27,123 @@ import java.util.HashMap;
  */
 public class ModelStats implements Serializable {
 
-    private Model model;
+    //private Model model;
+    private String description;
     private double Precision_2;
     private double Precision_R;
     private double Recall;
     private double Fallout;
     private double Avep;
     private double Bpref;
+    private double nDCG;
+    private double reciprocalRank;
     ArrayList<Integer> testSet;
     ArrayList<Double> scoreSet;
     ArrayList<Double> all_Precisions_R;
     ArrayList<Double> all_Aveps_R;
     ArrayList<Double> all_Bprefs_R;
+    ArrayList<Double> all_nDCGs_R;
 
+    public ModelStats(String description) {
+        this.description = description;
+    }
+
+    /*
     public ModelStats(Model model) {
         this.model = model;
     }
-
-    public ModelStats(Model model, double Precision_2, double Precision_R, double Avep, double Bpref, double Recall, ArrayList<Integer> testSet, ArrayList<Double> scoreSet) {
+     */
+ /*
+    public ModelStats(Model model, double Precision_2, double Precision_R, double Avep, double Bpref, double Recall, double nDCG, ArrayList<Integer> testSet, ArrayList<Double> scoreSet) {
         this.model = model;
         this.Precision_2 = Precision_2;
         this.Precision_R = Precision_R;
         this.Recall = Recall;
         this.Avep = Avep;
         this.Bpref = Bpref;
+        this.nDCG = nDCG;
         this.testSet = testSet;
         this.scoreSet = scoreSet;
         this.all_Precisions_R = new ArrayList<>();
         this.all_Aveps_R = new ArrayList<>();
         this.all_Bprefs_R = new ArrayList<>();
+    }*/
+    public ModelStats(double Precision_2, double Precision_R, double Avep, double Bpref, double Recall, double nDCG, double reciprocalRank, ArrayList<Integer> testSet, ArrayList<Double> scoreSet) {
+        this.Precision_2 = Precision_2;
+        this.Precision_R = Precision_R;
+        this.Recall = Recall;
+        this.Avep = Avep;
+        this.Bpref = Bpref;
+        this.nDCG = nDCG;
+        this.testSet = testSet;
+        this.scoreSet = scoreSet;
+        this.all_Precisions_R = new ArrayList<>();
+        this.all_Aveps_R = new ArrayList<>();
+        this.all_Bprefs_R = new ArrayList<>();
+        this.all_nDCGs_R = new ArrayList<>();
+        this.reciprocalRank = reciprocalRank;
     }
 
-    public void evaluate(ArrayList<Comment> comments, HashMap<String, HashMap<String, EvaluationPair>> gt) {
+//    public int getNumOfRels(ArrayList<Integer> testSet, int relThreshold) {
+//        int numOfRels = 0;
+//
+//        for (int i = 0; i < testSet.size(); i++) {
+//            if (testSet.get(i) > relThreshold) {
+//                numOfRels++;
+//            }
+//        }
+//        return numOfRels;
+//    }
 
-        int cnt = 1; // query counter
+    public void evaluate2(HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold, String evalFileName) throws IOException, FileNotFoundException, ClassNotFoundException {
+
+        HashMap<String, ArrayList<Integer>> allQueriesTestSet = (HashMap<String, ArrayList<Integer>>) Utils.getSavedObject("results_" + this.description + "_" + evalFileName);
+
+        for (String qID : allQueriesTestSet.keySet()) {
+            // Get the ground truth for the current query
+            HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
+
+            // Set R parameters of evaluation metrics
+            int R2 = 2;
+            int R = EvalCollectionManipulator.getNumOfRels(evalPairsWithCrntQueryId, relThreshold);
+            ArrayList<Integer> testSet = allQueriesTestSet.get(qID);
+
+            //System.out.println("Query: " + qID + "Num of rels: " + R + "Total num of pairs: " + allQueriesTestSet.get(qID).size());
+
+            // Calculate the Precision@2 of our system's answer
+            if (R > R2) {
+                this.Precision_2 += EvaluationMetrics.R_Precision(testSet, R2, relThreshold);
+            }
+            // Calculate the Precision@R (where R is the num of rels) of our system's answer
+            this.Precision_R += EvaluationMetrics.R_Precision(testSet, R, relThreshold);
+            // Calculate the Recall of our system's answer
+            this.Recall += EvaluationMetrics.Recall(testSet, R, R, relThreshold);
+            // Calculate the Fallout of our system's answer
+            //if ((allQueriesTestSet.get(qID).size() - R) > 0) {
+                this.Fallout += EvaluationMetrics.Fallout(testSet, R, allQueriesTestSet.get(qID).size() - R, relThreshold);
+            //}
+            // Calculate the AveP of our system's answer
+            this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+            // Calculate the BPREF of our system's answer
+            this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+            // Calculate the nDCG of our system's answer
+            this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
+            // Calculate the RR of our system's answer
+            this.reciprocalRank += EvaluationMetrics.reciprocalRank(testSet, R, relThreshold);
+        }
+
+        // Calculate mean BPREF, R_Precision, AveP, Bpref and nDCG for all queries
+        this.Precision_2 /= allQueriesTestSet.size();
+        this.Precision_R /= allQueriesTestSet.size();
+        this.Recall /= allQueriesTestSet.size();
+        this.Fallout /= allQueriesTestSet.size();
+        this.Avep /= allQueriesTestSet.size();
+        this.Bpref /= allQueriesTestSet.size();
+        this.nDCG /= allQueriesTestSet.size();
+        this.reciprocalRank /= allQueriesTestSet.size();
+    }
+
+    public void evaluate(Model model, ArrayList<Comment> comments, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold) {
 
         HashMap<String, String> queryList = new HashMap<>();
         for (String query_id : gt.keySet()) {
@@ -74,30 +160,29 @@ public class ModelStats implements Serializable {
         float word2vec_w = 0.0f;
         float wordNet_w = 0.0f;
 
-        if (this.model instanceof WordnetWord2vecModel) {
-            word2vec_w = ((WordnetWord2vecModel) this.model).getModelWeights().get("word2vec");
-            wordNet_w = ((WordnetWord2vecModel) this.model).getModelWeights().get("wordnet");
+        if (model instanceof WordnetWord2vecModel) {
+            word2vec_w = ((WordnetWord2vecModel) model).getModelWeights().get("word2vec");
+            wordNet_w = ((WordnetWord2vecModel) model).getModelWeights().get("wordnet");
         }
 
         //for each query
-        while (cnt <= queryList.size()) {
-
+        for (String qID : queryList.keySet()) {
             // Get the ground truth for the current query
-            HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get("q" + cnt);
+            HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
 
             // Set R parameters of evaluation metrics
             int R2 = 2;
-            int R = getNumOfRels(evalPairsWithCrntQueryId);
-            //System.out.println(R);
+            int R = EvalCollectionManipulator.getNumOfRels(evalPairsWithCrntQueryId, relThreshold);
+            System.out.println("Query: " + qID + "Num of rels: " + R + "Total num of pairs: " + evalPairsWithCrntQueryId.size());
 
             // init test set for the current query
             testSet = new ArrayList<>();
 
             //Get the user's question
-            String question = queryList.get("q" + cnt);
+            String question = queryList.get(qID);
 
-            this.model.scoreComments(question);
-            ArrayList<Comment> rankedComments = this.model.getTopComments(comments.size());
+            model.scoreComments(question);
+            ArrayList<Comment> rankedComments = model.getTopComments(comments.size());
             //Retrieve the relevant comments
             //ArrayList<Comment> rankedComments = getTopkRelevantComments(comments, word2vec_w, wordNet_w, question, wm, vec, dict);
 
@@ -107,128 +192,109 @@ public class ModelStats implements Serializable {
                 // if comment is unjudged skip it
                 EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
                 if (p != null) {
-                    testSet.add(p.getRelevance()); // true binarry relevance
+                    if (resultCom.getScore() > 0.0f) {
+                        testSet.add(p.getRelevance()); // true binarry relevance
+                        //System.out.println(p.getRelevance() + ", " + resultCom.getId());
+                        //System.out.println(p.getComment().getId() + " -- " + resultCom.getId());
+                    } else {
+                        testSet.add(0); // true binarry relevance
+                    }
 
-                    //System.out.println(p.getRelevance() + ", " + resultCom.getId());
-                    //System.out.println(p.getComment().getId() + " -- " + resultCom.getId());
-                    // keep truck of all (ci,qi) pairs relevance
-                    this.testSet.add(p.getRelevance());
-                    this.scoreSet.add(resultCom.getScore());
+                    this.testSet.add(p.getRelevance()); // keep truck of all (ci,qi) pairs true relevance
+                    this.scoreSet.add(resultCom.getScore()); // keep truck of all (ci,qi) pairs calc relevance
                 }
             }
 
-            cnt++; // go to the next query
-
-            // Calculate the R_Precision of our system's answer
-            this.Precision_2 += EvaluationMetrics.R_Precision(testSet, R2);
-            this.Precision_R += EvaluationMetrics.R_Precision(testSet, R);
-            this.Recall += EvaluationMetrics.Recall(testSet, R, R);
-            this.Fallout += EvaluationMetrics.Fallout(testSet, R, Math.abs(evalPairsWithCrntQueryId.size() - R));
+            // Calculate the Precision@2 of our system's answer
+            if (R > R2) {
+                this.Precision_2 += EvaluationMetrics.R_Precision(testSet, R2, relThreshold);
+            }
+            // Calculate the Precision@R (where R is the num of rels) of our system's answer
+            this.Precision_R += EvaluationMetrics.R_Precision(testSet, R, relThreshold);
+            // Calculate the Recall of our system's answer
+            this.Recall += EvaluationMetrics.Recall(testSet, R, R, relThreshold);
+            // Calculate the Fallout of our system's answer
+            if ((evalPairsWithCrntQueryId.size() - R) > 0) {
+                this.Fallout += EvaluationMetrics.Fallout(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
+            }
             // Calculate the AveP of our system's answer
-            this.Avep += EvaluationMetrics.AVEP(testSet, R);
+            this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
             // Calculate the BPREF of our system's answer
-            this.Bpref += EvaluationMetrics.BPREF(testSet, R);
+            this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+
+            // Calculate the nDCG of our system's answer
+            this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
+
+            this.reciprocalRank += EvaluationMetrics.reciprocalRank(testSet, R, relThreshold);
         }
 
-        // Calculate mean BPREF, R_Precision and AveP for all queries
+        // Calculate mean BPREF, R_Precision, AveP, Bpref and nDCG for all queries
         this.Precision_2 /= queryList.size();
         this.Precision_R /= queryList.size();
         this.Recall /= queryList.size();
+        this.Fallout /= queryList.size();
         this.Avep /= queryList.size();
         this.Bpref /= queryList.size();
-
+        this.nDCG /= queryList.size();
+        this.reciprocalRank /= queryList.size();
         //System.out.println(this);
     }
 
-    public void getAllMetricsBoundedR(int lowerBound, int upperBound, ArrayList<Comment> comments, HashMap<String, HashMap<String, EvaluationPair>> gt) {
-        int cnt = 1; // query counter
+    public void getAllMetricsBoundedR(int lowerBound, int upperBound, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold, String evalFileName) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         this.all_Precisions_R = new ArrayList<>();
         this.all_Aveps_R = new ArrayList<>();
         this.all_Bprefs_R = new ArrayList<>();
-
-        HashMap<String, String> queryList = new HashMap<>();
-        for (String query_id : gt.keySet()) {
-            HashMap<String, EvaluationPair> evalPairs = gt.get(query_id);
-            queryList.put(query_id, evalPairs.values().iterator().next().getQuery().getText());
-        }
-
-        ArrayList<Integer> testSet; // true binary relevance for a query
-        ArrayList<Double> crntCompRelevance = new ArrayList<>(); // floating point relevance calculated for a query
-
-        this.testSet = new ArrayList<>(); // true binary relevance for all queries
-        this.scoreSet = new ArrayList<>(); // floating point relevance calculated for all queries
-
-        float word2vec_w = 0.0f;
-        float wordNet_w = 0.0f;
-
-        if (this.model instanceof WordnetWord2vecModel) {
-            word2vec_w = ((WordnetWord2vecModel) this.model).getModelWeights().get("word2vec");
-            wordNet_w = ((WordnetWord2vecModel) this.model).getModelWeights().get("wordnet");
-        }
+        this.all_nDCGs_R = new ArrayList<>();
+        HashMap<String, ArrayList<Integer>> allQueriesTestSet = (HashMap<String, ArrayList<Integer>>) Utils.getSavedObject("results_" + this.description + "_" + evalFileName);
 
         for (int R = lowerBound; R <= upperBound; R++) {
             Double tmp_Precision_R = 0.0;
             Double tmp_Avep_R = 0.0;
             Double tmp_Bpref_R = 0.0;
+            Double tmp_nDCG_R = 0.0;
+            int outOfEval = 0;
 
             //for each query
-            while (cnt <= queryList.size()) {
+            for (String qID : allQueriesTestSet.keySet()) {
 
                 // Get the ground truth for the current query
-                HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get("q" + cnt);
-                if (R > getNumOfRels(evalPairsWithCrntQueryId)) {
-                    break;
+                HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
+                if (R > EvalCollectionManipulator.getNumOfRels(evalPairsWithCrntQueryId, relThreshold)) {
+                    outOfEval++;
+                    continue;
                 }
 
                 // init test set for the current query
-                testSet = new ArrayList<>();
-
-                //Get the user's question
-                String question = queryList.get("q" + cnt);
-
-                this.model.scoreComments(question);
-                ArrayList<Comment> rankedComments = this.model.getTopComments(comments.size());
-                //Retrieve the relevant comments
-                //ArrayList<Comment> rankedComments = getTopkRelevantComments(comments, word2vec_w, wordNet_w, question, wm, vec, dict);
-
-                // for all retrieved comments
-                for (Comment resultCom : rankedComments) {
-                    // keep truck of comment's true and calculated relevance value
-                    // if comment is unjudged skip it
-                    EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
-                    if (p != null) {
-                        testSet.add(p.getRelevance()); // true binarry relevance
-
-                        //System.out.println(p.getRelevance() + ", " + resultCom.getId());
-                        //System.out.println(p.getComment().getId() + " -- " + resultCom.getId());
-                        // keep truck of all (ci,qi) pairs relevance
-                        this.testSet.add(p.getRelevance());
-                        this.scoreSet.add(resultCom.getScore());
-                    }
-                }
-
-                cnt++; // go to the next query
+                ArrayList<Integer> testSet = allQueriesTestSet.get(qID);
 
                 // Calculate the R_Precision of our system's answer
-                tmp_Precision_R += EvaluationMetrics.R_Precision(testSet, R);
+                tmp_Precision_R += EvaluationMetrics.R_Precision(testSet, R, relThreshold);
                 // Calculate the AveP of our system's answer
-                tmp_Avep_R += EvaluationMetrics.AVEP(testSet, R);
+                tmp_Avep_R += EvaluationMetrics.AVEP(testSet, R, relThreshold);
                 // Calculate the BPREF of our system's answer
-                tmp_Bpref_R += EvaluationMetrics.BPREF(testSet, R);
+                tmp_Bpref_R += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+                // Calculate the nDCG of our system's answer
+                tmp_nDCG_R += EvaluationMetrics.AVEP(testSet, R, relThreshold);
             }
 
+            int normFactor = allQueriesTestSet.size() - outOfEval;
+            System.out.println("Num of Queries: " + normFactor);
             // Calculate mean BPREF, R_Precision and AveP for all queries
-            all_Precisions_R.add(tmp_Precision_R /= queryList.size());
-            all_Aveps_R.add(tmp_Avep_R /= queryList.size());
-            all_Bprefs_R.add(tmp_Bpref_R /= queryList.size());
-
-            cnt = 1;
+            all_Precisions_R.add(tmp_Precision_R /= normFactor);
+            all_Aveps_R.add(tmp_Avep_R /= normFactor);
+            all_Bprefs_R.add(tmp_Bpref_R /= normFactor);
+            all_nDCGs_R.add(tmp_nDCG_R /= normFactor);
         }
     }
 
+    /*
     public Model getModel() {
         return this.model;
+    }
+     */
+    public ArrayList<Double> getAllnDCSs_R() {
+        return this.all_nDCGs_R;
     }
 
     public ArrayList<Double> getAllPrecisions_R() {
@@ -259,6 +325,10 @@ public class ModelStats implements Serializable {
         return this.Bpref;
     }
 
+    public double getNDCG() {
+        return this.nDCG;
+    }
+
     public ArrayList<Integer> getTestSet() {
         return this.testSet;
     }
@@ -267,10 +337,15 @@ public class ModelStats implements Serializable {
         return this.scoreSet;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    /*
     public void setModel(Model model) {
         this.model = model;
     }
-
+     */
     public void setPrecision_2(double Precision_2) {
         this.Precision_2 = Precision_2;
     }
@@ -287,14 +362,19 @@ public class ModelStats implements Serializable {
         this.Bpref = Bpref;
     }
 
+    public void setNDCG(double nDCG) {
+        this.nDCG = nDCG;
+    }
+
     public void setTestSet(ArrayList<Integer> testSet) {
         this.testSet = testSet;
     }
 
-    public void getScoreSet(ArrayList<Double> scoreSet) {
+    public void setScoreSet(ArrayList<Double> scoreSet) {
         this.scoreSet = scoreSet;
     }
 
+    /*
     @Override
     public String toString() {
         if (this.model instanceof WordnetWord2vecModel) {
@@ -308,6 +388,7 @@ public class ModelStats implements Serializable {
                     + "Fallout: " + this.Fallout + "\n"
                     + "Avep: " + this.Avep + "\n"
                     + "Bpref: " + this.Bpref + "\n"
+                    + "nDCG: " + this.nDCG + "\n"
                     + "Test Set:  " + this.testSet + "\n"
                     + "Score Set: " + this.scoreSet;
         } else {
@@ -318,9 +399,28 @@ public class ModelStats implements Serializable {
                     + "Fallout: " + this.Fallout + "\n"
                     + "Avep: " + this.Avep + "\n"
                     + "Bpref: " + this.Bpref + "\n"
+                    + "nDCG: " + this.nDCG + "\n"
                     + "Test Set:  " + this.testSet + "\n"
                     + "Score Set: " + this.scoreSet;
         }
     }
-
+     */
+    @Override
+    public String toString() {
+        return "Model: " + this.description + "\n"
+                + "Precision_2: " + this.Precision_2 + "\n"
+                + "Precision_R: " + this.Precision_R + "\n"
+                + "Recall: " + this.Recall + "\n"
+                + "Fallout: " + this.Fallout + "\n"
+                + "Avep: " + this.Avep + "\n"
+                + "Bpref: " + this.Bpref + "\n"
+                + "nDCG: " + this.nDCG + "\n"
+                + "MRR: " + this.reciprocalRank + "\n"
+                + "Test Set:  " + this.testSet + "\n"
+                + "Score Set: " + this.scoreSet + "\n"
+                + "Avep untill R: " + this.all_Aveps_R + "\n"
+                + "Bpref untill R: " + this.all_Bprefs_R + "\n"
+                + "Precision untill R: " + this.all_Precisions_R + "\n"
+                + "nDCG untill R: " + this.all_nDCGs_R + "\n";
+    }
 }

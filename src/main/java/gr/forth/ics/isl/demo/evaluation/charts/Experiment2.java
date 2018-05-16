@@ -29,20 +29,23 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
+ * Experiment 1: We plot the data as a function of (floating point) estimated
+ * and true (binary) relevance to see how well, each model, can classify the
+ * reviews.
  *
  * @author Sgo
  */
 public class Experiment2 extends JFrame {
 
-    public Experiment2(String title, ArrayList<String> allModelsNames, String evalMetric) throws IOException, FileNotFoundException, ClassNotFoundException {
+    public Experiment2(String title, String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
         super(title);
 
         // Create dataset
-        XYDataset dataset = createDataset(allModelsNames, evalMetric);
+        XYDataset dataset = createDataset(modelName);
 
         // Create chart
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                evalMetric,
+        JFreeChart chart = ChartFactory.createScatterPlot(
+                modelName,
                 "True Binary Relevance", "Estimated Relevance", dataset, PlotOrientation.VERTICAL,
                 true, true, false);
 
@@ -55,35 +58,25 @@ public class Experiment2 extends JFrame {
         setContentPane(panel);
     }
 
-    private XYDataset createDataset(ArrayList<String> allModelsNames, String evalMetric) throws IOException, FileNotFoundException, ClassNotFoundException {
-
+    private XYDataset createDataset(String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        ArrayList<Double> model_data;
 
-        // for all models
-        for (String modelName : allModelsNames) {
+        ArrayList<Double> model_ScoreSet = (ArrayList<Double>) Utils.getSavedObject(modelName + "_ScoreSet");
+        ArrayList<Integer> model_TestSet = (ArrayList<Integer>) Utils.getSavedObject(modelName + "_TestSet");
 
-            // get specified data
-            if (evalMetric.equals("Precision_R")) {
-                model_data = (ArrayList<Double>) Utils.getSavedObject(modelName + "_all_Precisions_R");
-            } else if (evalMetric.equals("Avep")) {
-                model_data = (ArrayList<Double>) Utils.getSavedObject(modelName + "_all_Aveps_R");
-            } else if (evalMetric.equals("Bpref")) {
-                model_data = (ArrayList<Double>) Utils.getSavedObject(modelName + "_all_Bprefs_R");
+        XYSeries seriesRel = new XYSeries("Relevant");
+        XYSeries seriesIrel = new XYSeries("Irelevant");
+
+        for (int i = 0; i < model_TestSet.size(); i++) {
+            if (model_TestSet.get(i).equals(0)) {
+                seriesIrel.add(model_TestSet.get(i), model_ScoreSet.get(i));
             } else {
-                return null;
+                seriesRel.add(model_TestSet.get(i), model_ScoreSet.get(i));
             }
-
-            // create data series
-            XYSeries series = new XYSeries(modelName);
-
-            for (int i = 0; i < model_data.size(); i++) {
-                series.add(i + 1, model_data.get(i));
-            }
-
-            // create dataset
-            dataset.addSeries(series);
         }
+
+        dataset.addSeries(seriesRel);
+        dataset.addSeries(seriesIrel);
 
         return dataset;
     }
@@ -91,38 +84,52 @@ public class Experiment2 extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                // ArrayList for all models to be ploted
-                ArrayList<String> allModelsNames = new ArrayList<>();
-                allModelsNames.add("Baseline model (Jaccard Similarity)");
-                allModelsNames.add("Wordnet model");
-                allModelsNames.add("Word2vec model");
-                allModelsNames.add("Word2vec and Wordnet");
+                Experiment2 baseline = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Baseline model (Jaccard Similarity)");
+                baseline.setSize(800, 400);
+                baseline.setLocationRelativeTo(null);
+                baseline.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                baseline.setVisible(true);
 
-                // Precision chart
-                Experiment2 Precision = new Experiment2("Precision over different R cut-offs", allModelsNames, "Precision_R");
-                Precision.setSize(800, 400);
-                Precision.setLocationRelativeTo(null);
-                Precision.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                Precision.setVisible(true);
+//                Experiment2 wordnetNoHyp = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Wordnet model No Hypernyms");
+//                wordnetNoHyp.setSize(800, 400);
+//                wordnetNoHyp.setLocationRelativeTo(null);
+//                wordnetNoHyp.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//                wordnetNoHyp.setVisible(true);
 
-                // Avep chart
-                Experiment2 Avep = new Experiment2("Avep over different R cut-offs", allModelsNames, "Avep");
-                Avep.setSize(800, 400);
-                Avep.setLocationRelativeTo(null);
-                Avep.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                Avep.setVisible(true);
+                Experiment2 wordnet = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Wordnet model");
+                wordnet.setSize(800, 400);
+                wordnet.setLocationRelativeTo(null);
+                wordnet.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                wordnet.setVisible(true);
 
-                // Bpref chart
-                Experiment2 Bpref = new Experiment2("Bpref over different R cut-offs", allModelsNames, "Bpref");
-                Bpref.setSize(800, 400);
-                Bpref.setLocationRelativeTo(null);
-                Bpref.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                Bpref.setVisible(true);
+                Experiment2 word2vec = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec model");
+                word2vec.setSize(800, 400);
+                word2vec.setLocationRelativeTo(null);
+                word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                word2vec.setVisible(true);
+
+//                Experiment2 wordnetNoHyp_word2vec = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and WordnetNoHyp");
+//                wordnetNoHyp_word2vec.setSize(800, 400);
+//                wordnetNoHyp_word2vec.setLocationRelativeTo(null);
+//                wordnetNoHyp_word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//                wordnetNoHyp_word2vec.setVisible(true);
+
+                Experiment2 wordnet_word2vec = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and Wordnet");
+                wordnet_word2vec.setSize(800, 400);
+                wordnet_word2vec.setLocationRelativeTo(null);
+                wordnet_word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                wordnet_word2vec.setVisible(true);
+
+                Experiment2 wordnet_word2vec_II = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and Wordnet II");
+                wordnet_word2vec_II.setSize(800, 400);
+                wordnet_word2vec_II.setLocationRelativeTo(null);
+                wordnet_word2vec_II.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                wordnet_word2vec_II.setVisible(true);
 
             } catch (IOException ex) {
-                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Experiment2.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Experiment2.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

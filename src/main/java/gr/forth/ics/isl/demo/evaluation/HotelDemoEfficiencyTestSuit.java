@@ -18,7 +18,6 @@ import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.Word2vecModel;
 import gr.forth.ics.isl.demo.models.WordnetModel;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
-import static gr.forth.ics.isl.main.demo_main.getCommentsFromTextOnlyKB;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
@@ -36,6 +35,7 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
+import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
 
 /**
  *
@@ -142,7 +142,7 @@ public class HotelDemoEfficiencyTestSuit {
         // Retrieve hotels
         HashSet<Subject> reviews = KB.getAllSubjectsOfType("hip", "review");
 
-        ArrayList<Comment> comments = getCommentsFromTextOnlyKB(reviews);
+        ArrayList<Comment> comments = getCommentsFromBooking(reviews);
         all_comments = comments;
         timer.end();
         long resourcesTime = timer.getTotalTime();

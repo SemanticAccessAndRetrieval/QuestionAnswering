@@ -12,10 +12,16 @@ package gr.forth.ics.isl.demo.models;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.POS;
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.getNumOfRels;
+import gr.forth.ics.isl.demo.evaluation.EvaluationMetrics;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
+import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.nlp.NlpAnalyzer;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.utilities.StringUtils;
+import gr.forth.ics.isl.utilities.Utils;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +40,7 @@ public class WordnetWord2vecModel extends Model {
     private final Word2Vec w2_vector;
     private IDictionary dictionary;
     private ArrayList<String> resourcesToRetrieve;
-    private final HashMap<String, Float> modelWeights;
+    private HashMap<String, Float> modelWeights;
     private double maxWMD = 0.0;
 
     public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments) {
@@ -73,6 +79,10 @@ public class WordnetWord2vecModel extends Model {
 
     public HashMap<String, Float> getModelWeights() {
         return this.modelWeights;
+    }
+
+    public void setModelWeights(HashMap<String, Float> modelWeights) {
+        this.modelWeights = modelWeights;
     }
 
     public void setWordMovers(WordMovers wm) {
@@ -126,24 +136,24 @@ public class WordnetWord2vecModel extends Model {
         double distance = 0.0;
 
         ArrayList<String> querySet = NlpAnalyzer.getCleanTokens(query);
-        String queryClean = "";
+        ArrayList<String> querySetClean = new ArrayList<>();
         //Filter query words not contained in word2vec vocabulary
         for (String queryTerm : querySet) {
             if (vec.hasWord(queryTerm)) {
-                queryClean += " " + queryTerm;
+                querySetClean.add(queryTerm);
             }
         }
 
         ArrayList<String> commentSet = NlpAnalyzer.getCleanTokens(text);
-        String commentClean = "";
+        ArrayList<String> commentSetClean = new ArrayList<>();
         //Filter comment words not contained in word2vec vocabulary
         for (String commentTerm : commentSet) {
             if (vec.hasWord(commentTerm)) {
-                commentClean += " " + commentTerm;
+                commentSetClean.add(commentTerm);
             }
         }
         try {
-            distance = wm.distance(commentClean, queryClean);
+            distance = wm.distance(commentSetClean.toArray(new String[0]), querySetClean.toArray(new String[0]));
 
         } catch (Exception e) {
             //System.out.println("Comment: " + commentClean);
@@ -258,6 +268,109 @@ public class WordnetWord2vecModel extends Model {
 
         return (wordnet_w * wordnetScore + word2vec_w * word2vecScore);
 
+    }
+
+    public ModelHyperparameters train(HashMap<String, HashMap<String, EvaluationPair>> gt, ArrayList<String> wordnetResources,
+            HashMap<String, Float> model_weights, int relThreshold) {
+        ModelHyperparameters bestModel = null;
+
+        // Create a List of queries
+        HashMap<String, String> queryList = new HashMap<>();
+        for (String query_id : gt.keySet()) {
+            HashMap<String, EvaluationPair> evalPairs = gt.get(query_id);
+            queryList.put(query_id, evalPairs.values().iterator().next().getQuery().getText());
+        }
+
+        System.out.println(gt.get("q1").size());
+        System.out.println(gt.get("q2").size());
+
+        for (float word2vec_w = 0.0f; word2vec_w <= 1.0f; word2vec_w = word2vec_w + 0.1f) {
+            for (float wordNet_w = 0.0f; wordNet_w <= 1.0f; wordNet_w = wordNet_w + 0.1f) {
+
+                word2vec_w = Math.round(word2vec_w * 10.0f) / 10.0f;
+                wordNet_w = Math.round(wordNet_w * 10.0f) / 10.0f;
+
+                if (word2vec_w + wordNet_w != 1.0f) {
+                    continue;
+                }
+
+                model_weights = new HashMap<>();
+                model_weights.put("wordnet", wordNet_w);
+                model_weights.put("word2vec", word2vec_w);
+                WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", this.getDictionary(), wordnetResources, this.getWordMovers(), this.getWord2Vec(), model_weights, this.getComments());
+
+                double AVEP = 0.0; // Avep
+                ArrayList<Integer> testSet = new ArrayList<>(); // true binary relevance for a query
+
+                //for each query
+                for (String qID : queryList.keySet()) {
+                    // Get the ground truth for the current query
+                    HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
+                    int R = getNumOfRels(evalPairsWithCrntQueryId, relThreshold);
+                    System.out.println(R);
+
+                    // init test set for the current query
+                    testSet = new ArrayList<>();
+
+                    //Get the user's question
+                    String question = queryList.get(qID);
+
+                    System.out.println("========================");
+
+                    //Print the weights for the scoring
+                    System.out.println("word2vec weight: " + word2vec_w);
+                    System.out.println("wordNet weight: " + wordNet_w);
+
+                    combination.scoreComments(question);
+                    ArrayList<Comment> rankedComments = combination.getTopComments(this.getComments().size());
+
+                    // for all retrieved comments
+                    for (Comment resultCom : rankedComments) {
+                        // keep truck of comment's true and calculated relevance value
+                        // if comment is unjudged skip it
+                        EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
+                        if (p != null) {
+                            testSet.add(p.getRelevance()); // true binarry relevance
+
+                            //System.out.println(p.getRelevance() + ", " + resultCom.getText());
+                            //System.out.println(p.getComment().getId() + " -- " + resultCom.getId());
+                        }
+                    }
+
+                    //System.out.println(testSet); // print test set with the order of result set
+                    // Calculate the AveP of our system's answer
+                    AVEP += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+
+                }
+                // Calculate mean AveP for all queries
+                AVEP /= queryList.size();
+                System.out.println(AVEP);
+
+                // Add mean Avep score to the current model
+                ModelHyperparameters crntModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+
+                if (bestModel == null) {
+                    bestModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+                } else if (crntModel.compareTo(bestModel) > 0) {
+                    bestModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+                }
+            }
+        }
+
+        HashMap<String, Float> modelWeights = new HashMap<>();
+        modelWeights.put("wordnet", bestModel.getWordNetWeight());
+        modelWeights.put("word2vec", bestModel.getWord2vecWeight());
+        this.setModelWeights(modelWeights);
+
+        System.out.println("=== Best Performing Model ===");
+        System.out.println(bestModel);
+
+        return bestModel;
+    }
+
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
+        ModelHyperparameters model = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
+        System.out.println(model);
     }
 
 }

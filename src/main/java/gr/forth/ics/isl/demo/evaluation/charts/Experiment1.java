@@ -9,109 +9,86 @@
  */
 package gr.forth.ics.isl.demo.evaluation.charts;
 
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
+import gr.forth.ics.isl.demo.evaluation.models.ModelStats;
 import gr.forth.ics.isl.utilities.Utils;
-import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import java.util.HashMap;
 
 /**
- * Experiment 1: We plot the data as a function of (floating point) estimated
- * and true (binary) relevance to see how well, each model, can classify the
- * reviews.
  *
  * @author Sgo
  */
-public class Experiment1 extends JFrame {
 
-    public Experiment1(String title, String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
-        super(title);
 
-        // Create dataset
-        XYDataset dataset = createDataset(modelName);
+public class Experiment1 {
 
-        // Create chart
-        JFreeChart chart = ChartFactory.createScatterPlot(
-                modelName,
-                "True Binary Relevance", "Estimated Relevance", dataset, PlotOrientation.VERTICAL,
-                true, true, false);
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
-        //Changes background color
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setBackgroundPaint(new Color(255, 228, 196));
+        //String collectionName = "FRUCE_v2";
+        //String collectionName = "BookingEvalCollection";
+        String collectionName = "webAP";
 
-        // Create Panel
-        ChartPanel panel = new ChartPanel(chart);
-        setContentPane(panel);
-    }
+        int relThreshold = 0;
+        int R = 10;
 
-    private XYDataset createDataset(String modelName) throws IOException, FileNotFoundException, ClassNotFoundException {
-        XYSeriesCollection dataset = new XYSeriesCollection();
-
-        ArrayList<Double> model_ScoreSet = (ArrayList<Double>) Utils.getSavedObject(modelName + "_ScoreSet");
-        ArrayList<Integer> model_TestSet = (ArrayList<Integer>) Utils.getSavedObject(modelName + "_TestSet");
-
-        XYSeries seriesRel = new XYSeries("Relevant");
-        XYSeries seriesIrel = new XYSeries("Irelevant");
-
-        for (int i = 0; i < model_TestSet.size(); i++) {
-            if (model_TestSet.get(i).equals(0)) {
-                seriesIrel.add(model_TestSet.get(i), model_ScoreSet.get(i));
-            } else {
-                seriesRel.add(model_TestSet.get(i), model_ScoreSet.get(i));
-            }
+        if (collectionName.contains("FRUCE")) {
+            relThreshold = 0;
+        } else if (collectionName.contains("webAP")) {
+            relThreshold = 1;
+        } else {
+            relThreshold = 0;
         }
 
-        dataset.addSeries(seriesRel);
-        dataset.addSeries(seriesIrel);
+        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(collectionName + ".csv");
 
-        return dataset;
-    }
+        ModelStats baseline = new ModelStats("Baseline model (Jaccard Similarity)");
+        baseline.evaluate2(gt, relThreshold, collectionName);
+        baseline.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(baseline.getAllPrecisions_R(), baseline.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(baseline.getAllAveps_R(), baseline.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(baseline.getAllBprefs_R(), baseline.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(baseline.getAllnDCSs_R(), baseline.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(baseline + "\n");
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                Experiment1 baseline = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Baseline model (Jaccard Similarity)");
-                baseline.setSize(800, 400);
-                baseline.setLocationRelativeTo(null);
-                baseline.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                baseline.setVisible(true);
+        ModelStats Wordnet = new ModelStats("Wordnet model");
+        Wordnet.evaluate2(gt, relThreshold, collectionName);
+        Wordnet.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Wordnet.getAllPrecisions_R(), Wordnet.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Wordnet.getAllAveps_R(), Wordnet.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Wordnet.getAllBprefs_R(), Wordnet.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Wordnet.getAllnDCSs_R(), Wordnet.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Wordnet + "\n");
 
-                Experiment1 wordnet = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Wordnet model");
-                wordnet.setSize(800, 400);
-                wordnet.setLocationRelativeTo(null);
-                wordnet.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                wordnet.setVisible(true);
+        ModelStats Word2vec = new ModelStats("Word2vec model");
+        Word2vec.evaluate2(gt, relThreshold, collectionName);
+        Word2vec.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vec.getAllPrecisions_R(), Word2vec.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vec.getAllAveps_R(), Word2vec.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vec.getAllBprefs_R(), Word2vec.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vec.getAllnDCSs_R(), Word2vec.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vec + "\n");
 
-                Experiment1 word2vec = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec model");
-                word2vec.setSize(800, 400);
-                word2vec.setLocationRelativeTo(null);
-                word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                word2vec.setVisible(true);
+        ModelStats Word2vecWordnet = new ModelStats("Word2vec and Wordnet");
+        Word2vecWordnet.evaluate2(gt, relThreshold, collectionName);
+        Word2vecWordnet.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vecWordnet.getAllPrecisions_R(), Word2vecWordnet.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet.getAllAveps_R(), Word2vecWordnet.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet.getAllBprefs_R(), Word2vecWordnet.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet.getAllnDCSs_R(), Word2vecWordnet.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vecWordnet + "\n");
 
-                Experiment1 wordnet_word2vec = new Experiment1("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and Wordnet");
-                wordnet_word2vec.setSize(800, 400);
-                wordnet_word2vec.setLocationRelativeTo(null);
-                wordnet_word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                wordnet_word2vec.setVisible(true);
-            } catch (IOException ex) {
-                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Experiment1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+//        ModelStats Word2vecWordnet_II = new ModelStats("Word2vec and Wordnet II");
+//        Word2vecWordnet_II.evaluate2(gt, relThreshold, collectionName);
+//        Word2vecWordnet_II.getAllMetricsBoundedR(1, 10, gt, relThreshold, collectionName);
+//        Utils.saveObject(Word2vecWordnet_II.getAllPrecisions_R(), Word2vecWordnet_II.getDescription() + "_all_Precisions_R_" + collectionName);
+//        Utils.saveObject(Word2vecWordnet_II.getAllAveps_R(), Word2vecWordnet_II.getDescription() + "_all_Aveps_R_" + collectionName);
+//        Utils.saveObject(Word2vecWordnet_II.getAllBprefs_R(), Word2vecWordnet_II.getDescription() + "_all_Bprefs_R_" + collectionName);
+//        Utils.saveObject(Word2vecWordnet_II.getAllnDCSs_R(), Word2vecWordnet_II.getDescription() + "_all_nDCGs_R_" + collectionName);
+//        System.out.println(Word2vecWordnet_II + "\n");
+
+
     }
 }
