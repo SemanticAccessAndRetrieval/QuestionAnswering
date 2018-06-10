@@ -17,7 +17,7 @@ import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEva
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.demo.models.Model;
-import gr.forth.ics.isl.demo.models.WordnetWord2vecModel_II;
+import gr.forth.ics.isl.demo.models.Word2vecModel_II;
 import static gr.forth.ics.isl.main.demo_main.getComments;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromWebAP;
@@ -46,8 +46,8 @@ import org.openrdf.repository.RepositoryException;
  */
 public class HotelDemoTestSuit2 {
 
-    //static String evalFileName = "FRUCE_v2";
-    static String evalFileName = "webAP";
+    static String evalFileName = "FRUCE_v2";
+    //static String evalFileName = "webAP";
     //static String evalFileName = "BookingEvalCollection";
     static String evalCollection = evalFileName + ".csv";
 
@@ -148,6 +148,14 @@ public class HotelDemoTestSuit2 {
 ////        System.out.println(stats);
 //        wordnet = null;
 
+//        WordnetModel_II wordnet_II = new WordnetModel_II("Wordnet model II", dict, wordnetResources, comments);
+//        produceResults(wordnet_II, queryList, gt, relThreshold); // produce result set of model
+//        //printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(wordnet.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        wordnet_II = null;
+
         // Create Word2Vec model
         timer.start();
         File gModel = new File("C:/Users/Sgo/Desktop/Developer/Vector Models/GoogleNews-vectors-negative300.bin.gz");
@@ -174,13 +182,13 @@ public class HotelDemoTestSuit2 {
 ////        System.out.println(stats);
 //        combination = null;
 
-        WordnetWord2vecModel_II combination_II = new WordnetWord2vecModel_II("Word2vec and Wordnet II", dict, wordnetResources, wm, vec, comments);
-        produceResults(combination_II, queryList, gt, relThreshold); // produce result set of model
-        //printResults(baseline.getDescription()); // print results
-//        stats = new ModelStats(combination_II.getDescription());
-//        stats.evaluate2(gt, relThreshold, evalFileName);
-//        System.out.println(stats);
-        combination_II = null;
+//        WordnetWord2vecModel_II combination_II = new WordnetWord2vecModel_II("Word2vec and Wordnet II", dict, wordnetResources, wm, vec, comments);
+//        produceResults(combination_II, queryList, gt, relThreshold); // produce result set of model
+////        printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(combination_II.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        combination_II = null;
 
         dict = null;
 
@@ -191,6 +199,14 @@ public class HotelDemoTestSuit2 {
 ////        stats.evaluate2(gt, relThreshold, evalFileName);
 ////        System.out.println(stats);
 //        word2vec = null;
+
+        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model II", wm, vec, comments);
+        produceResults(word2vec_II, queryList, gt, relThreshold); // produce result set of model
+        //printResults(baseline.getDescription()); // print results
+//        stats = new ModelStats(word2vec.getDescription());
+//        stats.evaluate2(gt, relThreshold, evalFileName);
+//        System.out.println(stats);
+        word2vec_II = null;
 
     }
 

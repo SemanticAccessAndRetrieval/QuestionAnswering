@@ -133,7 +133,7 @@
         <dependency>
             <groupId>wmd4j</groupId>
             <artifactId>wmd4j</artifactId>
-            <version>1</version>
+            <version>sar.version</version>
             <type>jar</type>
         </dependency>
         

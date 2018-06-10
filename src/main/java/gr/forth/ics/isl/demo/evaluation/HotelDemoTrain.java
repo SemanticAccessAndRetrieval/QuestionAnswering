@@ -118,28 +118,26 @@ public class HotelDemoTrain {
         ArrayList<String> wordnetResources = new ArrayList<>();
         wordnetResources.add("synonyms");
 
-        WordnetWord2vecModel modelNoHypNoAnt = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        ModelHyperparameters bestModel_NoHyp_NoAnt = modelNoHypNoAnt.train(gt, wordnetResources, model_weights, relThreshold);
+//        WordnetWord2vecModel modelNoHypNoAnt = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
+//        ModelHyperparameters bestModel_NoHyp_NoAnt = modelNoHypNoAnt.train(gt, wordnetResources, model_weights, relThreshold);
 
         wordnetResources.add("antonyms");
 
-        WordnetWord2vecModel modelNoHyp = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        ModelHyperparameters bestModel_NoHyp = modelNoHyp.train(gt, wordnetResources, model_weights, relThreshold);
+//        WordnetWord2vecModel modelNoHyp = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
+//        ModelHyperparameters bestModel_NoHyp = modelNoHyp.train(gt, wordnetResources, model_weights, relThreshold);
 
         wordnetResources.add("hypernyms");
         WordnetWord2vecModel model = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        ModelHyperparameters bestModel = model.train(gt, wordnetResources, model_weights, relThreshold);
+        ModelHyperparameters bestModelAVEP = model.train(gt, wordnetResources, model_weights, relThreshold, "AVEP");
+        ModelHyperparameters bestModelP2 = model.train(gt, wordnetResources, model_weights, relThreshold, "P@2");
 
-        System.out.println("=== Best Performing Model ===");
-        System.out.println(bestModel);
-        System.out.println("=== Best Performing Model NoHyp ===");
-        System.out.println(bestModel_NoHyp);
-        System.out.println("=== Best Performing Model NoHyp NoAnt ===");
-        System.out.println(bestModel_NoHyp_NoAnt);
+        System.out.println("=== Best Performing Model (AVEP) ===");
+        System.out.println(bestModelAVEP);
+        System.out.println("=== Best Performing Model (P@2) ===");
+        System.out.println(bestModelP2);
 
-        Utils.saveObject(bestModel, "AVEPbased_BestModel");
-        Utils.saveObject(bestModel_NoHyp, "AVEPbased_BestModel_NoHyp");
-        Utils.saveObject(bestModel_NoHyp_NoAnt, "AVEPbased_BestModel_NoHyp_NoAnt");
+        Utils.saveObject(bestModelAVEP, "AVEPbased_BestModel");
+        Utils.saveObject(bestModelP2, "P@2based_BestModel");
     }
 
     public static ModelHyperparameters getBestPerformingModel(ArrayList<ModelHyperparameters> models_to_test) {

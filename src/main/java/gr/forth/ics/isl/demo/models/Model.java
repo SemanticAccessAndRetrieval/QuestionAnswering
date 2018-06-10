@@ -54,6 +54,22 @@ public abstract class Model {
         return topComments;
     }
 
+    public ArrayList<Comment> getTopComments(int topK, ArrayList<Comment> comments) {
+        ArrayList<Comment> topComments;
+
+        // Sort comments by score (in decreasing order)
+        Collections.sort(comments, (Comment c1, Comment c2) -> -Double.compare(c1.getScore(), c2.getScore()));
+
+        // Get the top Comments
+        if (topK <= comments.size()) {
+            topComments = new ArrayList<>(comments.subList(0, topK));
+        } else {
+            topComments = comments;
+        }
+
+        return topComments;
+    }
+
     public abstract void scoreComments(String query);
 
     public abstract void scoreComment(Comment com, String query);

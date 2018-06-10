@@ -94,10 +94,10 @@ public class ModelStats implements Serializable {
 //        }
 //        return numOfRels;
 //    }
-
     public void evaluate2(HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold, String evalFileName) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         HashMap<String, ArrayList<Integer>> allQueriesTestSet = (HashMap<String, ArrayList<Integer>>) Utils.getSavedObject("results_" + this.description + "_" + evalFileName);
+        int cnt = 0;
 
         for (String qID : allQueriesTestSet.keySet()) {
             // Get the ground truth for the current query
@@ -109,38 +109,47 @@ public class ModelStats implements Serializable {
             ArrayList<Integer> testSet = allQueriesTestSet.get(qID);
 
             //System.out.println("Query: " + qID + "Num of rels: " + R + "Total num of pairs: " + allQueriesTestSet.get(qID).size());
-
-            // Calculate the Precision@2 of our system's answer
-            if (R > R2) {
-                this.Precision_2 += EvaluationMetrics.R_Precision(testSet, R2, relThreshold);
+            if (R == 0) {
+                cnt++;
+            } else {
+                // Calculate the Precision@2 of our system's answer
+                if (R > R2) {
+                    this.Precision_2 += EvaluationMetrics.R_Precision(testSet, R2, relThreshold);
+                }
+                // Calculate the Precision@R (where R is the num of rels) of our system's answer
+                this.Precision_R += EvaluationMetrics.R_Precision(testSet, R, relThreshold);
+                // Calculate the Recall of our system's answer
+                this.Recall += EvaluationMetrics.Recall(testSet, R, R, relThreshold);
+                // Calculate the Fallout of our system's answer
+                //if ((allQueriesTestSet.get(qID).size() - R) > 0) {
+//            System.out.println("qID: " + qID);
+//            System.out.println("R: " + R);
+//            System.out.println("num of pairs: " + evalPairsWithCrntQueryId.size());
+//            System.out.println("num of nonRels: " + (evalPairsWithCrntQueryId.size() - R));
+//            System.out.println("Fallout: " + EvaluationMetrics.Fallout(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold));
+//            System.out.println("\n");
+                this.Fallout += EvaluationMetrics.Fallout(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
+                //}
+                // Calculate the AveP of our system's answer
+                this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+                // Calculate the BPREF of our system's answer
+                this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+                // Calculate the nDCG of our system's answer
+                this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
+                // Calculate the RR of our system's answer
+                this.reciprocalRank += EvaluationMetrics.reciprocalRank(testSet, R, relThreshold);
             }
-            // Calculate the Precision@R (where R is the num of rels) of our system's answer
-            this.Precision_R += EvaluationMetrics.R_Precision(testSet, R, relThreshold);
-            // Calculate the Recall of our system's answer
-            this.Recall += EvaluationMetrics.Recall(testSet, R, R, relThreshold);
-            // Calculate the Fallout of our system's answer
-            //if ((allQueriesTestSet.get(qID).size() - R) > 0) {
-                this.Fallout += EvaluationMetrics.Fallout(testSet, R, allQueriesTestSet.get(qID).size() - R, relThreshold);
-            //}
-            // Calculate the AveP of our system's answer
-            this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
-            // Calculate the BPREF of our system's answer
-            this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
-            // Calculate the nDCG of our system's answer
-            this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
-            // Calculate the RR of our system's answer
-            this.reciprocalRank += EvaluationMetrics.reciprocalRank(testSet, R, relThreshold);
         }
 
         // Calculate mean BPREF, R_Precision, AveP, Bpref and nDCG for all queries
-        this.Precision_2 /= allQueriesTestSet.size();
-        this.Precision_R /= allQueriesTestSet.size();
-        this.Recall /= allQueriesTestSet.size();
-        this.Fallout /= allQueriesTestSet.size();
-        this.Avep /= allQueriesTestSet.size();
-        this.Bpref /= allQueriesTestSet.size();
-        this.nDCG /= allQueriesTestSet.size();
-        this.reciprocalRank /= allQueriesTestSet.size();
+        this.Precision_2 /= (allQueriesTestSet.size() - cnt);
+        this.Precision_R /= (allQueriesTestSet.size() - cnt);
+        this.Recall /= (allQueriesTestSet.size() - cnt);
+        this.Fallout /= (allQueriesTestSet.size() - cnt);
+        this.Avep /= (allQueriesTestSet.size() - cnt);
+        this.Bpref /= (allQueriesTestSet.size() - cnt);
+        this.nDCG /= (allQueriesTestSet.size() - cnt);
+        this.reciprocalRank /= (allQueriesTestSet.size() - cnt);
     }
 
     public void evaluate(Model model, ArrayList<Comment> comments, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold) {

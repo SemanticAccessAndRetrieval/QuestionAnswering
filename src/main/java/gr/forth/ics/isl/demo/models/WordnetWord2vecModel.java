@@ -53,6 +53,15 @@ public class WordnetWord2vecModel extends Model {
         this.modelWeights = weights;
     }
 
+    public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights) {
+        super.setDescription(description);
+        this.dictionary = dict;
+        this.resourcesToRetrieve = resources;
+        this.wordMovers = wm;
+        this.w2_vector = w2v;
+        this.modelWeights = weights;
+    }
+
     public IDictionary getDictionary() {
         return this.dictionary;
     }
@@ -87,6 +96,17 @@ public class WordnetWord2vecModel extends Model {
 
     public void setWordMovers(WordMovers wm) {
         this.wordMovers = wm;
+    }
+
+    public ArrayList<Comment> scoreComments(String query, ArrayList<Comment> comments) {
+        super.setComments(comments);
+        this.calculateMaxWMD(query);
+
+        for (Comment com : this.getComments()) {
+            this.scoreComment(com, query);
+        }
+
+        return this.getComments();
     }
 
     @Override
@@ -271,7 +291,7 @@ public class WordnetWord2vecModel extends Model {
     }
 
     public ModelHyperparameters train(HashMap<String, HashMap<String, EvaluationPair>> gt, ArrayList<String> wordnetResources,
-            HashMap<String, Float> model_weights, int relThreshold) {
+            HashMap<String, Float> model_weights, int relThreshold, String metric) {
         ModelHyperparameters bestModel = null;
 
         // Create a List of queries
@@ -280,9 +300,6 @@ public class WordnetWord2vecModel extends Model {
             HashMap<String, EvaluationPair> evalPairs = gt.get(query_id);
             queryList.put(query_id, evalPairs.values().iterator().next().getQuery().getText());
         }
-
-        System.out.println(gt.get("q1").size());
-        System.out.println(gt.get("q2").size());
 
         for (float word2vec_w = 0.0f; word2vec_w <= 1.0f; word2vec_w = word2vec_w + 0.1f) {
             for (float wordNet_w = 0.0f; wordNet_w <= 1.0f; wordNet_w = wordNet_w + 0.1f) {
@@ -299,7 +316,7 @@ public class WordnetWord2vecModel extends Model {
                 model_weights.put("word2vec", word2vec_w);
                 WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", this.getDictionary(), wordnetResources, this.getWordMovers(), this.getWord2Vec(), model_weights, this.getComments());
 
-                double AVEP = 0.0; // Avep
+                double metricValue = 0.0; // Avep
                 ArrayList<Integer> testSet = new ArrayList<>(); // true binary relevance for a query
 
                 //for each query
@@ -307,7 +324,6 @@ public class WordnetWord2vecModel extends Model {
                     // Get the ground truth for the current query
                     HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
                     int R = getNumOfRels(evalPairsWithCrntQueryId, relThreshold);
-                    System.out.println(R);
 
                     // init test set for the current query
                     testSet = new ArrayList<>();
@@ -330,7 +346,11 @@ public class WordnetWord2vecModel extends Model {
                         // if comment is unjudged skip it
                         EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
                         if (p != null) {
-                            testSet.add(p.getRelevance()); // true binarry relevance
+                            if (resultCom.getScore() > 0.0001f) {
+                                testSet.add(p.getRelevance()); // true binarry relevance
+                            } else {
+                                testSet.add(0); // true binarry relevance
+                            }
 
                             //System.out.println(p.getRelevance() + ", " + resultCom.getText());
                             //System.out.println(p.getComment().getId() + " -- " + resultCom.getId());
@@ -339,20 +359,26 @@ public class WordnetWord2vecModel extends Model {
 
                     //System.out.println(testSet); // print test set with the order of result set
                     // Calculate the AveP of our system's answer
-                    AVEP += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+                    if (metric.equals("AVEP")) {
+                        metricValue += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+                    } else if (metric.equals("P@2")) {
+                        metricValue += EvaluationMetrics.R_Precision(testSet, 2, relThreshold);
+                    } else {
+                        System.out.println("There is no support for metric " + metric);
+                    }
 
                 }
                 // Calculate mean AveP for all queries
-                AVEP /= queryList.size();
-                System.out.println(AVEP);
+                metricValue /= queryList.size();
+                System.out.println(metricValue);
 
                 // Add mean Avep score to the current model
-                ModelHyperparameters crntModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+                ModelHyperparameters crntModel = new ModelHyperparameters(metricValue, word2vec_w, wordNet_w);
 
                 if (bestModel == null) {
-                    bestModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+                    bestModel = new ModelHyperparameters(metricValue, word2vec_w, wordNet_w);
                 } else if (crntModel.compareTo(bestModel) > 0) {
-                    bestModel = new ModelHyperparameters(AVEP, word2vec_w, wordNet_w);
+                    bestModel = new ModelHyperparameters(metricValue, word2vec_w, wordNet_w);
                 }
             }
         }

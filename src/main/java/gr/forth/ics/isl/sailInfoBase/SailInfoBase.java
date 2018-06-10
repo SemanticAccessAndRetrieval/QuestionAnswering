@@ -81,7 +81,9 @@ public class SailInfoBase {
      * @return
      */
     public ArrayList<String> readData() {
-        File folder = new File("src/main/resources/warehouse/");
+        ClassLoader classLoader = getClass().getClassLoader();
+        File folder = new File(classLoader.getResource("warehouse/").getFile());
+        //File folder = new File("src/main/resources/warehouse/");
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> fileNames = new ArrayList<>();
 
@@ -119,18 +121,22 @@ public class SailInfoBase {
                     fileName = fileAsArray[0];
                     fileExtention = fileAsArray[1];
 
+                    ClassLoader classLoader = getClass().getClassLoader();
+                    File sourceFile = new File(classLoader.getResource("warehouse/" + fileName + "." + fileExtention).getFile());
+
                     switch (fileExtention) {
                         case "ttl":
-                            cxn.add(new File("src/main/resources/warehouse/" + fileName + "." + fileExtention), "base:", RDFFormat.TURTLE);
+                            cxn.add(sourceFile, "base:", RDFFormat.TURTLE);
+                            //cxn.add(new File("src/main/resources/warehouse/" + fileName + "." + fileExtention), "base:", RDFFormat.TURTLE);
                             break;
                         case "rdf":
-                            cxn.add(new File("src/main/resources/warehouse/" + fileName + "." + fileExtention), "base:", RDFFormat.RDFXML);
+                            cxn.add(sourceFile, "base:", RDFFormat.RDFXML);
                             break;
                         case "nt":
-                            cxn.add(new File("src/main/resources/warehouse/" + fileName + "." + fileExtention), "base:", RDFFormat.NTRIPLES);
+                            cxn.add(sourceFile, "base:", RDFFormat.NTRIPLES);
                             break;
                         case "owl":
-                            cxn.add(new File("src/main/resources/warehouse/" + fileName + "." + fileExtention), "base:", RDFFormat.RDFXML);
+                            cxn.add(sourceFile, "base:", RDFFormat.RDFXML);
                             break;
                         default:
                             System.out.println(fileExtention + " is an unrecognized file extention.");

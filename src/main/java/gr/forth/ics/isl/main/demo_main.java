@@ -15,7 +15,10 @@ import edu.mit.jwi.IDictionary;
 import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
-import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
+import gr.forth.ics.isl.demo.models.Word2vecModel;
+import gr.forth.ics.isl.demo.models.Word2vecModel_II;
+import gr.forth.ics.isl.demo.models.WordnetModel;
+import gr.forth.ics.isl.demo.models.WordnetModel_II;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
@@ -110,52 +113,86 @@ public class demo_main {
         model_weights.put("wordnet", wordNet_w);
         model_weights.put("word2vec", word2vec_w);
 
-        WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-
         // This structure will contain the ground truth relevance between each
         // query and each comment
         HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(evalCollection);
-        int cnt = 0;
-
-        combination.scoreComments("Has anyone reported a problem about cleanliness?");
-        ArrayList<Comment> resultComs = combination.getTopComments(comments.size());
+        ArrayList<Comment> resultComs;
 
         // Get the ground truth for the current query
-        HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get("q3");
+        HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = null;
 
-        // for all retrieved comments
-        for (Comment resultCom : resultComs) {
-            // keep truck of comment's true and calculated relevance value
-            // if comment is unjudged skip it
-            EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
-            if (p != null) {
-                if (cnt < 2) {
-                    cnt++;
-                    System.out.println(p.getComment().getText());
-                }
-            }
-        }
-        cnt = 0;
+        System.out.println("\n=======");
+        System.out.println("WORDNET");
+        System.out.println("=======\n");
 
-        combination.scoreComments("Is the hotel staff helpful?");
-        resultComs = combination.getTopComments(comments.size());
+        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
 
+        wordnet.scoreComments("Has anyone reported a problem about cleanliness?");
+        resultComs = wordnet.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q3");
+        // for all retrieved comments print top two in the eval set
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        wordnet.scoreComments("Is the hotel staff helpful?");
+        resultComs = wordnet.getTopComments(comments.size());
         // Get the ground truth for the current query
         evalPairsWithCrntQueryId = gt.get("q6");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
 
-        // for all retrieved comments
-        for (Comment resultCom : resultComs) {
-            // keep truck of comment's true and calculated relevance value
-            // if comment is unjudged skip it
-            EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
-            if (p != null) {
-                if (cnt < 2) {
-                    cnt++;
-                    System.out.println(p.getComment().getText());
-                }
-            }
-        }
-        cnt = 0;
+        System.out.println("\n=======");
+        System.out.println("WORDNET II");
+        System.out.println("=======\n");
+
+        WordnetModel_II wordnet_II = new WordnetModel_II("Wordnet model II", dict, wordnetResources, comments);
+
+        wordnet_II.scoreComments("Has anyone reported a problem about cleanliness?");
+        resultComs = wordnet_II.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q3");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        wordnet_II.scoreComments("Is the hotel staff helpful?");
+        resultComs = wordnet_II.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q6");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        System.out.println("\n=======");
+        System.out.println("WOR2VEC");
+        System.out.println("=======\n");
+
+        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
+
+        word2vec.scoreComments("Has anyone reported a problem about cleanliness?");
+        resultComs = word2vec.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q3");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        word2vec.scoreComments("Is the hotel staff helpful?");
+        resultComs = word2vec.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q6");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        System.out.println("\n=======");
+        System.out.println("WOR2VEC II");
+        System.out.println("=======\n");
+
+        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model", wm, vec, comments);
+
+        word2vec_II.scoreComments("Has anyone reported a problem about cleanliness?");
+        resultComs = word2vec_II.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q3");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+
+        word2vec_II.scoreComments("Is the hotel staff helpful?");
+        resultComs = word2vec_II.getTopComments(comments.size());
+        // Get the ground truth for the current query
+        evalPairsWithCrntQueryId = gt.get("q6");
+        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
 
         /*
         while (true) {
@@ -412,5 +449,20 @@ public class demo_main {
         }
 
         return topComments;
+    }
+
+    public static void printEvalOnlyComments(ArrayList<Comment> resultComs, HashMap<String, EvaluationPair> evalPairsWithCrntQueryId) {
+        int cnt = 0;
+        for (Comment resultCom : resultComs) {
+            // keep truck of comment's true and calculated relevance value
+            // if comment is unjudged skip it
+            EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
+            if (p != null) {
+                if (cnt < 2) {
+                    cnt++;
+                    System.out.println(p.getComment().getText());
+                }
+            }
+        }
     }
 }

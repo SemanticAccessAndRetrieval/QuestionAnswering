@@ -309,6 +309,60 @@ public class QAInfoBase extends SailInfoBase {
     }
 
     /**
+     * Retrieves all subjects of the input type.
+     *
+     * @param prefix
+     * @param type
+     * @return
+     * @throws RepositoryException
+     * @throws MalformedQueryException
+     * @throws QueryEvaluationException
+     */
+    public HashSet<Subject> getAllSubjectsOfTypeWithURIs(String prefix, String type, ArrayList<String> uris) throws RepositoryException, MalformedQueryException, QueryEvaluationException {
+
+        String filterTemplate = "FILTER (";
+        int cnt = 0;
+
+        for (String uri : uris) {
+
+            filterTemplate += "regex(STR(?sub), '" + uri + "')";
+            cnt++;
+
+            if (cnt < uris.size()) {
+                filterTemplate += " || ";
+            } else {
+                filterTemplate += ").\n";
+            }
+        }
+
+        String getAllSubjectsOfTypeAsString = "SELECT ?sub\n"
+                + "WHERE { \n"
+                + "    ?sub rdf:type " + prefix + ":" + type + ".\n"
+                + filterTemplate
+                + "}\n";
+
+        HashSet<ArrayList<String>> answerSet = queryRepo(getAllSubjectsOfTypeAsString);
+        HashSet<Subject> subjects = new HashSet<>();
+
+        for (ArrayList<String> ans : answerSet) {
+            for (String sbj : ans) {
+                Subject subject = new Subject();
+                subject.setUri(sbj);
+                subject.setLabel(getLabel(sbj));
+                subject.setRdfTypes(getRdfTypes(sbj));
+                subject.setRdfTypesLabels(getRdfTypesLabels(sbj));
+                subject.setUndeclaredDataTypePropsWithValues(getAllUndeclaredDataTypePropertiesWithValuesOf(subject.getUri()));
+                subject.setDataTypePropsWithValues(getAllDataTypePropertiesWithValuesOf(subject.getUri()));
+                subject.setObjectPropsWithObjectValues(getAllObjectPropertiesWithObjectValuesOf(subject.getUri()));
+                subjects.add(subject);
+            }
+        }
+
+        //System.out.println(subjects);
+        return subjects;
+    }
+
+    /**
      * Retrieves the label of the input URI.
      *
      * @param uri
@@ -513,6 +567,13 @@ public class QAInfoBase extends SailInfoBase {
         //String prefix = "csdT";
         //String type = "Course";
 
+        ArrayList<String> uris = new ArrayList<>();
+
+        uris.add("http://ics.forth.gr/isl/hippalus/#airi_hotel");
+        uris.add("http://ics.forth.gr/isl/hippalus/#1_night_1980_hostel_tokyo");
+        uris.add("http://ics.forth.gr/isl/hippalus/#akihabara_washington_hotel");
+
+        System.out.println(KB.getAllSubjectsOfTypeWithURIs("hippalus", "hippalusID", uris));
         //HashSet<ArrayList<String>> individualsOfTypeX = KB.getAllIndividualsOfType(prefix, type);
         //KB.printAnswer(individualsOfTypeX);
         //ArrayList<Individual> individuals = KB.getAllIndividuals();
@@ -520,7 +581,7 @@ public class QAInfoBase extends SailInfoBase {
         //KB.printAnswer(individuals);
         //HashSet<Subject> allSubjects = KB.getAllSubjects();
         //System.out.println(allSubjects);
-        System.out.println(KB.getAllObjectPropertiesWithObjectValuesOf("http://ics.forth.gr/isl/hippalus/#airi_hotel"));
+        //System.out.println(KB.getAllObjectPropertiesWithObjectValuesOf("http://ics.forth.gr/isl/hippalus/#airi_hotel"));
         //System.out.println(KB.getAllDataTypePropertiesWithValuesOf("http://ics.forth.gr/isl/hippalus/#airi_hotel"));
         //HashSet<Object> allObjects = KB.getAllObjects();
         //System.out.println(allObjects);

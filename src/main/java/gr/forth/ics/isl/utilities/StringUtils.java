@@ -20,7 +20,10 @@ package gr.forth.ics.isl.utilities;
 
 import edu.stanford.nlp.util.Sets;
 import static gr.forth.ics.isl.main.QA_main.stopLists;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -207,6 +210,36 @@ public class StringUtils {
         }
         stopLists.put("en", stopWordsEn);
         try (Stream<String> stream = Files.lines(Paths.get(filePath_gr))) {
+            stream.forEach(word -> stopWordsGr.Insert(word, false));
+        } catch (IOException ex) {
+            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        stopLists.put("gr", stopWordsGr);
+    }
+
+    /**
+     * Generates a HashMap with languages as keys and stopLists as values.
+     *
+     * @param filePath_en
+     * @param filePath_gr
+     */
+    public static void generateStopListsFromExternalSource(String filePath_en, String filePath_gr) {
+        Trie stopWordsEn = new Trie();
+        Trie stopWordsGr = new Trie();
+
+        ClassLoader classLoader = StringUtils.class.getClassLoader();
+        InputStream is = classLoader.getResourceAsStream(filePath_en);
+
+        try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
+            stream.forEach(word -> stopWordsEn.Insert(word, false));
+        } catch (IOException ex) {
+            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        stopLists.put("en", stopWordsEn);
+
+        is = classLoader.getResourceAsStream(filePath_gr);
+
+        try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
             stream.forEach(word -> stopWordsGr.Insert(word, false));
         } catch (IOException ex) {
             //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
