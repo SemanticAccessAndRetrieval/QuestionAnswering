@@ -119,6 +119,39 @@ public class WordnetWord2vecModel extends Model {
 
     }
 
+    public ArrayList<String> getCleanQuery(String query) {
+        ArrayList<String> querySet = NlpAnalyzer.getCleanTokens(query);
+        ArrayList<String> querySetClean = new ArrayList<>();
+        //Filter query words not contained in word2vec vocabulary
+        for (String queryTerm : querySet) {
+            if (this.w2_vector.hasWord(queryTerm)) {
+                querySetClean.add(queryTerm);
+            }
+        }
+
+        return querySetClean;
+    }
+
+    public HashSet<String> getCleanExpandedQuery(String query) {
+        String crntTermPosTag;
+
+        //Construct query's wordnet representation
+        HashMap<String, String> queryMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(query);
+        HashSet<String> querySynset = new HashSet<>();
+
+        for (String queryTerm : queryMapWithPosTags.keySet()) {
+            try {
+                crntTermPosTag = queryMapWithPosTags.get(queryTerm);
+                querySynset.addAll(getWordNetResources(crntTermPosTag, this.dictionary, queryTerm, this.resourcesToRetrieve));
+            } catch (IOException ex) {
+                Logger.getLogger(WordnetWord2vecModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return querySynset;
+    }
+
+
     @Override
     public void scoreComment(Comment com, String query) {
         double maxWord2vecScore = Double.MIN_VALUE;
@@ -127,15 +160,21 @@ public class WordnetWord2vecModel extends Model {
         String best_sentence = "";
         double tmpWord2vecScore, tmpWordnetScore, tmpScore, tmpWMD;
 
+        ArrayList<String> queryClean = getCleanQuery(query);
+        String[] queryCleanArray = queryClean.toArray(new String[0]);
+
+        HashSet<String> queryExpandedClean = getCleanExpandedQuery(query);
+        String[] queryExpandedCleanArray = queryExpandedClean.toArray(new String[0]);
+
         for (String sentence : NlpAnalyzer.getSentences(com.getText())) {
             try {
-                tmpWMD = calculateWordMoversDistance(this.wordMovers, query, sentence, this.w2_vector);
+                tmpWMD = calculateWordMoversDistance(this.wordMovers, queryCleanArray, sentence, this.w2_vector);
                 if (tmpWMD == -1.0f) {
                     tmpWMD = this.maxWMD;
                 }
                 tmpWord2vecScore = 1.0f - tmpWMD / this.maxWMD;
 
-                tmpWordnetScore = calculateSynsetSimilarity(query, sentence, this.dictionary);
+                tmpWordnetScore = calculateSynsetSimilarity(queryExpandedCleanArray, sentence, this.dictionary);
 
                 tmpScore = calculatePartialScore(tmpWordnetScore, tmpWord2vecScore);
                 if (tmpScore >= maxScore) {
@@ -152,17 +191,8 @@ public class WordnetWord2vecModel extends Model {
         com.setScore(maxScore);
     }
 
-    private double calculateWordMoversDistance(WordMovers wm, String query, String text, Word2Vec vec) {
+    private double calculateWordMoversDistance(WordMovers wm, String[] querySetClean, String text, Word2Vec vec) {
         double distance = 0.0;
-
-        ArrayList<String> querySet = NlpAnalyzer.getCleanTokens(query);
-        ArrayList<String> querySetClean = new ArrayList<>();
-        //Filter query words not contained in word2vec vocabulary
-        for (String queryTerm : querySet) {
-            if (vec.hasWord(queryTerm)) {
-                querySetClean.add(queryTerm);
-            }
-        }
 
         ArrayList<String> commentSet = NlpAnalyzer.getCleanTokens(text);
         ArrayList<String> commentSetClean = new ArrayList<>();
@@ -173,7 +203,7 @@ public class WordnetWord2vecModel extends Model {
             }
         }
         try {
-            distance = wm.distance(commentSetClean.toArray(new String[0]), querySetClean.toArray(new String[0]));
+            distance = wm.distance(commentSetClean.toArray(new String[0]), querySetClean);
 
         } catch (Exception e) {
             //System.out.println("Comment: " + commentClean);
@@ -185,19 +215,10 @@ public class WordnetWord2vecModel extends Model {
         return distance;
     }
 
-    private double calculateSynsetSimilarity(String query, String text, IDictionary dict) throws IOException {
-
-        double score;
+    private double calculateSynsetSimilarity(String[] querySynset, String text, IDictionary dict) throws IOException {
         String crntTermPosTag;
+        double score;
 
-        //Construct query's wordnet representation
-        HashMap<String, String> queryMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(query);
-        HashSet<String> querySynset = new HashSet<>();
-
-        for (String queryTerm : queryMapWithPosTags.keySet()) {
-            crntTermPosTag = queryMapWithPosTags.get(queryTerm);
-            querySynset.addAll(getWordNetResources(crntTermPosTag, dict, queryTerm, this.resourcesToRetrieve));
-        }
 
         //Construct comment's wordnet representation
         HashMap<String, String> commentMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(text);
@@ -209,12 +230,12 @@ public class WordnetWord2vecModel extends Model {
         }
 
         //Calculate Jaccard Similarity
-        score = StringUtils.JaccardSim((String[]) commentSynset.toArray(new String[0]), (String[]) querySynset.toArray(new String[0]));
+        score = StringUtils.JaccardSim((String[]) commentSynset.toArray(new String[0]), querySynset);
 
         return score;
     }
 
-    public HashSet<String> getWordNetResources(String pos, IDictionary dict, String token, ArrayList<String> resources) throws IOException {
+    public synchronized HashSet<String> getWordNetResources(String pos, IDictionary dict, String token, ArrayList<String> resources) throws IOException {
 
         //Get the wordnet POS based on coreNLP POS
         POS word_pos = getWordNetPos(pos);
@@ -266,9 +287,12 @@ public class WordnetWord2vecModel extends Model {
         double maxDistance = Double.MIN_VALUE;
         double tmpDistance;
 
+        ArrayList<String> queryClean = getCleanQuery(query);
+        String[] queryCleanArray = queryClean.toArray(new String[0]);
+
         for (Comment com : this.getComments()) {
             for (String sentence : NlpAnalyzer.getSentences(com.getText())) {
-                tmpDistance = calculateWordMoversDistance(this.wordMovers, query, sentence, this.w2_vector);
+                tmpDistance = calculateWordMoversDistance(this.wordMovers, queryCleanArray, sentence, this.w2_vector);
 
                 if (tmpDistance == -1.0f) {
                     continue;

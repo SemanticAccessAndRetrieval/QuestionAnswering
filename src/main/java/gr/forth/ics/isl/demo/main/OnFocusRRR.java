@@ -12,6 +12,7 @@ package gr.forth.ics.isl.demo.main;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.models.Comment;
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mitos.stemmer.trie.Trie;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -44,16 +45,68 @@ import org.openrdf.repository.RepositoryException;
 public class OnFocusRRR {
 
     //The paths for the stopWords Files.
-    public static String filePath_en = "stoplists/stopwordsEn.txt";
-    public static String filePath_gr = "stoplists/stopwordsGr.txt";
+    public static String filePath_en = "/stoplists/stopwordsEn.txt";
+    public static String filePath_gr = "/stoplists/stopwordsGr.txt";
 
     //Model instance
     public static WordnetWord2vecModel combination;
     public static QAInfoBase KB;
+    public static StanfordCoreNLP pipeline;
 
     //A hashMap that contains two Trie, one for the English stopList and one for the Greek
-    public static HashMap<String, Trie> stopLists = new HashMap<>();
+    //public static HashMap<String, Trie> stopLists = new HashMap<>();
 
+    public OnFocusRRR(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
+        initialize(word2vecPath, wordnetPath);
+    }
+    
+    public static void initialize(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
+        System.out.println("...loading KB...");
+        KB = new QAInfoBase();
+
+
+        StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
+        //System.out.println(stopLists);
+
+        System.out.println("...loading word2vec...");
+        File gModel = new File(word2vecPath + "GoogleNews-vectors-negative300.bin.gz");
+        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
+        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
+
+        System.out.println("...loading wordnet...");
+        String wnhome = System.getenv(wordnetPath);
+        String path = wnhome + File.separator + "dict";
+        URL url = new URL("file", null, path);
+        // construct the dictionary object and open it
+        IDictionary dict = new Dictionary(url);
+        dict.open();
+
+        // Retrieve hyperparameters
+        //ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
+        //float word2vec_w = bestModel.getWord2vecWeight();
+        //float wordNet_w = bestModel.getWordNetWeight();
+        float word2vec_w = 0.4f;
+        float wordNet_w = 0.6f;
+        // Choose weights to be used in model IV
+        HashMap<String, Float> model_weights = new HashMap<>();
+        model_weights.put("wordnet", wordNet_w);
+        model_weights.put("word2vec", word2vec_w);
+
+        // Choose wordnet sources to be used
+        ArrayList<String> wordnetResources = new ArrayList<>();
+        wordnetResources.add("synonyms");
+        wordnetResources.add("antonyms");
+        wordnetResources.add("hypernyms");
+
+        System.out.println("...initializing model...");
+        // Instantiate model
+        combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
+
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
+        props.put("tokenize.language", "en");
+        pipeline = new StanfordCoreNLP(props);
+    }
     /**
      *
      * @param args (args[0]:word2vec path, args[1]:wordnet home path)
@@ -107,7 +160,8 @@ public class OnFocusRRR {
 
     }
 
-    public static JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+    public JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+        //System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
         // Get hotels on focus
         HashSet<Subject> hotels = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris);
         // Get their comments
@@ -118,6 +172,7 @@ public class OnFocusRRR {
         JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(2, scoredComments));
 
         return resultListAsJASON;
+        //return null;
     }
 
     private static JSONObject getJASONObject(ArrayList<Comment> topComments) {
@@ -125,6 +180,7 @@ public class OnFocusRRR {
         ArrayList<String> commentIds = new ArrayList<>();
         ArrayList<String> maxSentences = new ArrayList<>();
         ArrayList<Date> dates = new ArrayList<>();
+        ArrayList<String> fullReview = new ArrayList<>();
         ArrayList<String> posParts = new ArrayList<>();
         ArrayList<String> negParts = new ArrayList<>();
         ArrayList<Double> scores = new ArrayList<>();
@@ -137,6 +193,8 @@ public class OnFocusRRR {
             dates.add(com.getDate()); // get comment date
 
             maxSentences.add(com.getBestSentence()); // get best sentence
+
+            fullReview.add(com.getText());
 
             String[] comParts = com.getText().split("-"); //split to pos and neg part
             posParts.add(comParts[1]); // get pos part
@@ -154,6 +212,7 @@ public class OnFocusRRR {
             obj.put("commentIds", commentIds);
             obj.put("dates", dates);
             obj.put("maxSentences", maxSentences);
+            obj.put("fullReview", fullReview);
             obj.put("posParts", posParts);
             obj.put("negParts", negParts);
             obj.put("scores", scores);

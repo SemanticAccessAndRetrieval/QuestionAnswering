@@ -152,9 +152,9 @@ public class Experiment3 extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                String collectionName = "FRUCE_v2";
+                //String collectionName = "FRUCE_v2";
                 //String collectionName = "BookingEvalCollection";
-                //String collectionName = "webAP";
+                String collectionName = "webAP";
 
                 // ArrayList for all models to be ploted
                 ArrayList<String> allModelsNames = new ArrayList<>();

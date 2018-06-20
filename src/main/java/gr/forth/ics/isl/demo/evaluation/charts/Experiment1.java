@@ -27,9 +27,9 @@ public class Experiment1 {
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
-        String collectionName = "FRUCE_v2";
+        //String collectionName = "FRUCE_v2";
         //String collectionName = "BookingEvalCollection";
-        //String collectionName = "webAP";
+        String collectionName = "webAP";
 
         int relThreshold = 0;
         int R = 10;
@@ -80,14 +80,14 @@ public class Experiment1 {
         Utils.saveObject(Word2vec.getAllnDCSs_R(), Word2vec.getDescription() + "_all_nDCGs_R_" + collectionName);
         System.out.println(Word2vec + "\n");
 
-        ModelStats Word2vec_II = new ModelStats("Word2vec model II");
-        Word2vec_II.evaluate2(gt, relThreshold, collectionName);
-        Word2vec_II.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
-        Utils.saveObject(Word2vec_II.getAllPrecisions_R(), Word2vec_II.getDescription() + "_all_Precisions_R_" + collectionName);
-        Utils.saveObject(Word2vec_II.getAllAveps_R(), Word2vec_II.getDescription() + "_all_Aveps_R_" + collectionName);
-        Utils.saveObject(Word2vec_II.getAllBprefs_R(), Word2vec_II.getDescription() + "_all_Bprefs_R_" + collectionName);
-        Utils.saveObject(Word2vec_II.getAllnDCSs_R(), Word2vec_II.getDescription() + "_all_nDCGs_R_" + collectionName);
-        System.out.println(Word2vec_II + "\n");
+//        ModelStats Word2vec_II = new ModelStats("Word2vec model II");
+//        Word2vec_II.evaluate2(gt, relThreshold, collectionName);
+//        Word2vec_II.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+//        Utils.saveObject(Word2vec_II.getAllPrecisions_R(), Word2vec_II.getDescription() + "_all_Precisions_R_" + collectionName);
+//        Utils.saveObject(Word2vec_II.getAllAveps_R(), Word2vec_II.getDescription() + "_all_Aveps_R_" + collectionName);
+//        Utils.saveObject(Word2vec_II.getAllBprefs_R(), Word2vec_II.getDescription() + "_all_Bprefs_R_" + collectionName);
+//        Utils.saveObject(Word2vec_II.getAllnDCSs_R(), Word2vec_II.getDescription() + "_all_nDCGs_R_" + collectionName);
+//        System.out.println(Word2vec_II + "\n");
 
         ModelStats Word2vecWordnet = new ModelStats("Word2vec and Wordnet");
         Word2vecWordnet.evaluate2(gt, relThreshold, collectionName);

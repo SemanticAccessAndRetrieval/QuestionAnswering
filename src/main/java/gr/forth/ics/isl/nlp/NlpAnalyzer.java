@@ -24,6 +24,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import gr.forth.ics.isl.demo.main.OnFocusRRR;
 import gr.forth.ics.isl.nlp.models.RelatedSentences;
 import gr.forth.ics.isl.nlp.models.Word;
 import gr.forth.ics.isl.utilities.StringUtils;
@@ -232,15 +233,15 @@ public class NlpAnalyzer {
 
     // Apply: 1) Tokenization 2) Lemmatization 3) Remove punctuations 4) Remove stopwords
     public static ArrayList<String> getCleanTokens(String text) {
-        Properties props = new Properties();
+        //Properties props = new Properties();
 
-        props.put("annotators", "tokenize, ssplit, pos, lemma");
-        props.put("tokenize.language", "en");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        //props.put("annotators", "tokenize, ssplit, pos, lemma");
+        //props.put("tokenize.language", "en");
+        //StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         //apply
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        OnFocusRRR.pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 
@@ -258,15 +259,15 @@ public class NlpAnalyzer {
     }
 
     public static HashMap<String, String> getCleanTokensWithPos(String text) {
-        Properties props = new Properties();
+        //Properties props = new Properties();
 
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
-        props.put("tokenize.language", "en");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        //props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
+        //props.put("tokenize.language", "en");
+        //StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         //apply
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        OnFocusRRR.pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 

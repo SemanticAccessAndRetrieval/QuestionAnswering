@@ -43,6 +43,7 @@ public class ModelStats implements Serializable {
     ArrayList<Double> all_Aveps_R;
     ArrayList<Double> all_Bprefs_R;
     ArrayList<Double> all_nDCGs_R;
+    int totalNumOfQueries;
 
     public ModelStats(String description) {
         this.description = description;
@@ -109,7 +110,7 @@ public class ModelStats implements Serializable {
             ArrayList<Integer> testSet = allQueriesTestSet.get(qID);
 
             //System.out.println("Query: " + qID + "Num of rels: " + R + "Total num of pairs: " + allQueriesTestSet.get(qID).size());
-            if (R == 0) {
+            if (R == 0 || evalPairsWithCrntQueryId.size() - R == 0) {
                 cnt++;
             } else {
                 // Calculate the Precision@2 of our system's answer
@@ -133,7 +134,7 @@ public class ModelStats implements Serializable {
                 // Calculate the AveP of our system's answer
                 this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
                 // Calculate the BPREF of our system's answer
-                this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+                this.Bpref += EvaluationMetrics.BPREF(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
                 // Calculate the nDCG of our system's answer
                 this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
                 // Calculate the RR of our system's answer
@@ -150,6 +151,7 @@ public class ModelStats implements Serializable {
         this.Bpref /= (allQueriesTestSet.size() - cnt);
         this.nDCG /= (allQueriesTestSet.size() - cnt);
         this.reciprocalRank /= (allQueriesTestSet.size() - cnt);
+        this.totalNumOfQueries = (allQueriesTestSet.size() - cnt);
     }
 
     public void evaluate(Model model, ArrayList<Comment> comments, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold) {
@@ -229,7 +231,7 @@ public class ModelStats implements Serializable {
             // Calculate the AveP of our system's answer
             this.Avep += EvaluationMetrics.AVEP(testSet, R, relThreshold);
             // Calculate the BPREF of our system's answer
-            this.Bpref += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+            this.Bpref += EvaluationMetrics.BPREF(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
 
             // Calculate the nDCG of our system's answer
             this.nDCG += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()));
@@ -269,7 +271,8 @@ public class ModelStats implements Serializable {
 
                 // Get the ground truth for the current query
                 HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
-                if (R > EvalCollectionManipulator.getNumOfRels(evalPairsWithCrntQueryId, relThreshold)) {
+                if (R > EvalCollectionManipulator.getNumOfRels(evalPairsWithCrntQueryId, relThreshold)
+                        || evalPairsWithCrntQueryId.size() - R == 0) {
                     outOfEval++;
                     continue;
                 }
@@ -282,13 +285,13 @@ public class ModelStats implements Serializable {
                 // Calculate the AveP of our system's answer
                 tmp_Avep_R += EvaluationMetrics.AVEP(testSet, R, relThreshold);
                 // Calculate the BPREF of our system's answer
-                tmp_Bpref_R += EvaluationMetrics.BPREF(testSet, R, relThreshold);
+                tmp_Bpref_R += EvaluationMetrics.BPREF(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
                 // Calculate the nDCG of our system's answer
                 tmp_nDCG_R += EvaluationMetrics.AVEP(testSet, R, relThreshold);
             }
 
             int normFactor = allQueriesTestSet.size() - outOfEval;
-            System.out.println("Num of Queries: " + normFactor);
+            System.out.println("Num of Queries at R=" + R + ": " + normFactor);
             // Calculate mean BPREF, R_Precision and AveP for all queries
             all_Precisions_R.add(tmp_Precision_R /= normFactor);
             all_Aveps_R.add(tmp_Avep_R /= normFactor);
@@ -417,6 +420,7 @@ public class ModelStats implements Serializable {
     @Override
     public String toString() {
         return "Model: " + this.description + "\n"
+                + "Total num of Queries: " + this.totalNumOfQueries + "\n"
                 + "Precision_2: " + this.Precision_2 + "\n"
                 + "Precision_R: " + this.Precision_R + "\n"
                 + "Recall: " + this.Recall + "\n"

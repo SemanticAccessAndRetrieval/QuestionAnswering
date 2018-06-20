@@ -92,13 +92,13 @@ public class EvaluationMetrics {
         return Sum / R;
     }
 
-    public static double BPREF(ArrayList<Integer> groundTruth, int R, int relThreshold) {
+    public static double BPREF(ArrayList<Integer> groundTruth, int R, int N, int relThreshold) {
         double Sum = 0.0;
         int nonRels = 0;
 
         for (int i = 0; i < R; i++) {
             if (groundTruth.get(i) > relThreshold) {
-                Sum += 1.0 - ((double) nonRels) / R;
+                Sum += 1.0 - ((double) nonRels) / Math.min(R, N);
             } else {
                 nonRels++;
             }

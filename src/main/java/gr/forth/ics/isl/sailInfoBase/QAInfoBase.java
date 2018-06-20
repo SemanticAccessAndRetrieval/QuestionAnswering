@@ -569,11 +569,11 @@ public class QAInfoBase extends SailInfoBase {
 
         ArrayList<String> uris = new ArrayList<>();
 
-        uris.add("http://ics.forth.gr/isl/hippalus/#airi_hotel");
-        uris.add("http://ics.forth.gr/isl/hippalus/#1_night_1980_hostel_tokyo");
-        uris.add("http://ics.forth.gr/isl/hippalus/#akihabara_washington_hotel");
+        uris.add("http://ics.forth.gr/isl/hippalus/#tazuru");
+        uris.add("http://ics.forth.gr/isl/hippalus/#arima_onsen_tosen_goshobo");
+        uris.add("http://ics.forth.gr/isl/hippalus/#the_b_kobe");
 
-        System.out.println(KB.getAllSubjectsOfTypeWithURIs("hippalus", "hippalusID", uris));
+        System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
         //HashSet<ArrayList<String>> individualsOfTypeX = KB.getAllIndividualsOfType(prefix, type);
         //KB.printAnswer(individualsOfTypeX);
         //ArrayList<Individual> individuals = KB.getAllIndividuals();

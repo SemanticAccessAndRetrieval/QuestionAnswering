@@ -12,9 +12,9 @@ package gr.forth.ics.isl.demo.main;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
-import gr.forth.ics.isl.demo.models.BaselineModel;
-import gr.forth.ics.isl.demo.models.Word2vecModel;
-import gr.forth.ics.isl.demo.models.WordnetModel;
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
+import static gr.forth.ics.isl.demo.evaluation.HotelDemoTestSuit2.getQueryList;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import static gr.forth.ics.isl.main.demo_main.getComments;
 import gr.forth.ics.isl.nlp.models.Comment;
@@ -28,7 +28,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import javax.swing.JOptionPane;
 import mitos.stemmer.trie.Trie;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
@@ -43,7 +42,7 @@ import org.openrdf.repository.RepositoryException;
 public class main {
 
     //Number of top comments to retrieve
-    static int topK = 10;
+    static int topK = 40;
 
     //The paths for the stopWords Files.
     public static String filePath_en = "src/main/resources/stoplists/stopwordsEn.txt";
@@ -82,22 +81,31 @@ public class main {
         wordnetResources.add("hypernyms");
 
         HashMap<String, Float> model_weights = new HashMap<>();
-        model_weights.put("wordnet", 0.7f);
-        model_weights.put("word2vec", 0.3f);
+        model_weights.put("wordnet", 0.6f);
+        model_weights.put("word2vec", 0.4f);
 
-        HashMap<String, Float> model_weights2 = new HashMap<>();
-        model_weights2.put("wordnet", 0.0f);
-        model_weights2.put("word2vec", 1.0f);
-
-        BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments);
-        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
-        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
+//        HashMap<String, Float> model_weights2 = new HashMap<>();
+//        model_weights2.put("wordnet", 0.0f);
+//        model_weights2.put("word2vec", 1.0f);
+//        BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments);
+//        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
+//        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
         WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        WordnetWord2vecModel combination2 = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights2, comments);
+//        WordnetWord2vecModel combination2 = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights2, comments);
 
-        while (true) {
+        // This structure will contain the ground truth relevance between each
+        // query and each comment
+        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet("FRUCE_v2.csv");
+        // retrieve list of queries
+        HashMap<String, String> queryList = getQueryList(gt);
+
+        //for each query
+        for (String qID : queryList.keySet()) {
+            // Get the ground truth for the current query
+            HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
             //Get the user's question
-            String question = JOptionPane.showInputDialog("Submit your question", "");
+            String question = queryList.get(qID);
+            System.out.println(question);
             /*
             System.out.println("=========Baseline START==========");
             baseline.scoreComments(question);
@@ -107,43 +115,48 @@ public class main {
                 System.out.println(c.getScore());
             }
             System.out.println("=========Baseline END==========");
-*/
-            System.out.println("=========Wordnet START==========");
-            wordnet.scoreComments(question);
-            ArrayList<Comment> wordnet_rank = wordnet.getTopComments(topK);
-            for (Comment c : wordnet_rank) {
-                System.out.println(c.getText());
-                System.out.println(c.getScore());
-            }
-            System.out.println("=========Wordnet END==========");
-
-            System.out.println("=========Word2vec START==========");
-            word2vec.scoreComments(question);
-            ArrayList<Comment> word2vec_rank = word2vec.getTopComments(topK);
-            for (Comment c : word2vec_rank) {
-                System.out.println(c.getText());
-                System.out.println(c.getScore());
-            }
-            System.out.println("=========Word2vec END==========");
-
+             */
+//            System.out.println("=========Wordnet START==========");
+//            wordnet.scoreComments(question);
+//            ArrayList<Comment> wordnet_rank = wordnet.getTopComments(topK);
+//            for (Comment c : wordnet_rank) {
+//                System.out.println(c.getText());
+//                System.out.println(c.getScore());
+//            }
+//            System.out.println("=========Wordnet END==========");
+//
+//            System.out.println("=========Word2vec START==========");
+//            word2vec.scoreComments(question);
+//            ArrayList<Comment> word2vec_rank = word2vec.getTopComments(topK);
+//            for (Comment c : word2vec_rank) {
+//                System.out.println(c.getText());
+//                System.out.println(c.getScore());
+//            }
+//            System.out.println("=========Word2vec END==========");
+//
             System.out.println("=========Combination START==========");
             combination.scoreComments(question);
             ArrayList<Comment> combination_rank = combination.getTopComments(topK);
             for (Comment c : combination_rank) {
-                System.out.println(c.getText());
-                System.out.println(c.getScore());
+                //System.out.println(gt.get(qID).containsValue(c));
+                if (gt.get(qID).get(c.getId()) != null) {
+                    System.out.println(c.getText());
+                    System.out.println(c.getScore());
+                    System.out.println(c.getId());
+                    System.out.println(gt.get(qID).get(c.getId()).getRelevance());
+                }
             }
             System.out.println("=========Combination END==========");
-
-            System.out.println("=========Combination2 START==========");
-            combination2.scoreComments(question);
-            ArrayList<Comment> combination_rank2 = combination2.getTopComments(topK);
-            for (Comment c : combination_rank2) {
-                System.out.println(c.getText());
-                System.out.println(c.getScore());
-            }
-            System.out.println("=========Combination2 END==========");
-
+//
+//            System.out.println("=========Combination2 START==========");
+//            combination2.scoreComments(question);
+//            ArrayList<Comment> combination_rank2 = combination2.getTopComments(topK);
+//            for (Comment c : combination_rank2) {
+//                System.out.println(c.getText());
+//                System.out.println(c.getScore());
+//            }
+//            System.out.println("=========Combination2 END==========");
+//
         }
     }
 

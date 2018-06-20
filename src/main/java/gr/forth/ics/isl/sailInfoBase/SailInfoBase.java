@@ -7,19 +7,24 @@
  *  It is published for reasons of research results reproducibility.
  *  (c) 2017 Semantic Access and Retrieval group, All rights reserved
  */
-
 package gr.forth.ics.isl.sailInfoBase;
 
-import com.bigdata.journal.Options;
 import com.bigdata.rdf.sail.BigdataSail;
 import com.bigdata.rdf.sail.BigdataSailRepository;
+import gr.forth.ics.isl.utilities.Utils;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
-import org.openrdf.OpenRDFException;
 import org.openrdf.model.Namespace;
 import org.openrdf.query.Binding;
 import org.openrdf.query.BindingSet;
@@ -35,8 +40,9 @@ import org.openrdf.repository.RepositoryResult;
 import org.openrdf.rio.RDFFormat;
 
 /**
- * This class represents the KB of the system. Allows automatized initialization 
+ * This class represents the KB of the system. Allows automatized initialization
  * of the KB and accepts sparql queries.
+ *
  * @author Sgo
  */
 public class SailInfoBase {
@@ -46,7 +52,6 @@ public class SailInfoBase {
     final Repository repo; // repository instance
     static String NAMESPACE = ""; // prefixes of dataset
 
-    
     /**
      * Constructor of SailInfoBase. It initializes the sail and repository
      * instances and properties that they have
@@ -55,13 +60,10 @@ public class SailInfoBase {
      * @throws IOException
      */
     public SailInfoBase() throws RepositoryException, IOException {
-        props = new Properties();
-        props.put(Options.BUFFER_MODE, "DiskRW"); // persistent file system located journal
 
-        final File journalFile = File.createTempFile("bigdata", ".jnl"); // creates temporary journal file
-        journalFile.deleteOnExit();
-        props.setProperty(BigdataSail.Options.FILE, journalFile
-                .getAbsolutePath());
+        props = loadProperties("/properties/blazegraph.properties");
+        //props.setProperty(BigdataSail.Options.FILE, journalFile.getPath());
+        //.getAbsolutePath());
 
         sail = new BigdataSail(props); // instantiate a sail with the defined properties
         repo = new BigdataSailRepository(sail); // create a Bigdata Sail repository
@@ -71,7 +73,24 @@ public class SailInfoBase {
 
         loadDataToRepo(cxn); // load the data set to the repository
         setNamespace(cxn); // set the appropriate prefixes of the dataset
-        
+
+    }
+
+    /*
+	 * Load a Properties object from a file.
+     */
+    public Properties loadProperties(final String resource) throws IOException {
+        final Properties p = new Properties();
+        final InputStream is = getClass()
+                .getResourceAsStream(resource);
+        final Reader reader = new InputStreamReader(new BufferedInputStream(is));
+        try {
+            p.load(reader);
+        } finally {
+            reader.close();
+            is.close();
+        }
+        return p;
     }
 
     /**
@@ -80,10 +99,23 @@ public class SailInfoBase {
      *
      * @return
      */
-    public ArrayList<String> readData() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File folder = new File(classLoader.getResource("warehouse/").getFile());
-        //File folder = new File("src/main/resources/warehouse/");
+    public List<String> readData() throws UnsupportedEncodingException, IOException, URISyntaxException {
+
+        //ArrayList<String> fileNames = getResourceNames("warehouse/");
+        List<String> fileNames = Utils.getResourceListing(this.getClass(), "warehouse/");
+
+        return fileNames;
+    }
+
+    /**
+     * This method returns the data files that are about to be loaded in the
+     * repo. The data files should be placed in src/main/resources/warehouse
+     *
+     * @return
+     */
+    public ArrayList<String> readDataFromFile() {
+        //ClassLoader classLoader = getClass().getClassLoader();
+        File folder = new File(getClass().getResource("/warehouse/").getFile());
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> fileNames = new ArrayList<>();
 
@@ -109,21 +141,20 @@ public class SailInfoBase {
             // open repository connection
             //RepositoryConnection cxn = this.repo.getConnection();
             try {
-                ArrayList<String> files = readData(); // get files from warehouse
+                List<String> files = readData(); // get files from warehouse
                 //System.out.println(files);
                 String fileName = null; // name of the file
                 String fileExtention = null; // extention of the file
                 cxn.begin(); // start connection
-
                 // for each file of the warehouse load the triples
                 for (String file : files) {
                     String[] fileAsArray = file.split("\\.");
                     fileName = fileAsArray[0];
                     fileExtention = fileAsArray[1];
 
-                    ClassLoader classLoader = getClass().getClassLoader();
-                    File sourceFile = new File(classLoader.getResource("warehouse/" + fileName + "." + fileExtention).getFile());
-
+                    //ClassLoader classLoader = getClass().getClassLoader();
+                    InputStream sourceFile = getClass().getResourceAsStream("/warehouse/" + file);
+                    //InputStream sourceFile = getClass().getResourceAsStream(file);
                     switch (fileExtention) {
                         case "ttl":
                             cxn.add(sourceFile, "base:", RDFFormat.TURTLE);
@@ -146,7 +177,8 @@ public class SailInfoBase {
 
                 cxn.commit(); // commit loaded triples to repo
 
-            } catch (OpenRDFException ex) {
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 cxn.rollback();
                 throw ex;
             } finally {
@@ -188,7 +220,6 @@ public class SailInfoBase {
             } else {
                 cxn = this.repo.getConnection();
             }
-
             //System.out.println("Preparing query...");
             // prepare sparql query that is about to be sent
             final TupleQuery tupleQuery = cxn
@@ -217,6 +248,8 @@ public class SailInfoBase {
                         answerSet.add(crntAns); // add result set for all binding sparql vars in the answerset
 
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 } finally {
                     result.close();
                 }
@@ -259,12 +292,12 @@ public class SailInfoBase {
     public void setNamespace(RepositoryConnection cxn) throws RepositoryException {
         //RepositoryConnection cxn = ((BigdataSailRepository) this.repo).getReadOnlyConnection();
         RepositoryResult<Namespace> namespaces = cxn.getNamespaces();
-                while (namespaces.hasNext()) {
-                    Namespace namespace = namespaces.next();
-                    String prefix = namespace.getPrefix();
-                    String name = namespace.getName();
-                    NAMESPACE += "prefix " + prefix + ": <" + name + "> ";
-                }
+        while (namespaces.hasNext()) {
+            Namespace namespace = namespaces.next();
+            String prefix = namespace.getPrefix();
+            String name = namespace.getName();
+            NAMESPACE += "prefix " + prefix + ": <" + name + "> ";
+        }
     }
 
     public static void main(String[] args) throws RepositoryException, QueryEvaluationException, MalformedQueryException, IOException {
@@ -274,6 +307,7 @@ public class SailInfoBase {
         SailInfoBase IB = new SailInfoBase();
         System.out.println("Loading completed");
 
+        /*
         // String representation of query to be asked in KB
         String q1 = "select  ?p ?x ?z "
                 + "where {"
@@ -287,7 +321,7 @@ public class SailInfoBase {
         System.out.println("Evaluating Query...");
         HashSet<ArrayList<String>> q1Ans = IB.queryRepo(q1); // Evaluate query
         IB.printAnswer(q1Ans); // print answer
-
+         */
     }
 
     public Repository getRepo() {

@@ -227,8 +227,10 @@ public class StringUtils {
         Trie stopWordsEn = new Trie();
         Trie stopWordsGr = new Trie();
 
-        ClassLoader classLoader = StringUtils.class.getClassLoader();
-        InputStream is = classLoader.getResourceAsStream(filePath_en);
+        //ClassLoader classLoader = StringUtils.class.getClassLoader();
+        //InputStream sourceFile = getClass().getResourceAsStream("/warehouse/" + file);
+
+        InputStream is = StringUtils.class.getResourceAsStream(filePath_en);
 
         try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
             stream.forEach(word -> stopWordsEn.Insert(word, false));
@@ -237,12 +239,13 @@ public class StringUtils {
         }
         stopLists.put("en", stopWordsEn);
 
-        is = classLoader.getResourceAsStream(filePath_gr);
+        is = StringUtils.class.getResourceAsStream(filePath_gr);
 
         try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
             stream.forEach(word -> stopWordsGr.Insert(word, false));
-        } catch (IOException ex) {
-            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            //Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         stopLists.put("gr", stopWordsGr);
     }
