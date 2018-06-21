@@ -9,36 +9,22 @@
  */
 package gr.forth.ics.isl.main;
 
-import com.crtomirmajer.wmd4j.WordMovers;
-import edu.mit.jwi.Dictionary;
-import edu.mit.jwi.IDictionary;
-import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
-import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
-import gr.forth.ics.isl.demo.models.Word2vecModel;
-import gr.forth.ics.isl.demo.models.Word2vecModel_II;
-import gr.forth.ics.isl.demo.models.WordnetModel;
-import gr.forth.ics.isl.demo.models.WordnetModel_II;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
 import gr.forth.ics.isl.sailInfoBase.models.Subject;
-import gr.forth.ics.isl.utilities.StringUtils;
-import gr.forth.ics.isl.utilities.Utils;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import mitos.stemmer.trie.Trie;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
@@ -66,133 +52,139 @@ public class demo_main {
 
     public static void main(String[] args) throws IOException, ParseException, FileNotFoundException, ClassNotFoundException, RepositoryException, MalformedQueryException, QueryEvaluationException {
 
-        /*QAInfoBase KB = new QAInfoBase();
-        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
-        ArrayList<Comment> comments = getComments(hotels, KB);
-
-        int total = 0;
-
-        for (Comment c : comments) {
-            total += c.getText().split(" ").length;
-        }
-        System.out.println(total / 40.0f);*/
-        //Create the list of stopWords to use
-        StringUtils.generateStopLists(filePath_en, filePath_gr);
-
-        File gModel = new File("C:/Users/Sgo/Desktop/Developer/Vector Models/GoogleNews-vectors-negative300.bin.gz");
-        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
-        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
-
-        String wnhome = System.getenv("WNHOME");
-        String path = wnhome + File.separator + "dict";
-        URL url = new URL("file", null, path);
-        // construct the dictionary object and open it
-        IDictionary dict = new Dictionary(url);
-        dict.open();
-
         QAInfoBase KB = new QAInfoBase();
-        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+        ArrayList<String> targetSelection = new ArrayList<>(Arrays.asList("http://ics.forth.gr/isl/hippalus/#tazuru",
+                "http://ics.forth.gr/isl/hippalus/#arima_onsen_tosen_goshobo",
+                "http://ics.forth.gr/isl/hippalus/#the_b_kobe"));
 
-        System.out.println("External Resources were loaded successfully");
-
-        // Get all the comments
-        ArrayList<Comment> comments = getComments(hotels, KB);
-
-        // Choose wordnet sources to be used
-        ArrayList<String> wordnetResources = new ArrayList<>();
-        wordnetResources.add("synonyms");
-        wordnetResources.add("antonyms");
-        wordnetResources.add("hypernyms");
-
-        // Retrieve hyperparameters
-        ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
-        float word2vec_w = bestModel.getWord2vecWeight();
-        float wordNet_w = bestModel.getWordNetWeight();
-        // Choose weights to be used in model IV
-        HashMap<String, Float> model_weights = new HashMap<>();
-        model_weights.put("wordnet", wordNet_w);
-        model_weights.put("word2vec", word2vec_w);
-
-        // This structure will contain the ground truth relevance between each
-        // query and each comment
-        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(evalCollection);
-        ArrayList<Comment> resultComs;
-
-        // Get the ground truth for the current query
-        HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = null;
-
-        System.out.println("\n=======");
-        System.out.println("WORDNET");
-        System.out.println("=======\n");
-
-        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
-
-        wordnet.scoreComments("Has anyone reported a problem about cleanliness?");
-        resultComs = wordnet.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q3");
-        // for all retrieved comments print top two in the eval set
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        wordnet.scoreComments("Is the hotel staff helpful?");
-        resultComs = wordnet.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q6");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        System.out.println("\n=======");
-        System.out.println("WORDNET II");
-        System.out.println("=======\n");
-
-        WordnetModel_II wordnet_II = new WordnetModel_II("Wordnet model II", dict, wordnetResources, comments);
-
-        wordnet_II.scoreComments("Has anyone reported a problem about cleanliness?");
-        resultComs = wordnet_II.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q3");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        wordnet_II.scoreComments("Is the hotel staff helpful?");
-        resultComs = wordnet_II.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q6");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        System.out.println("\n=======");
-        System.out.println("WOR2VEC");
-        System.out.println("=======\n");
-
-        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
-
-        word2vec.scoreComments("Has anyone reported a problem about cleanliness?");
-        resultComs = word2vec.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q3");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        word2vec.scoreComments("Is the hotel staff helpful?");
-        resultComs = word2vec.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q6");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        System.out.println("\n=======");
-        System.out.println("WOR2VEC II");
-        System.out.println("=======\n");
-
-        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model", wm, vec, comments);
-
-        word2vec_II.scoreComments("Has anyone reported a problem about cleanliness?");
-        resultComs = word2vec_II.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q3");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
-
-        word2vec_II.scoreComments("Is the hotel staff helpful?");
-        resultComs = word2vec_II.getTopComments(comments.size());
-        // Get the ground truth for the current query
-        evalPairsWithCrntQueryId = gt.get("q6");
-        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+        HashSet<Subject> lala = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", targetSelection);
+        System.out.println(getCommentsOnFocus(KB, targetSelection));
+//        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+//        ArrayList<Comment> comments = getComments(hotels, KB);
+//
+//        int total = 0;
+//
+//        for (Comment c : comments) {
+//            total += c.getText().split(" ").length;
+//        }
+//        System.out.println(total / 40.0f);*/
+        //Create the list of stopWords to use
+//        StringUtils.generateStopLists(filePath_en, filePath_gr);
+//
+//        File gModel = new File("C:/Users/Sgo/Desktop/Developer/Vector Models/GoogleNews-vectors-negative300.bin.gz");
+//        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
+//        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
+//
+//        String wnhome = System.getenv("WNHOME");
+//        String path = wnhome + File.separator + "dict";
+//        URL url = new URL("file", null, path);
+//        // construct the dictionary object and open it
+//        IDictionary dict = new Dictionary(url);
+//        dict.open();
+//
+//        QAInfoBase KB = new QAInfoBase();
+//        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
+//
+//        System.out.println("External Resources were loaded successfully");
+//
+//        // Get all the comments
+//        ArrayList<Comment> comments = getComments(hotels, KB);
+//
+//        // Choose wordnet sources to be used
+//        ArrayList<String> wordnetResources = new ArrayList<>();
+//        wordnetResources.add("synonyms");
+//        wordnetResources.add("antonyms");
+//        wordnetResources.add("hypernyms");
+//
+//        // Retrieve hyperparameters
+//        ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
+//        float word2vec_w = bestModel.getWord2vecWeight();
+//        float wordNet_w = bestModel.getWordNetWeight();
+//        // Choose weights to be used in model IV
+//        HashMap<String, Float> model_weights = new HashMap<>();
+//        model_weights.put("wordnet", wordNet_w);
+//        model_weights.put("word2vec", word2vec_w);
+//
+//        // This structure will contain the ground truth relevance between each
+//        // query and each comment
+//        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(evalCollection);
+//        ArrayList<Comment> resultComs;
+//
+//        // Get the ground truth for the current query
+//        HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = null;
+//
+//        System.out.println("\n=======");
+//        System.out.println("WORDNET");
+//        System.out.println("=======\n");
+//
+//        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
+//
+//        wordnet.scoreComments("Has anyone reported a problem about cleanliness?");
+//        resultComs = wordnet.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q3");
+//        // for all retrieved comments print top two in the eval set
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        wordnet.scoreComments("Is the hotel staff helpful?");
+//        resultComs = wordnet.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q6");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        System.out.println("\n=======");
+//        System.out.println("WORDNET II");
+//        System.out.println("=======\n");
+//
+//        WordnetModel_II wordnet_II = new WordnetModel_II("Wordnet model II", dict, wordnetResources, comments);
+//
+//        wordnet_II.scoreComments("Has anyone reported a problem about cleanliness?");
+//        resultComs = wordnet_II.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q3");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        wordnet_II.scoreComments("Is the hotel staff helpful?");
+//        resultComs = wordnet_II.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q6");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        System.out.println("\n=======");
+//        System.out.println("WOR2VEC");
+//        System.out.println("=======\n");
+//
+//        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
+//
+//        word2vec.scoreComments("Has anyone reported a problem about cleanliness?");
+//        resultComs = word2vec.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q3");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        word2vec.scoreComments("Is the hotel staff helpful?");
+//        resultComs = word2vec.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q6");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        System.out.println("\n=======");
+//        System.out.println("WOR2VEC II");
+//        System.out.println("=======\n");
+//
+//        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model", wm, vec, comments);
+//
+//        word2vec_II.scoreComments("Has anyone reported a problem about cleanliness?");
+//        resultComs = word2vec_II.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q3");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
+//
+//        word2vec_II.scoreComments("Is the hotel staff helpful?");
+//        resultComs = word2vec_II.getTopComments(comments.size());
+//        // Get the ground truth for the current query
+//        evalPairsWithCrntQueryId = gt.get("q6");
+//        printEvalOnlyComments(resultComs, evalPairsWithCrntQueryId);
 
         /*
         while (true) {
@@ -404,6 +396,27 @@ public class demo_main {
                     comments.add(tmpComment);
                 }
             }
+        }
+
+        return comments;
+    }
+    public static String getLabelOfUri(String uri) {
+        String[] uriParts = uri.split("/");
+        String[] location = uriParts[uriParts.length - 1].split("#");
+        String label = location[location.length - 1];
+        return label;
+    }
+
+    public static ArrayList<Comment> getCommentsOnFocus(QAInfoBase KB, ArrayList<String> uris) throws RepositoryException, MalformedQueryException, QueryEvaluationException {
+
+        HashSet<ArrayList<String>> commentTuples = KB.getCommentsOnFocus(uris);
+
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        for (ArrayList<String> commentTuple : commentTuples) {
+            commentTuple.get(0);
+            Comment comment = new Comment(getLabelOfUri(commentTuple.get(0)), commentTuple.get(0), commentTuple.get(1), commentTuple.get(2), commentTuple.get(3));
+            comments.add(comment);
         }
 
         return comments;

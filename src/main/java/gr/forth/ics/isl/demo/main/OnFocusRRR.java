@@ -17,7 +17,6 @@ import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
-import gr.forth.ics.isl.sailInfoBase.models.Subject;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -163,9 +161,9 @@ public class OnFocusRRR {
     public JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
         //System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
         // Get hotels on focus
-        HashSet<Subject> hotels = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris);
+        //HashSet<Subject> hotels = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris);
         // Get their comments
-        ArrayList<Comment> comments = demo_main.getComments(hotels, KB);
+        ArrayList<Comment> comments = demo_main.getCommentsOnFocus(KB, uris);
         // Score them
         ArrayList<Comment> scoredComments = combination.scoreComments(question, comments);
         // Get top 2 comments and create JASON object

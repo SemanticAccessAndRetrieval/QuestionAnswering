@@ -13,8 +13,22 @@
     </properties>
     <repositories>
         <repository>
-            <id>bigdata.releases</id>
-            <url>http://www.systap.com/maven/releases</url>
+            <id>FORTH-ISL-releases</id>
+            <name>FORTH ISL Nexus repository - Releases</name>
+            <url>http://www.ics.forth.gr/isl/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>FORTH-ISL-third-party</id>
+            <name>FORTH ISL Nexus repository - third party releases</name>
+            <url>http://www.ics.forth.gr/isl/maven-third-party/</url>
+        </repository>
+        <repository>
+            <id>FORTH-ISL-snapshots</id>
+            <name>FORTH ISL Nexus repository - Snapshots</name>
+            <url>http://www.ics.forth.gr/isl/maven-snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
     </repositories>
     <dependencies>
@@ -133,7 +147,7 @@
         <dependency>
             <groupId>wmd4j</groupId>
             <artifactId>wmd4j</artifactId>
-            <version>sar.version</version>
+            <version>1.0</version>
             <type>jar</type>
         </dependency>
         

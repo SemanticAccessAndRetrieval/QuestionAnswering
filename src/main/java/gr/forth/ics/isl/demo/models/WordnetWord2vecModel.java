@@ -41,7 +41,7 @@ public class WordnetWord2vecModel extends Model {
     private IDictionary dictionary;
     private ArrayList<String> resourcesToRetrieve;
     private HashMap<String, Float> modelWeights;
-    private double maxWMD = 0.0;
+    private double inverseMaxWMD = 0.0;
 
     public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments) {
         super.setDescription(description);
@@ -169,11 +169,12 @@ public class WordnetWord2vecModel extends Model {
         for (String sentence : NlpAnalyzer.getSentences(com.getText())) {
             try {
                 tmpWMD = calculateWordMoversDistance(this.wordMovers, queryCleanArray, sentence, this.w2_vector);
-                if (tmpWMD == -1.0f) {
-                    tmpWMD = this.maxWMD;
-                }
-                tmpWord2vecScore = 1.0f - tmpWMD / this.maxWMD;
 
+                if (tmpWMD == -1.0f) {
+                    tmpWord2vecScore = 0.0f;
+                } else {
+                    tmpWord2vecScore = 1.0f - tmpWMD * this.inverseMaxWMD;
+                }
                 tmpWordnetScore = calculateSynsetSimilarity(queryExpandedCleanArray, sentence, this.dictionary);
 
                 tmpScore = calculatePartialScore(tmpWordnetScore, tmpWord2vecScore);
@@ -192,7 +193,7 @@ public class WordnetWord2vecModel extends Model {
     }
 
     private double calculateWordMoversDistance(WordMovers wm, String[] querySetClean, String text, Word2Vec vec) {
-        double distance = 0.0;
+        double distance = 0.0f;
 
         ArrayList<String> commentSet = NlpAnalyzer.getCleanTokens(text);
         ArrayList<String> commentSetClean = new ArrayList<>();
@@ -210,7 +211,7 @@ public class WordnetWord2vecModel extends Model {
             //System.out.println("Query: " + queryClean);
             //e.printStackTrace();
             //System.out.println(e.getMessage());
-            return -1.0;
+            return -1.0f;
         }
         return distance;
     }
@@ -303,7 +304,7 @@ public class WordnetWord2vecModel extends Model {
                 }
             }
         }
-        this.maxWMD = maxDistance;
+        this.inverseMaxWMD = 1.0f / maxDistance;
     }
 
     public double calculatePartialScore(double wordnetScore, double word2vecScore) {

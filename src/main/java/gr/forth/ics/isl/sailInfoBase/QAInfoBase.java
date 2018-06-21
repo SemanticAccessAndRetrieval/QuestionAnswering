@@ -504,6 +504,49 @@ public class QAInfoBase extends SailInfoBase {
         return subjects;
     }
 
+    public HashSet<ArrayList<String>> getCommentsOnFocus(ArrayList<String> uris) throws RepositoryException, MalformedQueryException, QueryEvaluationException {
+
+        String filterFunc = "filter( ?h_id in (";
+
+        //for(String uri : uris){
+        for (int i = 0; i < uris.size(); i++) {
+
+            filterFunc += "<" + uris.get(i) + ">";
+
+            if (i == uris.size() - 1) {
+                filterFunc += ")).";
+            } else {
+                filterFunc += ",";
+            }
+        }
+
+        String getCommentsOnFocus
+                = "select ?h_id ?c_id ?c_t ?c_d where{" + "\n"
+                + "?h_id a owl:NamedIndividual." + "\n"
+                + "?h_id hip:hasReview ?c_id." + "\n"
+                + "?c_id a hip:review." + "\n"
+                + "?c_id hip:hasText ?c_t." + "\n"
+                + "?c_id hip:hasDate ?c_d." + "\n"
+                + filterFunc
+                + "}";
+
+        //System.out.println(getCommentsOnFocus);
+
+        HashSet<ArrayList<String>> commentTuples = queryRepo(getCommentsOnFocus);
+
+//        for (ArrayList<String> commentTuple : commentTuples) {
+//            System.out.println("0" + commentTuple.get(0));
+//            System.out.println("1" + commentTuple.get(1));
+//            System.out.println("2" + commentTuple.get(2));
+//            System.out.println("3" + commentTuple.get(3));
+//            System.out.println("");
+//        }
+
+        //System.out.println(answerSetUris.size());
+
+        return commentTuples;
+
+    }
     /**
      * Retrieves all objects of the repository.
      *
@@ -573,7 +616,9 @@ public class QAInfoBase extends SailInfoBase {
         uris.add("http://ics.forth.gr/isl/hippalus/#arima_onsen_tosen_goshobo");
         uris.add("http://ics.forth.gr/isl/hippalus/#the_b_kobe");
 
-        System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
+        System.out.println(KB.getCommentsOnFocus(uris));
+
+        //System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
         //HashSet<ArrayList<String>> individualsOfTypeX = KB.getAllIndividualsOfType(prefix, type);
         //KB.printAnswer(individualsOfTypeX);
         //ArrayList<Individual> individuals = KB.getAllIndividuals();
