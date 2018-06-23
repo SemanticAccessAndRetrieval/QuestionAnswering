@@ -32,6 +32,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import mitos.stemmer.Stemmer;
 import mitos.stemmer.trie.Trie;
@@ -206,13 +208,13 @@ public class StringUtils {
         try (Stream<String> stream = Files.lines(Paths.get(filePath_en))) {
             stream.forEach(word -> stopWordsEn.Insert(word, false));
         } catch (IOException ex) {
-            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StringUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         stopLists.put("en", stopWordsEn);
         try (Stream<String> stream = Files.lines(Paths.get(filePath_gr))) {
             stream.forEach(word -> stopWordsGr.Insert(word, false));
         } catch (IOException ex) {
-            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StringUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         stopLists.put("gr", stopWordsGr);
     }
@@ -235,7 +237,7 @@ public class StringUtils {
         try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
             stream.forEach(word -> stopWordsEn.Insert(word, false));
         } catch (IOException ex) {
-            //Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StringUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         stopLists.put("en", stopWordsEn);
 
@@ -244,16 +246,15 @@ public class StringUtils {
         try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
             stream.forEach(word -> stopWordsGr.Insert(word, false));
         } catch (Exception ex) {
-            ex.printStackTrace();
-            //Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StringUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         stopLists.put("gr", stopWordsGr);
     }
 
     //Function which calculates the Jaccard Similarity between to Arrays of Strings
     public static double JaccardSim(String[] sentenceTerms, String[] quesTerms) {
-        Set<String> sentenceTermsAsSet = new HashSet<String>(Arrays.asList(sentenceTerms));
-        Set<String> quesTermsAsSet = new HashSet<String>(Arrays.asList(quesTerms));
+        Set<String> sentenceTermsAsSet = new HashSet<>(Arrays.asList(sentenceTerms));
+        Set<String> quesTermsAsSet = new HashSet<>(Arrays.asList(quesTerms));
         Set<String> union = Sets.union(sentenceTermsAsSet, quesTermsAsSet);
         Set<String> intersection = Sets.intersection(sentenceTermsAsSet, quesTermsAsSet);
         double jaccardSim = ((double) intersection.size()) / union.size();

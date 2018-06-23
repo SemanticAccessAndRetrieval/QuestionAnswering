@@ -59,19 +59,19 @@ public class OnFocusRRR {
     }
     
     public static void initialize(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
-        System.out.println("...loading KB...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading KB...");
         KB = new QAInfoBase();
 
 
         StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
         //System.out.println(stopLists);
 
-        System.out.println("...loading word2vec...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading word2vec...");
         File gModel = new File(word2vecPath + "GoogleNews-vectors-negative300.bin.gz");
         Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
         WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
 
-        System.out.println("...loading wordnet...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading wordnet...");
         String wnhome = System.getenv(wordnetPath);
         String path = wnhome + File.separator + "dict";
         URL url = new URL("file", null, path);
@@ -96,7 +96,7 @@ public class OnFocusRRR {
         wordnetResources.add("antonyms");
         wordnetResources.add("hypernyms");
 
-        System.out.println("...initializing model...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
         // Instantiate model
         combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
 
@@ -117,17 +117,17 @@ public class OnFocusRRR {
      */
     public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException {
 
-        System.out.println("...loading KB...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading KB...");
         KB = new QAInfoBase();
 
         StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
 
-        System.out.println("...loading word2vec...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading word2vec...");
         File gModel = new File(args[0] + "GoogleNews-vectors-negative300.bin.gz");
         Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
         WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
 
-        System.out.println("...loading wordnet...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading wordnet...");
         String wnhome = System.getenv(args[1]);
         String path = wnhome + File.separator + "dict";
         URL url = new URL("file", null, path);
@@ -152,7 +152,7 @@ public class OnFocusRRR {
         wordnetResources.add("antonyms");
         wordnetResources.add("hypernyms");
 
-        System.out.println("...initializing model...");
+        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
         // Instantiate model
         combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
 

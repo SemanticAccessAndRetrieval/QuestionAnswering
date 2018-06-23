@@ -207,10 +207,7 @@ public class WordnetWord2vecModel extends Model {
             distance = wm.distance(commentSetClean.toArray(new String[0]), querySetClean);
 
         } catch (Exception e) {
-            //System.out.println("Comment: " + commentClean);
-            //System.out.println("Query: " + queryClean);
-            //e.printStackTrace();
-            //System.out.println(e.getMessage());
+            Logger.getLogger(WordnetWord2vecModel.class.getName()).log(Level.SEVERE, e.getMessage());
             return -1.0f;
         }
         return distance;
