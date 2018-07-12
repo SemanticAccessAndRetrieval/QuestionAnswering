@@ -16,6 +16,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
@@ -44,13 +45,14 @@ public class ExternalKnowledgeDemoMain {
 
     //Core Nlp pipeline instance
     public static StanfordCoreNLP pipeline;
+    public static StanfordCoreNLP pipeline2;
     public static IDictionary dictionary;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
     public static void main(String[] args) {
 
         ExternalKnowledgeDemoMain lala = new ExternalKnowledgeDemoMain("WNHOME");
-        System.out.println(lala.getCleanExpandedQuery("population Kyoto"));
+        System.out.println(lala.getAnalyzedQueryAsJson("population Kyoto"));
     }
 
     public ExternalKnowledgeDemoMain(String wordnetPath) {
@@ -63,6 +65,7 @@ public class ExternalKnowledgeDemoMain {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "...Generating stop-words lists...");
             StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
 
+            //Code to initialize also the Word2Vec model
             //Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "...loading word2vec...");
             //File gModel = new File(word2vecPath + "GoogleNews-vectors-negative300.bin.gz");
             //Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
@@ -78,9 +81,6 @@ public class ExternalKnowledgeDemoMain {
 
             // Choose wordnet sources to be used
             wordnetResources.add("synonyms");
-
-           // ArrayList<String> wordnetResources = new ArrayList<>();
-            //wordnetResources.add("synonyms");
             //wordnetResources.add("antonyms");
             //wordnetResources.add("hypernyms");
 
@@ -88,6 +88,12 @@ public class ExternalKnowledgeDemoMain {
             props.put("annotators", "tokenize, ssplit, pos, lemma");
             props.put("tokenize.language", "en");
             pipeline = new StanfordCoreNLP(props);
+
+            Properties props2 = new Properties();
+            props2.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+            props2.put("tokenize.language", "en");
+            pipeline2 = new StanfordCoreNLP(props2);
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -95,7 +101,27 @@ public class ExternalKnowledgeDemoMain {
         }
     }
 
-    public JSONObject getCleanExpandedQuery(String query) {
+    public JSONObject getAnalyzedQueryAsJson(String query) {
+        try {
+            JSONObject obj = new JSONObject();
+
+            ArrayList<String> expanded_query = getCleanExpandedQuery(query);
+
+            obj.put("expanded_query", expanded_query);
+
+            HashMap<String, String> word_NamedEntity = getTokensWithNer(query);
+
+            obj.put("recognized_NamedEntities", word_NamedEntity);
+
+            return obj;
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public ArrayList<String> getCleanExpandedQuery(String query) {
         String crntTermPosTag;
 
         //Construct query's wordnet representation
@@ -112,21 +138,35 @@ public class ExternalKnowledgeDemoMain {
             }
         }
 
-        return getJASONObject(new ArrayList<>(querySynset));
+        return new ArrayList<>(querySynset);
     }
 
-    private static JSONObject getJASONObject(ArrayList<String> expanded_query) {
+    public static HashMap<String, String> getTokensWithNer(String text) {
 
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("expanded_query", expanded_query);
+        //apply
+        Annotation document = new Annotation(text);
+        pipeline2.annotate(document);
 
-            return obj;
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
+
+        HashMap<String, String> word_ner = new HashMap<>();
+
+        //For each sentence
+        for (CoreMap sentence : sentences) {
+            //For each word in the sentence
+            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+
+                //Get the TEXT of the token
+                String word = token.get(CoreAnnotations.TextAnnotation.class);
+
+                //Get the NER tag of the token
+                String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
+
+                word_ner.put(word, ner);
+
+            }
         }
-
-        return null;
+        return word_ner;
     }
 
     public static HashMap<String, String> getCleanTokensWithPos(String text) {
@@ -158,7 +198,7 @@ public class ExternalKnowledgeDemoMain {
     public synchronized HashSet<String> getWordNetResources(String pos, IDictionary dict, String token, ArrayList<String> resources) throws IOException {
 
         //Get the wordnet POS based on coreNLP POS
-        POS word_pos = getWordNetPos(pos);
+        POS word_pos = WordNet.getWordNetPos(pos);
 
         if (word_pos == null) {
             return new HashSet<>();
@@ -187,20 +227,6 @@ public class ExternalKnowledgeDemoMain {
             }
         }
         return synset;
-    }
-
-    //Get the wordnet POS based on coreNLP POS
-    public POS getWordNetPos(String pos) {
-        if (pos.startsWith("J")) {
-            return POS.ADJECTIVE;
-        } else if (pos.startsWith("R")) {
-            return POS.ADVERB;
-        } else if (pos.startsWith("N")) {
-            return POS.NOUN;
-        } else if (pos.startsWith("V")) {
-            return POS.VERB;
-        }
-        return null;
     }
 
 }

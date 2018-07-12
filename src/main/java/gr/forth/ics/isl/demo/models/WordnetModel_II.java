@@ -121,10 +121,10 @@ public class WordnetModel_II extends Model {
         return score;
     }
 
-    public HashSet<String> getWordNetResources(String pos, IDictionary dict, String token, ArrayList<String> resources) throws IOException {
+    public synchronized HashSet<String> getWordNetResources(String pos, IDictionary dict, String token, ArrayList<String> resources) throws IOException {
 
         //Get the wordnet POS based on coreNLP POS
-        POS word_pos = getWordNetPos(pos);
+        POS word_pos = WordNet.getWordNetPos(pos);
 
         if (word_pos == null) {
             return new HashSet<>();
@@ -153,21 +153,6 @@ public class WordnetModel_II extends Model {
             }
         }
         return synset;
-    }
-
-    // TODO: EXPAND THE CURRENT LIST
-    //Get the wordnet POS based on coreNLP POS
-    public POS getWordNetPos(String pos) {
-        if (pos.startsWith("J")) {
-            return POS.ADJECTIVE;
-        } else if (pos.startsWith("R")) {
-            return POS.ADVERB;
-        } else if (pos.startsWith("N")) {
-            return POS.NOUN;
-        } else if (pos.startsWith("V")) {
-            return POS.VERB;
-        }
-        return null;
     }
 
     public static void constructVocabIndex() throws FileNotFoundException, IOException {

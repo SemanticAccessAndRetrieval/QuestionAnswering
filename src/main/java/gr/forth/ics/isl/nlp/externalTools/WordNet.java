@@ -148,6 +148,20 @@ public class WordNet {
         return synonyms;
     }
 
+    //Get the wordnet POS based on coreNLP POS
+    public static POS getWordNetPos(String pos) {
+        if (pos.startsWith("J")) {
+            return POS.ADJECTIVE;
+        } else if (pos.startsWith("R")) {
+            return POS.ADVERB;
+        } else if (pos.startsWith("N")) {
+            return POS.NOUN;
+        } else if (pos.startsWith("V")) {
+            return POS.VERB;
+        }
+        return null;
+    }
+
     /**
      * @param args the command line arguments
      */
