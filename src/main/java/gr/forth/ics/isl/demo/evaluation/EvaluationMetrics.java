@@ -147,8 +147,8 @@ public class EvaluationMetrics {
         }
         return ideal_score;
     }
-    /*
-    public static double nDCG(ArrayList<Integer> groundTruth, int R) {
+
+    public static double nDCG_R(ArrayList<Integer> groundTruth, double idealScore, int R) {
         double Sum = 0.0;
 
         int i = 1;
@@ -159,7 +159,6 @@ public class EvaluationMetrics {
             }
             i++;
         }
-        double idealScore = getIDCG(groundTruth, R);
 
         if (idealScore == 0.0f) {
             return 0.0f;
@@ -168,10 +167,14 @@ public class EvaluationMetrics {
         return Sum / idealScore;
     }
 
-    public static double getIDCG(ArrayList<Integer> groundTruth, int R) {
+    public static double getIDCG_R(Collection<EvaluationPair> evalPairs, int R) {
+
         TreeMap<Integer, Integer> relevance_score = new TreeMap<>();
 
-        for (int tmp_relevance : groundTruth) {
+        int tmp_relevance;
+        for (EvaluationPair p : evalPairs) {
+            tmp_relevance = p.getRelevance();
+
             if (tmp_relevance != 0) {
                 if (!relevance_score.containsKey(tmp_relevance)) {
                     relevance_score.put(tmp_relevance, 1);
@@ -180,8 +183,6 @@ public class EvaluationMetrics {
                 }
             }
         }
-
-        System.out.println(relevance_score);
 
         double ideal_score = 0.0f;
         int position = 1;
@@ -201,7 +202,7 @@ public class EvaluationMetrics {
         }
         return ideal_score;
     }
-*/
+
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
         //ModelHyperparameters m1 = (ModelHyperparameters) getSavedObject("AVEPbased_BestModel");
         //ModelHyperparameters m2 = (ModelHyperparameters) getSavedObject("rPrecisionbased_BestModel");

@@ -287,7 +287,8 @@ public class ModelStats implements Serializable {
                 // Calculate the BPREF of our system's answer
                 tmp_Bpref_R += EvaluationMetrics.BPREF(testSet, R, evalPairsWithCrntQueryId.size() - R, relThreshold);
                 // Calculate the nDCG of our system's answer
-                tmp_nDCG_R += EvaluationMetrics.AVEP(testSet, R, relThreshold);
+                tmp_nDCG_R += EvaluationMetrics.nDCG_R(testSet, EvaluationMetrics.getIDCG_R(evalPairsWithCrntQueryId.values(), R), R);
+                //tmp_nDCG_R += EvaluationMetrics.nDCG(testSet, EvaluationMetrics.getIDCG(evalPairsWithCrntQueryId.values()), R);
             }
 
             int normFactor = allQueriesTestSet.size() - outOfEval;
