@@ -21,6 +21,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -36,6 +39,7 @@ public class LODSyndesisChanel {
     private HttpGet objectCoreference;
     private HttpGet allFacts;
     private HttpGet factChecking;
+    private HttpGet keywordEntity;
     private static final String URL = "http://83.212.101.8:8080/LODsyndesis/rest-api";
     private String serviceName;
 
@@ -118,6 +122,90 @@ public class LODSyndesisChanel {
     }
 
     /**
+     * Used to check for a given fact, i.e triples match a given
+     * subject-predicate tuple, where the fact is treated as correct if the
+     * number of given words it contains exceed the given thershold.
+     *
+     * @param uri
+     * @param fact
+     * @param thres
+     * @return quadruples of triples (facts) and their provenance (KB from which
+     * they derived from)
+     */
+    public ArrayList<ArrayList<String>> checkFact(String uri, String fact, double thres) {
+        try {
+            serviceName = "factChecking";
+            String URLEncodedFact = getURLEncodedFact(fact);
+            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + thres);
+            factChecking.addHeader(ACCEPT, "application/n-quads");
+            factChecking.addHeader(CONTENT_TYPE, "application/n-quads");
+
+            ArrayList<ArrayList<String>> allQuads = getContent(factChecking);
+
+            return allQuads;
+        } catch (IOException ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
+     * Used to match candidate entities to a given URI. Finds all URIs, whose
+     * suffix starts with that Keyword
+     *
+     * @param keyword
+     * @return ArrayList<String> candidateEntities
+     */
+    public ArrayList<String> getEntityFormKeyWord(String keyword) {
+
+        try {
+            serviceName = "keywordEntity";
+            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword);
+            keywordEntity.addHeader(ACCEPT, "application/json");
+            keywordEntity.addHeader(CONTENT_TYPE, "application/json");
+
+            ArrayList<String> candidateEntities = getJsonContent(keywordEntity);
+
+            return candidateEntities;
+        } catch (IOException ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
+     * Used to execute the request, receive the response in JSON format and
+     * produce an interpretable structure with it.
+     *
+     * @param request
+     * @return An interpretable structure that contains current service
+     * response.
+     * @throws IOException
+     */
+    private ArrayList<String> getJsonContent(HttpGet request) throws IOException {
+
+        try {
+            HttpResponse response = client.execute(request);
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            ArrayList<String> result = new ArrayList<>();
+
+            JSONObject jsonObject = new JSONObject("{candidates: " + rd.readLine() + "}");
+            JSONArray candidates = jsonObject.getJSONArray(("candidates"));
+
+            for (int i = 0; i < candidates.length(); i++) {
+                JSONObject uri = candidates.getJSONObject(i);
+                result.add(uri.getString("uri"));
+            }
+
+            return result;
+        } catch (JSONException ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
      * Used to transform a fact (predicate into URL valid substring). i.e.
      * replaces white spaces with %20.
      *
@@ -140,8 +228,8 @@ public class LODSyndesisChanel {
     }
 
     /**
-     * Used to execute the request, receive the response and produce an
-     * interpretable structure with it.
+     * Used to execute the request, receive the response in n-quads or n-triples
+     * format and produce an interpretable structure with it.
      *
      * @param request
      * @return An interpretable structure that contains current service
@@ -174,6 +262,8 @@ public class LODSyndesisChanel {
         LODSyndesisChanel chanel = new LODSyndesisChanel();
         System.out.println(chanel.getEntity("http://dbpedia.org/resource/Aristotle_University_of_Thessaloniki"));
         System.out.println(chanel.getAllFacts("http://dbpedia.org/resource/Spetses"));
-        System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle_University_of_Thessaloniki", "p31c"));
+        System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala"));
+        System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala", 0.5));
+        System.out.println(chanel.getEntityFormKeyWord("Aristo"));
     }
 }
