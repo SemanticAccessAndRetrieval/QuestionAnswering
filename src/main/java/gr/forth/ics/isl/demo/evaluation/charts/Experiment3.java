@@ -164,6 +164,8 @@ public class Experiment3 extends JFrame {
                 //allModelsNames.add("Word2vec model II");
                 allModelsNames.add("Word2vec and Wordnet");
                 //allModelsNames.add("Word2vec and Wordnet II");
+                allModelsNames.add("Word2vec model III");
+                allModelsNames.add("Word2vec model III Context Words");
 
                 // Precision chart
                 Experiment3 Precision = new Experiment3("Precision over different R cut-offs", allModelsNames, "R-Precision", collectionName);

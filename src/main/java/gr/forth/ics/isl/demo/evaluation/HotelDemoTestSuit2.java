@@ -12,12 +12,14 @@ package gr.forth.ics.isl.demo.evaluation;
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demo.auxiliaryClasses.Timer;
 import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
+import gr.forth.ics.isl.demo.main.OnFocusRRR;
 import gr.forth.ics.isl.demo.models.Model;
-import gr.forth.ics.isl.demo.models.Word2vecModel_II;
+import gr.forth.ics.isl.demo.models.Word2vecModel_III;
 import static gr.forth.ics.isl.main.demo_main.getComments;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromWebAP;
@@ -33,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 import mitos.stemmer.trie.Trie;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
@@ -67,6 +70,11 @@ public class HotelDemoTestSuit2 {
 
         // Create the list of stopWords to use
         StringUtils.generateStopLists(filePath_en, filePath_gr);
+
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
+        props.put("tokenize.language", "en");
+        OnFocusRRR.pipeline = new StanfordCoreNLP(props);
         timer.start();
 
         // Create hotel database
@@ -200,14 +208,28 @@ public class HotelDemoTestSuit2 {
 ////        System.out.println(stats);
 //        word2vec = null;
 
-        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model II", wm, vec, comments);
-        produceResults(word2vec_II, queryList, gt, relThreshold); // produce result set of model
+//        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model II", wm, vec, comments);
+//        produceResults(word2vec_II, queryList, gt, relThreshold); // produce result set of model
         //printResults(baseline.getDescription()); // print results
 //        stats = new ModelStats(word2vec.getDescription());
 //        stats.evaluate2(gt, relThreshold, evalFileName);
 //        System.out.println(stats);
-        word2vec_II = null;
+        //word2vec_II = null;
+        ArrayList<String> contextWords = new ArrayList<>();
+        contextWords.add("problem");
+        contextWords.add("issue");
+        contextWords.add("report");
+        contextWords.add("hotel");
+        contextWords.add("complaint");
+        contextWords.add("anyone");
+        contextWords.add("complain");
 
+        Word2vecModel_III word2vec_III = new Word2vecModel_III("Word2vec model III", wm, vec, comments);
+        produceResults(word2vec_III, queryList, gt, relThreshold); // produce result set of model
+        word2vec_III = null;
+        Word2vecModel_III word2vec_III_CW = new Word2vecModel_III("Word2vec model III Context Words", wm, vec, comments, contextWords);
+        produceResults(word2vec_III_CW, queryList, gt, relThreshold); // produce result set of model
+        word2vec_III_CW = null;
     }
 
     public static void produceResults(Model model, HashMap<String, String> queryList, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold) throws IOException {
