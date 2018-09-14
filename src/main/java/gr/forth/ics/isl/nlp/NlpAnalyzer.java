@@ -231,17 +231,34 @@ public class NlpAnalyzer {
         //return sentencesWithWords;
     }
 
+    /*
+    public static ArrayList<String> getCleanTokensUIMA(String text) {
+        try {
+            TokenizerFactory tokenizerFactory = new UimaTokenizerFactory();
+            Tokenizer tokenizer = tokenizerFactory.create(text);
+
+            //iterate over the tokens
+            while (tokenizer.hasMoreTokens()) {
+                String token = tokenizer.nextToken();
+            }
+
+        } catch (ResourceInitializationException ex) {
+            Logger.getLogger(NlpAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }*/
+
     // Apply: 1) Tokenization 2) Lemmatization 3) Remove punctuations 4) Remove stopwords
     public static ArrayList<String> getCleanTokens(String text) {
-        //Properties props = new Properties();
-
-        //props.put("annotators", "tokenize, ssplit, pos, lemma");
-        //props.put("tokenize.language", "en");
-        //StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
+//        Properties props = new Properties();
+//
+//        props.put("annotators", "tokenize, ssplit, pos, lemma");
+//        props.put("tokenize.language", "en");
+//        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         //apply
         Annotation document = new Annotation(text);
         OnFocusRRR.pipeline.annotate(document);
+        //pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 
