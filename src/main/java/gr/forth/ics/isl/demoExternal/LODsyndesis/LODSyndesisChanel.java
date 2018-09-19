@@ -150,13 +150,41 @@ public class LODSyndesisChanel {
     }
 
     /**
+     * Used to check for a given fact, i.e triples match a given
+     * subject-predicate tuple, where the fact is treated as correct if the
+     * number of given words it contains exceed the given thershold.
+     *
+     * @param uri
+     * @param fact
+     * @param thres
+     * @return quadruples of triples (facts) and their provenance (KB from which
+     * they derived from)
+     */
+    public ArrayList<ArrayList<String>> checkFactAsJSON(String uri, String fact, double thres) {
+        try {
+            serviceName = "factChecking";
+            String URLEncodedFact = getURLEncodedFact(fact);
+            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + thres);
+            factChecking.addHeader(ACCEPT, "application/json");
+            factChecking.addHeader(CONTENT_TYPE, "application/json");
+
+            ArrayList<ArrayList<String>> allQuads = getContent(factChecking);
+
+            return allQuads;
+        } catch (IOException ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
      * Used to match candidate entities to a given URI. Finds all URIs, whose
      * suffix starts with that Keyword
      *
      * @param keyword
      * @return ArrayList<String> candidateEntities
      */
-    public ArrayList<String> getEntityFormKeyWord(String keyword) {
+    public ArrayList<String> getEntityFromKeyWord(String keyword) {
 
         try {
             serviceName = "keywordEntity";
@@ -264,6 +292,6 @@ public class LODSyndesisChanel {
         System.out.println(chanel.getAllFacts("http://dbpedia.org/resource/Spetses"));
         System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala"));
         System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala", 0.5));
-        System.out.println(chanel.getEntityFormKeyWord("Aristo"));
+        System.out.println(chanel.getEntityFromKeyWord("Aristo"));
     }
 }
