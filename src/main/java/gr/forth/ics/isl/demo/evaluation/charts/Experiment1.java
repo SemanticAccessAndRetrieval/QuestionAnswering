@@ -27,9 +27,9 @@ public class Experiment1 {
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
-        String collectionName = "FRUCE_v2";
+        //String collectionName = "FRUCE_v2";
         //String collectionName = "BookingEvalCollection";
-        //String collectionName = "webAP";
+        String collectionName = "webAP";
 
         int relThreshold = 0;
         int R = 10;
@@ -37,7 +37,7 @@ public class Experiment1 {
         if (collectionName.contains("FRUCE")) {
             relThreshold = 0;
         } else if (collectionName.contains("webAP")) {
-            relThreshold = 2;
+            relThreshold = 3;
         } else {
             relThreshold = 0;
         }
@@ -80,6 +80,15 @@ public class Experiment1 {
         Utils.saveObject(Word2vec.getAllnDCSs_R(), Word2vec.getDescription() + "_all_nDCGs_R_" + collectionName);
         System.out.println(Word2vec + "\n");
 
+        ModelStats Word2vec_CW = new ModelStats("Word2vec model Context Words");
+        Word2vec_CW.evaluate2(gt, relThreshold, collectionName);
+        Word2vec_CW.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vec_CW.getAllPrecisions_R(), Word2vec_CW.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vec_CW.getAllAveps_R(), Word2vec_CW.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vec_CW.getAllBprefs_R(), Word2vec_CW.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vec_CW.getAllnDCSs_R(), Word2vec_CW.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vec_CW + "\n");
+
 //        ModelStats Word2vec_II = new ModelStats("Word2vec model II");
 //        Word2vec_II.evaluate2(gt, relThreshold, collectionName);
 //        Word2vec_II.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
@@ -114,6 +123,33 @@ public class Experiment1 {
         Utils.saveObject(Word2vecWordnet.getAllBprefs_R(), Word2vecWordnet.getDescription() + "_all_Bprefs_R_" + collectionName);
         Utils.saveObject(Word2vecWordnet.getAllnDCSs_R(), Word2vecWordnet.getDescription() + "_all_nDCGs_R_" + collectionName);
         System.out.println(Word2vecWordnet + "\n");
+
+        ModelStats Word2vecWordnet_CW = new ModelStats("Word2vec and Wordnet Context Words");
+        Word2vecWordnet_CW.evaluate2(gt, relThreshold, collectionName);
+        Word2vecWordnet_CW.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vecWordnet_CW.getAllPrecisions_R(), Word2vecWordnet_CW.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_CW.getAllAveps_R(), Word2vecWordnet_CW.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_CW.getAllBprefs_R(), Word2vecWordnet_CW.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_CW.getAllnDCSs_R(), Word2vecWordnet_CW.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vecWordnet_CW + "\n");
+
+        ModelStats Word2vecWordnet_III = new ModelStats("Word2vec and Wordnet III");
+        Word2vecWordnet_III.evaluate2(gt, relThreshold, collectionName);
+        Word2vecWordnet_III.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vecWordnet_III.getAllPrecisions_R(), Word2vecWordnet_III.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III.getAllAveps_R(), Word2vecWordnet_III.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III.getAllBprefs_R(), Word2vecWordnet_III.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III.getAllnDCSs_R(), Word2vecWordnet_III.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vecWordnet_III + "\n");
+
+        ModelStats Word2vecWordnet_III_CW = new ModelStats("Word2vec and Wordnet III Context Words");
+        Word2vecWordnet_III_CW.evaluate2(gt, relThreshold, collectionName);
+        Word2vecWordnet_III_CW.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Word2vecWordnet_III_CW.getAllPrecisions_R(), Word2vecWordnet_III_CW.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III_CW.getAllAveps_R(), Word2vecWordnet_III_CW.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III_CW.getAllBprefs_R(), Word2vecWordnet_III_CW.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Word2vecWordnet_III_CW.getAllnDCSs_R(), Word2vecWordnet_III_CW.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Word2vecWordnet_III_CW + "\n");
 
 //        ModelStats Word2vecWordnet_II = new ModelStats("Word2vec and Wordnet II");
 //        Word2vecWordnet_II.evaluate2(gt, relThreshold, collectionName);
