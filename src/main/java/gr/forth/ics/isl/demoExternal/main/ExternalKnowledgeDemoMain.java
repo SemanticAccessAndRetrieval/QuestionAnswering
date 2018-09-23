@@ -30,20 +30,22 @@ public class ExternalKnowledgeDemoMain {
 
         // Question 1 on focus (factoid)
         String query1 = "What is the population of Kyoto?";
-        String question_type1 = "f";
 
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";
-        String question_type2 = "c";
 
         // Question 3 on focus (definition)
         String query3 = "What does Kyoto mean?";
-        String question_type3 = "d";
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis("WNHOME");
         q_analysis.analyzeQuestion(query1);
 
+        String question_type = q_analysis.getQuestionType();
+
+        if (question_type.equals("none")) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
+        } else {
         // Store the useful words of the question
         Set<String> useful_words = q_analysis.getUsefulWords();
 
@@ -57,9 +59,10 @@ public class ExternalKnowledgeDemoMain {
         HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
         // ==== Answer Extraction Step ====
-        String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type1);
+        String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
         Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+        }
     }
 
     public ExternalKnowledgeDemoMain(String wordnetPath) {

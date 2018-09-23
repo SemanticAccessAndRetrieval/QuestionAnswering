@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,6 +57,8 @@ public class QuestionAnalysis {
     private Set<String> question_entities;
     // Store the concatenation of useful_words to retrieve cand. triples from LODSyndesis
     private String fact = "";
+
+    private String question_type = "";
 
     public QuestionAnalysis(String wordnetPath) {
         initialize(wordnetPath);
@@ -119,6 +122,10 @@ public class QuestionAnalysis {
         return fact;
     }
 
+    public String getQuestionType() {
+        return question_type;
+    }
+
     public void setUsefulWords(Set<String> words) {
         this.useful_words = words;
     }
@@ -129,6 +136,10 @@ public class QuestionAnalysis {
 
     public void setFact(String fact) {
         this.fact = fact;
+    }
+
+    public void setQuestionType(String q_type) {
+        this.question_type = q_type;
     }
 
     public void analyzeQuestion(String question) {
@@ -155,6 +166,39 @@ public class QuestionAnalysis {
             fact += word + " ";
         }
         fact.trim();
+
+        question_type = identifyQuestionType(question.toLowerCase());
+    }
+
+    public String identifyQuestionType(String question) {
+
+        ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
+
+        Set<String> question_words = getCleanTokensWithPos(question).keySet();
+
+        for (String d_word : definition_words) {
+            if (question_words.contains(d_word)) {
+                return "d";
+            }
+        }
+
+        ArrayList<String> factoid_words = new ArrayList<>(Arrays.asList("when", "who", "where", "what"));
+
+        for (String f_word : factoid_words) {
+            if (question.startsWith(f_word)) {
+                return "f";
+            }
+        }
+
+        ArrayList<String> confirmation_words = new ArrayList<>(Arrays.asList("are", "did", "is", "was", "does", "were", "do"));
+
+        for (String c_word : confirmation_words) {
+            if (question.startsWith(c_word)) {
+                return "c";
+            }
+        }
+
+        return "none";
     }
 
 
