@@ -1,7 +1,7 @@
 /*
- *  This code belongs to the Semantic Access and Retrieval (SAR) group of the 
- *  Information Systems Laboratory (ISL) of the 
- *  Institute of Computer Science (ICS) of the  
+ *  This code belongs to the Semantic Access and Retrieval (SAR) group of the
+ *  Information Systems Laboratory (ISL) of the
+ *  Institute of Computer Science (ICS) of the
  *  Foundation for Research and Technology - Hellas (FORTH)
  *  Nobody is allowed to use, copy, distribute, or modify this work.
  *  It is published for reasons of research results reproducibility.
@@ -40,15 +40,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.ops.transforms.Transforms;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
 
 /**
  *
- * @author Lefteris Dimitrakis and Sgo
+ * @author Sgo and Lefteris Dimitrakis
  */
-public class WordnetWord2vecModel extends Model {
+
+
+public class WordnetWord2vecModel_III extends Model {
 
     private WordMovers wordMovers;
     private final Word2Vec w2_vector;
@@ -58,7 +62,7 @@ public class WordnetWord2vecModel extends Model {
     private double inverseMaxWMD = 0.0;
     private ArrayList<String> contextWords = null;
 
-    public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments, ArrayList<String> contextWords) {
+    public WordnetWord2vecModel_III(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments, ArrayList<String> contextWords) {
         super.setDescription(description);
         super.setComments(comments);
         this.dictionary = dict;
@@ -69,7 +73,7 @@ public class WordnetWord2vecModel extends Model {
         this.contextWords = contextWords;
     }
 
-    public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments) {
+    public WordnetWord2vecModel_III(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights, ArrayList<Comment> comments) {
         super.setDescription(description);
         super.setComments(comments);
         this.dictionary = dict;
@@ -79,7 +83,7 @@ public class WordnetWord2vecModel extends Model {
         this.modelWeights = weights;
     }
 
-    public WordnetWord2vecModel(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights) {
+    public WordnetWord2vecModel_III(String description, IDictionary dict, ArrayList<String> resources, WordMovers wm, Word2Vec w2v, HashMap<String, Float> weights) {
         super.setDescription(description);
         this.dictionary = dict;
         this.resourcesToRetrieve = resources;
@@ -126,7 +130,7 @@ public class WordnetWord2vecModel extends Model {
 
     public ArrayList<Comment> scoreComments(String query, ArrayList<Comment> comments) {
         super.setComments(comments);
-        this.calculateMaxWMD(query);
+        //this.calculateMaxWMD(query);
 
         for (Comment com : this.getComments()) {
             this.scoreComment(com, query);
@@ -138,35 +142,82 @@ public class WordnetWord2vecModel extends Model {
     @Override
     public void scoreComments(String query) {
 
-        if (contextWords != null) {
-            this.calculateMaxWMD(weightContextWords(query, contextWords));
-        } else {
-            this.calculateMaxWMD(query);
-        }
+        ArrayList<String> queryStatisticalExpandedClean = expandQuery(query);
+        HashSet<String> queryExpandedClean = getCleanExpandedQuery(query);
+        this.calculateMaxWMD(queryStatisticalExpandedClean);
 
         for (Comment com : this.getComments()) {
-            this.scoreComment(com, query);
+            this.scoreComment(com, queryExpandedClean, queryStatisticalExpandedClean);
         }
 
     }
 
-    public String weightContextWords(String query, ArrayList<String> contextWords) {
+    public ArrayList<String> getIdealExpantionTerms(ArrayList<String> candidateExpTerms, INDArray queryVec) {
+        ArrayList<String> expantionTerms = new ArrayList();
+        Double maxCosineSim = 0.0;
+        Double tmpCosineSim = 0.0;
+        INDArray expantionVec = null;
+        for (String candidate : candidateExpTerms) {
+            if (expantionTerms.isEmpty()) {
+                expantionTerms.add(candidate);
+                expantionVec = this.w2_vector.getWordVectorsMean(expantionTerms);
+                maxCosineSim = Transforms.cosineSim(queryVec, expantionVec);
+                continue;
+            } else {
+                expantionTerms.add(candidate);
+                expantionVec = this.w2_vector.getWordVectorsMean(expantionTerms);
+                tmpCosineSim = Transforms.cosineSim(queryVec, expantionVec);
+                if (tmpCosineSim > maxCosineSim) {
+                    maxCosineSim = tmpCosineSim;
+                    continue;
+                } else {
+                    expantionTerms.remove(candidate);
+                }
+            }
+        }
+        return expantionTerms;
+    }
+
+    public ArrayList<String> expandQuery(String query) {
         ArrayList<String> queryClean = getCleanQuery(query);
+
+        if (contextWords != null) {
+            queryClean = weightContextWords(queryClean, contextWords);
+        }
+
+        INDArray queryVec = this.w2_vector.getWordVectorsMean(queryClean);
+
+        ArrayList<String> candidateExpTerms = (ArrayList<String>) this.w2_vector.wordsNearest(queryVec, 10);
+        candidateExpTerms.removeAll(queryClean);
+
+        ArrayList<String> expantionTerms = getIdealExpantionTerms(candidateExpTerms, queryVec);
+
+        ArrayList<String> expandedQuery = new ArrayList<>();
+
+        for (String term : queryClean) {
+            expandedQuery.add(term);
+        }
+
+        for (String term : expantionTerms) {
+            expandedQuery.add(term);
+        }
+
+        return expandedQuery;
+    }
+
+    public ArrayList<String> weightContextWords(ArrayList<String> query, ArrayList<String> contextWords) {
+        //ArrayList<String> queryClean = getCleanQuery(query);
         ArrayList<String> informativeTerms = new ArrayList<>();
 
-        for (String queryTerm : queryClean) {
+        for (String queryTerm : query) {
             if (!contextWords.contains(queryTerm)) {
                 informativeTerms.add(queryTerm);
             }
         }
 
-        queryClean.addAll(informativeTerms);
-        query = "";
-        for (String term : queryClean) {
-            query += " " + term;
-        }
+        query.addAll(informativeTerms);
 
-        return query.trim();
+        return query;
     }
 
     public ArrayList<String> weightContextWordsAsList(String query, ArrayList<String> contextWords) {
@@ -216,26 +267,24 @@ public class WordnetWord2vecModel extends Model {
         return querySynset;
     }
 
-
     @Override
     public void scoreComment(Comment com, String query) {
+
+    }
+
+    public void scoreComment(Comment com, HashSet<String> cleanExpQuery, ArrayList<String> cleanStatisticalExpQuery) {
         double maxWord2vecScore = Double.MIN_VALUE;
         double maxWordnetScore = Double.MIN_VALUE;
         double maxScore = Double.MIN_VALUE;
         String best_sentence = "";
         double tmpWord2vecScore, tmpWordnetScore, tmpScore, tmpWMD;
 
-        ArrayList<String> queryClean = new ArrayList<>();
-        if (contextWords != null) {
-            queryClean = weightContextWordsAsList(query, contextWords);
-        } else {
-            queryClean = getCleanQuery(query);
-        }
+        //String queryStatisticalExpandedClean = expandQuery(query);
+        String[] queryCleanArray = cleanStatisticalExpQuery.toArray(new String[0]);
+        //String[] queryCleanArray = queryStatisticalExpandedClean.split(" ");
 
-        String[] queryCleanArray = queryClean.toArray(new String[0]);
-
-        HashSet<String> queryExpandedClean = getCleanExpandedQuery(query);
-        String[] queryExpandedCleanArray = queryExpandedClean.toArray(new String[0]);
+        //HashSet<String> queryExpandedClean = getCleanExpandedQuery(query);
+        String[] queryExpandedCleanArray = cleanExpQuery.toArray(new String[0]);
 
         for (String sentence : NlpAnalyzer.getSentences(com.getText())) {
             try {
@@ -289,7 +338,6 @@ public class WordnetWord2vecModel extends Model {
         String crntTermPosTag;
         double score;
 
-
         //Construct comment's wordnet representation
         HashMap<String, String> commentMapWithPosTags = NlpAnalyzer.getCleanTokensWithPos(text);
         HashSet<String> commentSynset = new HashSet<>();
@@ -339,12 +387,12 @@ public class WordnetWord2vecModel extends Model {
         return synset;
     }
 
-    public void calculateMaxWMD(String query) {
+    public void calculateMaxWMD(ArrayList<String> query) {
         double maxDistance = Double.MIN_VALUE;
         double tmpDistance;
 
-        ArrayList<String> queryClean = getCleanQuery(query);
-        String[] queryCleanArray = queryClean.toArray(new String[0]);
+        //ArrayList<String> queryClean = getCleanQuery(query);
+        String[] queryCleanArray = query.toArray(new String[0]);
 
         for (Comment com : this.getComments()) {
             for (String sentence : NlpAnalyzer.getSentences(com.getText())) {
@@ -529,22 +577,22 @@ public class WordnetWord2vecModel extends Model {
         wordnetResources.add("hypernyms");
 
         HashMap<String, HashMap<String, EvaluationPair>> gt = EvalCollectionManipulator.readEvaluationSet("FRUCE_v2.csv");
-        ArrayList<Comment> resultComs;
 
-        WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        combination.scoreComments("Has anyone reported a problem about cleanliness?");
-        demo_main.printEvalOnlyComments(combination.getTopComments(comments.size()), gt.get("q3"));
+        WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
+        combination_III.scoreComments("Has anyone reported a problem about cleanliness?");
+        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q3"));
         System.out.println();
-        combination.scoreComments("Is the hotel staff helpful?");
-        demo_main.printEvalOnlyComments(combination.getTopComments(comments.size()), gt.get("q6"));
+        combination_III.scoreComments("Is the hotel staff helpful?");
+        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q6"));
         System.out.println();
 
-        WordnetWord2vecModel combination_cw = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
-        combination_cw.scoreComments("Has anyone reported a problem about noise?");
-        demo_main.printEvalOnlyComments(combination_cw.getTopComments(comments.size()), gt.get("q3"));
+        WordnetWord2vecModel_III combination_III_cw = new WordnetWord2vecModel_III("Word2vec and Wordnet III Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
+        combination_III_cw.scoreComments("Has anyone reported a problem about cleanliness?");
+        demo_main.printEvalOnlyComments(combination_III_cw.getTopComments(comments.size()), gt.get("q3"));
         System.out.println();
-        combination_cw.scoreComments("Is the hotel staff helpful?");
-        demo_main.printEvalOnlyComments(combination_cw.getTopComments(comments.size()), gt.get("q6"));
+        combination_III_cw.scoreComments("Is the hotel staff helpful?");
+        demo_main.printEvalOnlyComments(combination_III_cw.getTopComments(comments.size()), gt.get("q6"));
         System.out.println();
     }
+
 }

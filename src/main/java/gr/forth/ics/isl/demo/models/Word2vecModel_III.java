@@ -11,6 +11,8 @@ package gr.forth.ics.isl.demo.models;
 
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.main.OnFocusRRR;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.NlpAnalyzer;
@@ -21,6 +23,7 @@ import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -259,16 +262,22 @@ public class Word2vecModel_III extends Model {
         contextWords.add("anyone");
         contextWords.add("complain");
 
+        HashMap<String, HashMap<String, EvaluationPair>> gt = EvalCollectionManipulator.readEvaluationSet("FRUCE_v2.csv");
+
         Word2vecModel_III word2vec = new Word2vecModel_III("Word2vec model", wm, vec, comments);
-        word2vec.scoreComments("Has anyone reported a problem about noise?");
-        System.out.println(word2vec.getTopComments(10));
         word2vec.scoreComments("Has anyone reported a problem about cleanliness?");
-        System.out.println(word2vec.getTopComments(10));
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q3"));
+        System.out.println("");
+        word2vec.scoreComments("Is the hotel staff helpful?");
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q6"));
+        System.out.println("");
 
         Word2vecModel_III word2vecCW = new Word2vecModel_III("Word2vec model CW", wm, vec, comments, contextWords);
-        word2vecCW.scoreComments("Has anyone reported a problem about noise?");
-        System.out.println(word2vecCW.getTopComments(10));
         word2vecCW.scoreComments("Has anyone reported a problem about cleanliness?");
-        System.out.println(word2vecCW.getTopComments(10));
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q3"));
+        System.out.println("");
+        word2vecCW.scoreComments("Is the hotel staff helpful?");
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q6"));
+        System.out.println("");
     }
 }
