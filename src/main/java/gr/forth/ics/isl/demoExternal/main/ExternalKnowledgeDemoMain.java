@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -69,29 +71,53 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
-    /*
-    public JSONObject getAnalyzedQueryAsJson(String query) {
+    public static JSONObject getAnswerAsJson(String query) {
         try {
             JSONObject obj = new JSONObject();
 
-            HashMap<String, String> clean_query = getCleanTokensWithPos(query);
+            // ==== Question Analysis Step ====
+            QuestionAnalysis q_analysis = new QuestionAnalysis("WNHOME");
+            q_analysis.analyzeQuestion(query);
 
-            obj.put("clean_query", clean_query.keySet());
+            String question_type = q_analysis.getQuestionType();
 
-            ArrayList<String> expanded_query = getCleanExpandedQuery(query);
+            obj.put("question_type", question_type);
 
-            obj.put("expanded_query", expanded_query);
+            if (question_type.equals("none")) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
+                return null;
+            } else {
+                // Store the useful words of the question
+                Set<String> useful_words = q_analysis.getUsefulWords();
 
-            HashMap<String, String> word_NamedEntity = getTokensWithNer(query);
+                obj.put("useful_words", useful_words);
 
-            obj.put("recognized_NamedEntities", word_NamedEntity);
+                // Store the text of the Named Entities
+                Set<String> entities = q_analysis.getQuestionEntities();
+
+                String fact = q_analysis.getFact();
+
+                // ==== Entities Detection Step ====
+                // Hashmap to store each entity and the selected URI (the highest scored)
+                HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
+
+                obj.put("entity_URI", entity_URI);
+
+                // ==== Answer Extraction Step ====
+                String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+
+                obj.put("answer", answer);
+            }
 
             return obj;
+
         } catch (JSONException ex) {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
-    */
+
 }
