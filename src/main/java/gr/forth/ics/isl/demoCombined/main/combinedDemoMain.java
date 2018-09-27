@@ -7,13 +7,18 @@
  *  It is published for reasons of research results reproducibility.
  *  (c) 2017 Semantic Access and Retrieval group, All rights reserved
  */
-package gr.forth.ics.isl.demo.main;
+package gr.forth.ics.isl.demoCombined.main;
 
 import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
+import gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
@@ -25,6 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +44,9 @@ import org.openrdf.repository.RepositoryException;
 
 /**
  *
- * @author Sgo
+ * @author Lefteris Dimitrakis
  */
-public class OnFocusRRR {
+public class combinedDemoMain {
 
     //The paths for the stopWords Files.
     public static String filePath_en = "/stoplists/stopwordsEn.txt";
@@ -50,33 +56,46 @@ public class OnFocusRRR {
     public static WordnetWord2vecModel combination;
     public static QAInfoBase KB;
     public static StanfordCoreNLP pipeline;
+    public static StanfordCoreNLP sourceSelection_pipeline;
+    public static IDictionary dict;
 
     //A hashMap that contains two Trie, one for the English stopList and one for the Greek
     //public static HashMap<String, Trie> stopLists = new HashMap<>();
 
-    public OnFocusRRR(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
-        initialize(word2vecPath, wordnetPath);
+    public combinedDemoMain(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
+        initializeSourceSelectionTools();
+        initializeUserReviewsToolsAndResources(word2vecPath, wordnetPath);
+        ExternalKnowledgeDemoMain.initializeToolsAndResourcesForDemo(dict);
+    }
+
+    public static void initializeSourceSelectionTools() {
+
+        Properties sourceSelection_props = new Properties();
+        sourceSelection_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        sourceSelection_props.put("tokenize.language", "en");
+        sourceSelection_pipeline = new StanfordCoreNLP(sourceSelection_props);
+
     }
     
-    public static void initialize(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading KB...");
+    public static void initializeUserReviewsToolsAndResources(String word2vecPath, String wordnetPath) throws RepositoryException, IOException {
+        Logger.getLogger(combinedDemoMain.class.getName()).log(Level.INFO, "...loading KB...");
         KB = new QAInfoBase();
 
 
         StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
         //System.out.println(stopLists);
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading word2vec...");
+        Logger.getLogger(combinedDemoMain.class.getName()).log(Level.INFO, "...loading word2vec...");
         File gModel = new File(word2vecPath + "GoogleNews-vectors-negative300.bin.gz");
         Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
         WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading wordnet...");
+        Logger.getLogger(combinedDemoMain.class.getName()).log(Level.INFO, "...loading wordnet...");
         String wnhome = System.getenv(wordnetPath);
         String path = wnhome + File.separator + "dict";
         URL url = new URL("file", null, path);
         // construct the dictionary object and open it
-        IDictionary dict = new Dictionary(url);
+        dict = new Dictionary(url);
         dict.open();
 
         // Retrieve hyperparameters
@@ -96,7 +115,7 @@ public class OnFocusRRR {
         wordnetResources.add("antonyms");
         wordnetResources.add("hypernyms");
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
+        Logger.getLogger(combinedDemoMain.class.getName()).log(Level.INFO, "...initializing model...");
         // Instantiate model
         combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
 
@@ -115,47 +134,34 @@ public class OnFocusRRR {
      * @throws FileNotFoundException
      * @throws ClassNotFoundException
      */
-    public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException {
+    public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException, JSONException {
+        combinedDemoMain test = new combinedDemoMain(args[0], args[1]);
+        test.getAnswer(null, "What is the population of Kyoto?");
+    }
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading KB...");
-        KB = new QAInfoBase();
+    // TODO: Implement the source selection method
+    public String selectSource(String question) {
+        //if there are no Named entities in the question, resort the user reviews
+        if (retrieveEntities(question).isEmpty()) {
+            return "reviews";
+        } else {
+            return "lod";
+        }
+    }
 
-        StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
+    public JSONObject getAnswer(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+        String source = selectSource(question);
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading word2vec...");
-        File gModel = new File(args[0] + "GoogleNews-vectors-negative300.bin.gz");
-        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
-        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
-
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading wordnet...");
-        String wnhome = System.getenv(args[1]);
-        String path = wnhome + File.separator + "dict";
-        URL url = new URL("file", null, path);
-        // construct the dictionary object and open it
-        IDictionary dict = new Dictionary(url);
-        dict.open();
-
-        // Retrieve hyperparameters
-        //ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
-        //float word2vec_w = bestModel.getWord2vecWeight();
-        //float wordNet_w = bestModel.getWordNetWeight();
-        float word2vec_w = 0.4f;
-        float wordNet_w = 0.6f;
-        // Choose weights to be used in model IV
-        HashMap<String, Float> model_weights = new HashMap<>();
-        model_weights.put("wordnet", wordNet_w);
-        model_weights.put("word2vec", word2vec_w);
-
-        // Choose wordnet sources to be used
-        ArrayList<String> wordnetResources = new ArrayList<>();
-        wordnetResources.add("synonyms");
-        wordnetResources.add("antonyms");
-        wordnetResources.add("hypernyms");
-
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
-        // Instantiate model
-        combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
-
+        if (source.equalsIgnoreCase("reviews")) {
+            try {
+                return getTop2Comments(uris, question);
+            } catch (JSONException ex) {
+                Logger.getLogger(combinedDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (source.equalsIgnoreCase("lod")) {
+            return ExternalKnowledgeDemoMain.getAnswerAsJson(question);
+        }
+        return null;
     }
 
     public JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
@@ -170,7 +176,6 @@ public class OnFocusRRR {
         JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(2, scoredComments));
 
         return resultListAsJASON;
-        //return null;
     }
 
     private static JSONObject getJASONObject(ArrayList<Comment> topComments) {
@@ -219,9 +224,41 @@ public class OnFocusRRR {
 
             return obj;
         } catch (JSONException ex) {
-            Logger.getLogger(OnFocusRRR.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(combinedDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
+    }
+
+    public static ArrayList<String> retrieveEntities(String text) {
+
+        //apply
+        Annotation document = new Annotation(text);
+        sourceSelection_pipeline.annotate(document);
+
+        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
+
+        ArrayList<String> words = new ArrayList<>();
+
+        //For each sentence
+        for (CoreMap sentence : sentences) {
+            //For each word in the sentence
+            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+
+                //Get the TEXT of the token
+                String word = token.get(CoreAnnotations.TextAnnotation.class).toLowerCase().trim();
+
+                //Get the NER tag of the token
+                String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
+
+                if (!ner.equalsIgnoreCase("o")) {
+                    if (!word.trim().isEmpty()) {
+                        words.add(word);
+                    }
+                }
+
+            }
+        }
+        return words;
     }
 }
