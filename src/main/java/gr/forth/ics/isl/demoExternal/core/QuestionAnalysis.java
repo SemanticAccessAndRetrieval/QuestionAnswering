@@ -9,28 +9,24 @@
  */
 package gr.forth.ics.isl.demoExternal.core;
 
-import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.POS;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
-import gr.forth.ics.isl.demoExternal.LODsyndesis.LODSyndesisChanel;
-import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.chanel;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.ner_pipeline;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnet_dict;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
 import gr.forth.ics.isl.utilities.StringUtils;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,16 +37,6 @@ import java.util.logging.Logger;
  */
 public class QuestionAnalysis {
 
-    //The paths to the stopwords file
-    public static String filePath_en = "/stoplists/stopwordsEn.txt";
-    public static String filePath_gr = "/stoplists/stopwordsGr.txt";
-
-    //Core Nlp pipeline instance
-    public static StanfordCoreNLP pipeline;
-    public static StanfordCoreNLP pipeline2;
-    public static IDictionary dictionary;
-    public static ArrayList<String> wordnetResources = new ArrayList<>();
-
     // Store the useful words of the question
     private Set<String> useful_words;
     // Store the text of the Named Entities
@@ -60,54 +46,7 @@ public class QuestionAnalysis {
 
     private String question_type = "";
 
-    public QuestionAnalysis(String wordnetPath) {
-        initialize(wordnetPath);
-    }
-
-    public static void initialize(String wordnetPath) {
-
-        try {
-            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...Generating stop-words lists...");
-            StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
-
-            //Code to initialize also the Word2Vec model
-            //Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...loading word2vec...");
-            //File gModel = new File(word2vecPath + "GoogleNews-vectors-negative300.bin.gz");
-            //Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
-            //WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
-            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...loading wordnet...");
-            String wnhome = System.getenv(wordnetPath);
-            String path = wnhome + File.separator + "dict";
-            URL url = new URL("file", null, path);
-            // construct the dictionary object and open it
-            dictionary = new Dictionary(url);
-            dictionary.open();
-
-            // Choose wordnet sources to be used
-            wordnetResources.add("synonyms");
-            //wordnetResources.add("antonyms");
-            //wordnetResources.add("hypernyms");
-
-            Properties props = new Properties();
-            //Properties including lemmatization
-            //props.put("annotators", "tokenize, ssplit, pos, lemma");
-            //Properties without lemmatization
-            props.put("annotators", "tokenize, ssplit, pos");
-            props.put("tokenize.language", "en");
-            pipeline = new StanfordCoreNLP(props);
-
-            Properties props2 = new Properties();
-            props2.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
-            props2.put("tokenize.language", "en");
-            pipeline2 = new StanfordCoreNLP(props2);
-
-            chanel = new LODSyndesisChanel();
-
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public QuestionAnalysis() {
     }
 
     public Set<String> getUsefulWords() {
@@ -204,7 +143,7 @@ public class QuestionAnalysis {
 
     public static HashMap<String, String> getCleanTokensWithPos(String text) {
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        split_pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 
@@ -231,7 +170,7 @@ public class QuestionAnalysis {
 
         //apply
         Annotation document = new Annotation(text);
-        pipeline2.annotate(document);
+        ner_pipeline.annotate(document);
 
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
 
@@ -259,7 +198,7 @@ public class QuestionAnalysis {
 
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        split_pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 
@@ -294,7 +233,7 @@ public class QuestionAnalysis {
             try {
                 crntTermPosTag = queryMapWithPosTags.get(queryTerm);
                 //remove the initial words, and keep only the synonyms?????
-                querySynset.addAll(getWordNetResources(crntTermPosTag, dictionary, queryTerm, wordnetResources));
+                querySynset.addAll(getWordNetResources(crntTermPosTag, wordnet_dict, queryTerm, wordnetResources));
             } catch (IOException ex) {
                 Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
             }

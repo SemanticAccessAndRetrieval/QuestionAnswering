@@ -9,11 +9,21 @@
  */
 package gr.forth.ics.isl.demoExternal.main;
 
+import edu.mit.jwi.Dictionary;
+import edu.mit.jwi.IDictionary;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demoExternal.LODsyndesis.LODSyndesisChanel;
 import gr.forth.ics.isl.demoExternal.core.AnswerExtraction;
 import gr.forth.ics.isl.demoExternal.core.EntitiesDetection;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
+import gr.forth.ics.isl.utilities.StringUtils;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +36,25 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class ExternalKnowledgeDemoMain {
 
+    //The paths to the stopwords file
+    public static String filePath_en = "/stoplists/stopwordsEn.txt";
+    public static String filePath_gr = "/stoplists/stopwordsGr.txt";
+
+    //Core Nlp pipeline instance
+    public static StanfordCoreNLP split_pipeline;
+    public static StanfordCoreNLP ner_pipeline;
+    public static IDictionary wordnet_dict;
+    public static ArrayList<String> wordnetResources = new ArrayList<>();
+
     public static LODSyndesisChanel chanel;
 
     public static void main(String[] args) {
+
+        try {
+            initializeToolsAndResources("WNHOME");
+        } catch (IOException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // Question 1 on focus (factoid)
         String query1 = "What is the population of Kyoto?";
@@ -40,7 +66,7 @@ public class ExternalKnowledgeDemoMain {
         String query3 = "What does Kyoto mean?";
 
         // ==== Question Analysis Step ====
-        QuestionAnalysis q_analysis = new QuestionAnalysis("WNHOME");
+        QuestionAnalysis q_analysis = new QuestionAnalysis();
         q_analysis.analyzeQuestion(query1);
 
         String question_type = q_analysis.getQuestionType();
@@ -71,12 +97,77 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
+    // Appropriate method for the Toshiba demo.
+    // Avoid initializing all the common resources/tool with the user comments demo
+    // Specifically, avoid initiliaze wordnet and stop-words.
+    public static void initializeToolsAndResourcesForDemo(IDictionary dict) throws MalformedURLException, IOException {
+        wordnet_dict = dict;
+        wordnet_dict.open();
+
+        // Choose wordnet sources to be used
+        wordnetResources.add("synonyms");
+        //wordnetResources.add("antonyms");
+        //wordnetResources.add("hypernyms");
+
+        Properties split_props = new Properties();
+        //Properties including lemmatization
+        //props.put("annotators", "tokenize, ssplit, pos, lemma");
+        //Properties without lemmatization
+        split_props.put("annotators", "tokenize, ssplit, pos");
+        split_props.put("tokenize.language", "en");
+        split_pipeline = new StanfordCoreNLP(split_props);
+
+        Properties ner_props = new Properties();
+        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("tokenize.language", "en");
+        ner_pipeline = new StanfordCoreNLP(ner_props);
+
+        chanel = new LODSyndesisChanel();
+
+    }
+
+    public static void initializeToolsAndResources(String wordnetPath) throws MalformedURLException, IOException {
+
+        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "...Generating stop-words lists...");
+        StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
+
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...loading wordnet...");
+        String wnhome = System.getenv(wordnetPath);
+        String path = wnhome + File.separator + "dict";
+        URL url = new URL("file", null, path);
+        // construct the dictionary object and open it
+        wordnet_dict = new Dictionary(url);
+        wordnet_dict.open();
+
+        // Choose wordnet sources to be used
+        wordnetResources.add("synonyms");
+        //wordnetResources.add("antonyms");
+        //wordnetResources.add("hypernyms");
+
+        Properties split_props = new Properties();
+        //Properties including lemmatization
+        //props.put("annotators", "tokenize, ssplit, pos, lemma");
+        //Properties without lemmatization
+        split_props.put("annotators", "tokenize, ssplit, pos");
+        split_props.put("tokenize.language", "en");
+        split_pipeline = new StanfordCoreNLP(split_props);
+
+        Properties ner_props = new Properties();
+        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("tokenize.language", "en");
+        ner_pipeline = new StanfordCoreNLP(ner_props);
+
+        chanel = new LODSyndesisChanel();
+
+
+    }
+
     public static JSONObject getAnswerAsJson(String query) {
         try {
             JSONObject obj = new JSONObject();
 
             // ==== Question Analysis Step ====
-            QuestionAnalysis q_analysis = new QuestionAnalysis("WNHOME");
+            QuestionAnalysis q_analysis = new QuestionAnalysis();
             q_analysis.analyzeQuestion(query);
 
             String question_type = q_analysis.getQuestionType();
