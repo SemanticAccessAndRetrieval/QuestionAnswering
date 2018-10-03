@@ -67,13 +67,11 @@ public class ExternalKnowledgeDemoMain {
         String query10 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
         String query11 = "Where is Mount Everest located?"; // not answerable (should take Mount Everest as one entity)
 
-        // Query causing arrayIndexOutOfBound exception
-        String queryX = "what is the temperature in Kyoto ?";
 
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";
         String query12 = "Is Tokyo the capital of Japan?";
-        String query13 = "Is Kyoto the capital of Japan?"; // not answerable (Should check only triples that contain both URIs)
+        String query13 = "Is Kyoto the capital of Japan?";
 
         // Question 3 on focus (definition)
         String query3 = "What does Kyoto mean?";

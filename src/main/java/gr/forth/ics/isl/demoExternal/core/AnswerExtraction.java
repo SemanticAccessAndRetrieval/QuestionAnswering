@@ -49,7 +49,7 @@ public class AnswerExtraction {
         }
 
         //TODO: We can check for identical triples in matched_triples and have a list of provenance datasets for this triple
-        JSONObject answer = extractAnswerText(matched_triples, question_type);
+        JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
 
         return answer;
 
@@ -57,9 +57,19 @@ public class AnswerExtraction {
 
     //TODO: To update to more sophisticated answer selection
     // Factoid: Check number of provenance sources for verification?
-    // Confirmation: Check matching uri to verify the answer
+    // Confirmation: Exploit also sameAs uris for more refined matching!
     // Definition: To create a 1st draft
-    public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type) {
+    public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
+
+        if (matched_triples.isEmpty()) {
+            JSONObject tmp_ans = new JSONObject();
+            try {
+                tmp_ans.put("answer", "No answer found!");
+                return tmp_ans;
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         if (question_type.equalsIgnoreCase("factoid")) {
             for (JSONObject triple : matched_triples) {
@@ -73,34 +83,65 @@ public class AnswerExtraction {
         }
             return null;
         } else if (question_type.equalsIgnoreCase("confirmation")) {
-            if (matched_triples.size() > 0) {
-                JSONObject tmp_triple = matched_triples.get(0);
-                tmp_triple.remove("threshold");
+
+            String subject = "";
+            String object = "";
+            String tmp_uri;
+
+            int matches = 0;
+
+            //For each matching triple
+            for (JSONObject triple : matched_triples) {
                 try {
-                    tmp_triple.put("answer", "Yes!");
+                    //Extract the text of the subject and object from the triple, also remove non-alphanumeric characters
+                    subject = getSuffixOfURI(triple.getString("subject")).replaceAll("[^a-zA-Z0-9]", "");
+                    object = getSuffixOfURI(triple.getString("object")).replaceAll("[^a-zA-Z0-9]", "");
                 } catch (JSONException ex) {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                return tmp_triple;
-            } else {
-                JSONObject tmp_triple = matched_triples.get(0);
-                tmp_triple.remove("threshold");
-                try {
-                    tmp_triple.put("answer", "No!");
-                } catch (JSONException ex) {
-                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+
+                //For each matching entity uri
+                for (String uri : entity_URI.values()) {
+                    //Extract only the text, also remove non-alphanumeric characters
+                    tmp_uri = getSuffixOfURI(uri).replaceAll("[^a-zA-Z0-9]", "");
+
+                    //if the uri matches either with the subject or the object, increase the matches by 1
+                    if (tmp_uri.equalsIgnoreCase(subject) || tmp_uri.equalsIgnoreCase(object)) {
+                        matches++;
+                    }
                 }
-                return tmp_triple;
+
+                // If both subject and object matched, then the answer is yes
+                if (matches == 2) {
+                    triple.remove("threshold");
+                    try {
+                        triple.put("answer", "Yes!");
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return triple;
+                }
+                matches = 0;
             }
-        } else {
-            JSONObject tmp_triple = matched_triples.get(0);
-            tmp_triple.remove("threshold");
+
+            // If not both subject and object matched, then the answer is no
+            JSONObject tmp_ans = new JSONObject();
+
             try {
-                tmp_triple.put("answer", "No available definition!");
+                tmp_ans.put("answer", "No!");
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return tmp_triple;
+            return tmp_ans;
+        } else {
+            JSONObject tmp_ans = new JSONObject();
+
+            try {
+                tmp_ans.put("answer", "No answer found!");
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tmp_ans;
         }
     }
 
@@ -144,7 +185,6 @@ public class AnswerExtraction {
     }
 
     // TODO: Maybe pass as argument also a threshold for considering a property as matched
-    // ERROR: Check for empty etc. --- ArrayIndexOutOfBounds exception
     public static String getMatchingProperty(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
         HashMap<String, Float> uri_distance = new HashMap<>();
 
@@ -166,9 +206,12 @@ public class AnswerExtraction {
             cnt++;
             tmp_distance = 0.0f;
         }
-        // CHECK BEFORE RETURN STATEMENT
-        return candidate_predicates.get(min_cnt);
 
+        if (!candidate_predicates.isEmpty()) {
+            return candidate_predicates.get(min_cnt);
+        } else {
+            return "";
+        }
     }
 
     public static ArrayList<JSONObject> extractJSONObjectsFromString(String cand_facts) {

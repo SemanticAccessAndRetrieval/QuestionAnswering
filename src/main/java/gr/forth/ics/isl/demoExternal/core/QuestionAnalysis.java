@@ -168,6 +168,7 @@ public class QuestionAnalysis {
 
     //TODO: Should check for multi-word entities (consecutive words with matching Named Entity)
     //e.g. Golden Pavilion should be recognized as a single entity
+    //PROBLEM: case sensitive named entity recognition (Kyoto recognized while kyoto does not)
     public static HashMap<String, String> getTokensWithNer(String text) {
 
         //apply
