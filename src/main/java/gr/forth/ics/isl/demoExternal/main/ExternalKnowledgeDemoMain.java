@@ -58,16 +58,26 @@ public class ExternalKnowledgeDemoMain {
 
         // Question 1 on focus (factoid)
         String query1 = "What is the population of Kyoto?";
+        String query4 = "Which is the capital city of Japan?";
+        String query5 = "Which is the capital of Japan?";
+        String query6 = "What does Nintendo sell?";
+        String query7 = "Where is Mitsubishi located?";
+        String query8 = "Which is the foundation place of Sony?";
+        String query9 = "Which is the death place of Nujabes?";
+        String query10 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
+        String query11 = "Where is Mount Everest located?"; // not answerable (should take Mount Everest as one entity)
 
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";
+        String query12 = "Is Tokyo the capital of Japan?";
+        String query13 = "Is Kyoto the capital of Japan?"; // not answerable (Should check only triples that contain both URIs)
 
         // Question 3 on focus (definition)
         String query3 = "What does Kyoto mean?";
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion(query1);
+        q_analysis.analyzeQuestion(query8);
 
         String question_type = q_analysis.getQuestionType();
 

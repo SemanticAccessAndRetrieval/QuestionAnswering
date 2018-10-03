@@ -121,7 +121,7 @@ public class QuestionAnalysis {
             }
         }
 
-        ArrayList<String> factoid_words = new ArrayList<>(Arrays.asList("when", "who", "where", "what"));
+        ArrayList<String> factoid_words = new ArrayList<>(Arrays.asList("when", "who", "where", "what", "which"));
 
         for (String f_word : factoid_words) {
             if (question.startsWith(f_word)) {
