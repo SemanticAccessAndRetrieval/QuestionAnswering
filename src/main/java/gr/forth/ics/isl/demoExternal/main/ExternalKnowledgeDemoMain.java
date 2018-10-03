@@ -67,6 +67,9 @@ public class ExternalKnowledgeDemoMain {
         String query10 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
         String query11 = "Where is Mount Everest located?"; // not answerable (should take Mount Everest as one entity)
 
+        // Query causing arrayIndexOutOfBound exception
+        String queryX = "what is the temperature in Kyoto ?";
+
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";
         String query12 = "Is Tokyo the capital of Japan?";
@@ -97,9 +100,9 @@ public class ExternalKnowledgeDemoMain {
         HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
         // ==== Answer Extraction Step ====
-        String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+        JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
         }
     }
 
@@ -176,6 +179,8 @@ public class ExternalKnowledgeDemoMain {
         try {
             JSONObject obj = new JSONObject();
 
+            obj.put("source", "external");
+
             // ==== Question Analysis Step ====
             QuestionAnalysis q_analysis = new QuestionAnalysis();
             q_analysis.analyzeQuestion(query);
@@ -202,14 +207,16 @@ public class ExternalKnowledgeDemoMain {
                 // Hashmap to store each entity and the selected URI (the highest scored)
                 HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
-                obj.put("entity_URI", entity_URI);
+                obj.put("retrievedEntities", entity_URI);
 
                 // ==== Answer Extraction Step ====
-                String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+                JSONObject answer_triple = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
 
-                obj.put("answer", answer);
+                obj.put("answer", answer_triple.get("answer"));
+                answer_triple.remove("answer");
+                obj.put("triple", answer_triple);
             }
 
             return obj;

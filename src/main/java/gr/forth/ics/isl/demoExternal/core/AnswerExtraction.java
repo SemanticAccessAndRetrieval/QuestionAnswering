@@ -28,7 +28,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class AnswerExtraction {
 
-    public static String extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
+    public static JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
 
         ArrayList<JSONObject> cand_triples = retrieveCandidateTriples(entity_URI, fact);
 
@@ -48,33 +48,59 @@ public class AnswerExtraction {
             }
         }
 
-        String answer = extractAnswerText(matched_triples, question_type);
+        //TODO: We can check for identical triples in matched_triples and have a list of provenance datasets for this triple
+        JSONObject answer = extractAnswerText(matched_triples, question_type);
 
         return answer;
 
     }
 
-    public static String extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type) {
+    //TODO: To update to more sophisticated answer selection
+    // Factoid: Check number of provenance sources for verification?
+    // Confirmation: Check matching uri to verify the answer
+    // Definition: To create a 1st draft
+    public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type) {
 
-        // TO UPDATE MORE SOPHISTICATED SELECTION OF THE ANSWER
-        // CURRENTLY we return the object of the 1st matching triple
-        if (question_type.equalsIgnoreCase("f")) {
+        if (question_type.equalsIgnoreCase("factoid")) {
             for (JSONObject triple : matched_triples) {
-            try {
-                return (String) triple.get("object");
+                try {
+                    triple.remove("threshold");
+                    triple.put("answer", getSuffixOfURI((String) triple.get("object")));
+                    return triple;
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-            return "Answer not found!";
-        } else if (question_type.equalsIgnoreCase("c")) {
+            return null;
+        } else if (question_type.equalsIgnoreCase("confirmation")) {
             if (matched_triples.size() > 0) {
-                return "Yes!";
+                JSONObject tmp_triple = matched_triples.get(0);
+                tmp_triple.remove("threshold");
+                try {
+                    tmp_triple.put("answer", "Yes!");
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return tmp_triple;
             } else {
-                return "No!";
+                JSONObject tmp_triple = matched_triples.get(0);
+                tmp_triple.remove("threshold");
+                try {
+                    tmp_triple.put("answer", "No!");
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return tmp_triple;
             }
         } else {
-            return "No available definition!";
+            JSONObject tmp_triple = matched_triples.get(0);
+            tmp_triple.remove("threshold");
+            try {
+                tmp_triple.put("answer", "No available definition!");
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tmp_triple;
         }
     }
 
@@ -117,7 +143,8 @@ public class AnswerExtraction {
         return cand_relations;
     }
 
-    // Maybe pass as argument also a threshold for considering a property as matched
+    // TODO: Maybe pass as argument also a threshold for considering a property as matched
+    // ERROR: Check for empty etc. --- ArrayIndexOutOfBounds exception
     public static String getMatchingProperty(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
         HashMap<String, Float> uri_distance = new HashMap<>();
 
@@ -139,7 +166,7 @@ public class AnswerExtraction {
             cnt++;
             tmp_distance = 0.0f;
         }
-
+        // CHECK BEFORE RETURN STATEMENT
         return candidate_predicates.get(min_cnt);
 
     }

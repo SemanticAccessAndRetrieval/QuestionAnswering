@@ -117,7 +117,7 @@ public class QuestionAnalysis {
 
         for (String d_word : definition_words) {
             if (question_words.contains(d_word)) {
-                return "d";
+                return "definition";
             }
         }
 
@@ -125,7 +125,7 @@ public class QuestionAnalysis {
 
         for (String f_word : factoid_words) {
             if (question.startsWith(f_word)) {
-                return "f";
+                return "factoid";
             }
         }
 
@@ -133,7 +133,7 @@ public class QuestionAnalysis {
 
         for (String c_word : confirmation_words) {
             if (question.startsWith(c_word)) {
-                return "c";
+                return "confirmation";
             }
         }
 
@@ -166,6 +166,8 @@ public class QuestionAnalysis {
 
     }
 
+    //TODO: Should check for multi-word entities (consecutive words with matching Named Entity)
+    //e.g. Golden Pavilion should be recognized as a single entity
     public static HashMap<String, String> getTokensWithNer(String text) {
 
         //apply
