@@ -136,7 +136,7 @@ public class combinedDemoMain {
      */
     public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException, JSONException {
         combinedDemoMain test = new combinedDemoMain(args[0], args[1]);
-        test.getAnswer(null, "What is the population of Kyoto?");
+        test.getAnswer(null, 2, "What is the population of Kyoto?");
     }
 
     // TODO: Implement the source selection method
@@ -149,12 +149,12 @@ public class combinedDemoMain {
         }
     }
 
-    public JSONObject getAnswer(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+    public JSONObject getAnswer(ArrayList<String> uris, int N, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
         String source = selectSource(question);
 
         if (source.equalsIgnoreCase("reviews")) {
             try {
-                return getTop2Comments(uris, question);
+                return getTopNComments(uris, question, N);
             } catch (JSONException ex) {
                 Logger.getLogger(combinedDemoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -164,7 +164,7 @@ public class combinedDemoMain {
         return null;
     }
 
-    public JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+    public JSONObject getTopNComments(ArrayList<String> uris, String question, int N) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
         //System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
         // Get hotels on focus
         //HashSet<Subject> hotels = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris);
@@ -173,7 +173,7 @@ public class combinedDemoMain {
         // Score them
         ArrayList<Comment> scoredComments = combination.scoreComments(question, comments);
         // Get top 2 comments and create JASON object
-        JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(2, scoredComments));
+        JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(N, scoredComments));
 
         return resultListAsJASON;
     }
@@ -212,6 +212,7 @@ public class combinedDemoMain {
 
         try {
             JSONObject obj = new JSONObject();
+            obj.put("source", "review-comments");
             obj.put("commentIds", commentIds);
             obj.put("dates", dates);
             obj.put("maxSentences", maxSentences);
