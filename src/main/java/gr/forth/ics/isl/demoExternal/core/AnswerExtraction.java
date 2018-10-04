@@ -57,7 +57,6 @@ public class AnswerExtraction {
 
     //TODO: To update to more sophisticated answer selection
     // Factoid: Check number of provenance sources for verification?
-    // Confirmation: Exploit also sameAs uris for more refined matching!
     // Definition: To create a 1st draft
     public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
 
@@ -72,79 +71,113 @@ public class AnswerExtraction {
         }
 
         if (question_type.equalsIgnoreCase("factoid")) {
-            for (JSONObject triple : matched_triples) {
-                try {
-                    triple.remove("threshold");
-                    triple.put("answer", getSuffixOfURI((String) triple.get("object")));
-                    return triple;
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-            return null;
+            return extractFactoidAnswer(matched_triples, entity_URI);
         } else if (question_type.equalsIgnoreCase("confirmation")) {
-
-            String subject = "";
-            String object = "";
-            String tmp_uri;
-
-            int matches = 0;
-
-            //For each matching triple
-            for (JSONObject triple : matched_triples) {
-                try {
-                    //Extract the text of the subject and object from the triple, also remove non-alphanumeric characters
-                    subject = getSuffixOfURI(triple.getString("subject")).replaceAll("[^a-zA-Z0-9]", "");
-                    object = getSuffixOfURI(triple.getString("object")).replaceAll("[^a-zA-Z0-9]", "");
-                } catch (JSONException ex) {
-                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                //For each matching entity uri
-                for (String uri : entity_URI.values()) {
-                    //Extract only the text, also remove non-alphanumeric characters
-                    tmp_uri = getSuffixOfURI(uri).replaceAll("[^a-zA-Z0-9]", "");
-
-                    //if the uri matches either with the subject or the object, increase the matches by 1
-                    if (tmp_uri.equalsIgnoreCase(subject) || tmp_uri.equalsIgnoreCase(object)) {
-                        matches++;
-                    }
-                }
-
-                // If both subject and object matched, then the answer is yes
-                if (matches == 2) {
-                    triple.remove("threshold");
-                    try {
-                        triple.put("answer", "Yes!");
-                    } catch (JSONException ex) {
-                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    return triple;
-                }
-                matches = 0;
-            }
-
-            // If not both subject and object matched, then the answer is no
-            JSONObject tmp_ans = new JSONObject();
-
-            try {
-                tmp_ans.put("answer", "No!");
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return tmp_ans;
+            return extractConfirmationAnswer(matched_triples, entity_URI);
         } else {
-            JSONObject tmp_ans = new JSONObject();
-
-            try {
-                tmp_ans.put("answer", "No answer found!");
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return tmp_ans;
+            return extractDefinitionAnswer(matched_triples, entity_URI);
         }
     }
 
+    private static JSONObject extractFactoidAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+
+        for (JSONObject triple : matched_triples) {
+            try {
+                triple.remove("threshold");
+                triple.put("answer", getSuffixOfURI((String) triple.get("object")));
+                return triple;
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+
+        HashMap<String, ArrayList<String>> entity_equivalentURIs = EntitiesDetection.retrieveEquivalentEntityURIs(entity_URI);
+
+        String subject_uri = "";
+        String object_uri = "";
+
+        int matches = 0;
+
+        //For each matching triple
+        for (JSONObject triple : matched_triples) {
+            try {
+                //Extract the subject and object from the triple
+                subject_uri = triple.getString("subject").substring(1, triple.getString("subject").length() - 1);
+
+                object_uri = triple.getString("object").substring(1, triple.getString("object").length() - 1);
+
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for (ArrayList<String> uris : entity_equivalentURIs.values()) {
+                //For each matching entity uri
+                for (String uri : uris) {
+                    //if the uri matches either with the subject or the object, increase the matches by 1
+                    if (isMatchingUris(uri, subject_uri) || isMatchingUris(uri, object_uri)) {
+                        matches++;
+                        break;
+                    }
+                }
+                if (matches == 2) {
+                    break;
+                }
+            }
+
+            // If both subject and object matched, then the answer is yes
+            if (matches == 2) {
+                triple.remove("threshold");
+                try {
+                    triple.put("answer", "Yes!");
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return triple;
+            }
+            matches = 0;
+        }
+
+        // If not both subject and object matched, then the answer is no
+        JSONObject tmp_ans = new JSONObject();
+
+        try {
+            tmp_ans.put("answer", "No!");
+        } catch (JSONException ex) {
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp_ans;
+    }
+
+    private static JSONObject extractDefinitionAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+
+        JSONObject tmp_ans = new JSONObject();
+
+        try {
+            tmp_ans.put("answer", "No answer found!");
+        } catch (JSONException ex) {
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp_ans;
+    }
+
+    private static boolean isMatchingUris(String uri1, String uri2) {
+        String uri1_text = getSuffixOfURI(uri1).replaceAll("[^a-zA-Z0-9]", "");
+        String uri2_text = getSuffixOfURI(uri2).replaceAll("[^a-zA-Z0-9]", "");
+
+        if (uri1.equalsIgnoreCase(uri2) || uri1_text.equalsIgnoreCase(uri2_text)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    // TODO: avoid unnecessary calls to lodsyndesis, query only the entity with the most triples?
+    // Needs optimization
     public static ArrayList<JSONObject> retrieveCandidateTriples(HashMap<String, String> entity_URI, String fact) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();

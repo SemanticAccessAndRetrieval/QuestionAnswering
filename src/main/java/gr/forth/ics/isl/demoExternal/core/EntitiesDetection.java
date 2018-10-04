@@ -54,6 +54,20 @@ public class EntitiesDetection {
         return entity_candidateURIs;
     }
 
+    public static HashMap<String, ArrayList<String>> retrieveEquivalentEntityURIs(HashMap<String, String> entity_URI) {
+        // Hashmap to store entities along with their equivalent URIs
+        HashMap<String, ArrayList<String>> entity_equivalentURIs = new HashMap<>();
+
+        // For each entity retrieve from LODSyndesis the candidate URIs
+        for (String entity : entity_URI.keySet()) {
+            entity_equivalentURIs.put(entity, chanel.getEquivalentEntity(entity_URI.get(entity)));
+        }
+
+        Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-equivalent URIs: {0}", entity_equivalentURIs);
+
+        return entity_equivalentURIs;
+    }
+
 
     // Retrieve the best matching URI for the current entity
     public static String getTopScoredEntityURI(String entity, ArrayList<String> candidate_URIs) {
