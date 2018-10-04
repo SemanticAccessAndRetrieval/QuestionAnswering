@@ -97,10 +97,15 @@ public class ExternalKnowledgeDemoMain {
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
-        // ==== Answer Extraction Step ====
-        JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+            if (entity_URI == null) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
+            } else {
+                // ==== Answer Extraction Step ====
+                JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+            }
+
         }
     }
 
@@ -207,6 +212,11 @@ public class ExternalKnowledgeDemoMain {
 
                 obj.put("retrievedEntities", entity_URI);
 
+                if (entity_URI == null) {
+                    obj.put("answer", "No answer found!");
+                    obj.put("triple", new JSONObject());
+                } else {
+
                 // ==== Answer Extraction Step ====
                 JSONObject answer_triple = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
@@ -214,7 +224,8 @@ public class ExternalKnowledgeDemoMain {
 
                 obj.put("answer", answer_triple.get("answer"));
                 answer_triple.remove("answer");
-                obj.put("triple", answer_triple);
+                    obj.put("triple", answer_triple);
+                }
             }
 
             return obj;

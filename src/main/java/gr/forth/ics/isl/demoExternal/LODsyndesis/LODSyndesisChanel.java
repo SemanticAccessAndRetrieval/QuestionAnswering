@@ -194,7 +194,7 @@ public class LODSyndesisChanel {
 
         try {
             serviceName = "keywordEntity";
-            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword);
+            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
 

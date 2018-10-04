@@ -27,6 +27,13 @@ public class EntitiesDetection {
         // Hashmap to store entities along with their candidate URIs
         HashMap<String, ArrayList<String>> entity_candidateURIs = retrieveCandidateEntityURIs(question_entities);
 
+        // If we don't have a uri for an entity we cannot deliver any answer!
+        for (ArrayList<String> cand_URIs : entity_candidateURIs.values()) {
+            if (cand_URIs.isEmpty()) {
+                return null;
+            }
+        }
+
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = new HashMap<>();
 
