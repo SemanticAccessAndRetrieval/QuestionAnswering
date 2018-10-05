@@ -83,20 +83,36 @@ public class QuestionAnalysis {
 
     public void analyzeQuestion(String question) {
 
+        question_type = identifyQuestionType(question.toLowerCase());
+
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
 
         useful_words = clean_query_with_POS.keySet();
 
+        // for definition question we can search for certain tags e.g. comment, label etc.
+        // These tags should be included in the useful_words set
+        if (question_type.equals("definition")) {
+            Set<String> tmp_words = new HashSet<>(useful_words);
+            tmp_words.add("comment");
+            useful_words = tmp_words;
+        }
+
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = getTokensWithNer(question);
+        HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
 
         // Store only the text of the Named Entities
         question_entities = word_NamedEntity.keySet();
 
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
 
-        useful_words.removeAll(question_entities);
+        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
+        for (String word : question_entities) {
+            for (String w : word.split(" ")) {
+                useful_words.remove(w.trim());
+            }
+
+        }
 
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Useful_words: {0}", useful_words);
 
@@ -105,8 +121,6 @@ public class QuestionAnalysis {
             fact += word + " ";
         }
         fact.trim();
-
-        question_type = identifyQuestionType(question.toLowerCase());
     }
 
     public String identifyQuestionType(String question) {
@@ -117,7 +131,7 @@ public class QuestionAnalysis {
 
         for (String d_word : definition_words) {
             if (question_words.contains(d_word)) {
-                return "d";
+                return "definition";
             }
         }
 
@@ -125,7 +139,7 @@ public class QuestionAnalysis {
 
         for (String f_word : factoid_words) {
             if (question.startsWith(f_word)) {
-                return "f";
+                return "factoid";
             }
         }
 
@@ -133,7 +147,7 @@ public class QuestionAnalysis {
 
         for (String c_word : confirmation_words) {
             if (question.startsWith(c_word)) {
-                return "c";
+                return "confirmation";
             }
         }
 
@@ -166,7 +180,9 @@ public class QuestionAnalysis {
 
     }
 
-    public static HashMap<String, String> getTokensWithNer(String text) {
+
+    // Version of Named Entity recognition able to detect multi-word entities e.g. Mount Everest
+    public static HashMap<String, String> getTokensWithMultiNer(String text) {
 
         //apply
         Annotation document = new Annotation(text);
@@ -175,6 +191,9 @@ public class QuestionAnalysis {
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
 
         HashMap<String, String> word_ner = new HashMap<>();
+
+        String previous_token = "";
+        String previous_ner = "o";
 
         //For each sentence
         for (CoreMap sentence : sentences) {
@@ -187,15 +206,24 @@ public class QuestionAnalysis {
                 //Get the NER tag of the token
                 String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                if (!ner.equalsIgnoreCase("o")) {
-                    word_ner.put(word, ner);
+                if (!ner.equalsIgnoreCase(previous_ner) && !ner.equalsIgnoreCase("o")) {
+                    if (!previous_ner.equalsIgnoreCase("o")) {
+                        word_ner.put(previous_token.trim(), previous_ner);
+                    }
+                    previous_ner = ner;
+                    previous_token = word;
+                } else if (!ner.equalsIgnoreCase(previous_ner) && ner.equalsIgnoreCase("o")) {
+                    word_ner.put(previous_token.trim(), previous_ner);
+                    previous_ner = ner;
+                    previous_token = word;
+                } else if (ner.equalsIgnoreCase(previous_ner) && !ner.equalsIgnoreCase("o")) {
+                    previous_token += " " + word;
                 }
 
             }
         }
         return word_ner;
     }
-
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);

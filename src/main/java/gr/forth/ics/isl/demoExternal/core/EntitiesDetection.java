@@ -27,6 +27,13 @@ public class EntitiesDetection {
         // Hashmap to store entities along with their candidate URIs
         HashMap<String, ArrayList<String>> entity_candidateURIs = retrieveCandidateEntityURIs(question_entities);
 
+        // If we don't have a uri for an entity we cannot deliver any answer!
+        for (ArrayList<String> cand_URIs : entity_candidateURIs.values()) {
+            if (cand_URIs.isEmpty()) {
+                return null;
+            }
+        }
+
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = new HashMap<>();
 
@@ -52,6 +59,20 @@ public class EntitiesDetection {
         Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-candidate URIs: {0}", entity_candidateURIs);
 
         return entity_candidateURIs;
+    }
+
+    public static HashMap<String, ArrayList<String>> retrieveEquivalentEntityURIs(HashMap<String, String> entity_URI) {
+        // Hashmap to store entities along with their equivalent URIs
+        HashMap<String, ArrayList<String>> entity_equivalentURIs = new HashMap<>();
+
+        // For each entity retrieve from LODSyndesis the candidate URIs
+        for (String entity : entity_URI.keySet()) {
+            entity_equivalentURIs.put(entity, chanel.getEquivalentEntity(entity_URI.get(entity)));
+        }
+
+        Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-equivalent URIs: {0}", entity_equivalentURIs);
+
+        return entity_equivalentURIs;
     }
 
 

@@ -56,7 +56,7 @@ public class LODSyndesisChanel {
      * @param uri
      * @return Triples of sameAs entities
      */
-    public ArrayList<ArrayList<String>> getEntity(String uri) {
+    public ArrayList<String> getEquivalentEntity(String uri) {
         try {
             serviceName = "objectCoreference";
             objectCoreference = new HttpGet(URL + "/" + serviceName + "?uri=" + uri);
@@ -64,8 +64,14 @@ public class LODSyndesisChanel {
             objectCoreference.addHeader(CONTENT_TYPE, "application/n-triples");
 
             ArrayList<ArrayList<String>> allTriples = getContent(objectCoreference);
+            ArrayList<String> equivalent_uris = new ArrayList<>();
+            for (ArrayList<String> triple : allTriples) {
+                //retrieve the object of the triple i.e. the equivalent uri
+                //remove the first and last character since the uris are enclosed in <...>
+                equivalent_uris.add(triple.get(2).substring(1, triple.get(2).length() - 1));
+            }
 
-            return allTriples;
+            return equivalent_uris;
         } catch (IOException ex) {
             Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,7 +194,7 @@ public class LODSyndesisChanel {
 
         try {
             serviceName = "keywordEntity";
-            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword);
+            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
 
@@ -288,7 +294,7 @@ public class LODSyndesisChanel {
 
     public static void main(String[] args) {
         LODSyndesisChanel chanel = new LODSyndesisChanel();
-        System.out.println(chanel.getEntity("http://dbpedia.org/resource/Aristotle_University_of_Thessaloniki"));
+        System.out.println(chanel.getEquivalentEntity("http://dbpedia.org/resource/Aristotle_University_of_Thessaloniki"));
         System.out.println(chanel.getAllFacts("http://dbpedia.org/resource/Spetses"));
         System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala"));
         System.out.println(chanel.checkFact("http://dbpedia.org/resource/Aristotle", "place death lala", 0.5));

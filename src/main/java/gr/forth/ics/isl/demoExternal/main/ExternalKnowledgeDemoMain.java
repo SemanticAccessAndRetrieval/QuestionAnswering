@@ -67,10 +67,11 @@ public class ExternalKnowledgeDemoMain {
         String query10 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
         String query11 = "Where is Mount Everest located?"; // not answerable (should take Mount Everest as one entity)
 
+
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";
         String query12 = "Is Tokyo the capital of Japan?";
-        String query13 = "Is Kyoto the capital of Japan?"; // not answerable (Should check only triples that contain both URIs)
+        String query13 = "Is Kyoto the capital of Japan?";
 
         // Question 3 on focus (definition)
         String query3 = "What does Kyoto mean?";
@@ -96,10 +97,15 @@ public class ExternalKnowledgeDemoMain {
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
-        // ==== Answer Extraction Step ====
-        String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+            if (entity_URI == null) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
+            } else {
+                // ==== Answer Extraction Step ====
+                JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+            }
+
         }
     }
 
@@ -128,8 +134,9 @@ public class ExternalKnowledgeDemoMain {
         split_pipeline = new StanfordCoreNLP(split_props);
 
         Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
         ner_props.put("tokenize.language", "en");
+        ner_props.put("truecase.overwriteText", "true");
         ner_pipeline = new StanfordCoreNLP(ner_props);
 
         chanel = new LODSyndesisChanel();
@@ -163,8 +170,9 @@ public class ExternalKnowledgeDemoMain {
         split_pipeline = new StanfordCoreNLP(split_props);
 
         Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
         ner_props.put("tokenize.language", "en");
+        ner_props.put("truecase.overwriteText", "true");
         ner_pipeline = new StanfordCoreNLP(ner_props);
 
         chanel = new LODSyndesisChanel();
@@ -175,6 +183,8 @@ public class ExternalKnowledgeDemoMain {
     public static JSONObject getAnswerAsJson(String query) {
         try {
             JSONObject obj = new JSONObject();
+
+            obj.put("source", "external");
 
             // ==== Question Analysis Step ====
             QuestionAnalysis q_analysis = new QuestionAnalysis();
@@ -202,14 +212,22 @@ public class ExternalKnowledgeDemoMain {
                 // Hashmap to store each entity and the selected URI (the highest scored)
                 HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
-                obj.put("entity_URI", entity_URI);
+                obj.put("retrievedEntities", entity_URI);
+
+                if (entity_URI == null) {
+                    obj.put("answer", "No answer found!");
+                    obj.put("triple", new JSONObject());
+                } else {
 
                 // ==== Answer Extraction Step ====
-                String answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+                JSONObject answer_triple = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
 
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
 
-                obj.put("answer", answer);
+                obj.put("answer", answer_triple.get("answer"));
+                answer_triple.remove("answer");
+                    obj.put("triple", answer_triple);
+                }
             }
 
             return obj;
