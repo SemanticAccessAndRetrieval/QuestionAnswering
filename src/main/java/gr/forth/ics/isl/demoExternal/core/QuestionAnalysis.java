@@ -172,41 +172,26 @@ public class QuestionAnalysis {
 
     }
 
-    //TODO: Should check for multi-word entities (consecutive words with matching Named Entity)
-    //e.g. Golden Pavilion should be recognized as a single entity
-    //PROBLEM: case sensitive named entity recognition (Kyoto recognized while kyoto does not)
-    public static HashMap<String, String> getTokensWithNer(String text) {
+    // Function to capitalize the 1st letter of each word in the question (useful for the NE recognition step)
+    public static String capitalizeQuestionWords(String question) {
+        String capitalized_question = "";
+        String[] question_words = question.split(" ");
 
-        //apply
-        Annotation document = new Annotation(text);
-        ner_pipeline.annotate(document);
-
-        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-
-        HashMap<String, String> word_ner = new HashMap<>();
-
-        //For each sentence
-        for (CoreMap sentence : sentences) {
-            //For each word in the sentence
-            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-
-                //Get the TEXT of the token
-                String word = token.get(CoreAnnotations.TextAnnotation.class).toLowerCase().trim();
-
-                //Get the NER tag of the token
-                String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
-
-                if (!ner.equalsIgnoreCase("o")) {
-                    word_ner.put(word, ner);
-                }
-
+        for (String word : question_words) {
+            System.out.println("word: " + word);
+            if (!word.trim().equals("")) {
+                capitalized_question += Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ";
             }
         }
-        return word_ner;
+        return capitalized_question;
     }
 
     // New version of getTokensWithNer able to detect multi-word entities
     public static HashMap<String, String> getTokensWithMultiNer(String text) {
+
+        // Capitalize the first letter of each word, to ensure Named Entity recognition
+        // Stanford NamedRecognizer is case sensitive.
+        text = capitalizeQuestionWords(text);
 
         //apply
         Annotation document = new Annotation(text);
