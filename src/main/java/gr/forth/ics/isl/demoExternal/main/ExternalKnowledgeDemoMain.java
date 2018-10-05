@@ -134,8 +134,9 @@ public class ExternalKnowledgeDemoMain {
         split_pipeline = new StanfordCoreNLP(split_props);
 
         Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
         ner_props.put("tokenize.language", "en");
+        ner_props.put("truecase.overwriteText", "true");
         ner_pipeline = new StanfordCoreNLP(ner_props);
 
         chanel = new LODSyndesisChanel();
@@ -169,8 +170,9 @@ public class ExternalKnowledgeDemoMain {
         split_pipeline = new StanfordCoreNLP(split_props);
 
         Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
         ner_props.put("tokenize.language", "en");
+        ner_props.put("truecase.overwriteText", "true");
         ner_pipeline = new StanfordCoreNLP(ner_props);
 
         chanel = new LODSyndesisChanel();

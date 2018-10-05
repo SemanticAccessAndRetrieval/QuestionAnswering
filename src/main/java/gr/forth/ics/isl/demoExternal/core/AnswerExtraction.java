@@ -156,6 +156,26 @@ public class AnswerExtraction {
 
         JSONObject tmp_ans = new JSONObject();
 
+        String predicate_uri = "";
+
+        //For each matching triple
+        for (JSONObject triple : matched_triples) {
+            try {
+                //Extract the predicate from the triple
+                predicate_uri = triple.getString("predicate").substring(1, triple.getString("predicate").length() - 1);
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (isMatchingUris(predicate_uri, "comment")) {
+                triple.remove("threshold");
+                try {
+                    triple.put("answer", triple.getString("object"));
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return triple;
+            }
+        }
         try {
             tmp_ans.put("answer", "No answer found!");
         } catch (JSONException ex) {

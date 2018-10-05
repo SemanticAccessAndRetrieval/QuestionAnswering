@@ -83,10 +83,20 @@ public class QuestionAnalysis {
 
     public void analyzeQuestion(String question) {
 
+        question_type = identifyQuestionType(question.toLowerCase());
+
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
 
         useful_words = clean_query_with_POS.keySet();
+
+        // for definition question we can search for certain tags e.g. comment, label etc.
+        // These tags should be included in the useful_words set
+        if (question_type.equals("definition")) {
+            Set<String> tmp_words = new HashSet<>(useful_words);
+            tmp_words.add("comment");
+            useful_words = tmp_words;
+        }
 
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
         HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
@@ -111,8 +121,6 @@ public class QuestionAnalysis {
             fact += word + " ";
         }
         fact.trim();
-
-        question_type = identifyQuestionType(question.toLowerCase());
     }
 
     public String identifyQuestionType(String question) {
@@ -172,26 +180,9 @@ public class QuestionAnalysis {
 
     }
 
-    // Function to capitalize the 1st letter of each word in the question (useful for the NE recognition step)
-    public static String capitalizeQuestionWords(String question) {
-        String capitalized_question = "";
-        String[] question_words = question.split(" ");
 
-        for (String word : question_words) {
-            System.out.println("word: " + word);
-            if (!word.trim().equals("")) {
-                capitalized_question += Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ";
-            }
-        }
-        return capitalized_question;
-    }
-
-    // New version of getTokensWithNer able to detect multi-word entities
+    // Version of Named Entity recognition able to detect multi-word entities e.g. Mount Everest
     public static HashMap<String, String> getTokensWithMultiNer(String text) {
-
-        // Capitalize the first letter of each word, to ensure Named Entity recognition
-        // Stanford NamedRecognizer is case sensitive.
-        text = capitalizeQuestionWords(text);
 
         //apply
         Annotation document = new Annotation(text);

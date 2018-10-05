@@ -18,7 +18,6 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
-import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
 import gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.models.Comment;
@@ -72,8 +71,9 @@ public class combinedDemoMain {
     public static void initializeSourceSelectionTools() {
 
         Properties sourceSelection_props = new Properties();
-        sourceSelection_props.put("annotators", "tokenize, ssplit, pos, lemma,  ner");
+        sourceSelection_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
         sourceSelection_props.put("tokenize.language", "en");
+        sourceSelection_props.put("truecase.overwriteText", "true");
         sourceSelection_pipeline = new StanfordCoreNLP(sourceSelection_props);
 
     }
@@ -233,9 +233,6 @@ public class combinedDemoMain {
     }
 
     public static ArrayList<String> retrieveEntities(String text) {
-        // Capitalize the first letter of each word, to ensure Named Entity recognition
-        // Stanford NamedRecognizer is case sensitive.
-        text = QuestionAnalysis.capitalizeQuestionWords(text);
 
         //apply
         Annotation document = new Annotation(text);
