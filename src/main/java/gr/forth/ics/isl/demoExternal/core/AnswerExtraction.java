@@ -30,8 +30,8 @@ public class AnswerExtraction {
 
     public static JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
 
-        ArrayList<JSONObject> cand_triples = retrieveCandidateTriples(entity_URI, fact);
-
+        //ArrayList<JSONObject> cand_triples = retrieveCandidateTriples(entity_URI, fact);
+        ArrayList<JSONObject> cand_triples = retrieveCandidateTriplesOptimized(entity_URI, fact);
         ArrayList<String> cand_relations = extractCandidateRelations(cand_triples);
 
         String matched_relation = getMatchingProperty(new ArrayList<>(useful_words), cand_relations);
@@ -57,7 +57,6 @@ public class AnswerExtraction {
 
     //TODO: To update to more sophisticated answer selection
     // Factoid: Check number of provenance sources for verification?
-    // Definition: To create a 1st draft
     public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
 
         if (matched_triples.isEmpty()) {
@@ -214,6 +213,51 @@ public class AnswerExtraction {
         Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
 
         return cand_facts;
+    }
+
+    public static ArrayList<JSONObject> retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact) {
+        String tmp_cand_facts = "";
+        ArrayList<JSONObject> cand_facts = new ArrayList<>();
+
+        String entity = getEntityWithMaxCardinality(entity_URI);
+
+        // Retrieve all the candidate triples and concatanate the result to construct a string
+        for (String str : chanel.checkFactAsJSON(entity_URI.get(entity), fact, 0.5).get(0)) {
+            tmp_cand_facts += str + " ";
+        }
+        //Store all the candidate triples stored as JSONObjects extracted from the text
+        cand_facts.addAll(extractJSONObjectsFromString(tmp_cand_facts));
+
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
+
+        return cand_facts;
+    }
+
+    public static String getEntityWithMaxCardinality(HashMap<String, String> entity_URI) {
+        String final_entity = "";
+        int max_card = Integer.MIN_VALUE;
+
+        String cardinality_result = "";
+        JSONObject uri_cardinality;
+
+        for (String entity : entity_URI.keySet()) {
+            cardinality_result = "";
+            for (String str : chanel.getCardinalityAsJSON(entity_URI.get(entity)).get(0)) {
+                cardinality_result += str + " ";
+            }
+
+            uri_cardinality = AnswerExtraction.extractJSONObjectsFromString(cardinality_result).get(0);
+
+            try {
+                if (uri_cardinality.getInt("cardinality") > max_card) {
+                    max_card = uri_cardinality.getInt("cardinality");
+                    final_entity = entity;
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return final_entity;
     }
 
     public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {

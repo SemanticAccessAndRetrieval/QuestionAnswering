@@ -64,9 +64,8 @@ public class ExternalKnowledgeDemoMain {
         String query7 = "Where is Mitsubishi located?";
         String query8 = "Which is the foundation place of Sony?";
         String query9 = "Which is the death place of Nujabes?";
-        String query10 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
-        String query11 = "Where is Mount Everest located?"; // not answerable (should take Mount Everest as one entity)
-
+        String query10 = "Where is Mount Everest located?";
+        String query11 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
 
         // Question 2 on focus (confirmation)
         String query2 = "Is Nintendo located in Kyoto?";

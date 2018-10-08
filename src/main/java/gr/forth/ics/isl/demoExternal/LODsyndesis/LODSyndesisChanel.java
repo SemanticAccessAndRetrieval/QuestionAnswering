@@ -40,6 +40,7 @@ public class LODSyndesisChanel {
     private HttpGet allFacts;
     private HttpGet factChecking;
     private HttpGet keywordEntity;
+    private HttpGet entityCardinality;
     private static final String URL = "http://83.212.101.8:8080/LODsyndesis/rest-api";
     private String serviceName;
 
@@ -175,6 +176,23 @@ public class LODSyndesisChanel {
             factChecking.addHeader(CONTENT_TYPE, "application/json");
 
             ArrayList<ArrayList<String>> allQuads = getContent(factChecking);
+
+            return allQuads;
+        } catch (IOException ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<ArrayList<String>> getCardinalityAsJSON(String uri) {
+        try {
+            serviceName = "entityCardinality";
+
+            entityCardinality = new HttpGet(URL + "/" + serviceName + "?entity=" + uri);
+            entityCardinality.addHeader(ACCEPT, "application/json");
+            entityCardinality.addHeader(CONTENT_TYPE, "application/json");
+
+            ArrayList<ArrayList<String>> allQuads = getContent(entityCardinality);
 
             return allQuads;
         } catch (IOException ex) {
