@@ -78,12 +78,64 @@ public class ExternalEvalCollectionManipulator {
                 triple[1] = mapPredicate(triple[1]);
 
                 if (existInLODSyndesis(chanel, triple)) {
-                    String tripleClean = triple[0] + " " + triple[1] + " " + triple[2] + " " + question + "\n";
+                    String tripleClean = triple[0] + "\t" + triple[1] + "\t" + triple[2] + "\t" + question + "\n";
                     bw.write(tripleClean);
                     System.out.println(question);
                     System.out.println(++count + ": " + tripleClean);
                 }
 
+                line = br.readLine();
+            }
+        } finally {
+            bw.close();
+            br.close();
+        }
+    }
+
+    public void produceFilteredQuestions() throws FileNotFoundException, IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/external/evaluation/" + evalFileName + "_filtered" + evalFileNameExtension));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/external/evaluation/" + "questions" + evalFileNameExtension, false));
+
+        int question_id = 1;
+        try {
+            StringBuilder sb;
+            String line = br.readLine();
+            int count = 0;
+            while (line != null) {
+
+                String[] triple = line.split("\t");
+                String question = triple[3];
+                sb = new StringBuilder();
+                sb.append("q").append(question_id).append("\t").append(question).append("\n");
+                bw.write(sb.toString());
+                question_id++;
+                line = br.readLine();
+            }
+        } finally {
+            bw.close();
+            br.close();
+        }
+    }
+
+    public void produceFilteredAnswers() throws FileNotFoundException, IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/external/evaluation/" + evalFileName + "_filtered" + evalFileNameExtension));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/external/evaluation/" + "answers" + evalFileNameExtension, false));
+
+        int question_id = 1;
+        try {
+            StringBuilder sb;
+            String line = br.readLine();
+            int count = 0;
+            while (line != null) {
+
+                String[] triple = line.split("\t");
+                String question = triple[3];
+                sb = new StringBuilder();
+                sb.append("q").append(question_id).append("\t").append(triple[0]).append("\t").append(triple[1]).append("\t").append(triple[2]).append("\n");
+                bw.write(sb.toString());
+                question_id++;
                 line = br.readLine();
             }
         } finally {

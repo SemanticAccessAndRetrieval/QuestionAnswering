@@ -125,6 +125,8 @@ public class QuestionAnalysis {
 
     public String identifyQuestionType(String question) {
 
+        question = question.trim();
+
         ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
 
         Set<String> question_words = getCleanTokensWithPos(question).keySet();
