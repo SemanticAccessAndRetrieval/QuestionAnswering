@@ -195,6 +195,7 @@ public class ExternalKnowledgeDemoMain {
 
             if (question_type.equals("none")) {
                 Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
+                // TO CHANGE?
                 return null;
             } else {
                 // Store the useful words of the question

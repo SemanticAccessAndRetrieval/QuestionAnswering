@@ -37,6 +37,7 @@ import java.util.logging.Logger;
  */
 public class QuestionAnalysis {
 
+    private String question;
     // Store the useful words of the question
     private Set<String> useful_words;
     // Store the text of the Named Entities
@@ -47,6 +48,10 @@ public class QuestionAnalysis {
     private String question_type = "";
 
     public QuestionAnalysis() {
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public Set<String> getUsefulWords() {
@@ -63,6 +68,10 @@ public class QuestionAnalysis {
 
     public String getQuestionType() {
         return question_type;
+    }
+
+    public void setQuestion(String quest) {
+        this.question = quest;
     }
 
     public void setUsefulWords(Set<String> words) {
@@ -83,7 +92,9 @@ public class QuestionAnalysis {
 
     public void analyzeQuestion(String question) {
 
-        question_type = identifyQuestionType(question.toLowerCase());
+        this.question = question.trim();
+
+        question_type = identifyQuestionType(this.question.toLowerCase());
 
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
@@ -124,8 +135,6 @@ public class QuestionAnalysis {
     }
 
     public String identifyQuestionType(String question) {
-
-        question = question.trim();
 
         ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
 
