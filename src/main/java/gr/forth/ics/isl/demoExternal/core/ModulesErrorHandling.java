@@ -107,4 +107,27 @@ public class ModulesErrorHandling {
         return answer;
 
     }
+
+    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e) {
+        JSONObject answer = new JSONObject();
+        ArrayList<JSONObject> cand_triples = a_e.getCandidateTriples();
+        if (cand_triples == null || cand_triples.isEmpty()) {
+            try {
+                answer.put("status", "error");
+                answer.put("message", "[AnswerExtraction] No candidate triples found.");
+                return answer;
+            } catch (JSONException ex) {
+                Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        try {
+            answer.put("status", "ok");
+        } catch (JSONException ex) {
+            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return answer;
+
+    }
 }

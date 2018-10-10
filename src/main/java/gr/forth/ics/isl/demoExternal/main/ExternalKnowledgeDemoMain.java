@@ -78,7 +78,7 @@ public class ExternalKnowledgeDemoMain {
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion("Who is the producer on evangelion: 3 you can (not) redo?");
+        q_analysis.analyzeQuestion(query1);
 
         JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
         try {
@@ -121,14 +121,24 @@ public class ExternalKnowledgeDemoMain {
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
 
-        if (entity_URI == null) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
-        } else {
-            // ==== Answer Extraction Step ====
-            JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+        // ==== Answer Extraction Step ====
+        AnswerExtraction answer_extraction = new AnswerExtraction();
+        answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact);
 
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+        JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
+        try {
+            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                String error_message = a_eErrorHandling.getString("message");
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                return;
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        JSONObject answer = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
 
     }
 
@@ -261,20 +271,29 @@ public class ExternalKnowledgeDemoMain {
 
             obj.put("retrievedEntities", entity_URI);
 
-            if (entity_URI == null) {
-                obj.put("answer", "No answer found!");
-                obj.put("triple", new JSONObject());
-            } else {
+            // ==== Answer Extraction Step ====
+            AnswerExtraction answer_extraction = new AnswerExtraction();
+            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact);
 
-                // ==== Answer Extraction Step ====
-                JSONObject answer_triple = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
-
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
-
-                obj.put("answer", answer_triple.get("answer"));
-                answer_triple.remove("answer");
-                obj.put("triple", answer_triple);
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
+            try {
+                if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    String error_message = a_eErrorHandling.getString("message");
+                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                    obj.put("errorMessage", error_message);
+                    return obj;
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            JSONObject answer_triple = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
+
+            obj.put("answer", answer_triple.get("answer"));
+            answer_triple.remove("answer");
+            obj.put("triple", answer_triple);
 
             return obj;
 

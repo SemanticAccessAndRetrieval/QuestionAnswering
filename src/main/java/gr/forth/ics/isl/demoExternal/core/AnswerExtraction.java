@@ -28,17 +28,27 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class AnswerExtraction {
 
-    public static JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
+    private ArrayList<JSONObject> candidate_triples;
 
-        //ArrayList<JSONObject> cand_triples = retrieveCandidateTriples(entity_URI, fact);
-        ArrayList<JSONObject> cand_triples = retrieveCandidateTriplesOptimized(entity_URI, fact);
-        ArrayList<String> cand_relations = extractCandidateRelations(cand_triples);
+    public ArrayList<JSONObject> getCandidateTriples() {
+        return this.candidate_triples;
+    }
+
+    public void setCandidateTriples(ArrayList<JSONObject> triples) {
+        this.candidate_triples = triples;
+    }
+
+    public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
+
+        ArrayList<String> cand_relations = extractCandidateRelations(this.candidate_triples);
 
         String matched_relation = getMatchingProperty(new ArrayList<>(useful_words), cand_relations);
 
         ArrayList<JSONObject> matched_triples = new ArrayList<>();
 
-        for (JSONObject triple : cand_triples) {
+        // Here we can use for matching also the sameAs relations
+        // (when it will be available for predicates from LODSyndesis)
+        for (JSONObject triple : this.candidate_triples) {
             try {
                 if (((String) triple.get("predicate")).equalsIgnoreCase("<" + matched_relation + ">")) {
                     matched_triples.add(triple);
@@ -196,8 +206,7 @@ public class AnswerExtraction {
     }
 
     // TODO: avoid unnecessary calls to lodsyndesis, query only the entity with the most triples?
-    // Needs optimization
-    public static ArrayList<JSONObject> retrieveCandidateTriples(HashMap<String, String> entity_URI, String fact) {
+    public void retrieveCandidateTriples(HashMap<String, String> entity_URI, String fact) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
 
@@ -212,10 +221,10 @@ public class AnswerExtraction {
         }
         Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
 
-        return cand_facts;
+        this.candidate_triples = cand_facts;
     }
 
-    public static ArrayList<JSONObject> retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact) {
+    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
 
@@ -230,7 +239,8 @@ public class AnswerExtraction {
 
         Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
 
-        return cand_facts;
+        this.candidate_triples = cand_facts;
+
     }
 
     public static String getEntityWithMaxCardinality(HashMap<String, String> entity_URI) {
@@ -324,10 +334,11 @@ public class AnswerExtraction {
         }
 
         ArrayList<JSONObject> cand_triples = new ArrayList<>();
-
+        JSONObject tmp_object;
         for (String object_str : matches) {
             try {
-                cand_triples.add(new JSONObject(object_str));
+                tmp_object = new JSONObject(object_str);
+                cand_triples.add(tmp_object);
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
