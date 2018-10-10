@@ -15,6 +15,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demoExternal.LODsyndesis.LODSyndesisChanel;
 import gr.forth.ics.isl.demoExternal.core.AnswerExtraction;
 import gr.forth.ics.isl.demoExternal.core.EntitiesDetection;
+import gr.forth.ics.isl.demoExternal.core.ModulesErrorHandling;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
@@ -79,22 +80,33 @@ public class ExternalKnowledgeDemoMain {
         QuestionAnalysis q_analysis = new QuestionAnalysis();
         q_analysis.analyzeQuestion(query8);
 
+        JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
+        try {
+            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                String error_message = q_aErrorHandling.getString("message");
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                return;
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         String question_type = q_analysis.getQuestionType();
 
         if (question_type.equals("none")) {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
         } else {
-        // Store the useful words of the question
-        Set<String> useful_words = q_analysis.getUsefulWords();
+            // Store the useful words of the question
+            Set<String> useful_words = q_analysis.getUsefulWords();
 
-        // Store the text of the Named Entities
-        Set<String> entities = q_analysis.getQuestionEntities();
+            // Store the text of the Named Entities
+            Set<String> entities = q_analysis.getQuestionEntities();
 
-        String fact = q_analysis.getFact();
+            String fact = q_analysis.getFact();
 
-        // ==== Entities Detection Step ====
-        // Hashmap to store each entity and the selected URI (the highest scored)
-        HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
+            // ==== Entities Detection Step ====
+            // Hashmap to store each entity and the selected URI (the highest scored)
+            HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
 
             if (entity_URI == null) {
                 Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
@@ -176,7 +188,6 @@ public class ExternalKnowledgeDemoMain {
 
         chanel = new LODSyndesisChanel();
 
-
     }
 
     public static JSONObject getAnswerAsJson(String query) {
@@ -189,35 +200,42 @@ public class ExternalKnowledgeDemoMain {
             QuestionAnalysis q_analysis = new QuestionAnalysis();
             q_analysis.analyzeQuestion(query);
 
+            JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
+            try {
+                if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    String error_message = q_aErrorHandling.getString("message");
+                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                    obj.put("errorMessage", error_message);
+                    return obj;
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             String question_type = q_analysis.getQuestionType();
 
             obj.put("question_type", question_type);
 
-            if (question_type.equals("none")) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
-                // TO CHANGE?
-                return null;
+            // Store the useful words of the question
+            Set<String> useful_words = q_analysis.getUsefulWords();
+
+            obj.put("useful_words", useful_words);
+
+            // Store the text of the Named Entities
+            Set<String> entities = q_analysis.getQuestionEntities();
+
+            String fact = q_analysis.getFact();
+
+            // ==== Entities Detection Step ====
+            // Hashmap to store each entity and the selected URI (the highest scored)
+            HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
+
+            obj.put("retrievedEntities", entity_URI);
+
+            if (entity_URI == null) {
+                obj.put("answer", "No answer found!");
+                obj.put("triple", new JSONObject());
             } else {
-                // Store the useful words of the question
-                Set<String> useful_words = q_analysis.getUsefulWords();
-
-                obj.put("useful_words", useful_words);
-
-                // Store the text of the Named Entities
-                Set<String> entities = q_analysis.getQuestionEntities();
-
-                String fact = q_analysis.getFact();
-
-                // ==== Entities Detection Step ====
-                // Hashmap to store each entity and the selected URI (the highest scored)
-                HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
-
-                obj.put("retrievedEntities", entity_URI);
-
-                if (entity_URI == null) {
-                    obj.put("answer", "No answer found!");
-                    obj.put("triple", new JSONObject());
-                } else {
 
                 // ==== Answer Extraction Step ====
                 JSONObject answer_triple = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
@@ -226,8 +244,7 @@ public class ExternalKnowledgeDemoMain {
 
                 obj.put("answer", answer_triple.get("answer"));
                 answer_triple.remove("answer");
-                    obj.put("triple", answer_triple);
-                }
+                obj.put("triple", answer_triple);
             }
 
             return obj;
