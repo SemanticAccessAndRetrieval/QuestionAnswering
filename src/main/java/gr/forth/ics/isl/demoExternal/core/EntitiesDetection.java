@@ -23,31 +23,43 @@ import java.util.logging.Logger;
  */
 public class EntitiesDetection {
 
-    public static HashMap<String, String> retrieveMatchingURIs(Set<String> question_entities) {
-        // Hashmap to store entities along with their candidate URIs
-        HashMap<String, ArrayList<String>> entity_candidateURIs = retrieveCandidateEntityURIs(question_entities);
+    private HashMap<String, ArrayList<String>> entity_cand_URIs;
+    private HashMap<String, String> entity_matchedURI;
 
-        // If we don't have a uri for an entity we cannot deliver any answer!
-        for (ArrayList<String> cand_URIs : entity_candidateURIs.values()) {
-            if (cand_URIs.isEmpty()) {
-                return null;
-            }
-        }
+    public HashMap<String, ArrayList<String>> getEntitiesWithCandidateURIs() {
+        return this.entity_cand_URIs;
+    }
+
+    public HashMap<String, String> getEntitiesWithMatchedURIs() {
+        return this.entity_matchedURI;
+    }
+
+    public void setEntitiesWithCandidateURIs(HashMap<String, ArrayList<String>> entities_URIs) {
+        this.entity_cand_URIs = entities_URIs;
+    }
+
+    public void setEntitiesWithMatchedURIs(HashMap<String, String> entities_matched_URIs) {
+        this.entity_matchedURI = entities_matched_URIs;
+    }
+
+    public HashMap<String, String> getMatchingURIs(Set<String> question_entities) {
 
         // Hashmap to store each entity and the selected URI (the highest scored)
         HashMap<String, String> entity_URI = new HashMap<>();
 
         // For each entity find the final matching URI
         for (String entity : question_entities) {
-            entity_URI.put(entity, getTopScoredEntityURI(entity, entity_candidateURIs.get(entity)));
+            entity_URI.put(entity, getTopScoredEntityURI(entity, entity_cand_URIs.get(entity)));
         }
 
         Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-matched URI: {0}", entity_URI);
 
+        this.entity_matchedURI = entity_URI;
+
         return entity_URI;
     }
 
-    public static HashMap<String, ArrayList<String>> retrieveCandidateEntityURIs(Set<String> question_entities) {
+    public void retrieveCandidateEntityURIs(Set<String> question_entities) {
         // Hashmap to store entities along with their candidate URIs
         HashMap<String, ArrayList<String>> entity_candidateURIs = new HashMap<>();
 
@@ -58,7 +70,7 @@ public class EntitiesDetection {
 
         Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-candidate URIs: {0}", entity_candidateURIs);
 
-        return entity_candidateURIs;
+        this.entity_cand_URIs = entity_candidateURIs;
     }
 
     public static HashMap<String, ArrayList<String>> retrieveEquivalentEntityURIs(HashMap<String, String> entity_URI) {

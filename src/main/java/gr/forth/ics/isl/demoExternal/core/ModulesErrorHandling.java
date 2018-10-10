@@ -9,6 +9,8 @@
  */
 package gr.forth.ics.isl.demoExternal.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,4 +70,41 @@ public class ModulesErrorHandling {
         return answer;
     }
 
+    public static JSONObject entitiesDetectionErrorHandling(EntitiesDetection e_d) {
+        JSONObject answer = new JSONObject();
+
+        HashMap<String, ArrayList<String>> entity_candidateURIs = e_d.getEntitiesWithCandidateURIs();
+        ArrayList<String> cand_URIs;
+
+        // If we don't have a uri for an entity we cannot deliver any answer!
+        for (String entity : entity_candidateURIs.keySet()) {
+            cand_URIs = entity_candidateURIs.get(entity);
+            if (cand_URIs == null) {
+                try {
+                    answer.put("status", "error");
+                    answer.put("message", "[EntitiesDetection] No retrieved URIs for entity: " + entity + ". Error while querying LODSyndesis.");
+                    return answer;
+                } catch (JSONException ex) {
+                    Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (cand_URIs.isEmpty()) {
+
+                try {
+                    answer.put("status", "error");
+                    answer.put("message", "[EntitiesDetection] No retrieved URIs for entity: " + entity + ". Zero URIs retrieved from LODSyndesis.");
+                    return answer;
+                } catch (JSONException ex) {
+                    Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        try {
+            answer.put("status", "ok");
+        } catch (JSONException ex) {
+            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return answer;
+
+    }
 }

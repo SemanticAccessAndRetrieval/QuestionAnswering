@@ -78,7 +78,7 @@ public class ExternalKnowledgeDemoMain {
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion(query8);
+        q_analysis.analyzeQuestion("Who is the producer on evangelion: 3 you can (not) redo?");
 
         JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
         try {
@@ -93,31 +93,43 @@ public class ExternalKnowledgeDemoMain {
 
         String question_type = q_analysis.getQuestionType();
 
-        if (question_type.equals("none")) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "Unrecognized type of question. No answer found!");
-        } else {
-            // Store the useful words of the question
-            Set<String> useful_words = q_analysis.getUsefulWords();
+        // Store the useful words of the question
+        Set<String> useful_words = q_analysis.getUsefulWords();
 
-            // Store the text of the Named Entities
-            Set<String> entities = q_analysis.getQuestionEntities();
+        // Store the text of the Named Entities
+        Set<String> entities = q_analysis.getQuestionEntities();
 
-            String fact = q_analysis.getFact();
+        String fact = q_analysis.getFact();
 
-            // ==== Entities Detection Step ====
-            // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
+        // ==== Entities Detection Step ====
+        EntitiesDetection entities_detection = new EntitiesDetection();
 
-            if (entity_URI == null) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
-            } else {
-                // ==== Answer Extraction Step ====
-                JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+        // Retrieve for each entity its candidate URIs from LODSyndesis
+        entities_detection.retrieveCandidateEntityURIs(entities);
 
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+        JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+        try {
+            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                String error_message = e_dErrorHandling.getString("message");
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                return;
             }
-
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        // Hashmap to store each entity and the selected URI (the highest scored)
+        HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
+
+        if (entity_URI == null) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", "No answer found!");
+        } else {
+            // ==== Answer Extraction Step ====
+            JSONObject answer = AnswerExtraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
+        }
+
     }
 
     public ExternalKnowledgeDemoMain(String wordnetPath) {
@@ -227,8 +239,25 @@ public class ExternalKnowledgeDemoMain {
             String fact = q_analysis.getFact();
 
             // ==== Entities Detection Step ====
+            EntitiesDetection entities_detection = new EntitiesDetection();
+
+            // Retrieve for each entity its candidate URIs from LODSyndesis
+            entities_detection.retrieveCandidateEntityURIs(entities);
+
+            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+            try {
+                if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    String error_message = e_dErrorHandling.getString("message");
+                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                    obj.put("errorMessage", error_message);
+                    return obj;
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = EntitiesDetection.retrieveMatchingURIs(entities);
+            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
 
             obj.put("retrievedEntities", entity_URI);
 
