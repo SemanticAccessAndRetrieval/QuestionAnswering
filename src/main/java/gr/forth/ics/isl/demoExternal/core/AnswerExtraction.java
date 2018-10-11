@@ -12,6 +12,7 @@ package gr.forth.ics.isl.demoExternal.core;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.chanel;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,8 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class AnswerExtraction {
 
+    public static ArrayList<String> definition_relations = new ArrayList<>(Arrays.asList("comment", "description", "abstract"));
+
     private ArrayList<JSONObject> candidate_triples;
 
     public ArrayList<JSONObject> getCandidateTriples() {
@@ -39,6 +42,12 @@ public class AnswerExtraction {
     }
 
     public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
+
+        if (question_type.equalsIgnoreCase("definition")) {
+            JSONObject answer = extractAnswerText(this.candidate_triples, question_type, entity_URI);
+
+            return answer;
+        }
 
         ArrayList<String> cand_relations = extractCandidateRelations(this.candidate_triples);
 
@@ -167,24 +176,27 @@ public class AnswerExtraction {
 
         String predicate_uri = "";
 
-        //For each matching triple
-        for (JSONObject triple : matched_triples) {
-            try {
-                //Extract the predicate from the triple
-                predicate_uri = triple.getString("predicate").substring(1, triple.getString("predicate").length() - 1);
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (isMatchingUris(predicate_uri, "comment")) {
-                triple.remove("threshold");
+        for (String relation : definition_relations) {
+            //For each matching triple
+            for (JSONObject triple : matched_triples) {
                 try {
-                    triple.put("answer", triple.getString("object"));
+                    //Extract the predicate from the triple
+                    predicate_uri = triple.getString("predicate").substring(1, triple.getString("predicate").length() - 1);
                 } catch (JSONException ex) {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                return triple;
+                if (isMatchingUris(predicate_uri, relation)) {
+                    triple.remove("threshold");
+                    try {
+                        triple.put("answer", triple.getString("object"));
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return triple;
+                }
             }
         }
+
         try {
             tmp_ans.put("answer", "No answer found!");
         } catch (JSONException ex) {
@@ -206,14 +218,16 @@ public class AnswerExtraction {
     }
 
     // TODO: avoid unnecessary calls to lodsyndesis, query only the entity with the most triples?
-    public void retrieveCandidateTriples(HashMap<String, String> entity_URI, String fact) {
+    public void retrieveCandidateTriples(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
+
+        double threshold = 1.0d / numOfUsefulWords;
 
         // For each entity
         for (String entity : entity_URI.keySet()) {
             // Retrieve all the candidate triples and concatanate the result to construct a string
-            for (String str : chanel.checkFactAsJSON(entity_URI.get(entity), fact, 0.5).get(0)) {
+            for (String str : chanel.checkFactAsJSON(entity_URI.get(entity), fact, threshold).get(0)) {
                 tmp_cand_facts += str + " ";
             }
             //Store all the candidate triples stored as JSONObjects extracted from the text
@@ -224,14 +238,16 @@ public class AnswerExtraction {
         this.candidate_triples = cand_facts;
     }
 
-    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact) {
+    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
 
         String entity = getEntityWithMaxCardinality(entity_URI);
 
+        double threshold = 1.0d / numOfUsefulWords;
+
         // Retrieve all the candidate triples and concatanate the result to construct a string
-        for (String str : chanel.checkFactAsJSON(entity_URI.get(entity), fact, 0.5).get(0)) {
+        for (String str : chanel.checkFactAsJSON(entity_URI.get(entity), fact, threshold).get(0)) {
             tmp_cand_facts += str + " ";
         }
         //Store all the candidate triples stored as JSONObjects extracted from the text

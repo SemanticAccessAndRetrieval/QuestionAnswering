@@ -12,6 +12,8 @@ package gr.forth.ics.isl.demoExternal.LODsyndesis;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,11 +46,16 @@ public class LODSyndesisChanel {
     private static final String URL = "http://83.212.101.8:8080/LODsyndesis/rest-api";
     private String serviceName;
 
+    private static DecimalFormat df = new DecimalFormat(".##");
+
     /**
      * Used to open connection with client and LODsyndesis
      */
     public LODSyndesisChanel() {
         client = HttpClientBuilder.create().build();
+
+        df.setRoundingMode(RoundingMode.DOWN);
+
     }
 
     /**
@@ -143,7 +150,7 @@ public class LODSyndesisChanel {
         try {
             serviceName = "factChecking";
             String URLEncodedFact = getURLEncodedFact(fact);
-            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + thres);
+            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + df.format(thres));
             factChecking.addHeader(ACCEPT, "application/n-quads");
             factChecking.addHeader(CONTENT_TYPE, "application/n-quads");
 
@@ -171,7 +178,7 @@ public class LODSyndesisChanel {
         try {
             serviceName = "factChecking";
             String URLEncodedFact = getURLEncodedFact(fact);
-            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + thres);
+            factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + df.format(thres));
             factChecking.addHeader(ACCEPT, "application/json");
             factChecking.addHeader(CONTENT_TYPE, "application/json");
 

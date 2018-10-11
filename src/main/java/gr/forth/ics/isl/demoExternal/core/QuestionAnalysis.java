@@ -99,19 +99,17 @@ public class QuestionAnalysis {
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
 
-        useful_words = clean_query_with_POS.keySet();
-
-        // for definition question we can search for certain tags e.g. comment, label etc.
+        // For definition question we search for certain tags e.g. comment, description, abstract
         // These tags should be included in the useful_words set
         if (question_type.equals("definition")) {
-            Set<String> tmp_words = new HashSet<>(useful_words);
-            tmp_words.add("comment");
-            useful_words = tmp_words;
+            useful_words = new HashSet<>(AnswerExtraction.definition_relations);
+        } else {
+            useful_words = clean_query_with_POS.keySet();
         }
 
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
         HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
-
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Named Entities: {0}", word_NamedEntity);
         // Store only the text of the Named Entities
         question_entities = word_NamedEntity.keySet();
 
@@ -131,14 +129,32 @@ public class QuestionAnalysis {
         for (String word : useful_words) {
             fact += word + " ";
         }
-        fact.trim();
+        fact = fact.trim();
     }
 
     public String identifyQuestionType(String question) {
 
         ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
+        ArrayList<String> definition_starting_words = new ArrayList<>(Arrays.asList("what is"));
 
         Set<String> question_words = getCleanTokensWithPos(question).keySet();
+
+        HashSet<String> tmp_words = new HashSet<>(question_words);
+        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
+        HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
+
+        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
+        for (String word : word_NamedEntity.keySet()) {
+            for (String w : word.split(" ")) {
+                tmp_words.remove(w.trim());
+            }
+        }
+
+        for (String d_s_word : definition_starting_words) {
+            if (question.startsWith(d_s_word) && tmp_words.isEmpty()) {
+                return "definition";
+            }
+        }
 
         for (String d_word : definition_words) {
             if (question_words.contains(d_word)) {

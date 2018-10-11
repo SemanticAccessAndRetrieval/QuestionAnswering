@@ -57,28 +57,30 @@ public class ExternalKnowledgeDemoMain {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Question 1 on focus (factoid)
-        String query1 = "What is the population of Kyoto?";
-        String query4 = "Which is the capital city of Japan?";
-        String query5 = "Which is the capital of Japan?";
-        String query6 = "What does Nintendo sell?";
-        String query7 = "Where is Mitsubishi located?";
-        String query8 = "Which is the foundation place of Sony?";
-        String query9 = "Which is the death place of Nujabes?";
-        String query10 = "Where is Mount Everest located?";
-        String query11 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
+        // Factoid Questions
+        String fact1 = "What is the population of Kyoto?";
+        String fact2 = "Which is the capital city of Japan?";
+        String fact3 = "Which is the capital of Japan?";
+        String fact4 = "What does Nintendo sell?";
+        String fact5 = "Where is Mitsubishi located?";
+        String fact6 = "Which is the foundation place of Sony?";
+        String fact7 = "Which is the death place of Nujabes?";
+        String fact8 = "Where is Mount Everest located?";
+        String fact9 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
 
-        // Question 2 on focus (confirmation)
-        String query2 = "Is Nintendo located in Kyoto?";
-        String query12 = "Is Tokyo the capital of Japan?";
-        String query13 = "Is Kyoto the capital of Japan?";
+        // Confirmation Questions
+        String conf1 = "Is Nintendo located in Kyoto?";
+        String conf2 = "Is Tokyo the capital of Japan?";
+        String conf3 = "Is Kyoto the capital of Japan?";
 
-        // Question 3 on focus (definition)
-        String query3 = "What does Kyoto mean?";
+        // Definition Questions
+        String def1 = "What does Kyoto mean?";
+        String def2 = "What is Mount Everest?";
+        String def3 = "What is Nintendo?";
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion(query1);
+        q_analysis.analyzeQuestion(def2);
 
         JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
         try {
@@ -123,7 +125,7 @@ public class ExternalKnowledgeDemoMain {
 
         // ==== Answer Extraction Step ====
         AnswerExtraction answer_extraction = new AnswerExtraction();
-        answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact);
+        answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
 
         JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
         try {
@@ -273,7 +275,7 @@ public class ExternalKnowledgeDemoMain {
 
             // ==== Answer Extraction Step ====
             AnswerExtraction answer_extraction = new AnswerExtraction();
-            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact);
+            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
 
             JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
             try {
