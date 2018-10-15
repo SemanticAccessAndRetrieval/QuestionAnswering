@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
@@ -225,15 +226,9 @@ public class ExternalKnowledgeDemoMain {
             q_analysis.analyzeQuestion(query);
 
             JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
-            try {
-                if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                    String error_message = q_aErrorHandling.getString("message");
-                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                    obj.put("errorMessage", error_message);
-                    return obj;
-                }
-            } catch (JSONException ex) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
             }
 
             String question_type = q_analysis.getQuestionType();
@@ -248,6 +243,8 @@ public class ExternalKnowledgeDemoMain {
             // Store the text of the Named Entities
             Set<String> entities = q_analysis.getQuestionEntities();
 
+            obj.put("question_entities", entities);
+
             String fact = q_analysis.getFact();
 
             // ==== Entities Detection Step ====
@@ -257,15 +254,9 @@ public class ExternalKnowledgeDemoMain {
             entities_detection.retrieveCandidateEntityURIs(entities);
 
             JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
-            try {
-                if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                    String error_message = e_dErrorHandling.getString("message");
-                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                    obj.put("errorMessage", error_message);
-                    return obj;
-                }
-            } catch (JSONException ex) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
             }
 
             // Hashmap to store each entity and the selected URI (the highest scored)
@@ -278,15 +269,9 @@ public class ExternalKnowledgeDemoMain {
             answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
 
             JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
-            try {
-                if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                    String error_message = a_eErrorHandling.getString("message");
-                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                    obj.put("errorMessage", error_message);
-                    return obj;
-                }
-            } catch (JSONException ex) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
             }
 
             JSONObject answer_triple = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
@@ -304,6 +289,46 @@ public class ExternalKnowledgeDemoMain {
         }
 
         return null;
+    }
+
+    private static JSONObject constructErrorJson(JSONObject current_answer, JSONObject error, String module) {
+        ArrayList<String> qA_tags = new ArrayList<>(Arrays.asList("question_type", "question_entities", "useful_words"));
+        ArrayList<String> eD_tags = new ArrayList<>(Arrays.asList("retrievedEntities"));
+
+        try {
+            String error_message = error.getString("message");
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+            current_answer.put("errorMessage", error_message);
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (module.equalsIgnoreCase("questionAnalysis")) {
+
+            for (String tag : qA_tags) {
+                if (error.has(tag)) {
+                    try {
+                        current_answer.put(tag, error.get(tag));
+                    } catch (JSONException ex) {
+                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            return current_answer;
+        } else if (module.equalsIgnoreCase("entitiesDetection")) {
+            for (String tag : eD_tags) {
+                if (error.has(tag)) {
+                    try {
+                        current_answer.put(tag, error.get(tag));
+                    } catch (JSONException ex) {
+                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            return current_answer;
+        }
+        return current_answer;
+
     }
 
 }

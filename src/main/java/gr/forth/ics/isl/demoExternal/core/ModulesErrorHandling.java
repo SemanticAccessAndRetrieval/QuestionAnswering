@@ -36,6 +36,12 @@ public class ModulesErrorHandling {
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            try {
+                answer.put("question_type", q_a.getQuestionType());
+            } catch (JSONException ex) {
+                Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         Set<String> question_entities = q_a.getQuestionEntities();
@@ -48,6 +54,12 @@ public class ModulesErrorHandling {
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            try {
+                answer.put("question_entities", question_entities);
+            } catch (JSONException ex) {
+                Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         Set<String> useful_words = q_a.getUsefulWords();
@@ -57,6 +69,12 @@ public class ModulesErrorHandling {
                 answer.put("status", "error");
                 answer.put("message", "[QuestionAnalysis] No available useful words.");
                 return answer;
+            } catch (JSONException ex) {
+                Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                answer.put("useful_words", useful_words);
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -100,6 +118,7 @@ public class ModulesErrorHandling {
         }
 
         try {
+            answer.put("retrievedEntities", entity_candidateURIs);
             answer.put("status", "ok");
         } catch (JSONException ex) {
             Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
