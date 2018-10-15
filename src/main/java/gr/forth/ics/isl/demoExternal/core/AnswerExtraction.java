@@ -205,7 +205,7 @@ public class AnswerExtraction {
         return tmp_ans;
     }
 
-    private static boolean isMatchingUris(String uri1, String uri2) {
+    public static boolean isMatchingUris(String uri1, String uri2) {
         String uri1_text = getSuffixOfURI(uri1).replaceAll("[^a-zA-Z0-9]", "");
         String uri2_text = getSuffixOfURI(uri2).replaceAll("[^a-zA-Z0-9]", "");
 

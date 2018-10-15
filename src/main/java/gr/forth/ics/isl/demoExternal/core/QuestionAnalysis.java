@@ -92,7 +92,7 @@ public class QuestionAnalysis {
 
     public void analyzeQuestion(String question) {
 
-        this.question = question.trim();
+        this.question = question.replaceAll("\"", "").trim();
 
         question_type = identifyQuestionType(this.question.toLowerCase());
 
