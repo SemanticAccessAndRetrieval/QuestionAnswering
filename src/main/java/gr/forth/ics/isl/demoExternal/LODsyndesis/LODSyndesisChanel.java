@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.apache.http.HttpHeaders.ACCEPT;
@@ -84,6 +85,38 @@ public class LODSyndesisChanel {
             Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    /**
+     * Used for the evaluation to match triples.
+     *
+     * @param uri
+     * @return Triples of sameAs entities
+     */
+    public ArrayList<String> getEquivalentEntityEvaluation(String uri) {
+        try {
+            serviceName = "objectCoreference";
+            objectCoreference = new HttpGet(URL + "/" + serviceName + "?uri=" + uri);
+            objectCoreference.addHeader(ACCEPT, "text/plain");
+            objectCoreference.addHeader(CONTENT_TYPE, "application/n-triples");
+
+            ArrayList<ArrayList<String>> allTriples = getContent(objectCoreference);
+            ArrayList<String> equivalent_uris = new ArrayList<>();
+            for (ArrayList<String> triple : allTriples) {
+
+                if (triple.size() != 3) {
+                    return new ArrayList<>(Arrays.asList(uri));
+                }
+                //retrieve the object of the triple i.e. the equivalent uri
+                //remove the first and last character since the uris are enclosed in <...>
+                equivalent_uris.add(triple.get(2).substring(1, triple.get(2).length() - 1));
+            }
+
+            return equivalent_uris;
+        } catch (Exception ex) {
+            Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList<>(Arrays.asList(uri));
+        }
     }
 
     /**

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -331,4 +332,87 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
+    public static JSONObject getEvaluationAnswerAsJson(String query) {
+        try {
+            JSONObject obj = new JSONObject();
+
+            obj.put("question", query.replaceAll("\"", "").trim());
+
+            // ==== Question Analysis Step ====
+            QuestionAnalysis q_analysis = new QuestionAnalysis();
+            q_analysis.analyzeQuestion(query);
+
+            JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
+
+            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
+            }
+
+            String question_type = q_analysis.getQuestionType();
+
+            obj.put("question_type", question_type);
+
+            // Store the useful words of the question
+            Set<String> useful_words = q_analysis.getUsefulWords();
+
+            obj.put("useful_words", useful_words);
+
+            // Store the text of the Named Entities
+            Set<String> entities = q_analysis.getQuestionEntities();
+
+            obj.put("question_entities", entities);
+
+            System.out.println("entities prin: " + entities);
+
+            Set<String> tmp_entities = new HashSet<>(entities);
+            for (String entity : tmp_entities) {
+                if (org.apache.commons.lang3.StringUtils.isNumericSpace(entity)) {
+                    entities.remove(entity);
+                }
+            }
+            System.out.println("entities meta: " + entities);
+            String fact = q_analysis.getFact();
+
+            // ==== Entities Detection Step ====
+            EntitiesDetection entities_detection = new EntitiesDetection();
+
+            // Retrieve for each entity its candidate URIs from LODSyndesis
+            entities_detection.retrieveCandidateEntityURIs(entities);
+
+            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+
+            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+            }
+
+            // Hashmap to store each entity and the selected URI (the highest scored)
+            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
+
+            obj.put("retrievedEntities", entity_URI);
+
+            // ==== Answer Extraction Step ====
+            AnswerExtraction answer_extraction = new AnswerExtraction();
+            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
+
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
+
+            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
+            }
+
+            JSONObject answer_triple = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
+
+            answer_triple.remove("answer");
+            obj.put("triple", answer_triple);
+
+            return obj;
+
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
 }
