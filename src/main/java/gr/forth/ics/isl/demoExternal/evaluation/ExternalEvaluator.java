@@ -41,11 +41,11 @@ public class ExternalEvaluator {
 
             questionId_question = readQuestionsFile("questions");
 
-            TreeMap<Integer, JSONObject> questionId_answer = evaluatePipeline(questionId_question, 40);
+            TreeMap<Integer, JSONObject> questionId_answer = partialPipelineEvaluation(questionId_question, 400, 60);
 
             try {
-                writeSystemAnswersToFile(questionId_answer, "system_answers");
-                writeSystemAnswersAsJsonToFile(questionId_answer, "system_answers_detailed");
+                writeSystemAnswersToFile(questionId_answer, "system_answersPart1");
+                writeSystemAnswersAsJsonToFile(questionId_answer, "system_answers_detailedPart1");
             } catch (JSONException ex) {
                 Logger.getLogger(ExternalEvaluator.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -53,7 +53,8 @@ public class ExternalEvaluator {
             Logger.getLogger(ExternalEvaluator.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        validateAnswers("system_answers", "answers");
+        validateAnswers("system_answersPart1", "answers");
+
     }
 
     public static void validateAnswers(String system_ans_filename, String gold_ans_filename) throws JSONException {
@@ -108,10 +109,37 @@ public class ExternalEvaluator {
         for (int question_id : questionId_question.keySet()) {
             tmp_answer = ExternalKnowledgeDemoMain.getEvaluationAnswerAsJson(questionId_question.get(question_id));
             questionId_systemAnswer.put(question_id, tmp_answer);
-            System.out.println("========================================: " + question_id);
-            // TO REMOVE IN ORDER TO EVALUATE ALL QUESTIONS
+            System.out.println("==== Question_id: " + question_id + "====");
+
             if (question_id == num_of_questions) {
                 break;
+            }
+        }
+        return questionId_systemAnswer;
+    }
+
+    public static TreeMap<Integer, JSONObject> partialPipelineEvaluation(TreeMap<Integer, String> questionId_question, int start_question_id, int num_of_questions) throws JSONException {
+
+        TreeMap<Integer, JSONObject> questionId_systemAnswer = new TreeMap<>();
+        JSONObject tmp_answer;
+
+        int answered = 0;
+        int unanswered = 0;
+        for (int question_id : questionId_question.keySet()) {
+            if (question_id > start_question_id) {
+                System.out.println("==== Question_id: " + question_id + "====");
+                tmp_answer = ExternalKnowledgeDemoMain.getEvaluationAnswerAsJson(questionId_question.get(question_id));
+                if (tmp_answer.has("errorMessage") || !new JSONObject(tmp_answer.getString("triple")).has("subject")) {
+                    unanswered++;
+                } else {
+                    answered++;
+                }
+                questionId_systemAnswer.put(question_id, tmp_answer);
+
+                System.out.println("Total: " + (unanswered + answered) + " Unanswered: " + unanswered + " Answered: " + answered);
+                if ((question_id - start_question_id) == num_of_questions) {
+                    break;
+                }
             }
         }
         return questionId_systemAnswer;
@@ -127,7 +155,7 @@ public class ExternalEvaluator {
                 sb = new StringBuilder();
                 sb.append("q").append(question_id);
 
-                if (questionId_systemAnswer.get(question_id).has("errorMessage")) {
+                if (questionId_systemAnswer.get(question_id).has("errorMessage") || !new JSONObject(questionId_systemAnswer.get(question_id).getString("triple")).has("subject")) {
                     sb.append("\n");
                     bw.write(sb.toString());
                 } else {
@@ -194,6 +222,55 @@ public class ExternalEvaluator {
             br.close();
         }
         return questionId_question;
+    }
+
+    public static void getStatsForUnansweredQuestions(String system_ans_filename) throws FileNotFoundException, IOException, JSONException {
+        TreeMap<Integer, JSONObject> result = new TreeMap<>();
+
+        BufferedReader br_sa = null;
+        HashMap<String, JSONObject> system_answers = new HashMap<>();
+
+        br_sa = new BufferedReader(new FileReader("src/main/resources/external/evaluation/" + system_ans_filename + ".txt"));
+
+        String line = br_sa.readLine();
+        JSONObject tmpJson;
+
+        // Read system answers and store them in a HashMap of <Question_is, JsonObject containing a triple: subject, predicate, object>
+        while (line != null) {
+            String[] questionAnswer = line.split("\t");
+            system_answers.put(questionAnswer[0], new JSONObject(questionAnswer[1]));
+            line = br_sa.readLine();
+        }
+
+        int no_question_type = 0;
+        int no_entities = 0;
+        int no_useful_words = 0;
+        int no_uris = 0;
+        int no_triples = 0;
+        for (JSONObject obj : system_answers.values()) {
+            if (obj.has("errorMessage")) {
+                String message = obj.getString("errorMessage");
+
+                if (message.equalsIgnoreCase("[QuestionAnalysis] Unrecognized type of question.")) {
+                    no_question_type++;
+                } else if (message.equalsIgnoreCase("[QuestionAnalysis] No Named Entities recognized.")) {
+                    no_entities++;
+                } else if (message.equalsIgnoreCase("[QuestionAnalysis] No available useful words.")) {
+                    no_useful_words++;
+                } else if (message.startsWith("[EntitiesDetection] No retrieved URIs for entity")) {
+                    no_uris++;
+                } else if (message.equalsIgnoreCase("[AnswerExtraction] No candidate triples found.")) {
+                    no_triples++;
+                }
+
+            }
+        }
+
+        System.out.println("Unrecognized type of question: " + no_question_type);
+        System.out.println("No named entities recognized: " + no_entities);
+        System.out.println("No available useful words: " + no_useful_words);
+        System.out.println("No retrieved URIs: " + no_uris);
+        System.out.println("No retrieved triples: " + no_triples);
     }
 
     public static TreeMap<Integer, JSONObject> readAnswersFiles(String system_ans_filename, String gold_ans_filename) {
