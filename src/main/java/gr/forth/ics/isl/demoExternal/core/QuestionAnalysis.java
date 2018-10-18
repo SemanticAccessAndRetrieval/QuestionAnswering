@@ -104,7 +104,10 @@ public class QuestionAnalysis {
         if (question_type.equals("definition")) {
             useful_words = new HashSet<>(AnswerExtraction.definition_relations);
         } else {
-            useful_words = clean_query_with_POS.keySet();
+            HashSet<String> us_words = new HashSet<>(clean_query_with_POS.keySet());
+            // TO GENERALIZE: remove each word which is single char etc.
+            us_words.remove("s");
+            useful_words = us_words;
         }
 
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
@@ -118,7 +121,7 @@ public class QuestionAnalysis {
         // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
         for (String word : question_entities) {
             for (String w : word.split(" ")) {
-                useful_words.remove(w.trim());
+                useful_words.remove(w.replaceAll("[^a-zA-Z ]", "").toLowerCase().trim());
             }
 
         }

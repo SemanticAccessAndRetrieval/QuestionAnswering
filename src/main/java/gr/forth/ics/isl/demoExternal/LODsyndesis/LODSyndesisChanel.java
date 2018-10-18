@@ -252,7 +252,7 @@ public class LODSyndesisChanel {
 
         try {
             serviceName = "keywordEntity";
-            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.replaceAll(" ", "_"));
+            keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.trim().replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
 
@@ -281,8 +281,14 @@ public class LODSyndesisChanel {
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             ArrayList<String> result = new ArrayList<>();
+            String line = rd.readLine();
+            // If there is an error, return an empty arrayList
+            if (line.startsWith("<!DOCTYPE")) {
+                Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.WARNING, line);
+                return new ArrayList<>();
+            }
 
-            JSONObject jsonObject = new JSONObject("{candidates: " + rd.readLine() + "}");
+            JSONObject jsonObject = new JSONObject("{candidates: " + line + "}");
             JSONArray candidates = jsonObject.getJSONArray(("candidates"));
 
             for (int i = 0; i < candidates.length(); i++) {

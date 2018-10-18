@@ -102,7 +102,11 @@ public class AnswerExtraction {
         for (JSONObject triple : matched_triples) {
             try {
                 triple.remove("threshold");
-                triple.put("answer", getSuffixOfURI((String) triple.get("object")));
+                String object = triple.getString("object");
+                if (object.startsWith("<") && object.endsWith(">")) {
+                    object = object.substring(1, object.length() - 1);
+                }
+                triple.put("answer", getSuffixOfURI(object));
                 return triple;
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
@@ -318,6 +322,9 @@ public class AnswerExtraction {
 
         for (String cand_pred : candidate_predicates) {
             for (String useful_word : useful_words) {
+                if (cand_pred.startsWith("<") && cand_pred.endsWith(">")) {
+                    cand_pred = cand_pred.substring(1, cand_pred.length() - 1);
+                }
                 tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
             }
             tmp_distance /= useful_words.size();
