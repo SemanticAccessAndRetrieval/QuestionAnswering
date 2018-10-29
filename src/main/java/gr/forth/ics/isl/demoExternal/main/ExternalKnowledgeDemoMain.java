@@ -45,7 +45,7 @@ public class ExternalKnowledgeDemoMain {
 
     //Core Nlp pipeline instance
     public static StanfordCoreNLP split_pipeline;
-    public static StanfordCoreNLP ner_pipeline;
+    public static StanfordCoreNLP entityMentions_pipeline;
     public static IDictionary wordnet_dict;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
@@ -68,7 +68,6 @@ public class ExternalKnowledgeDemoMain {
         String fact6 = "Which is the foundation place of Sony?";
         String fact7 = "Which is the death place of Nujabes?";
         String fact8 = "Where is Mount Everest located?";
-        String fact9 = "Where did Nujabes died?";  // not answerable (died does not match with deathPlace)
 
         // Confirmation Questions
         String conf1 = "Is Nintendo located in Kyoto?";
@@ -170,11 +169,11 @@ public class ExternalKnowledgeDemoMain {
         split_props.put("tokenize.language", "en");
         split_pipeline = new StanfordCoreNLP(split_props);
 
-        Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
-        ner_props.put("tokenize.language", "en");
-        ner_props.put("truecase.overwriteText", "true");
-        ner_pipeline = new StanfordCoreNLP(ner_props);
+        Properties entityMentions_props = new Properties();
+        entityMentions_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner, entitymentions");
+        entityMentions_props.put("tokenize.language", "en");
+        entityMentions_props.put("truecase.overwriteText", "true");
+        entityMentions_pipeline = new StanfordCoreNLP(entityMentions_props);
 
         chanel = new LODSyndesisChanel();
 
@@ -206,11 +205,11 @@ public class ExternalKnowledgeDemoMain {
         split_props.put("tokenize.language", "en");
         split_pipeline = new StanfordCoreNLP(split_props);
 
-        Properties ner_props = new Properties();
-        ner_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner");
-        ner_props.put("tokenize.language", "en");
-        ner_props.put("truecase.overwriteText", "true");
-        ner_pipeline = new StanfordCoreNLP(ner_props);
+        Properties entityMentions_props = new Properties();
+        entityMentions_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner, entitymentions");
+        entityMentions_props.put("tokenize.language", "en");
+        entityMentions_props.put("truecase.overwriteText", "true");
+        entityMentions_pipeline = new StanfordCoreNLP(entityMentions_props);
 
         chanel = new LODSyndesisChanel();
 

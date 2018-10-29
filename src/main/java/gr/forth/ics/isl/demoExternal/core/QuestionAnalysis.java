@@ -15,7 +15,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.ner_pipeline;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.entityMentions_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnet_dict;
@@ -92,41 +92,30 @@ public class QuestionAnalysis {
 
     public void analyzeQuestion(String question) {
 
-        this.question = question.replaceAll("\"", "").trim();
+        this.question = extractCleanQuestion(question);
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Clean Question: {0}", this.question);
 
-        question_type = identifyQuestionType(this.question.toLowerCase());
+        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
+        HashMap<String, String> word_NamedEntity = extractEntitiesWithType(this.question);
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Named Entities: {0}", word_NamedEntity);
 
-        // Get clean question words with PartOfSpeech tags
-        HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
+        // Store only the text of the Named Entities
+        question_entities = word_NamedEntity.keySet();
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
+
+        useful_words = extractUsefulWords(this.question, this.question_entities);
+
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Useful_words: {0}", useful_words);
+
+        question_type = identifyQuestionType(this.question.toLowerCase(), this.useful_words);
+
+        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Question Type: {0}", question_type);
 
         // For definition question we search for certain tags e.g. comment, description, abstract
         // These tags should be included in the useful_words set
         if (question_type.equals("definition")) {
             useful_words = new HashSet<>(AnswerExtraction.definition_relations);
-        } else {
-            HashSet<String> us_words = new HashSet<>(clean_query_with_POS.keySet());
-            // TO GENERALIZE: remove each word which is single char etc.
-            us_words.remove("s");
-            useful_words = us_words;
         }
-
-        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Named Entities: {0}", word_NamedEntity);
-        // Store only the text of the Named Entities
-        question_entities = word_NamedEntity.keySet();
-
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
-
-        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
-        for (String word : question_entities) {
-            for (String w : word.split(" ")) {
-                useful_words.remove(w.replaceAll("[^a-zA-Z ]", "").toLowerCase().trim());
-            }
-
-        }
-
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Useful_words: {0}", useful_words);
 
         // Concat all word in useful_words to construct a fact
         for (String word : useful_words) {
@@ -135,26 +124,66 @@ public class QuestionAnalysis {
         fact = fact.trim();
     }
 
-    public String identifyQuestionType(String question) {
+    public String extractCleanQuestion(String question) {
+        // Remove any quotes
+        question = question.replaceAll("\"", "");
+        // Trim the final question text
+        question = question.trim();
+
+        return question;
+    }
+
+    public HashMap<String, String> extractEntitiesWithType(String question) {
+        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
+        HashMap<String, String> word_NamedEntity = getEntityMentionsWithNer(question);
+
+        //here we could remove stopwords from entities text.
+        return word_NamedEntity;
+    }
+
+    public HashSet<String> extractUsefulWords(String question, Set<String> entities) {
+        // Get clean question words with PartOfSpeech tags
+        HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
+
+        HashSet<String> final_useful_words = new HashSet<>(clean_query_with_POS.keySet());
+
+        HashSet<String> stop_words = new HashSet<>();
+
+        // Find all single char words and store them
+        for (String word : final_useful_words) {
+            if (word.length() == 1) {
+                stop_words.add(word);
+            }
+        }
+
+        // Remove all single char useful words
+        final_useful_words.removeAll(stop_words);
+
+        HashSet<String> entities_words = new HashSet<>();
+
+        // Find all entity words and store them
+        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
+        for (String word : entities) {
+            for (String w : word.split(" ")) {
+                entities_words.add(w.replaceAll("[^a-zA-Z ]", "").toLowerCase().trim());
+            }
+        }
+
+        // Remove all entity words
+        final_useful_words.removeAll(entities_words);
+
+        return final_useful_words;
+    }
+
+    public String identifyQuestionType(String question, Set<String> usef_words) {
 
         ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
         ArrayList<String> definition_starting_words = new ArrayList<>(Arrays.asList("what is"));
 
         Set<String> question_words = getCleanTokensWithPos(question).keySet();
 
-        HashSet<String> tmp_words = new HashSet<>(question_words);
-        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = getTokensWithMultiNer(question);
-
-        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
-        for (String word : word_NamedEntity.keySet()) {
-            for (String w : word.split(" ")) {
-                tmp_words.remove(w.trim());
-            }
-        }
-
         for (String d_s_word : definition_starting_words) {
-            if (question.startsWith(d_s_word) && tmp_words.isEmpty()) {
+            if (question.startsWith(d_s_word) && usef_words.isEmpty()) {
                 return "definition";
             }
         }
@@ -184,7 +213,6 @@ public class QuestionAnalysis {
         return "none";
     }
 
-
     public static HashMap<String, String> getCleanTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
@@ -210,50 +238,28 @@ public class QuestionAnalysis {
 
     }
 
-
-    // Version of Named Entity recognition able to detect multi-word entities e.g. Mount Everest
-    public static HashMap<String, String> getTokensWithMultiNer(String text) {
+    public static HashMap<String, String> getEntityMentionsWithNer(String text) {
 
         //apply
         Annotation document = new Annotation(text);
-        ner_pipeline.annotate(document);
+
+        entityMentions_pipeline.annotate(document);
 
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
 
-        HashMap<String, String> word_ner = new HashMap<>();
-
-        String previous_token = "";
-        String previous_ner = "o";
+        HashMap<String, String> entityMention_ner = new HashMap<>();
 
         //For each sentence
         for (CoreMap sentence : sentences) {
-            //For each word in the sentence
-            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-
-                //Get the TEXT of the token
-                String word = token.get(CoreAnnotations.TextAnnotation.class).toLowerCase().trim();
-
-                //Get the NER tag of the token
-                String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
-
-                if (!ner.equalsIgnoreCase(previous_ner) && !ner.equalsIgnoreCase("o")) {
-                    if (!previous_ner.equalsIgnoreCase("o")) {
-                        word_ner.put(previous_token.trim(), previous_ner);
-                    }
-                    previous_ner = ner;
-                    previous_token = word;
-                } else if (!ner.equalsIgnoreCase(previous_ner) && ner.equalsIgnoreCase("o")) {
-                    word_ner.put(previous_token.trim(), previous_ner);
-                    previous_ner = ner;
-                    previous_token = word;
-                } else if (ner.equalsIgnoreCase(previous_ner) && !ner.equalsIgnoreCase("o")) {
-                    previous_token += " " + word;
-                }
-
+            for (CoreMap entityMention : sentence.get(CoreAnnotations.MentionsAnnotation.class)) {
+                entityMention_ner.put(entityMention.toString().trim(), entityMention.get(CoreAnnotations.EntityTypeAnnotation.class).trim());
+                System.out.println("Entity Mention: " + entityMention.toString().trim());
+                System.out.println("Entity Mention Type: " + entityMention.get(CoreAnnotations.EntityTypeAnnotation.class).trim());
             }
         }
-        return word_ner;
+        return entityMention_ner;
     }
+
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
