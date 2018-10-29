@@ -76,8 +76,7 @@ public class LODSyndesisChanel {
             ArrayList<String> equivalent_uris = new ArrayList<>();
             for (ArrayList<String> triple : allTriples) {
                 //retrieve the object of the triple i.e. the equivalent uri
-                //remove the first and last character since the uris are enclosed in <...>
-                equivalent_uris.add(triple.get(2).substring(1, triple.get(2).length() - 1));
+                equivalent_uris.add(triple.get(2));
             }
 
             return equivalent_uris;
@@ -214,7 +213,7 @@ public class LODSyndesisChanel {
             factChecking = new HttpGet(URL + "/" + serviceName + "?uri=" + uri + "&fact=" + URLEncodedFact + "&threshold=" + df.format(thres));
             factChecking.addHeader(ACCEPT, "application/json");
             factChecking.addHeader(CONTENT_TYPE, "application/json");
-
+            System.out.println(factChecking);
             ArrayList<ArrayList<String>> allQuads = getContent(factChecking);
 
             return allQuads;
@@ -255,7 +254,7 @@ public class LODSyndesisChanel {
             keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.trim().replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
-
+            System.out.println(keywordEntity);
             ArrayList<String> candidateEntities = getJsonContent(keywordEntity);
 
             return candidateEntities;
