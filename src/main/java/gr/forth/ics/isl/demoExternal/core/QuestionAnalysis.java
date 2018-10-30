@@ -137,8 +137,23 @@ public class QuestionAnalysis {
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
         HashMap<String, String> word_NamedEntity = getEntityMentionsWithNer(question);
 
-        //here we could remove stopwords from entities text.
-        return word_NamedEntity;
+        // Remove the first word of multi-word entities if they start with a stop-word
+        HashMap<String, String> clean_word_NamedEntity = new HashMap<>();
+        for (String entity : word_NamedEntity.keySet()) {
+            String[] entity_words = entity.split(" ");
+
+            if (entity_words.length > 1 && StringUtils.isStopWord(entity_words[0].toLowerCase())) {
+                Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== ENTITY WITH STARTING WORD STOPWORD: {0}", entity);
+                String tmp_entity = "";
+                for (int i = 1; i < entity_words.length; i++) {
+                    tmp_entity += entity_words[i] + " ";
+                }
+                clean_word_NamedEntity.put(tmp_entity.trim(), word_NamedEntity.get(entity));
+            } else {
+                clean_word_NamedEntity.put(entity, word_NamedEntity.get(entity));
+            }
+        }
+        return clean_word_NamedEntity;
     }
 
     public HashSet<String> extractUsefulWords(String question, Set<String> entities) {
@@ -253,8 +268,6 @@ public class QuestionAnalysis {
         for (CoreMap sentence : sentences) {
             for (CoreMap entityMention : sentence.get(CoreAnnotations.MentionsAnnotation.class)) {
                 entityMention_ner.put(entityMention.toString().trim(), entityMention.get(CoreAnnotations.EntityTypeAnnotation.class).trim());
-                System.out.println("Entity Mention: " + entityMention.toString().trim());
-                System.out.println("Entity Mention Type: " + entityMention.get(CoreAnnotations.EntityTypeAnnotation.class).trim());
             }
         }
         return entityMention_ner;
