@@ -133,8 +133,28 @@ public class AnswerExtraction {
         float tmp_distance = 0.0f;
         float min_distance = Float.MAX_VALUE;
 
+        // Filter the predicates that contain at least one useful word
+        ArrayList<String> restricted_candidate_predicates = new ArrayList<>();
         for (String cand_pred : candidate_predicates) {
+            for (String word : useful_words) {
+                // (TODO) Edw 8a prepei na elegxw to suffix logika
+                if (cand_pred.toLowerCase().contains(word.toLowerCase())) {
+                    restricted_candidate_predicates.add(cand_pred);
+                }
+            }
+        }
+
+        if (restricted_candidate_predicates.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        System.out.println("RESTRIICTED set of predicates: " + restricted_candidate_predicates);
+        System.out.println("NOT RESTRIICTED set of predicates: " + candidate_predicates);
+
+        for (String cand_pred : restricted_candidate_predicates) {
             for (String useful_word : useful_words) {
+                // (TODO) Edw to suffix tou uri 8a prepei na to kanoume kapws split kai na eksagoume
+                // mono tis lekseis se ena set. Kai meta to metatrepoume se string gia na to sugkrinoume
                 tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
             }
             tmp_distance /= useful_words.size();
@@ -153,13 +173,7 @@ public class AnswerExtraction {
 
             tmp_distance = 0.0f;
         }
-
-        if (!candidate_predicates.isEmpty()) {
-            return new ArrayList<>(distance_uris.get(min_distance));
-        } else {
-            return new ArrayList<>();
-        }
-
+        return new ArrayList<>(distance_uris.get(min_distance));
     }
 
     public static ArrayList<JSONObject> extractMatchedTriples(ArrayList<String> matched_relations, ArrayList<JSONObject> cand_triples) {
