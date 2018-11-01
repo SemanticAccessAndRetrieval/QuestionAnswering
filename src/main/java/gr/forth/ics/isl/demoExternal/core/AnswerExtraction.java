@@ -42,6 +42,48 @@ public class AnswerExtraction {
         this.candidate_triples = triples;
     }
 
+    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
+        String tmp_cand_facts = "";
+        ArrayList<JSONObject> cand_facts = new ArrayList<>();
+
+        String max_entity = getEntityWithMaxCardinality(entity_URI);
+
+        // Get the question entities
+        Set<String> entities = new HashSet<>(entity_URI.keySet());
+        // Remove the selected entity from the set
+        entities.remove(max_entity);
+
+        // if there are more than one entities in the question
+        // we add the rest of the uris, as words in the fact
+        if (!entities.isEmpty()) {
+            fact += " ";
+            numOfUsefulWords += entities.size();
+            for (String entity : entities) {
+                fact += entity_URI.get(entity) + " ";
+            }
+            fact = fact.trim();
+        }
+        double threshold = 1.0d / numOfUsefulWords;
+
+        // Retrieve all the candidate triples and concatanate the result to construct a string
+        for (String str : chanel.checkFactAsJSON(entity_URI.get(max_entity), fact, threshold).get(0)) {
+            tmp_cand_facts += str + " ";
+        }
+        //Store all the candidate triples stored as JSONObjects extracted from the text
+        cand_facts.addAll(extractJSONObjectsFromString(tmp_cand_facts));
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
+
+        try {
+            cand_facts = getCleanTriples(cand_facts);
+        } catch (JSONException ex) {
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Clean Cand. Triples: {0}", cand_facts);
+
+        this.candidate_triples = cand_facts;
+
+    }
+
     public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
 
         if (question_type.equalsIgnoreCase("definition")) {
@@ -73,6 +115,56 @@ public class AnswerExtraction {
 
         return answer;
 
+    }
+
+    public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {
+        ArrayList<String> cand_relations = new ArrayList<>();
+        String tmp_pred;
+
+        // Extract all the properties from the triples
+        for (JSONObject ob : cand_triples) {
+            try {
+                //Retrieve from JSONObject the predicate of the triple
+                tmp_pred = ob.getString("predicate");
+                cand_relations.add(tmp_pred);
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
+
+        return cand_relations;
+    }
+
+    // TODO: Maybe pass as argument also a threshold for considering a property as matched
+    public static String getMatchingProperty(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
+        HashMap<String, Float> uri_distance = new HashMap<>();
+
+        int cnt = 0;
+        float tmp_distance = 0.0f;
+        float min_distance = Float.MAX_VALUE;
+        int min_cnt = 0;
+
+        for (String cand_pred : candidate_predicates) {
+            for (String useful_word : useful_words) {
+                tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
+            }
+            tmp_distance /= useful_words.size();
+            if (tmp_distance < min_distance) {
+                min_distance = tmp_distance;
+                min_cnt = cnt;
+            }
+            uri_distance.put(cand_pred, tmp_distance);
+            cnt++;
+            tmp_distance = 0.0f;
+        }
+
+        if (!candidate_predicates.isEmpty()) {
+            return candidate_predicates.get(min_cnt);
+        } else {
+            return "";
+        }
     }
 
     //TODO: To update to more sophisticated answer selection
@@ -219,48 +311,6 @@ public class AnswerExtraction {
 
     }
 
-    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
-        String tmp_cand_facts = "";
-        ArrayList<JSONObject> cand_facts = new ArrayList<>();
-
-        String max_entity = getEntityWithMaxCardinality(entity_URI);
-
-        // Get the question entities
-        Set<String> entities = new HashSet<>(entity_URI.keySet());
-        // Remove the selected entity from the set
-        entities.remove(max_entity);
-
-        // if there are more than one entities in the question
-        // we add the rest of the uris, as words in the fact
-        if (!entities.isEmpty()) {
-            fact += " ";
-            numOfUsefulWords += entities.size();
-            for (String entity : entities) {
-                fact += entity_URI.get(entity) + " ";
-            }
-            fact = fact.trim();
-        }
-        double threshold = 1.0d / numOfUsefulWords;
-
-        // Retrieve all the candidate triples and concatanate the result to construct a string
-        for (String str : chanel.checkFactAsJSON(entity_URI.get(max_entity), fact, threshold).get(0)) {
-            tmp_cand_facts += str + " ";
-        }
-        //Store all the candidate triples stored as JSONObjects extracted from the text
-        cand_facts.addAll(extractJSONObjectsFromString(tmp_cand_facts));
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
-
-        try {
-            cand_facts = getCleanTriples(cand_facts);
-        } catch (JSONException ex) {
-            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Clean Cand. Triples: {0}", cand_facts);
-
-        this.candidate_triples = cand_facts;
-
-    }
-
     public ArrayList<JSONObject> getCleanTriples(ArrayList<JSONObject> triples) throws JSONException {
         ArrayList<JSONObject> clean_triples = new ArrayList<>();
         ArrayList<String> triple_relations = new ArrayList<>(Arrays.asList("predicate", "provenance", "subject", "object"));
@@ -345,56 +395,6 @@ public class AnswerExtraction {
             }
         }
         return final_entity;
-    }
-
-    public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {
-        ArrayList<String> cand_relations = new ArrayList<>();
-        String tmp_pred;
-
-        // Extract all the properties from the triples
-        for (JSONObject ob : cand_triples) {
-            try {
-                //Retrieve from JSONObject the predicate of the triple
-                tmp_pred = ob.getString("predicate");
-                cand_relations.add(tmp_pred);
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
-
-        return cand_relations;
-    }
-
-    // TODO: Maybe pass as argument also a threshold for considering a property as matched
-    public static String getMatchingProperty(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
-        HashMap<String, Float> uri_distance = new HashMap<>();
-
-        int cnt = 0;
-        float tmp_distance = 0.0f;
-        float min_distance = Float.MAX_VALUE;
-        int min_cnt = 0;
-
-        for (String cand_pred : candidate_predicates) {
-            for (String useful_word : useful_words) {
-                tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
-            }
-            tmp_distance /= useful_words.size();
-            if (tmp_distance < min_distance) {
-                min_distance = tmp_distance;
-                min_cnt = cnt;
-            }
-            uri_distance.put(cand_pred, tmp_distance);
-            cnt++;
-            tmp_distance = 0.0f;
-        }
-
-        if (!candidate_predicates.isEmpty()) {
-            return candidate_predicates.get(min_cnt);
-        } else {
-            return "";
-        }
     }
 
     public static ArrayList<JSONObject> extractJSONObjectsFromString(String cand_facts) {
