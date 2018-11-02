@@ -249,6 +249,10 @@ public class Spotlight {
 
         String text1 = "What works written by Phillip Pullman?"; // text to annotate 1
         String text2 = "Who is the father of manu ginobili?"; // text to annotate 2
+        String text3 = "where is the birthplace of mario cipollini?"; // text to annotate 3
+        String text4 = "Where is rebecca harms from?"; // text to annotate 4
+        String text5 = "where did pope clement xi die?"; // text to annotate 5
+        String text6 = "what is the nationality of benjamin demott?"; // text to annotate 6
 
         System.out.println("=== ANNOTATION ===");
 
@@ -256,6 +260,18 @@ public class Spotlight {
         print(annotationUnit); // print annotation unit
 
         annotationUnit = spotlight.get(text2); // annotate
+        print(annotationUnit); // print annotation unit
+
+        annotationUnit = spotlight.get(text3); // annotate
+        print(annotationUnit); // print annotation unit
+
+        annotationUnit = spotlight.get(text4); // annotate
+        print(annotationUnit); // print annotation unit
+
+        annotationUnit = spotlight.get(text5); // annotate
+        print(annotationUnit); // print annotation unit
+
+        annotationUnit = spotlight.get(text6); // annotate
         print(annotationUnit); // print annotation unit
     }
 }
