@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -40,183 +41,6 @@ public class AnswerExtraction {
 
     public void setCandidateTriples(ArrayList<JSONObject> triples) {
         this.candidate_triples = triples;
-    }
-
-    public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
-
-        if (question_type.equalsIgnoreCase("definition")) {
-            JSONObject answer = extractAnswerText(this.candidate_triples, question_type, entity_URI);
-
-            return answer;
-        }
-
-        ArrayList<String> cand_relations = extractCandidateRelations(this.candidate_triples);
-
-        String matched_relation = getMatchingProperty(new ArrayList<>(useful_words), cand_relations);
-
-        ArrayList<JSONObject> matched_triples = new ArrayList<>();
-
-        // Here we can use for matching also the sameAs relations
-        // (when it will be available for predicates from LODSyndesis)
-        for (JSONObject triple : this.candidate_triples) {
-            try {
-                if (((String) triple.get("predicate")).equalsIgnoreCase(matched_relation)) {
-                    matched_triples.add(triple);
-                }
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        //TODO: We can check for identical triples in matched_triples and have a list of provenance datasets for this triple
-        JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
-
-        return answer;
-
-    }
-
-    //TODO: To update to more sophisticated answer selection
-    // Factoid: Check number of provenance sources for verification?
-    public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
-
-        if (matched_triples.isEmpty()) {
-            JSONObject tmp_ans = new JSONObject();
-            try {
-                tmp_ans.put("answer", "No answer found!");
-                return tmp_ans;
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (question_type.equalsIgnoreCase("factoid")) {
-            return extractFactoidAnswer(matched_triples, entity_URI);
-        } else if (question_type.equalsIgnoreCase("confirmation")) {
-            return extractConfirmationAnswer(matched_triples, entity_URI);
-        } else {
-            return extractDefinitionAnswer(matched_triples, entity_URI);
-        }
-    }
-
-    private static JSONObject extractFactoidAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
-
-        for (JSONObject triple : matched_triples) {
-            try {
-                triple.remove("threshold");
-                String object = triple.getString("object");
-                triple.put("answer", getSuffixOfURI(object));
-                return triple;
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-    }
-
-    private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
-
-        HashMap<String, ArrayList<String>> entity_equivalentURIs = getCleanSameAsUris(EntitiesDetection.retrieveEquivalentEntityURIs(entity_URI));
-
-        String subject_uri = "";
-        String object_uri = "";
-
-        int matches = 0;
-
-        //For each matching triple
-        for (JSONObject triple : matched_triples) {
-            try {
-                //Extract the subject and object from the triple
-                subject_uri = triple.getString("subject");
-
-                object_uri = triple.getString("object");
-
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            for (ArrayList<String> uris : entity_equivalentURIs.values()) {
-                //For each matching entity uri
-                for (String uri : uris) {
-                    //if the uri matches either with the subject or the object, increase the matches by 1
-                    if (isMatchingUris(uri, subject_uri) || isMatchingUris(uri, object_uri)) {
-                        matches++;
-                        break;
-                    }
-                }
-                if (matches == 2) {
-                    break;
-                }
-            }
-
-            // If both subject and object matched, then the answer is yes
-            if (matches == 2) {
-                triple.remove("threshold");
-                try {
-                    triple.put("answer", "Yes!");
-                } catch (JSONException ex) {
-                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return triple;
-            }
-            matches = 0;
-        }
-
-        // If not both subject and object matched, then the answer is no
-        JSONObject tmp_ans = new JSONObject();
-
-        try {
-            tmp_ans.put("answer", "No!");
-        } catch (JSONException ex) {
-            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return tmp_ans;
-    }
-
-    private static JSONObject extractDefinitionAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
-
-        JSONObject tmp_ans = new JSONObject();
-
-        String predicate_uri = "";
-
-        for (String relation : definition_relations) {
-            //For each matching triple
-            for (JSONObject triple : matched_triples) {
-                try {
-                    //Extract the predicate from the triple
-                    predicate_uri = triple.getString("predicate");
-                } catch (JSONException ex) {
-                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (isMatchingUris(predicate_uri, relation)) {
-                    triple.remove("threshold");
-                    try {
-                        triple.put("answer", triple.getString("object"));
-                    } catch (JSONException ex) {
-                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    return triple;
-                }
-            }
-        }
-
-        try {
-            tmp_ans.put("answer", "No answer found!");
-        } catch (JSONException ex) {
-            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return tmp_ans;
-    }
-
-    public static boolean isMatchingUris(String uri1, String uri2) {
-        String uri1_text = getSuffixOfURI(uri1).replaceAll("[^a-zA-Z0-9]", "");
-        String uri2_text = getSuffixOfURI(uri2).replaceAll("[^a-zA-Z0-9]", "");
-
-        if (uri1.equalsIgnoreCase(uri2) || uri1_text.equalsIgnoreCase(uri2_text)) {
-            return true;
-        }
-
-        return false;
-
     }
 
     public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
@@ -261,9 +85,299 @@ public class AnswerExtraction {
 
     }
 
+    public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
+
+        if (question_type.equalsIgnoreCase("definition")) {
+            JSONObject answer = extractAnswerText(this.candidate_triples, question_type, entity_URI);
+
+            return answer;
+        }
+
+        ArrayList<String> cand_relations = extractCandidateRelations(this.candidate_triples);
+
+        ArrayList<String> matched_relations = extractMatchingProperties(new ArrayList<>(useful_words), cand_relations);
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched relations: {0}", matched_relations);
+
+        ArrayList<JSONObject> matched_triples = extractMatchedTriples(matched_relations, this.candidate_triples);
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
+
+        JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
+
+        return answer;
+
+    }
+
+    public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {
+        ArrayList<String> cand_relations = new ArrayList<>();
+        String tmp_pred;
+
+        // Extract all the properties from the triples
+        for (JSONObject ob : cand_triples) {
+            try {
+                //Retrieve from JSONObject the predicate of the triple
+                tmp_pred = ob.getString("predicate");
+                cand_relations.add(tmp_pred);
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
+
+        return cand_relations;
+    }
+
+    public static ArrayList<String> extractMatchingProperties(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
+        TreeMap<Float, HashSet<String>> distance_uris = new TreeMap<>();
+
+        float tmp_distance = 0.0f;
+        float min_distance = Float.MAX_VALUE;
+
+        // Filter the predicates that contain at least one useful word
+        ArrayList<String> restricted_candidate_predicates = new ArrayList<>();
+        for (String cand_pred : candidate_predicates) {
+            for (String word : useful_words) {
+                // (TODO) Edw 8a prepei na elegxw to suffix logika
+                if (cand_pred.toLowerCase().contains(word.toLowerCase())) {
+                    restricted_candidate_predicates.add(cand_pred);
+                }
+            }
+        }
+
+        if (restricted_candidate_predicates.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        System.out.println("RESTRIICTED set of predicates: " + restricted_candidate_predicates);
+        System.out.println("NOT RESTRIICTED set of predicates: " + candidate_predicates);
+
+        for (String cand_pred : restricted_candidate_predicates) {
+            for (String useful_word : useful_words) {
+                // (TODO) Edw to suffix tou uri 8a prepei na to kanoume kapws split kai na eksagoume
+                // mono tis lekseis se ena set. Kai meta to metatrepoume se string gia na to sugkrinoume
+                tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
+            }
+            tmp_distance /= useful_words.size();
+            if (tmp_distance < min_distance) {
+                min_distance = tmp_distance;
+            }
+            if (distance_uris.containsKey(tmp_distance)) {
+                HashSet<String> tmp = distance_uris.get(tmp_distance);
+                tmp.add(cand_pred);
+                distance_uris.replace(tmp_distance, tmp);
+            } else {
+                HashSet<String> tmp = new HashSet<>();
+                tmp.add(cand_pred);
+                distance_uris.put(tmp_distance, tmp);
+            }
+
+            tmp_distance = 0.0f;
+        }
+        return new ArrayList<>(distance_uris.get(min_distance));
+    }
+
+    public static ArrayList<JSONObject> extractMatchedTriples(ArrayList<String> matched_relations, ArrayList<JSONObject> cand_triples) {
+        ArrayList<JSONObject> matched_triples = new ArrayList<>();
+
+        // Here we can use for matching also the sameAs relations
+        // (when it will be available for predicates from LODSyndesis)
+        for (JSONObject triple : cand_triples) {
+            for (String matched_relation : matched_relations) {
+                try {
+                    if ((triple.getString("predicate")).equalsIgnoreCase(matched_relation)) {
+                        matched_triples.add(triple);
+                    }
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return matched_triples;
+    }
+
+    //TODO: To update to more sophisticated answer selection
+    // Factoid: Check number of provenance sources for verification?
+    public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
+
+        if (matched_triples.isEmpty()) {
+            JSONObject tmp_ans = new JSONObject();
+            try {
+                tmp_ans.put("answer", "No answer found!");
+                return tmp_ans;
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (question_type.equalsIgnoreCase("factoid")) {
+            return extractFactoidAnswer(matched_triples, entity_URI);
+        } else if (question_type.equalsIgnoreCase("confirmation")) {
+            return extractConfirmationAnswer(matched_triples, entity_URI);
+        } else {
+            return extractDefinitionAnswer(matched_triples, entity_URI);
+        }
+    }
+
+    private static JSONObject extractFactoidAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+
+        int numOfEntities = entity_URI.keySet().size();
+
+        if (numOfEntities == 1) {
+            return getTripleWithMaxProvenanceDatasets(matched_triples);
+        } else {
+            ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
+
+            if (triplesWithCorrectEntities.isEmpty()) {
+                JSONObject tmp_ans = new JSONObject();
+                try {
+                    tmp_ans.put("answer", "No answer found! None of the triples contain the correct entities!");
+                    return tmp_ans;
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                return getTripleWithMaxProvenanceDatasets(triplesWithCorrectEntities);
+            }
+        }
+        return null;
+    }
+
+    private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+        ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
+
+        if (triplesWithCorrectEntities.isEmpty()) {
+            // If not both subject and object matched, then the answer is no
+            JSONObject tmp_ans = new JSONObject();
+
+            try {
+                tmp_ans.put("answer", "No!");
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return tmp_ans;
+        } else {
+            JSONObject tmp_ans = triplesWithCorrectEntities.get(0);
+            tmp_ans.remove("threshold");
+
+            try {
+                tmp_ans.put("answer", "Yes!");
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tmp_ans;
+        }
+    }
+
+    private static JSONObject extractDefinitionAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
+
+        JSONObject tmp_ans = new JSONObject();
+
+        String predicate_uri = "";
+
+        for (String relation : definition_relations) {
+            //For each matching triple
+            for (JSONObject triple : matched_triples) {
+                try {
+                    //Extract the predicate from the triple
+                    predicate_uri = triple.getString("predicate");
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (isMatchingUris(predicate_uri, relation)) {
+                    triple.remove("threshold");
+                    try {
+                        triple.put("answer", triple.getString("object"));
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return triple;
+                }
+            }
+        }
+
+        try {
+            tmp_ans.put("answer", "No answer found!");
+        } catch (JSONException ex) {
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp_ans;
+    }
+
+    private static JSONObject getTripleWithMaxProvenanceDatasets(ArrayList<JSONObject> triples) {
+        try {
+            TreeMap<Integer, JSONObject> numOfProvenanceDatasets_triple = new TreeMap<>();
+            for (JSONObject triple : triples) {
+
+                int provenance_datasets = triple.getString("provenance").split(",").length;
+                if (!numOfProvenanceDatasets_triple.containsKey(provenance_datasets)) {
+                    numOfProvenanceDatasets_triple.put(provenance_datasets, triple);
+                }
+
+            }
+            JSONObject answer_triple = numOfProvenanceDatasets_triple.get(numOfProvenanceDatasets_triple.lastKey());
+            answer_triple.remove("threshold");
+            String object = answer_triple.getString("object");
+            answer_triple.put("answer", getSuffixOfURI(object));
+            return answer_triple;
+        } catch (JSONException ex) {
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private static ArrayList<JSONObject> getTriplesWithMatchingEntities(ArrayList<JSONObject> triples, HashMap<String, String> entity_URI) {
+        HashMap<String, ArrayList<String>> entity_equivalentURIs = getCleanSameAsUris(EntitiesDetection.retrieveEquivalentEntityURIs(entity_URI));
+
+        String subject_uri = "";
+        String object_uri = "";
+        int matches = 0;
+        ArrayList<JSONObject> triplesWithCorrectEntities = new ArrayList<>();
+
+        for (JSONObject triple : triples) {
+            try {
+                //Extract the subject and object from the triple
+                subject_uri = triple.getString("subject");
+
+                object_uri = triple.getString("object");
+
+                for (ArrayList<String> uris : entity_equivalentURIs.values()) {
+                    //For each matching entity uri
+                    for (String uri : uris) {
+                        //if the uri matches either with the subject or the object, increase the matches by 1
+                        if (isMatchingUris(uri, subject_uri) || isMatchingUris(uri, object_uri)) {
+                            matches++;
+                            break;
+                        }
+                    }
+                    if (matches == 2) {
+                        triplesWithCorrectEntities.add(triple);
+                        break;
+                    }
+                }
+                matches = 0;
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return triplesWithCorrectEntities;
+    }
+
+    public static boolean isMatchingUris(String uri1, String uri2) {
+        String uri1_text = getSuffixOfURI(uri1).replaceAll("[^a-zA-Z0-9]", "");
+        String uri2_text = getSuffixOfURI(uri2).replaceAll("[^a-zA-Z0-9]", "");
+
+        if (uri1.equalsIgnoreCase(uri2) || uri1_text.equalsIgnoreCase(uri2_text)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
     public ArrayList<JSONObject> getCleanTriples(ArrayList<JSONObject> triples) throws JSONException {
         ArrayList<JSONObject> clean_triples = new ArrayList<>();
-        ArrayList<String> triple_relations = new ArrayList<>(Arrays.asList("predicate", "provenance", "subject", "object"));
+        ArrayList<String> triple_relations = new ArrayList<>(Arrays.asList("predicate", "subject", "object"));
         JSONObject tmp;
         for (JSONObject trpl : triples) {
             tmp = new JSONObject();
@@ -272,6 +386,22 @@ public class AnswerExtraction {
                 String clean_uri = getCleanUri(uri);
                 tmp.put(relation, clean_uri);
             }
+
+            String[] provenance_uris = trpl.getString("provenance").split(",");
+            if (provenance_uris.length == 1) {
+                String clean_provenance = getCleanUri(provenance_uris[0]);
+                tmp.put("provenance", clean_provenance);
+            } else {
+                String tmp_clean_prov = "";
+                for (int i = 0; i < provenance_uris.length; i++) {
+                    tmp_clean_prov += getCleanUri(provenance_uris[i]);
+                    if (i != provenance_uris.length - 1) {
+                        tmp_clean_prov += ",";
+                    }
+                }
+                tmp.put("provenance", tmp_clean_prov);
+            }
+
             tmp.put("threshold", trpl.getString("threshold"));
             clean_triples.add(tmp);
         }
@@ -345,56 +475,6 @@ public class AnswerExtraction {
             }
         }
         return final_entity;
-    }
-
-    public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {
-        ArrayList<String> cand_relations = new ArrayList<>();
-        String tmp_pred;
-
-        // Extract all the properties from the triples
-        for (JSONObject ob : cand_triples) {
-            try {
-                //Retrieve from JSONObject the predicate of the triple
-                tmp_pred = ob.getString("predicate");
-                cand_relations.add(tmp_pred);
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
-
-        return cand_relations;
-    }
-
-    // TODO: Maybe pass as argument also a threshold for considering a property as matched
-    public static String getMatchingProperty(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
-        HashMap<String, Float> uri_distance = new HashMap<>();
-
-        int cnt = 0;
-        float tmp_distance = 0.0f;
-        float min_distance = Float.MAX_VALUE;
-        int min_cnt = 0;
-
-        for (String cand_pred : candidate_predicates) {
-            for (String useful_word : useful_words) {
-                tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
-            }
-            tmp_distance /= useful_words.size();
-            if (tmp_distance < min_distance) {
-                min_distance = tmp_distance;
-                min_cnt = cnt;
-            }
-            uri_distance.put(cand_pred, tmp_distance);
-            cnt++;
-            tmp_distance = 0.0f;
-        }
-
-        if (!candidate_predicates.isEmpty()) {
-            return candidate_predicates.get(min_cnt);
-        } else {
-            return "";
-        }
     }
 
     public static ArrayList<JSONObject> extractJSONObjectsFromString(String cand_facts) {

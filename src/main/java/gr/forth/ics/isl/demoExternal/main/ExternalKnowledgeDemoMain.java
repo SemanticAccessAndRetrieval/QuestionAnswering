@@ -46,6 +46,7 @@ public class ExternalKnowledgeDemoMain {
     //Core Nlp pipeline instance
     public static StanfordCoreNLP split_pipeline;
     public static StanfordCoreNLP entityMentions_pipeline;
+    public static StanfordCoreNLP compounds_pipeline;
     public static IDictionary wordnet_dict;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
@@ -175,6 +176,12 @@ public class ExternalKnowledgeDemoMain {
         entityMentions_props.put("truecase.overwriteText", "true");
         entityMentions_pipeline = new StanfordCoreNLP(entityMentions_props);
 
+        Properties compound_props = new Properties();
+        compound_props.put("annotators", "tokenize, ssplit, truecase, pos, parse");
+        compound_props.put("tokenize.language", "en");
+        compound_props.put("truecase.overwriteText", "true");
+        compounds_pipeline = new StanfordCoreNLP(compound_props);
+
         chanel = new LODSyndesisChanel();
 
     }
@@ -210,6 +217,12 @@ public class ExternalKnowledgeDemoMain {
         entityMentions_props.put("tokenize.language", "en");
         entityMentions_props.put("truecase.overwriteText", "true");
         entityMentions_pipeline = new StanfordCoreNLP(entityMentions_props);
+
+        Properties compound_props = new Properties();
+        compound_props.put("annotators", "tokenize, ssplit, truecase, pos, parse");
+        compound_props.put("tokenize.language", "en");
+        compound_props.put("truecase.overwriteText", "true");
+        compounds_pipeline = new StanfordCoreNLP(compound_props);
 
         chanel = new LODSyndesisChanel();
 
@@ -361,7 +374,7 @@ public class ExternalKnowledgeDemoMain {
 
             obj.put("question_entities", entities);
 
-            System.out.println("entities prin: " + entities);
+            System.out.println("Entities with numbers: " + entities);
 
             Set<String> tmp_entities = new HashSet<>(entities);
             for (String entity : tmp_entities) {
@@ -369,7 +382,7 @@ public class ExternalKnowledgeDemoMain {
                     entities.remove(entity);
                 }
             }
-            System.out.println("entities meta: " + entities);
+            System.out.println("Entities without numbers: " + entities);
             String fact = q_analysis.getFact();
 
             // ==== Entities Detection Step ====

@@ -14,7 +14,11 @@ import edu.mit.jwi.item.POS;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.CoreMap;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.compounds_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.entityMentions_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
@@ -28,6 +32,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -137,9 +143,25 @@ public class QuestionAnalysis {
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
         HashMap<String, String> word_NamedEntity = getEntityMentionsWithNer(question);
 
+        HashMap<String, String> word_compounded = extractCompoundWords(question);
+
+        System.out.println("========!!!!!!!!!======== Initial Entities: " + word_NamedEntity);
+
+        // Replace entity with its compounded form, if it exists
+        // e.g. entity = Hunaydi, compounded_entity = Hunyadi family
+        HashMap<String, String> compound_word_NamedEntity = new HashMap<>();
+        for (String word : word_NamedEntity.keySet()) {
+            if (word_compounded.containsKey(word)) {
+                compound_word_NamedEntity.put(word_compounded.get(word), word_NamedEntity.get(word));
+            } else {
+                compound_word_NamedEntity.put(word, word_NamedEntity.get(word));
+            }
+        }
+        System.out.println("========!!!!!!!!!======== Compounded entities: " + compound_word_NamedEntity);
+
         // Remove the first word of multi-word entities if they start with a stop-word
         HashMap<String, String> clean_word_NamedEntity = new HashMap<>();
-        for (String entity : word_NamedEntity.keySet()) {
+        for (String entity : compound_word_NamedEntity.keySet()) {
             String[] entity_words = entity.split(" ");
 
             if (entity_words.length > 1 && StringUtils.isStopWord(entity_words[0].toLowerCase())) {
@@ -148,11 +170,13 @@ public class QuestionAnalysis {
                 for (int i = 1; i < entity_words.length; i++) {
                     tmp_entity += entity_words[i] + " ";
                 }
-                clean_word_NamedEntity.put(tmp_entity.trim(), word_NamedEntity.get(entity));
+                clean_word_NamedEntity.put(tmp_entity.trim(), compound_word_NamedEntity.get(entity));
             } else {
-                clean_word_NamedEntity.put(entity, word_NamedEntity.get(entity));
+                clean_word_NamedEntity.put(entity, compound_word_NamedEntity.get(entity));
             }
         }
+
+        System.out.println("========!!!!!!!!!======== Final entities: " + clean_word_NamedEntity);
         return clean_word_NamedEntity;
     }
 
@@ -271,6 +295,127 @@ public class QuestionAnalysis {
             }
         }
         return entityMention_ner;
+    }
+
+    public static HashMap<String, String> extractCompoundWords(String text) {
+
+        HashMap<String, String> word_pos = getTokensWithPos(text);
+
+        //apply
+        Annotation document = new Annotation(text);
+
+        compounds_pipeline.annotate(document);
+
+        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
+
+        TreeMap<Integer, String> index_word;
+        TreeMap<String, Integer> word_index;
+        HashMap<String, TreeSet<Integer>> word_compounds_indices;
+        //For each sentence
+        for (CoreMap sentence : sentences) {
+            SemanticGraph semanticGraph = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+
+            index_word = new TreeMap<>();
+            word_index = new TreeMap<>();
+            // Iterate over all the typed dependencies to extract two Maps
+            // 1) <word, index in sentence>, 2) <index in sentence,word>
+            for (TypedDependency das : semanticGraph.typedDependencies()) {
+                int dep_id = das.dep().index();
+                if (dep_id != 0 && !index_word.containsKey(dep_id)) {
+                    index_word.put(dep_id, das.dep().word().trim());
+                    word_index.put(das.dep().word().trim(), dep_id);
+                }
+
+                int gov_id = das.gov().index();
+                if (gov_id != 0 && !index_word.containsKey(gov_id)) {
+                    index_word.put(gov_id, das.gov().word().trim());
+                    word_index.put(das.gov().word().trim(), gov_id);
+                }
+            }
+
+            word_compounds_indices = new HashMap<>();
+            // Iterate over all the typed dependencies to find all compound relations e.g. compound(Hunaydi,family) => Hunaydi family
+            // We construct a hashmap with keys all the words which appear as 1st argument in a compound relation
+            // and as value a TreeSet of word indices, useful to construct the compounded string
+            for (TypedDependency das : semanticGraph.typedDependencies()) {
+                if (das.reln().getShortName().equalsIgnoreCase("compound")) {
+                    // We extract the text of the 1st and 2nd argument of the compound
+                    // as well as their indices in the sentence
+                    String dep = das.dep().word().trim();
+                    int dep_index = das.dep().index();
+                    String gov = das.gov().word().trim();
+                    int gov_index = das.gov().index();
+
+                    // If the hashmap already contains this word, we update the corresponding treeset of indices
+                    if (word_compounds_indices.containsKey(dep)) {
+                        TreeSet<Integer> tmp_ind = word_compounds_indices.get(dep);
+                        int start_index = dep_index + 1;
+                        int end_index = gov_index;
+                        // if the compound words are not consecutive words, we include also the indices of the words between them
+                        for (int ind = start_index; ind <= end_index; ind++) {
+                            tmp_ind.add(ind);
+                        }
+                        word_compounds_indices.replace(dep, tmp_ind);
+                    } else {
+                        TreeSet<Integer> tmp_ind = new TreeSet<>();
+                        int start_index = dep_index + 1;
+                        int end_index = gov_index;
+                        for (int ind = start_index; ind <= end_index; ind++) {
+                            tmp_ind.add(ind);
+                        }
+                        word_compounds_indices.put(dep, tmp_ind);
+                    }
+                }
+            }
+
+            HashMap<String, String> word_compounded = new HashMap<>();
+            for (String word : word_compounds_indices.keySet()) {
+                int head_word_index = word_index.get(word);
+                int last_word_index = word_compounds_indices.get(word).last();
+                String tmp_comp = index_word.get(head_word_index) + " ";
+
+                for (int index : word_compounds_indices.get(word)) {
+                    if (index == last_word_index) {
+                        String tmp_word = index_word.get(index);
+                        if (!word_pos.get(tmp_word.toLowerCase()).toLowerCase().startsWith("vb")) {
+                            tmp_comp += index_word.get(index) + " ";
+                        }
+                    } else {
+                        tmp_comp += index_word.get(index) + " ";
+                    }
+                    //System.out.println(index);
+                }
+
+                word_compounded.put(word, tmp_comp.trim());
+            }
+
+            return word_compounded;
+        }
+        return null;
+    }
+
+    public static HashMap<String, String> getTokensWithPos(String text) {
+        Annotation document = new Annotation(text);
+        split_pipeline.annotate(document);
+
+        List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
+
+        HashMap<String, String> final_tokens = new HashMap<>();
+
+        String tmp_token = "";
+        for (CoreLabel tok : tokens) {
+
+            tmp_token = tok.get(CoreAnnotations.TextAnnotation.class).toLowerCase().trim();
+            if (!tmp_token.isEmpty()) {
+                //Get the POS tag of the token
+                String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                final_tokens.put(tmp_token, pos);
+            }
+
+        }
+
+        return final_tokens;
+
     }
 
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
