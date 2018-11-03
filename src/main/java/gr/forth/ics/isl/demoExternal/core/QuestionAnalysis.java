@@ -21,9 +21,12 @@ import edu.stanford.nlp.util.CoreMap;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.compounds_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.entityMentions_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.spotlight;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnet_dict;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
+import gr.forth.ics.isl.nlp.externalTools.models.AnnotationUnit;
+import gr.forth.ics.isl.nlp.externalTools.models.ResourceItem;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,12 +51,15 @@ public class QuestionAnalysis {
     private Set<String> useful_words;
     // Store the text of the Named Entities
     private Set<String> question_entities;
+    // Store the text and the uri of the NE (if we apply entity recognition with DBPediaSpotlight)
+    private HashMap<String, String> question_entities_uris;
     // Store the concatenation of useful_words to retrieve cand. triples from LODSyndesis
     private String fact = "";
 
     private String question_type = "";
 
     public QuestionAnalysis() {
+        question_entities_uris = null;
     }
 
     public String getQuestion() {
@@ -66,6 +72,10 @@ public class QuestionAnalysis {
 
     public Set<String> getQuestionEntities() {
         return question_entities;
+    }
+
+    public HashMap<String, String> getQuestionEntitiesUris() {
+        return question_entities_uris;
     }
 
     public String getFact() {
@@ -88,6 +98,10 @@ public class QuestionAnalysis {
         this.question_entities = entities;
     }
 
+    public void setQuestionEntitiesUris(HashMap<String, String> entities_uris) {
+        this.question_entities_uris = entities_uris;
+    }
+
     public void setFact(String fact) {
         this.fact = fact;
     }
@@ -105,9 +119,23 @@ public class QuestionAnalysis {
         HashMap<String, String> word_NamedEntity = extractEntitiesWithType(this.question);
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Named Entities: {0}", word_NamedEntity);
 
-        // Store only the text of the Named Entities
-        question_entities = word_NamedEntity.keySet();
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
+        if (word_NamedEntity.isEmpty()) {
+            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== THERE ARE NO NAMED ENTITIES, LETS TRY DBPEDIA SPOTLIGHT");
+            HashMap<String, String> cand_entities_uris = extractEntitiesWithSpotlight(this.question);
+            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== ME TO SPOTLIGHT VRHKAME AUTA: {0}", cand_entities_uris);
+
+            if (!cand_entities_uris.isEmpty()) {
+                this.question_entities_uris = cand_entities_uris;
+            }
+
+            // Store only the text of the Named Entities
+            question_entities = cand_entities_uris.keySet();
+            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
+        } else {
+            // Store only the text of the Named Entities
+            question_entities = word_NamedEntity.keySet();
+            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Entities: {0}", question_entities);
+        }
 
         useful_words = extractUsefulWords(this.question, this.question_entities);
 
@@ -178,6 +206,24 @@ public class QuestionAnalysis {
 
         System.out.println("========!!!!!!!!!======== Final entities: " + clean_word_NamedEntity);
         return clean_word_NamedEntity;
+    }
+
+    public HashMap<String, String> extractEntitiesWithSpotlight(String question) {
+        try {
+            AnnotationUnit annotationUnit; // keeps the returned annotations
+
+            annotationUnit = spotlight.get(question); // annotate
+            HashMap<String, String> entity_uri = new HashMap<>();
+            if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
+                for (ResourceItem tmp_resource : annotationUnit.getResources()) {
+                    entity_uri.put(tmp_resource.getSurfaceForm().toLowerCase(), tmp_resource.getUri());
+                }
+            }
+            return entity_uri;
+        } catch (IOException ex) {
+            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new HashMap<>();
     }
 
     public HashSet<String> extractUsefulWords(String question, Set<String> entities) {

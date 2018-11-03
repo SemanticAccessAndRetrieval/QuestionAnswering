@@ -17,6 +17,7 @@ import gr.forth.ics.isl.demoExternal.core.AnswerExtraction;
 import gr.forth.ics.isl.demoExternal.core.EntitiesDetection;
 import gr.forth.ics.isl.demoExternal.core.ModulesErrorHandling;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
+import gr.forth.ics.isl.nlp.externalTools.Spotlight;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class ExternalKnowledgeDemoMain {
     public static StanfordCoreNLP entityMentions_pipeline;
     public static StanfordCoreNLP compounds_pipeline;
     public static IDictionary wordnet_dict;
+    public static Spotlight spotlight;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
     public static LODSyndesisChanel chanel;
@@ -103,27 +105,31 @@ public class ExternalKnowledgeDemoMain {
         // Store the text of the Named Entities
         Set<String> entities = q_analysis.getQuestionEntities();
 
+        HashMap<String, String> entity_URI = q_analysis.getQuestionEntitiesUris();
+
         String fact = q_analysis.getFact();
 
-        // ==== Entities Detection Step ====
-        EntitiesDetection entities_detection = new EntitiesDetection();
+        if (entity_URI == null) {
+            // ==== Entities Detection Step ====
+            EntitiesDetection entities_detection = new EntitiesDetection();
 
-        // Retrieve for each entity its candidate URIs from LODSyndesis
-        entities_detection.retrieveCandidateEntityURIs(entities);
+            // Retrieve for each entity its candidate URIs from LODSyndesis
+            entities_detection.retrieveCandidateEntityURIs(entities);
 
-        JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
-        try {
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                String error_message = e_dErrorHandling.getString("message");
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                return;
+            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+            try {
+                if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    String error_message = e_dErrorHandling.getString("message");
+                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                    return;
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        // Hashmap to store each entity and the selected URI (the highest scored)
-        HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
+            // Hashmap to store each entity and the selected URI (the highest scored)
+            entity_URI = entities_detection.getMatchingURIs(entities);
+        }
 
         // ==== Answer Extraction Step ====
         AnswerExtraction answer_extraction = new AnswerExtraction();
@@ -182,6 +188,8 @@ public class ExternalKnowledgeDemoMain {
         compound_props.put("truecase.overwriteText", "true");
         compounds_pipeline = new StanfordCoreNLP(compound_props);
 
+        spotlight = new Spotlight();
+
         chanel = new LODSyndesisChanel();
 
     }
@@ -224,6 +232,8 @@ public class ExternalKnowledgeDemoMain {
         compound_props.put("truecase.overwriteText", "true");
         compounds_pipeline = new StanfordCoreNLP(compound_props);
 
+        spotlight = new Spotlight();
+
         chanel = new LODSyndesisChanel();
 
     }
@@ -258,23 +268,26 @@ public class ExternalKnowledgeDemoMain {
 
             obj.put("question_entities", entities);
 
+            HashMap<String, String> entity_URI = q_analysis.getQuestionEntitiesUris();
+
             String fact = q_analysis.getFact();
 
-            // ==== Entities Detection Step ====
-            EntitiesDetection entities_detection = new EntitiesDetection();
+            if (entity_URI == null) {
+                // ==== Entities Detection Step ====
+                EntitiesDetection entities_detection = new EntitiesDetection();
 
-            // Retrieve for each entity its candidate URIs from LODSyndesis
-            entities_detection.retrieveCandidateEntityURIs(entities);
+                // Retrieve for each entity its candidate URIs from LODSyndesis
+                entities_detection.retrieveCandidateEntityURIs(entities);
 
-            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+                JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                }
+
+                // Hashmap to store each entity and the selected URI (the highest scored)
+                entity_URI = entities_detection.getMatchingURIs(entities);
             }
-
-            // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
-
             obj.put("retrievedEntities", entity_URI);
 
             // ==== Answer Extraction Step ====
@@ -383,23 +396,26 @@ public class ExternalKnowledgeDemoMain {
                 }
             }
             System.out.println("Entities without numbers: " + entities);
+            HashMap<String, String> entity_URI = q_analysis.getQuestionEntitiesUris();
+
             String fact = q_analysis.getFact();
 
-            // ==== Entities Detection Step ====
-            EntitiesDetection entities_detection = new EntitiesDetection();
+            if (entity_URI == null) {
+                // ==== Entities Detection Step ====
+                EntitiesDetection entities_detection = new EntitiesDetection();
 
-            // Retrieve for each entity its candidate URIs from LODSyndesis
-            entities_detection.retrieveCandidateEntityURIs(entities);
+                // Retrieve for each entity its candidate URIs from LODSyndesis
+                entities_detection.retrieveCandidateEntityURIs(entities);
 
-            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+                JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                    return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                }
+
+                // Hashmap to store each entity and the selected URI (the highest scored)
+                entity_URI = entities_detection.getMatchingURIs(entities);
             }
-
-            // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
-
             obj.put("retrievedEntities", entity_URI);
 
             // ==== Answer Extraction Step ====
