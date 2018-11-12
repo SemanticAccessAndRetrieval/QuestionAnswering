@@ -44,9 +44,9 @@ public class ModulesErrorHandling {
             }
         }
 
-        Set<String> question_entities = q_a.getQuestionEntities();
-
-        if (question_entities.isEmpty()) {
+        Set<String> corenlp_entities = q_a.getCorenlpEntities();
+        HashMap<String, String> spotlight_entities_uris = q_a.getSpotlightEntitiesUris();
+        if (corenlp_entities.isEmpty() && spotlight_entities_uris.isEmpty()) {
             try {
                 answer.put("status", "error");
                 answer.put("message", "[QuestionAnalysis] No Named Entities recognized.");
@@ -56,7 +56,7 @@ public class ModulesErrorHandling {
             }
         } else {
             try {
-                answer.put("question_entities", question_entities);
+                answer.put("question_entities", corenlp_entities);
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }

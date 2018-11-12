@@ -350,7 +350,7 @@ public class AnswerExtraction {
                             break;
                         }
                     }
-                    if (matches == 2) {
+                    if (matches >= 1) {
                         triplesWithCorrectEntities.add(triple);
                         break;
                     }
