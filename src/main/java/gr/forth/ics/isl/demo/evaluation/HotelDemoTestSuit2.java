@@ -19,6 +19,7 @@ import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
 import gr.forth.ics.isl.demo.main.OnFocusRRR;
 import gr.forth.ics.isl.demo.models.BaselineModel;
+import gr.forth.ics.isl.demo.models.Doc2vecModel;
 import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.Word2vecModel;
 import gr.forth.ics.isl.demo.models.Word2vecModel_III;
@@ -42,8 +43,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 import mitos.stemmer.trie.Trie;
+import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
+import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 import org.deeplearning4j.models.word2vec.Word2Vec;
+import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
+import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
+import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
@@ -54,8 +60,8 @@ import org.openrdf.repository.RepositoryException;
  */
 public class HotelDemoTestSuit2 {
 
-    //static String evalFileName = "FRUCE_v2";
-    static String evalFileName = "webAP";
+    static String evalFileName = "FRUCE_v2";
+    //static String evalFileName = "webAP";
     //static String evalFileName = "BookingEvalCollection";
     static String evalCollection = evalFileName + ".csv";
 
@@ -141,6 +147,18 @@ public class HotelDemoTestSuit2 {
             contextWords.add("discribe");
             contextWords.add("state");
         }
+
+        ClassPathResource resource = new ClassPathResource("/trainedModels/doc2vec");
+        TokenizerFactory t = new DefaultTokenizerFactory();
+        t.setTokenPreProcessor(new CommonPreprocessor());
+
+        // we load externally originated model
+        ParagraphVectors vectors = WordVectorSerializer.readParagraphVectors(resource.getFile());
+        vectors.setTokenizerFactory(t);
+        vectors.getConfiguration().setIterations(20); // please note, we set iterations to 1 here, just to speedup inference
+        Doc2vecModel d2vModel = new Doc2vecModel("Doc2VecModel", vectors, t, resource, comments);
+        produceResults(d2vModel, queryList, gt, relThreshold); // produce result set of model
+        d2vModel = null;
 
         BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments); // Instantiate baseline model
         produceResults(baseline, queryList, gt, relThreshold); // produce result set of model
@@ -229,7 +247,6 @@ public class HotelDemoTestSuit2 {
 ////        stats.evaluate2(gt, relThreshold, evalFileName);
 ////        System.out.println(stats);
 //        combination_II = null;
-
         WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
         if (evalCollection.contains("FRUCE")) {
             produceResults(combination_III, queryList, gt, relThreshold); // produce result set of model

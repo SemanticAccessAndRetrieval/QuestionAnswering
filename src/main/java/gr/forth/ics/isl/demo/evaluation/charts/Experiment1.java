@@ -27,9 +27,9 @@ public class Experiment1 {
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
-        //String collectionName = "FRUCE_v2";
+        String collectionName = "FRUCE_v2";
         //String collectionName = "BookingEvalCollection";
-        String collectionName = "webAP";
+        //String collectionName = "webAP";
 
         int relThreshold = 0;
         int R = 10;
@@ -150,6 +150,15 @@ public class Experiment1 {
         Utils.saveObject(Word2vecWordnet_III_CW.getAllBprefs_R(), Word2vecWordnet_III_CW.getDescription() + "_all_Bprefs_R_" + collectionName);
         Utils.saveObject(Word2vecWordnet_III_CW.getAllnDCSs_R(), Word2vecWordnet_III_CW.getDescription() + "_all_nDCGs_R_" + collectionName);
         System.out.println(Word2vecWordnet_III_CW + "\n");
+
+        ModelStats Doc2vecModel = new ModelStats("Doc2vecModel");
+        Doc2vecModel.evaluate2(gt, relThreshold, collectionName);
+        Doc2vecModel.getAllMetricsBoundedR(1, R, gt, relThreshold, collectionName);
+        Utils.saveObject(Doc2vecModel.getAllPrecisions_R(), Doc2vecModel.getDescription() + "_all_Precisions_R_" + collectionName);
+        Utils.saveObject(Doc2vecModel.getAllAveps_R(), Doc2vecModel.getDescription() + "_all_Aveps_R_" + collectionName);
+        Utils.saveObject(Doc2vecModel.getAllBprefs_R(), Doc2vecModel.getDescription() + "_all_Bprefs_R_" + collectionName);
+        Utils.saveObject(Doc2vecModel.getAllnDCSs_R(), Doc2vecModel.getDescription() + "_all_nDCGs_R_" + collectionName);
+        System.out.println(Doc2vecModel + "\n");
 
 //        ModelStats Word2vecWordnet_II = new ModelStats("Word2vec and Wordnet II");
 //        Word2vecWordnet_II.evaluate2(gt, relThreshold, collectionName);
