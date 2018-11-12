@@ -17,6 +17,7 @@ import gr.forth.ics.isl.demoExternal.core.AnswerExtraction;
 import gr.forth.ics.isl.demoExternal.core.EntitiesDetection;
 import gr.forth.ics.isl.demoExternal.core.ModulesErrorHandling;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
+import gr.forth.ics.isl.nlp.externalTools.Spotlight;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -48,6 +48,7 @@ public class ExternalKnowledgeDemoMain {
     public static StanfordCoreNLP entityMentions_pipeline;
     public static StanfordCoreNLP compounds_pipeline;
     public static IDictionary wordnet_dict;
+    public static Spotlight spotlight;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
     public static LODSyndesisChanel chanel;
@@ -59,6 +60,7 @@ public class ExternalKnowledgeDemoMain {
         } catch (IOException ex) {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(getAnswerAsJson("What type of lake is sardis lake (oklahoma)?"));
 
         // Factoid Questions
         String fact1 = "What is the population of Kyoto?";
@@ -82,7 +84,7 @@ public class ExternalKnowledgeDemoMain {
 
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion(def2);
+        q_analysis.analyzeQuestion("What type of lake is sardis lake (oklahoma)?");
 
         JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
         try {
@@ -95,36 +97,68 @@ public class ExternalKnowledgeDemoMain {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        String question = q_analysis.getQuestion();
+
         String question_type = q_analysis.getQuestionType();
 
         // Store the useful words of the question
-        Set<String> useful_words = q_analysis.getUsefulWords();
+        Set<String> useful_words;
 
-        // Store the text of the Named Entities
-        Set<String> entities = q_analysis.getQuestionEntities();
+        // Store the text of the NE recognized by corenlp
+        Set<String> corenlp_entities = q_analysis.getCorenlpEntities();
 
-        String fact = q_analysis.getFact();
+        HashMap<String, String> spotlight_entity_URI = q_analysis.getSpotlightEntitiesUris();
 
-        // ==== Entities Detection Step ====
-        EntitiesDetection entities_detection = new EntitiesDetection();
+        HashMap<String, String> entity_URI = new HashMap<>();
+        if (corenlp_entities.isEmpty()) {
+            entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
+        } else {
+            // ==== Entities Detection Step ====
+            EntitiesDetection entities_detection = new EntitiesDetection();
 
-        // Retrieve for each entity its candidate URIs from LODSyndesis
-        entities_detection.retrieveCandidateEntityURIs(entities);
+            // Retrieve for each entity its candidate URIs from LODSyndesis
+            entities_detection.retrieveCandidateEntityURIs(corenlp_entities);
 
-        JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
-        try {
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                String error_message = e_dErrorHandling.getString("message");
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                return;
+            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+            String entities_detection_status = "";
+            try {
+                entities_detection_status = e_dErrorHandling.getString("status");
+            } catch (JSONException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (entities_detection_status.equalsIgnoreCase("error")) {
+                if (spotlight_entity_URI.isEmpty()) {
+                    try {
+                        String error_message = e_dErrorHandling.getString("message");
+                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
+                        return;
+                    } catch (JSONException ex) {
+                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
+                }
+            } else {
+                // Hashmap to store each entity and the selected URI (the highest scored)
+                HashMap<String, String> corenlp_entity_URI = entities_detection.getMatchingURIs(corenlp_entities);
+
+                if (spotlight_entity_URI.isEmpty()) {
+                    entity_URI = EntitiesDetection.replaceOverlappingEntities(corenlp_entity_URI);
+                } else {
+                    entity_URI = EntitiesDetection.extractCombinedEntities(question, corenlp_entity_URI, spotlight_entity_URI);
+                }
+            }
         }
+        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Final Entities: {0}", entity_URI);
 
-        // Hashmap to store each entity and the selected URI (the highest scored)
-        HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
+        useful_words = q_analysis.extractUsefulWords(question, entity_URI.keySet());
 
+        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Useful words: {0}", useful_words);
+
+        String fact = q_analysis.extractFact(useful_words);
+
+        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Fact: {0}", fact);
         // ==== Answer Extraction Step ====
         AnswerExtraction answer_extraction = new AnswerExtraction();
         answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
@@ -182,6 +216,8 @@ public class ExternalKnowledgeDemoMain {
         compound_props.put("truecase.overwriteText", "true");
         compounds_pipeline = new StanfordCoreNLP(compound_props);
 
+        spotlight = new Spotlight();
+
         chanel = new LODSyndesisChanel();
 
     }
@@ -224,6 +260,8 @@ public class ExternalKnowledgeDemoMain {
         compound_props.put("truecase.overwriteText", "true");
         compounds_pipeline = new StanfordCoreNLP(compound_props);
 
+        spotlight = new Spotlight();
+
         chanel = new LODSyndesisChanel();
 
     }
@@ -244,38 +282,67 @@ public class ExternalKnowledgeDemoMain {
                 return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
             }
 
+            String question = q_analysis.getQuestion();
+
+            obj.put("question", question);
+
             String question_type = q_analysis.getQuestionType();
 
             obj.put("question_type", question_type);
 
             // Store the useful words of the question
-            Set<String> useful_words = q_analysis.getUsefulWords();
+            Set<String> useful_words;
 
-            obj.put("useful_words", useful_words);
+            // Store the text of the NE recognized by corenlp
+            Set<String> corenlp_entities = q_analysis.getCorenlpEntities();
 
-            // Store the text of the Named Entities
-            Set<String> entities = q_analysis.getQuestionEntities();
+            HashMap<String, String> spotlight_entity_URI = q_analysis.getSpotlightEntitiesUris();
 
-            obj.put("question_entities", entities);
+            HashMap<String, String> entity_URI = new HashMap<>();
 
-            String fact = q_analysis.getFact();
+            if (corenlp_entities.isEmpty()) {
+                entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
+            } else {
+                // ==== Entities Detection Step ====
+                EntitiesDetection entities_detection = new EntitiesDetection();
 
-            // ==== Entities Detection Step ====
-            EntitiesDetection entities_detection = new EntitiesDetection();
+                // Retrieve for each entity its candidate URIs from LODSyndesis
+                entities_detection.retrieveCandidateEntityURIs(corenlp_entities);
 
-            // Retrieve for each entity its candidate URIs from LODSyndesis
-            entities_detection.retrieveCandidateEntityURIs(entities);
+                JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+                String entities_detection_status = "";
+                try {
+                    entities_detection_status = e_dErrorHandling.getString("status");
+                } catch (JSONException ex) {
+                    Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+                if (entities_detection_status.equalsIgnoreCase("error")) {
+                    if (spotlight_entity_URI.isEmpty()) {
+                        return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                    } else {
+                        entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
+                    }
+                } else {
+                    // Hashmap to store each entity and the selected URI (the highest scored)
+                    HashMap<String, String> corenlp_entity_URI = entities_detection.getMatchingURIs(corenlp_entities);
 
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+                    if (spotlight_entity_URI.isEmpty()) {
+                        entity_URI = EntitiesDetection.replaceOverlappingEntities(corenlp_entity_URI);
+                    } else {
+                        entity_URI = EntitiesDetection.extractCombinedEntities(question, corenlp_entity_URI, spotlight_entity_URI);
+                    }
+                }
+
             }
 
-            // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
-
+            obj.put("question_entities", entity_URI.keySet());
             obj.put("retrievedEntities", entity_URI);
+
+            useful_words = q_analysis.extractUsefulWords(question, entity_URI.keySet());
+            obj.put("useful_words", useful_words);
+
+            String fact = q_analysis.extractFact(useful_words);
 
             // ==== Answer Extraction Step ====
             AnswerExtraction answer_extraction = new AnswerExtraction();
@@ -342,89 +409,5 @@ public class ExternalKnowledgeDemoMain {
         }
         return current_answer;
 
-    }
-
-    public static JSONObject getEvaluationAnswerAsJson(String query) {
-        try {
-            JSONObject obj = new JSONObject();
-
-            obj.put("question", query.replaceAll("\"", "").trim());
-
-            // ==== Question Analysis Step ====
-            QuestionAnalysis q_analysis = new QuestionAnalysis();
-            q_analysis.analyzeQuestion(query);
-
-            JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
-
-            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
-            }
-
-            String question_type = q_analysis.getQuestionType();
-
-            obj.put("question_type", question_type);
-
-            // Store the useful words of the question
-            Set<String> useful_words = q_analysis.getUsefulWords();
-
-            obj.put("useful_words", useful_words);
-
-            // Store the text of the Named Entities
-            Set<String> entities = q_analysis.getQuestionEntities();
-
-            obj.put("question_entities", entities);
-
-            System.out.println("Entities with numbers: " + entities);
-
-            Set<String> tmp_entities = new HashSet<>(entities);
-            for (String entity : tmp_entities) {
-                if (org.apache.commons.lang3.StringUtils.isNumericSpace(entity)) {
-                    entities.remove(entity);
-                }
-            }
-            System.out.println("Entities without numbers: " + entities);
-            String fact = q_analysis.getFact();
-
-            // ==== Entities Detection Step ====
-            EntitiesDetection entities_detection = new EntitiesDetection();
-
-            // Retrieve for each entity its candidate URIs from LODSyndesis
-            entities_detection.retrieveCandidateEntityURIs(entities);
-
-            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
-
-            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
-            }
-
-            // Hashmap to store each entity and the selected URI (the highest scored)
-            HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(entities);
-
-            obj.put("retrievedEntities", entity_URI);
-
-            // ==== Answer Extraction Step ====
-            AnswerExtraction answer_extraction = new AnswerExtraction();
-            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
-
-            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
-
-            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
-            }
-
-            JSONObject answer_triple = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
-
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
-
-            answer_triple.remove("answer");
-            obj.put("triple", answer_triple);
-
-            return obj;
-
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
     }
 }

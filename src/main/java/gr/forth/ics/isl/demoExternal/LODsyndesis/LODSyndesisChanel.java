@@ -254,7 +254,6 @@ public class LODSyndesisChanel {
             keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.trim().replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
-            System.out.println(keywordEntity);
             ArrayList<String> candidateEntities = getJsonContent(keywordEntity);
 
             return candidateEntities;
