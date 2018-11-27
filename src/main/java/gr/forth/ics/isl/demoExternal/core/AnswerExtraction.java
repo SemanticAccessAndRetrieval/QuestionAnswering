@@ -9,8 +9,8 @@
  */
 package gr.forth.ics.isl.demoExternal.core;
 
+import com.google.gson.Gson;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.chanel;
-import gr.forth.ics.isl.utilities.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,14 +72,14 @@ public class AnswerExtraction {
         }
         //Store all the candidate triples stored as JSONObjects extracted from the text
         cand_facts.addAll(extractJSONObjectsFromString(tmp_cand_facts));
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Triples: {0}", cand_facts);
 
         try {
             cand_facts = getCleanTriples(cand_facts);
         } catch (JSONException ex) {
             Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Clean Cand. Triples: {0}", cand_facts);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Clean Cand. Triples: {0}", cand_facts);
 
         this.candidate_triples = cand_facts;
 
@@ -96,11 +96,12 @@ public class AnswerExtraction {
         ArrayList<String> cand_relations = extractCandidateRelations(this.candidate_triples);
 
         ArrayList<String> matched_relations = extractMatchingProperties(new ArrayList<>(useful_words), cand_relations);
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched relations: {0}", matched_relations);
+        // Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched relations: {0}", matched_relations);
 
         ArrayList<JSONObject> matched_triples = extractMatchedTriples(matched_relations, this.candidate_triples);
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
 
+        //(TODO) Here we can check the entities and then retrieve the topScored
         JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
 
         return answer;
@@ -122,17 +123,12 @@ public class AnswerExtraction {
             }
         }
 
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
 
         return cand_relations;
     }
 
     public static ArrayList<String> extractMatchingProperties(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
-        TreeMap<Float, HashSet<String>> distance_uris = new TreeMap<>();
-
-        float tmp_distance = 0.0f;
-        float min_distance = Float.MAX_VALUE;
-
         // Filter the predicates that contain at least one useful word
         ArrayList<String> restricted_candidate_predicates = new ArrayList<>();
         for (String cand_pred : candidate_predicates) {
@@ -145,35 +141,33 @@ public class AnswerExtraction {
         }
 
         if (restricted_candidate_predicates.isEmpty()) {
-            return new ArrayList<>();
+            return candidate_predicates;
         }
 
-        System.out.println("RESTRIICTED set of predicates: " + restricted_candidate_predicates);
-        System.out.println("NOT RESTRIICTED set of predicates: " + candidate_predicates);
+        return restricted_candidate_predicates;
+    }
 
-        for (String cand_pred : restricted_candidate_predicates) {
-            for (String useful_word : useful_words) {
-                // (TODO) Edw to suffix tou uri 8a prepei na to kanoume kapws split kai na eksagoume
-                // mono tis lekseis se ena set. Kai meta to metatrepoume se string gia na to sugkrinoume
-                tmp_distance += StringUtils.LevenshteinDistance(useful_word, getSuffixOfURI(cand_pred));
-            }
-            tmp_distance /= useful_words.size();
-            if (tmp_distance < min_distance) {
-                min_distance = tmp_distance;
-            }
-            if (distance_uris.containsKey(tmp_distance)) {
-                HashSet<String> tmp = distance_uris.get(tmp_distance);
-                tmp.add(cand_pred);
-                distance_uris.replace(tmp_distance, tmp);
-            } else {
-                HashSet<String> tmp = new HashSet<>();
-                tmp.add(cand_pred);
-                distance_uris.put(tmp_distance, tmp);
-            }
+    // Retrieve the max scored triples based on the LODSyndesis 'threshold' score
+    public static ArrayList<JSONObject> getMaxScoredTriples(ArrayList<JSONObject> triples) {
+        float max_score = Float.MIN_VALUE;
+        float tmp_score = Float.MIN_VALUE;
+        ArrayList<JSONObject> top_triples = new ArrayList<>();
 
-            tmp_distance = 0.0f;
+        for (JSONObject triple : triples) {
+            try {
+                tmp_score = Float.parseFloat(triple.getString("threshold"));
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (tmp_score > max_score) {
+                max_score = tmp_score;
+                top_triples = new ArrayList<>();
+                top_triples.add(triple);
+            } else if (tmp_score == max_score) {
+                top_triples.add(triple);
+            }
         }
-        return new ArrayList<>(distance_uris.get(min_distance));
+        return top_triples;
     }
 
     public static ArrayList<JSONObject> extractMatchedTriples(ArrayList<String> matched_relations, ArrayList<JSONObject> cand_triples) {
@@ -186,6 +180,7 @@ public class AnswerExtraction {
                 try {
                     if ((triple.getString("predicate")).equalsIgnoreCase(matched_relation)) {
                         matched_triples.add(triple);
+                        break;
                     }
                 } catch (JSONException ex) {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,12 +216,31 @@ public class AnswerExtraction {
     private static JSONObject extractFactoidAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
 
         int numOfEntities = entity_URI.keySet().size();
-
+        ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
+        triplesWithCorrectEntities = getMaxScoredTriples(triplesWithCorrectEntities);
         if (numOfEntities == 1) {
-            return getTripleWithMaxProvenanceDatasets(matched_triples);
-        } else {
-            ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
+            try {
+                JSONObject final_triple = getTripleWithMaxProvenanceDatasets(triplesWithCorrectEntities);
 
+                Gson googleJson = new Gson();
+                ArrayList<String> matches = googleJson.fromJson(final_triple.getJSONArray("matches").toString(), ArrayList.class);
+
+                String answer = "";
+                if (matches.size() == 1) {
+                    if (matches.contains("s")) {
+                        answer = final_triple.getString("object");
+                    } else {
+                        answer = final_triple.getString("subject");
+                    }
+                } else if (matches.isEmpty() || matches.size() == 2) {
+                    answer = final_triple.getString("object");
+                }
+                final_triple.put("answer", answer);
+                return final_triple;
+            } catch (JSONException ex) {
+                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
             if (triplesWithCorrectEntities.isEmpty()) {
                 JSONObject tmp_ans = new JSONObject();
                 try {
@@ -236,7 +250,28 @@ public class AnswerExtraction {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                return getTripleWithMaxProvenanceDatasets(triplesWithCorrectEntities);
+                try {
+                    JSONObject final_triple = getTripleWithMaxProvenanceDatasets(triplesWithCorrectEntities);
+
+                    Gson googleJson = new Gson();
+                    ArrayList<String> matches = googleJson.fromJson(final_triple.getJSONArray("matches").toString(), ArrayList.class);
+
+                    //final_triple.remove("matches");
+                    String answer = "";
+                    if (matches.size() == 1) {
+                        if (matches.contains("s")) {
+                            answer = final_triple.getString("object");
+                        } else {
+                            answer = final_triple.getString("subject");
+                        }
+                    } else if (matches.isEmpty() || matches.size() == 2) {
+                        answer = final_triple.getString("object");
+                    }
+                    final_triple.put("answer", answer);
+                    return final_triple;
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return null;
@@ -244,28 +279,63 @@ public class AnswerExtraction {
 
     private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
         ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
-
+        triplesWithCorrectEntities = getMaxScoredTriples(triplesWithCorrectEntities);
         if (triplesWithCorrectEntities.isEmpty()) {
             // If not both subject and object matched, then the answer is no
             JSONObject tmp_ans = new JSONObject();
 
             try {
-                tmp_ans.put("answer", "No!");
+                tmp_ans.put("answer", "No! No matching triples found!");
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             return tmp_ans;
         } else {
-            JSONObject tmp_ans = triplesWithCorrectEntities.get(0);
-            tmp_ans.remove("threshold");
+            int numOfEntities = entity_URI.keySet().size();
 
-            try {
-                tmp_ans.put("answer", "Yes!");
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+            JSONObject final_triple = null;
+            //edw auta pou exoun 2 mporoume na ta vazoume se ena set kai na pairnoume thn tripleta me ta perissotera provenance
+            if (numOfEntities >= 2) {
+                for (JSONObject triple : triplesWithCorrectEntities) {
+
+                    try {
+                        int matches = triple.getJSONArray("matches").length();
+                        if (matches == 2) {
+                            final_triple = new JSONObject(triple.toString());
+                            break;
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+                if (final_triple == null) {
+                    final_triple = new JSONObject();
+                    try {
+                        final_triple.put("answer", "No!");
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    final_triple.remove("threshold");
+                    try {
+                        final_triple.put("answer", "Yes!");
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            } else {
+                final_triple = getTripleWithMaxProvenanceDatasets(triplesWithCorrectEntities);
+                try {
+                    final_triple.put("answer", "Yes!");
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-            return tmp_ans;
+            return final_triple;
         }
     }
 
@@ -317,8 +387,6 @@ public class AnswerExtraction {
             }
             JSONObject answer_triple = numOfProvenanceDatasets_triple.get(numOfProvenanceDatasets_triple.lastKey());
             answer_triple.remove("threshold");
-            String object = answer_triple.getString("object");
-            answer_triple.put("answer", getSuffixOfURI(object));
             return answer_triple;
         } catch (JSONException ex) {
             Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
@@ -331,10 +399,12 @@ public class AnswerExtraction {
 
         String subject_uri = "";
         String object_uri = "";
-        int matches = 0;
+        int numOfMatches = 0;
+        ArrayList<String> matches;
         ArrayList<JSONObject> triplesWithCorrectEntities = new ArrayList<>();
 
         for (JSONObject triple : triples) {
+            matches = new ArrayList<>();
             try {
                 //Extract the subject and object from the triple
                 subject_uri = triple.getString("subject");
@@ -345,17 +415,23 @@ public class AnswerExtraction {
                     //For each matching entity uri
                     for (String uri : uris) {
                         //if the uri matches either with the subject or the object, increase the matches by 1
-                        if (isMatchingUris(uri, subject_uri) || isMatchingUris(uri, object_uri)) {
-                            matches++;
+                        if (isMatchingUris(uri, subject_uri)) {
+                            matches.add("s");
+                            numOfMatches++;
+                            break;
+                        } else if (isMatchingUris(uri, object_uri)) {
+                            matches.add("o");
+                            numOfMatches++;
                             break;
                         }
                     }
-                    if (matches >= 1) {
+                    if (numOfMatches >= 1) {
+                        triple.put("matches", matches);
                         triplesWithCorrectEntities.add(triple);
                         break;
                     }
                 }
-                matches = 0;
+                numOfMatches = 0;
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -432,9 +508,11 @@ public class AnswerExtraction {
         } else {
             String tmp_uri = uri.replaceAll("\"", "");
 
-            if ((tmp_uri.startsWith("[[") && tmp_uri.endsWith("]]")) || (tmp_uri.startsWith("{{") && tmp_uri.endsWith("}}"))) {
+            if (tmp_uri.startsWith("{{") && tmp_uri.endsWith("}}")) {
                 clean_uri = tmp_uri.substring(2, tmp_uri.length() - 2);
-            } else {
+            } else if (tmp_uri.startsWith("[[") && tmp_uri.endsWith("]]")) {
+                clean_uri = tmp_uri.replaceAll("\\[\\[", "").replaceAll("\\]\\]", "");
+            } else if (tmp_uri.contains("href=")) {
                 clean_uri = tmp_uri;
 
                 Pattern p = Pattern.compile("href=(.*?)\\>");
@@ -442,7 +520,8 @@ public class AnswerExtraction {
                 if (m.find()) {
                     clean_uri = m.group(1); // this variable should contain the link URL
                 }
-
+            } else {
+                clean_uri = tmp_uri;
             }
 
         }
@@ -496,6 +575,16 @@ public class AnswerExtraction {
                 tmp_object = new JSONObject(object_str);
                 cand_triples.add(tmp_object);
             } catch (JSONException ex) {
+                String unterminated_object = object_str;
+                unterminated_object = unterminated_object.replaceAll("\\{\\{", "");
+                unterminated_object = unterminated_object.substring(0, unterminated_object.length() - 1);
+                unterminated_object += "\"" + "}";
+                try {
+                    tmp_object = new JSONObject(unterminated_object);
+                    cand_triples.add(tmp_object);
+                } catch (JSONException ex1) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex1);
+                }
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
