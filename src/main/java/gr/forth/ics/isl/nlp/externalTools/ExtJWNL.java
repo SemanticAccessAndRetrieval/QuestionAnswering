@@ -17,7 +17,11 @@ package gr.forth.ics.isl.nlp.externalTools;
  */
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
@@ -72,6 +76,67 @@ public class ExtJWNL {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public HashMap<String, ArrayList<String>> getDerived(HashMap<String, String> word_pos) {
+
+        HashMap<String, ArrayList<String>> word_synset = new HashMap<>();
+        for (String token : word_pos.keySet()) {
+            String tmp_pos = word_pos.get(token);
+            //Get the wordnet POS based on coreNLP POS
+            edu.mit.jwi.item.POS tmp_word_pos = WordNet.getWordNetPos(tmp_pos);
+            HashSet<String> tmp = new HashSet<>();
+            tmp.add(token);
+
+            if (tmp_word_pos == null) {
+                ArrayList<String> syn = new ArrayList<>();
+                syn.addAll(tmp);
+                word_synset.put(token, syn);
+                continue;
+            }
+
+            if (tmp_word_pos.toString().equalsIgnoreCase("verb")) {
+                try {
+                    IndexWord nounIW = this.dictionary.lookupIndexWord(POS.VERB, token);
+
+                    if (nounIW == null) {
+                        ArrayList<String> syn = new ArrayList<>();
+                        syn.addAll(tmp);
+                        word_synset.put(token, syn);
+                        continue;
+                    }
+
+                    List<Synset> senses = nounIW.getSenses();
+
+                    Synset mainSense = senses.get(0);
+
+                    List<Pointer> pointers = mainSense.getPointers(PointerType.DERIVATION);
+
+                    for (Pointer pointer : pointers) {
+                        Synset derivedSynset = pointer.getTargetSynset();
+                        if (derivedSynset.getPOS() == POS.ADJECTIVE) {
+                            //System.out.println(derivedSynset.getWords());
+                            // tmp.add(derivedSynset.getWords().get(0).getLemma());
+                        }
+                        if (derivedSynset.getPOS() == POS.NOUN) {
+                            //System.out.println(derivedSynset.getWords());
+                            tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
+                        }
+                    }
+
+                    ArrayList<String> syn = new ArrayList<>();
+                    syn.addAll(tmp);
+                    word_synset.put(token, syn);
+                } catch (JWNLException ex) {
+                    Logger.getLogger(ExtJWNL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                ArrayList<String> syn = new ArrayList<>();
+                syn.addAll(tmp);
+                word_synset.put(token, syn);
+            }
+        }
+        return word_synset;
     }
 
     public static void main(String[] args) throws FileNotFoundException, JWNLException, CloneNotSupportedException {
