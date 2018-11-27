@@ -71,7 +71,7 @@ public class LODSyndesisChanel {
             objectCoreference = new HttpGet(URL + "/" + serviceName + "?uri=" + uri);
             objectCoreference.addHeader(ACCEPT, "text/plain");
             objectCoreference.addHeader(CONTENT_TYPE, "application/n-triples");
-
+            System.out.println(objectCoreference);
             ArrayList<ArrayList<String>> allTriples = getContent(objectCoreference);
             ArrayList<String> equivalent_uris = new ArrayList<>();
             for (ArrayList<String> triple : allTriples) {
@@ -80,10 +80,12 @@ public class LODSyndesisChanel {
             }
 
             return equivalent_uris;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(LODSyndesisChanel.class.getName()).log(Level.SEVERE, null, ex);
+            ArrayList<String> equivalent_uris = new ArrayList<>();
+            equivalent_uris.add(uri);
+            return equivalent_uris;
         }
-        return null;
     }
 
     /**
@@ -230,7 +232,7 @@ public class LODSyndesisChanel {
             entityCardinality = new HttpGet(URL + "/" + serviceName + "?entity=" + uri);
             entityCardinality.addHeader(ACCEPT, "application/json");
             entityCardinality.addHeader(CONTENT_TYPE, "application/json");
-
+            System.out.println(entityCardinality);
             ArrayList<ArrayList<String>> allQuads = getContent(entityCardinality);
 
             return allQuads;
@@ -254,6 +256,7 @@ public class LODSyndesisChanel {
             keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.trim().replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
+            System.out.println(keywordEntity);
             ArrayList<String> candidateEntities = getJsonContent(keywordEntity);
 
             return candidateEntities;

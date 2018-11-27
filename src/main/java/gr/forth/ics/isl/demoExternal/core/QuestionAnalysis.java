@@ -12,6 +12,7 @@ package gr.forth.ics.isl.demoExternal.core;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.POS;
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.semgraph.SemanticGraph;
@@ -20,6 +21,7 @@ import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.CoreMap;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.compounds_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.entityMentions_pipeline;
+import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.lemma_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.spotlight;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
@@ -205,7 +207,9 @@ public class QuestionAnalysis {
             HashMap<String, String> entity_uri = new HashMap<>();
             if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
                 for (ResourceItem tmp_resource : annotationUnit.getResources()) {
-                    entity_uri.put(tmp_resource.getSurfaceForm().toLowerCase(), tmp_resource.getUri());
+                    if (!tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("time zone") && !tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("city")) {
+                        entity_uri.put(tmp_resource.getSurfaceForm().toLowerCase(), tmp_resource.getUri());
+                    }
                 }
             }
             return entity_uri;
@@ -268,7 +272,9 @@ public class QuestionAnalysis {
             }
         }
 
-        ArrayList<String> factoid_words = new ArrayList<>(Arrays.asList("when", "who", "where", "what", "which"));
+        ArrayList<String> factoid_words = new ArrayList<>(Arrays.asList("when", "who", "where", "what", "which",
+                "in which", "to which", "on which", "how many", "how much", "show me", "give me", "show", "how", "whom", "in what",
+                "of what", "name a", "for which"));
 
         for (String f_word : factoid_words) {
             if (question.startsWith(f_word)) {
@@ -302,6 +308,7 @@ public class QuestionAnalysis {
             if (!tmp_token.isEmpty() && !StringUtils.isStopWord(tmp_token)) {
                 //Get the POS tag of the token
                 String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                if (!pos.startsWith("-"))
                 final_tokens.put(tmp_token, pos);
 
             }
@@ -309,6 +316,30 @@ public class QuestionAnalysis {
         }
 
         return final_tokens;
+
+    }
+
+    public static HashMap<String, String> getLemmatizedTokens(String text) {
+        Annotation document = new Annotation(text);
+        lemma_pipeline.annotate(document);
+
+        HashMap<String, String> lemmas_pos = new HashMap<>();
+
+        List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
+
+        String tmp_lemma = "";
+        String tmp_pos = "";
+        for (CoreLabel tok : tokens) {
+
+            tmp_lemma = tok.get(LemmaAnnotation.class).toLowerCase().trim();
+            tmp_pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+            if (!tmp_lemma.isEmpty()) {
+                lemmas_pos.put(tmp_lemma, tmp_pos);
+            }
+
+        }
+
+        return lemmas_pos;
 
     }
 
@@ -455,7 +486,7 @@ public class QuestionAnalysis {
 
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
         Annotation document = new Annotation(text);
-        split_pipeline.annotate(document);
+        lemma_pipeline.annotate(document);
 
         List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
 
@@ -533,4 +564,32 @@ public class QuestionAnalysis {
         return synset;
     }
 
+    public synchronized HashMap<String, ArrayList<String>> getWordNetSynonyms(HashMap<String, String> word_pos) throws IOException {
+
+        HashMap<String, ArrayList<String>> word_synset = new HashMap<>();
+
+        for (String token : word_pos.keySet()) {
+            String tmp_pos = word_pos.get(token);
+            //Get the wordnet POS based on coreNLP POS
+            POS tmp_word_pos = WordNet.getWordNetPos(tmp_pos);
+
+            if (tmp_word_pos == null) {
+                return new HashMap<>();
+            }
+
+            HashSet<String> crntSynset = new HashSet<>();
+
+            crntSynset = WordNet.getSynonyms(wordnet_dict, token, tmp_word_pos);
+            if (crntSynset != null) {
+                ArrayList<String> tmp_synonyms = new ArrayList<>();
+                tmp_synonyms.addAll(crntSynset);
+                word_synset.put(token, tmp_synonyms);
+            } else {
+                word_synset.put(token, new ArrayList<String>());
+
+            }
+
+        }
+        return word_synset;
+    }
 }

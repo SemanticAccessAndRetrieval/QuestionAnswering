@@ -17,6 +17,7 @@ import gr.forth.ics.isl.demoExternal.core.AnswerExtraction;
 import gr.forth.ics.isl.demoExternal.core.EntitiesDetection;
 import gr.forth.ics.isl.demoExternal.core.ModulesErrorHandling;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
+import gr.forth.ics.isl.nlp.externalTools.ExtJWNL;
 import gr.forth.ics.isl.nlp.externalTools.Spotlight;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.File;
@@ -30,6 +31,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.extjwnl.JWNLException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -45,6 +47,7 @@ public class ExternalKnowledgeDemoMain {
 
     //Core Nlp pipeline instance
     public static StanfordCoreNLP split_pipeline;
+    public static StanfordCoreNLP lemma_pipeline;
     public static StanfordCoreNLP entityMentions_pipeline;
     public static StanfordCoreNLP compounds_pipeline;
     public static IDictionary wordnet_dict;
@@ -60,7 +63,6 @@ public class ExternalKnowledgeDemoMain {
         } catch (IOException ex) {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //System.out.println(getAnswerAsJson("What type of lake is sardis lake (oklahoma)?"));
 
         // Factoid Questions
         String fact1 = "What is the population of Kyoto?";
@@ -82,102 +84,7 @@ public class ExternalKnowledgeDemoMain {
         String def2 = "What is Mount Everest?";
         String def3 = "What is Nintendo?";
 
-        // ==== Question Analysis Step ====
-        QuestionAnalysis q_analysis = new QuestionAnalysis();
-        q_analysis.analyzeQuestion("What type of lake is sardis lake (oklahoma)?");
-
-        JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
-        try {
-            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                String error_message = q_aErrorHandling.getString("message");
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                return;
-            }
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        String question = q_analysis.getQuestion();
-
-        String question_type = q_analysis.getQuestionType();
-
-        // Store the useful words of the question
-        Set<String> useful_words;
-
-        // Store the text of the NE recognized by corenlp
-        Set<String> corenlp_entities = q_analysis.getCorenlpEntities();
-
-        HashMap<String, String> spotlight_entity_URI = q_analysis.getSpotlightEntitiesUris();
-
-        HashMap<String, String> entity_URI = new HashMap<>();
-        if (corenlp_entities.isEmpty()) {
-            entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
-        } else {
-            // ==== Entities Detection Step ====
-            EntitiesDetection entities_detection = new EntitiesDetection();
-
-            // Retrieve for each entity its candidate URIs from LODSyndesis
-            entities_detection.retrieveCandidateEntityURIs(corenlp_entities);
-
-            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
-            String entities_detection_status = "";
-            try {
-                entities_detection_status = e_dErrorHandling.getString("status");
-            } catch (JSONException ex) {
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            if (entities_detection_status.equalsIgnoreCase("error")) {
-                if (spotlight_entity_URI.isEmpty()) {
-                    try {
-                        String error_message = e_dErrorHandling.getString("message");
-                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                        return;
-                    } catch (JSONException ex) {
-                        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    entity_URI = EntitiesDetection.replaceOverlappingEntities(spotlight_entity_URI);
-                }
-            } else {
-                // Hashmap to store each entity and the selected URI (the highest scored)
-                HashMap<String, String> corenlp_entity_URI = entities_detection.getMatchingURIs(corenlp_entities);
-
-                if (spotlight_entity_URI.isEmpty()) {
-                    entity_URI = EntitiesDetection.replaceOverlappingEntities(corenlp_entity_URI);
-                } else {
-                    entity_URI = EntitiesDetection.extractCombinedEntities(question, corenlp_entity_URI, spotlight_entity_URI);
-                }
-            }
-        }
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Final Entities: {0}", entity_URI);
-
-        useful_words = q_analysis.extractUsefulWords(question, entity_URI.keySet());
-
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Useful words: {0}", useful_words);
-
-        String fact = q_analysis.extractFact(useful_words);
-
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Fact: {0}", fact);
-        // ==== Answer Extraction Step ====
-        AnswerExtraction answer_extraction = new AnswerExtraction();
-        answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
-
-        JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
-        try {
-            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
-                String error_message = a_eErrorHandling.getString("message");
-                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.WARNING, error_message);
-                return;
-            }
-        } catch (JSONException ex) {
-            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        JSONObject answer = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
-
-        Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer);
-
+        System.out.println(getAnswerAsJson("Where was Ed Zmich born?"));
     }
 
     public ExternalKnowledgeDemoMain(String wordnetPath) {
@@ -203,6 +110,11 @@ public class ExternalKnowledgeDemoMain {
         split_props.put("annotators", "tokenize, ssplit, pos");
         split_props.put("tokenize.language", "en");
         split_pipeline = new StanfordCoreNLP(split_props);
+
+        Properties lemma_props = new Properties();
+        lemma_props.put("annotators", "tokenize, ssplit, pos, lemma");
+        lemma_props.put("tokenize.language", "en");
+        lemma_pipeline = new StanfordCoreNLP(lemma_props);
 
         Properties entityMentions_props = new Properties();
         entityMentions_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner, entitymentions");
@@ -248,6 +160,11 @@ public class ExternalKnowledgeDemoMain {
         split_props.put("tokenize.language", "en");
         split_pipeline = new StanfordCoreNLP(split_props);
 
+        Properties lemma_props = new Properties();
+        lemma_props.put("annotators", "tokenize, ssplit, pos, lemma");
+        lemma_props.put("tokenize.language", "en");
+        lemma_pipeline = new StanfordCoreNLP(lemma_props);
+
         Properties entityMentions_props = new Properties();
         entityMentions_props.put("annotators", "tokenize, ssplit, truecase, pos, lemma,  ner, entitymentions");
         entityMentions_props.put("tokenize.language", "en");
@@ -276,15 +193,15 @@ public class ExternalKnowledgeDemoMain {
             QuestionAnalysis q_analysis = new QuestionAnalysis();
             q_analysis.analyzeQuestion(query);
 
+            String question = q_analysis.getQuestion();
+
+            obj.put("question", question);
+
             JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
 
             if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
                 return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
             }
-
-            String question = q_analysis.getQuestion();
-
-            obj.put("question", question);
 
             String question_type = q_analysis.getQuestionType();
 
@@ -340,7 +257,42 @@ public class ExternalKnowledgeDemoMain {
             obj.put("retrievedEntities", entity_URI);
 
             useful_words = q_analysis.extractUsefulWords(question, entity_URI.keySet());
+            if (question.toLowerCase().startsWith("where")) {
+                useful_words.add("place");
+            }
+            if (useful_words.isEmpty()) {
+                // CHECK IF IT IS EMPTY
+                obj.put("status", "error");
+                obj.put("errorMessage", "[QuestionAnalysis] No available useful words.");
+                return obj;
+            }
+            String tmp_fact = q_analysis.extractFact(useful_words);
+
+            HashMap<String, String> useful_words_pos = QuestionAnalysis.getLemmatizedTokens(tmp_fact);
+            System.out.println(useful_words_pos);
+
+            ExtJWNL jwnl = null;
+            try {
+                jwnl = new ExtJWNL();
+            } catch (JWNLException ex) {
+                Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //uncomment if we want only the lemmatized version of the useful words
+            //useful_words = new HashSet<>();
+            for (ArrayList<String> lala : jwnl.getDerived(useful_words_pos).values()) {
+                useful_words.addAll(lala);
+            }
+            //System.out.println(jwnl.getDerived(useful_words_pos));
+
+            //useful_words = useful_words_pos.keySet();
             obj.put("useful_words", useful_words);
+            if (useful_words.isEmpty()) {
+                // CHECK IF IT IS EMPTY
+                obj.put("status", "error");
+                obj.put("errorMessage", "[QuestionAnalysis] No available lemmatized useful words.");
+                return obj;
+            }
 
             String fact = q_analysis.extractFact(useful_words);
 
