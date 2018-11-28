@@ -99,7 +99,7 @@ public class AnswerExtraction {
         // Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched relations: {0}", matched_relations);
 
         ArrayList<JSONObject> matched_triples = extractMatchedTriples(matched_relations, this.candidate_triples);
-        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
 
         //(TODO) Here we can check the entities and then retrieve the topScored
         JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
@@ -280,6 +280,7 @@ public class AnswerExtraction {
     private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
         ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
         triplesWithCorrectEntities = getMaxScoredTriples(triplesWithCorrectEntities);
+        System.out.println(triplesWithCorrectEntities);
         if (triplesWithCorrectEntities.isEmpty()) {
             // If not both subject and object matched, then the answer is no
             JSONObject tmp_ans = new JSONObject();
@@ -425,11 +426,12 @@ public class AnswerExtraction {
                             break;
                         }
                     }
-                    if (numOfMatches >= 1) {
-                        triple.put("matches", matches);
-                        triplesWithCorrectEntities.add(triple);
-                        break;
-                    }
+
+                }
+                if (numOfMatches >= 1) {
+                    triple.put("matches", matches);
+                    triplesWithCorrectEntities.add(triple);
+
                 }
                 numOfMatches = 0;
             } catch (JSONException ex) {
