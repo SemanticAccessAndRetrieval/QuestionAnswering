@@ -10,7 +10,10 @@
 package gr.forth.ics.isl.demoExternal.core;
 
 import com.google.gson.Gson;
+import static gr.forth.ics.isl.demoExternal.core.QuestionAnalysis.getCleanTokensWithPos;
+import gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.chanel;
+import gr.forth.ics.isl.nlp.externalTools.ExtJWNL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.sf.extjwnl.JWNLException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -35,17 +39,123 @@ public class AnswerExtraction {
 
     private ArrayList<JSONObject> candidate_triples;
 
+    private Set<String> useful_words;
+
     public ArrayList<JSONObject> getCandidateTriples() {
         return this.candidate_triples;
+    }
+
+    public Set<String> getUsefulWords() {
+        return this.useful_words;
+    }
+
+    public void setUsefulWords(Set<String> usef_words) {
+        this.useful_words = usef_words;
     }
 
     public void setCandidateTriples(ArrayList<JSONObject> triples) {
         this.candidate_triples = triples;
     }
 
+    public HashSet<String> extractUsefulWords(String question, String question_type, Set<String> entities) {
+
+        // For definition question we search for certain tags e.g. comment, description, abstract
+        // These tags should be included in the useful_words set
+        if (question_type.equalsIgnoreCase("definition")) {
+            HashSet<String> usef_words = new HashSet<>(AnswerExtraction.definition_relations);
+            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
+            return usef_words;
+        }
+
+        HashSet<String> usef_words = extractUsefulWordsWithoutEntityWords(question, entities);
+
+        if (!usef_words.isEmpty()) {
+            usef_words = extractExpandedUsefulWordsWithWordnet(usef_words);
+        }
+        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
+        return usef_words;
+    }
+
+    private HashSet<String> extractUsefulWordsWithoutEntityWords(String question, Set<String> entities) {
+        // Get clean question words with PartOfSpeech tags
+        HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
+
+        HashSet<String> final_useful_words = new HashSet<>(clean_query_with_POS.keySet());
+
+        HashSet<String> stop_words = new HashSet<>();
+
+        // Find all single char words and store them
+        for (String word : final_useful_words) {
+            if (word.length() == 1) {
+                stop_words.add(word);
+            }
+        }
+
+        // Remove all single char useful words
+        final_useful_words.removeAll(stop_words);
+
+        if (question.toLowerCase().startsWith("where")) {
+            final_useful_words.add("place");
+        }
+
+        HashSet<String> entities_words = new HashSet<>();
+
+        // Find all entity words and store them
+        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
+        for (String word : entities) {
+            for (String w : word.split(" ")) {
+                entities_words.add(w.replaceAll("[^a-zA-Z ]", "").toLowerCase().trim());
+            }
+        }
+
+        // Remove all entity words
+        final_useful_words.removeAll(entities_words);
+
+        return final_useful_words;
+
+    }
+
+    private HashSet<String> extractExpandedUsefulWordsWithWordnet(HashSet<String> words) {
+        String tmp_fact = extractFact(words);
+
+        HashMap<String, String> useful_words_pos = QuestionAnalysis.getLemmatizedTokens(tmp_fact);
+        System.out.println(useful_words_pos);
+
+        ExtJWNL jwnl = null;
+        try {
+            jwnl = new ExtJWNL();
+        } catch (JWNLException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (ArrayList<String> derived : jwnl.getDerived(useful_words_pos).values()) {
+            words.addAll(derived);
+        }
+
+        return words;
+    }
+
+    public String extractFact(Set<String> words) {
+        String fact_str = "";
+
+        // Concat all word in useful_words to construct a fact
+        for (String word : words) {
+            fact_str += word + " ";
+        }
+        fact_str = fact_str.trim();
+
+        return fact_str;
+    }
+
     public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
+
+        // If there are no available useful words
+        if (numOfUsefulWords == 0) {
+            this.candidate_triples = cand_facts;
+            return;
+        }
 
         String max_entity = getEntityWithMaxCardinality(entity_URI);
 

@@ -11,6 +11,7 @@ package gr.forth.ics.isl.demoExternal.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,30 +45,70 @@ public class ModulesErrorHandling {
             }
         }
 
-        Set<String> corenlp_entities = q_a.getCorenlpEntities();
-        HashMap<String, String> spotlight_entities_uris = q_a.getSpotlightEntitiesUris();
+        try {
+            answer.put("status", "ok");
+        } catch (JSONException ex) {
+            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return answer;
+    }
+
+    public static JSONObject entitiesDetectionErrorHandling(EntitiesDetection e_d) {
+        JSONObject answer = new JSONObject();
+
+        Set<String> corenlp_entities = e_d.getCorenlpEntities();
+        HashMap<String, String> spotlight_entities_uris = e_d.getSpotlightEntitiesUris();
         if (corenlp_entities.isEmpty() && spotlight_entities_uris.isEmpty()) {
             try {
                 answer.put("status", "error");
-                answer.put("message", "[QuestionAnalysis] No Named Entities recognized.");
+                answer.put("message", "[EntitiesDetection] No Named Entities recognized.");
                 return answer;
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
-                answer.put("question_entities", corenlp_entities);
+                HashSet<String> question_entities = new HashSet<>();
+                question_entities.addAll(corenlp_entities);
+                question_entities.addAll(spotlight_entities_uris.keySet());
+                answer.put("question_entities", question_entities);
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        Set<String> useful_words = q_a.getUsefulWords();
+        HashMap<String, String> entities_URIs = e_d.getFinalEntitiesWithURIs();
+
+        if (entities_URIs.isEmpty()) {
+            try {
+                answer.put("status", "error");
+                answer.put("message", "[EntitiesDetection] No retrieved named entities.");
+                return answer;
+            } catch (JSONException ex) {
+                Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        try {
+            answer.put("question_entities", entities_URIs.keySet());
+            answer.put("retrievedEntities", entities_URIs);
+            answer.put("status", "ok");
+        } catch (JSONException ex) {
+            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return answer;
+
+    }
+
+    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e) {
+        JSONObject answer = new JSONObject();
+
+        Set<String> useful_words = a_e.getUsefulWords();
 
         if (useful_words.isEmpty()) {
             try {
                 answer.put("status", "error");
-                answer.put("message", "[QuestionAnalysis] No available useful words.");
+                answer.put("message", "[AnswerExtraction] No available useful words.");
                 return answer;
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,55 +121,6 @@ public class ModulesErrorHandling {
             }
         }
 
-        try {
-            answer.put("status", "ok");
-        } catch (JSONException ex) {
-            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return answer;
-    }
-
-    public static JSONObject entitiesDetectionErrorHandling(EntitiesDetection e_d) {
-        JSONObject answer = new JSONObject();
-
-        HashMap<String, ArrayList<String>> entity_candidateURIs = e_d.getEntitiesWithCandidateURIs();
-        ArrayList<String> cand_URIs;
-
-        // If we don't have a uri for an entity we cannot deliver any answer!
-        for (String entity : entity_candidateURIs.keySet()) {
-            cand_URIs = entity_candidateURIs.get(entity);
-            if (cand_URIs == null) {
-                try {
-                    answer.put("status", "error");
-                    answer.put("message", "[EntitiesDetection] No retrieved URIs for entity: " + entity + ". Error while querying LODSyndesis.");
-                    return answer;
-                } catch (JSONException ex) {
-                    Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (cand_URIs.isEmpty()) {
-
-                try {
-                    answer.put("status", "error");
-                    answer.put("message", "[EntitiesDetection] No retrieved URIs for entity: " + entity + ". Zero URIs retrieved from LODSyndesis.");
-                    return answer;
-                } catch (JSONException ex) {
-                    Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        try {
-            answer.put("retrievedEntities", entity_candidateURIs);
-            answer.put("status", "ok");
-        } catch (JSONException ex) {
-            Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return answer;
-
-    }
-
-    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e) {
-        JSONObject answer = new JSONObject();
         ArrayList<JSONObject> cand_triples = a_e.getCandidateTriples();
         if (cand_triples == null || cand_triples.isEmpty()) {
             try {

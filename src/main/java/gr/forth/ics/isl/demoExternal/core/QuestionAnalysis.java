@@ -15,20 +15,11 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.semgraph.SemanticGraph;
-import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.trees.TypedDependency;
-import edu.stanford.nlp.util.CoreMap;
-import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.compounds_pipeline;
-import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.entityMentions_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.lemma_pipeline;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.split_pipeline;
-import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.spotlight;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnetResources;
 import static gr.forth.ics.isl.demoExternal.main.ExternalKnowledgeDemoMain.wordnet_dict;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
-import gr.forth.ics.isl.nlp.externalTools.models.AnnotationUnit;
-import gr.forth.ics.isl.nlp.externalTools.models.ResourceItem;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,8 +28,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,15 +38,7 @@ import java.util.logging.Logger;
 public class QuestionAnalysis {
 
     private String question;
-    // Store the useful words of the question
-    private Set<String> useful_words;
-    // Store the text of the NE (recognized by SCNLP)
-    private Set<String> corenlp_entities;
-    // Store the text and the uri of the NE (recognized by DBPediaSpotlight)
-    private HashMap<String, String> spotlight_entities_uris;
-    // Store the concatenation of useful_words to retrieve cand. triples from LODSyndesis
-    private String fact = "";
-
+    // Store the question type (factoid, confirmation, definition)
     private String question_type = "";
 
     public QuestionAnalysis() {
@@ -68,44 +49,12 @@ public class QuestionAnalysis {
         return question;
     }
 
-    public Set<String> getUsefulWords() {
-        return useful_words;
-    }
-
-    public Set<String> getCorenlpEntities() {
-        return corenlp_entities;
-    }
-
-    public HashMap<String, String> getSpotlightEntitiesUris() {
-        return spotlight_entities_uris;
-    }
-
-    public String getFact() {
-        return fact;
-    }
-
     public String getQuestionType() {
         return question_type;
     }
 
     public void setQuestion(String quest) {
         this.question = quest;
-    }
-
-    public void setUsefulWords(Set<String> words) {
-        this.useful_words = words;
-    }
-
-    public void setCorenlpEntities(Set<String> entities) {
-        this.corenlp_entities = entities;
-    }
-
-    public void setSpotlightEntitiesUris(HashMap<String, String> entities_uris) {
-        this.spotlight_entities_uris = entities_uris;
-    }
-
-    public void setFact(String fact) {
-        this.fact = fact;
     }
 
     public void setQuestionType(String q_type) {
@@ -117,29 +66,11 @@ public class QuestionAnalysis {
         this.question = extractCleanQuestion(question);
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Clean Question: {0}", this.question);
 
-        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = extractEntitiesWithType(this.question);
-        this.corenlp_entities = word_NamedEntity.keySet();
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====CoreNLP Named Entities: {0}", word_NamedEntity);
+        Set<String> other_words = extractOtherWords(this.question);
 
-        // Extract the Named Entities from the question with their corresponding dbpedia uri
-        HashMap<String, String> cand_entities_uris = extractEntitiesWithSpotlight(this.question);
-        this.spotlight_entities_uris = cand_entities_uris;
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "=====Spotlight Named Entities: {0}", cand_entities_uris);
-
-        useful_words = extractUsefulWords(this.question, new HashSet<>());
-
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Useful_words: {0}", useful_words);
-
-        question_type = identifyQuestionType(this.question.toLowerCase(), this.useful_words);
+        question_type = identifyQuestionType(this.question.toLowerCase(), other_words);
 
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "===== Question Type: {0}", question_type);
-
-        // For definition question we search for certain tags e.g. comment, description, abstract
-        // These tags should be included in the useful_words set
-        if (question_type.equals("definition")) {
-            useful_words = new HashSet<>(AnswerExtraction.definition_relations);
-        }
     }
 
     public String extractCleanQuestion(String question) {
@@ -151,75 +82,7 @@ public class QuestionAnalysis {
         return question;
     }
 
-    public String extractFact(Set<String> words) {
-        String fact_str = "";
-
-        // Concat all word in useful_words to construct a fact
-        for (String word : words) {
-            fact_str += word + " ";
-        }
-        fact_str = fact_str.trim();
-
-        return fact_str;
-    }
-
-    public HashMap<String, String> extractEntitiesWithType(String question) {
-        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = getEntityMentionsWithNer(question);
-
-        HashMap<String, String> word_compounded = extractCompoundWords(question);
-
-        // Replace entity with its compounded form, if it exists
-        // e.g. entity = Hunaydi, compounded_entity = Hunyadi family
-        HashMap<String, String> compound_word_NamedEntity = new HashMap<>();
-        for (String word : word_NamedEntity.keySet()) {
-            if (word_compounded.containsKey(word)) {
-                compound_word_NamedEntity.put(word_compounded.get(word), word_NamedEntity.get(word));
-            } else {
-                compound_word_NamedEntity.put(word, word_NamedEntity.get(word));
-            }
-        }
-
-        // Remove the first word of multi-word entities if they start with a stop-word
-        HashMap<String, String> clean_word_NamedEntity = new HashMap<>();
-        for (String entity : compound_word_NamedEntity.keySet()) {
-            String[] entity_words = entity.split(" ");
-
-            if (entity_words.length > 1 && StringUtils.isStopWord(entity_words[0].toLowerCase())) {
-                String tmp_entity = "";
-                for (int i = 1; i < entity_words.length; i++) {
-                    tmp_entity += entity_words[i] + " ";
-                }
-                clean_word_NamedEntity.put(tmp_entity.trim(), compound_word_NamedEntity.get(entity));
-            } else {
-                clean_word_NamedEntity.put(entity, compound_word_NamedEntity.get(entity));
-            }
-        }
-
-        return clean_word_NamedEntity;
-    }
-
-    public HashMap<String, String> extractEntitiesWithSpotlight(String question) {
-        try {
-            AnnotationUnit annotationUnit; // keeps the returned annotations
-
-            annotationUnit = spotlight.get(question); // annotate
-            HashMap<String, String> entity_uri = new HashMap<>();
-            if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
-                for (ResourceItem tmp_resource : annotationUnit.getResources()) {
-                    if (!tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("time zone") && !tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("city")) {
-                        entity_uri.put(tmp_resource.getSurfaceForm().toLowerCase(), tmp_resource.getUri());
-                    }
-                }
-            }
-            return entity_uri;
-        } catch (IOException ex) {
-            Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new HashMap<>();
-    }
-
-    public HashSet<String> extractUsefulWords(String question, Set<String> entities) {
+    public static HashSet<String> extractOtherWords(String question) {
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
 
@@ -236,19 +99,6 @@ public class QuestionAnalysis {
 
         // Remove all single char useful words
         final_useful_words.removeAll(stop_words);
-
-        HashSet<String> entities_words = new HashSet<>();
-
-        // Find all entity words and store them
-        // We split each identified Named entity to catch also multi-word named entities e.g. Golden Pavilion
-        for (String word : entities) {
-            for (String w : word.split(" ")) {
-                entities_words.add(w.replaceAll("[^a-zA-Z ]", "").toLowerCase().trim());
-            }
-        }
-
-        // Remove all entity words
-        final_useful_words.removeAll(entities_words);
 
         return final_useful_words;
     }
@@ -341,123 +191,6 @@ public class QuestionAnalysis {
 
         return lemmas_pos;
 
-    }
-
-    public static HashMap<String, String> getEntityMentionsWithNer(String text) {
-
-        //apply
-        Annotation document = new Annotation(text);
-
-        entityMentions_pipeline.annotate(document);
-
-        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-
-        HashMap<String, String> entityMention_ner = new HashMap<>();
-
-        //For each sentence
-        for (CoreMap sentence : sentences) {
-            for (CoreMap entityMention : sentence.get(CoreAnnotations.MentionsAnnotation.class)) {
-                entityMention_ner.put(entityMention.toString().trim(), entityMention.get(CoreAnnotations.EntityTypeAnnotation.class).trim());
-            }
-        }
-        return entityMention_ner;
-    }
-
-    public static HashMap<String, String> extractCompoundWords(String text) {
-
-        HashMap<String, String> word_pos = getTokensWithPos(text);
-
-        //apply
-        Annotation document = new Annotation(text);
-
-        compounds_pipeline.annotate(document);
-
-        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-
-        TreeMap<Integer, String> index_word;
-        TreeMap<String, Integer> word_index;
-        HashMap<String, TreeSet<Integer>> word_compounds_indices;
-        //For each sentence
-        for (CoreMap sentence : sentences) {
-            SemanticGraph semanticGraph = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
-
-            index_word = new TreeMap<>();
-            word_index = new TreeMap<>();
-            // Iterate over all the typed dependencies to extract two Maps
-            // 1) <word, index in sentence>, 2) <index in sentence,word>
-            for (TypedDependency das : semanticGraph.typedDependencies()) {
-                int dep_id = das.dep().index();
-                if (dep_id != 0 && !index_word.containsKey(dep_id)) {
-                    index_word.put(dep_id, das.dep().word().trim());
-                    word_index.put(das.dep().word().trim(), dep_id);
-                }
-
-                int gov_id = das.gov().index();
-                if (gov_id != 0 && !index_word.containsKey(gov_id)) {
-                    index_word.put(gov_id, das.gov().word().trim());
-                    word_index.put(das.gov().word().trim(), gov_id);
-                }
-            }
-
-            word_compounds_indices = new HashMap<>();
-            // Iterate over all the typed dependencies to find all compound relations e.g. compound(Hunaydi,family) => Hunaydi family
-            // We construct a hashmap with keys all the words which appear as 1st argument in a compound relation
-            // and as value a TreeSet of word indices, useful to construct the compounded string
-            for (TypedDependency das : semanticGraph.typedDependencies()) {
-                if (das.reln().getShortName().equalsIgnoreCase("compound")) {
-                    // We extract the text of the 1st and 2nd argument of the compound
-                    // as well as their indices in the sentence
-                    String dep = das.dep().word().trim();
-                    int dep_index = das.dep().index();
-                    String gov = das.gov().word().trim();
-                    int gov_index = das.gov().index();
-
-                    // If the hashmap already contains this word, we update the corresponding treeset of indices
-                    if (word_compounds_indices.containsKey(dep)) {
-                        TreeSet<Integer> tmp_ind = word_compounds_indices.get(dep);
-                        int start_index = dep_index + 1;
-                        int end_index = gov_index;
-                        // if the compound words are not consecutive words, we include also the indices of the words between them
-                        for (int ind = start_index; ind <= end_index; ind++) {
-                            tmp_ind.add(ind);
-                        }
-                        word_compounds_indices.replace(dep, tmp_ind);
-                    } else {
-                        TreeSet<Integer> tmp_ind = new TreeSet<>();
-                        int start_index = dep_index + 1;
-                        int end_index = gov_index;
-                        for (int ind = start_index; ind <= end_index; ind++) {
-                            tmp_ind.add(ind);
-                        }
-                        word_compounds_indices.put(dep, tmp_ind);
-                    }
-                }
-            }
-
-            HashMap<String, String> word_compounded = new HashMap<>();
-            for (String word : word_compounds_indices.keySet()) {
-                int head_word_index = word_index.get(word);
-                int last_word_index = word_compounds_indices.get(word).last();
-                String tmp_comp = index_word.get(head_word_index) + " ";
-
-                for (int index : word_compounds_indices.get(word)) {
-                    if (index == last_word_index) {
-                        String tmp_word = index_word.get(index);
-                        if (!word_pos.get(tmp_word.toLowerCase()).toLowerCase().startsWith("vb")) {
-                            tmp_comp += index_word.get(index) + " ";
-                        }
-                    } else {
-                        tmp_comp += index_word.get(index) + " ";
-                    }
-                    //System.out.println(index);
-                }
-
-                word_compounded.put(word, tmp_comp.trim());
-            }
-
-            return word_compounded;
-        }
-        return null;
     }
 
     public static HashMap<String, String> getTokensWithPos(String text) {
