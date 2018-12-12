@@ -94,9 +94,11 @@ public class AnswerExtraction {
         // Remove all single char useful words
         final_useful_words.removeAll(stop_words);
 
+        /*
         if (question.toLowerCase().startsWith("where")) {
             final_useful_words.add("place");
         }
+         */
 
         HashSet<String> entities_words = new HashSet<>();
 

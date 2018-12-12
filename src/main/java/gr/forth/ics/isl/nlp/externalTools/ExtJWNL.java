@@ -97,7 +97,42 @@ public class ExtJWNL {
 
             if (tmp_word_pos.toString().equalsIgnoreCase("verb")) {
                 try {
-                    IndexWord nounIW = this.dictionary.lookupIndexWord(POS.VERB, token);
+                    IndexWord verbIW = this.dictionary.lookupIndexWord(POS.VERB, token);
+
+                    if (verbIW == null) {
+                        ArrayList<String> syn = new ArrayList<>();
+                        syn.addAll(tmp);
+                        word_synset.put(token, syn);
+                        continue;
+                    }
+
+                    List<Synset> senses = verbIW.getSenses();
+
+                    Synset mainSense = senses.get(0);
+
+                    List<Pointer> pointers = mainSense.getPointers(PointerType.DERIVATION);
+
+                    for (Pointer pointer : pointers) {
+                        Synset derivedSynset = pointer.getTargetSynset();
+                        if (derivedSynset.getPOS() == POS.ADJECTIVE) {
+                            //System.out.println(derivedSynset.getWords());
+                            // tmp.add(derivedSynset.getWords().get(0).getLemma());
+                        }
+                        if (derivedSynset.getPOS() == POS.NOUN) {
+                            //System.out.println(derivedSynset.getWords());
+                            tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
+                        }
+                    }
+
+                    ArrayList<String> syn = new ArrayList<>();
+                    syn.addAll(tmp);
+                    word_synset.put(token, syn);
+                } catch (JWNLException ex) {
+                    Logger.getLogger(ExtJWNL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (tmp_word_pos.toString().equalsIgnoreCase("noun")) {
+                try {
+                    IndexWord nounIW = this.dictionary.lookupIndexWord(POS.NOUN, token);
 
                     if (nounIW == null) {
                         ArrayList<String> syn = new ArrayList<>();
@@ -118,7 +153,7 @@ public class ExtJWNL {
                             //System.out.println(derivedSynset.getWords());
                             // tmp.add(derivedSynset.getWords().get(0).getLemma());
                         }
-                        if (derivedSynset.getPOS() == POS.NOUN) {
+                        if (derivedSynset.getPOS() == POS.VERB) {
                             //System.out.println(derivedSynset.getWords());
                             tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
                         }
