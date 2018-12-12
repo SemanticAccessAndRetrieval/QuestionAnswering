@@ -38,7 +38,7 @@ public class ExternalEvaluator {
     public static void main(String[] args) throws IOException, JSONException {
         ExternalKnowledgeDemoMain.initializeToolsAndResources("WNHOME");
 
-        TreeMap<Integer, String> questionId_question;
+            TreeMap<Integer, String> questionId_question;
 
         questionId_question = readQuestionsFile("questions");
 
@@ -150,7 +150,8 @@ public class ExternalEvaluator {
         int unanswered = 0;
         for (int question_id : questionId_question.keySet()) {
             if (question_id > start_question_id) {
-                if (question_id == 289) {
+                if (question_id == 289 || question_id == 240 || question_id == 224) {
+                    //if (question_id == 133 || question_id == 159 || question_id == 165) {
                     continue;
                 }
                 System.out.println("==== Question_id: " + question_id + "====");
@@ -278,6 +279,7 @@ public class ExternalEvaluator {
                 String message = obj.getString("errorMessage");
 
                 if (message.equalsIgnoreCase("[QuestionAnalysis] Unrecognized type of question.")) {
+                    System.out.println(obj.getString("question"));
                     no_question_type++;
                 } else if (message.equalsIgnoreCase("[QuestionAnalysis] No Named Entities recognized.")) {
                     //System.out.println(obj.getString("question"));
@@ -446,13 +448,13 @@ public class ExternalEvaluator {
         // ==== Question Analysis Step ====
         QuestionAnalysis q_analysis = new QuestionAnalysis();
         question = q_analysis.extractCleanQuestion(question);
-
+        EntitiesDetection e_detection = new EntitiesDetection();
         if (tool.equalsIgnoreCase("dbpedia")) {
-            HashMap<String, String> cand_entities_uris = q_analysis.extractEntitiesWithSpotlight(question);
+            HashMap<String, String> cand_entities_uris = e_detection.extractEntitiesWithSpotlight(question);
 
             if (cand_entities_uris.isEmpty()) {
                 // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-                HashMap<String, String> word_NamedEntity = q_analysis.extractEntitiesWithType(question);
+                HashMap<String, String> word_NamedEntity = e_detection.extractCorenlpEntitiesWithType(question);
 
                 if (word_NamedEntity.isEmpty()) {
                     System.out.println(question_id + "\t" + question + "\t" + word_NamedEntity + "\t" + "[dbpedia][corenlp] [noEntities][noEntities]");
@@ -462,7 +464,7 @@ public class ExternalEvaluator {
                     EntitiesDetection entities_detection = new EntitiesDetection();
 
                     // Retrieve for each entity its candidate URIs from LODSyndesis
-                    entities_detection.retrieveCandidateEntityURIs(word_NamedEntity.keySet());
+                    entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
 
                     JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
@@ -479,7 +481,7 @@ public class ExternalEvaluator {
                     } else {
 
                         // Hashmap to store each entity and the selected URI (the highest scored)
-                        HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(word_NamedEntity.keySet());
+                        HashMap<String, String> entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
 
                         System.out.println(question_id + "\t" + question + "\t" + entity_URI + "\t" + "[dbpedia][corenlp] [noEntities]");
                         return entity_URI;
@@ -491,10 +493,10 @@ public class ExternalEvaluator {
             }
         } else if (tool.equalsIgnoreCase("coreNLP")) {
             // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-            HashMap<String, String> word_NamedEntity = q_analysis.extractEntitiesWithType(question);
+            HashMap<String, String> word_NamedEntity = e_detection.extractCorenlpEntitiesWithType(question);
 
             if (word_NamedEntity.isEmpty()) {
-                HashMap<String, String> cand_entities_uris = q_analysis.extractEntitiesWithSpotlight(question);
+                HashMap<String, String> cand_entities_uris = e_detection.extractEntitiesWithSpotlight(question);
                 if (cand_entities_uris.isEmpty()) {
                     System.out.println(question_id + "\t" + question + "\t" + cand_entities_uris + "\t" + "[corenlp][dbpedia] [noEntities][noEntities]");
                 } else {
@@ -506,7 +508,7 @@ public class ExternalEvaluator {
                 EntitiesDetection entities_detection = new EntitiesDetection();
 
                 // Retrieve for each entity its candidate URIs from LODSyndesis
-                entities_detection.retrieveCandidateEntityURIs(word_NamedEntity.keySet());
+                entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
 
                 JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
@@ -518,7 +520,7 @@ public class ExternalEvaluator {
                 }
 
                 if (status.equalsIgnoreCase("error")) {
-                    HashMap<String, String> cand_entities_uris = q_analysis.extractEntitiesWithSpotlight(question);
+                    HashMap<String, String> cand_entities_uris = entities_detection.extractEntitiesWithSpotlight(question);
                     if (cand_entities_uris.isEmpty()) {
                         System.out.println(question_id + "\t" + question + "\t" + cand_entities_uris + "\t" + "[corenlp][dbpedia] [noEntitiesLOD][noEntities]");
                     } else {
@@ -529,7 +531,7 @@ public class ExternalEvaluator {
                 } else {
 
                     // Hashmap to store each entity and the selected URI (the highest scored)
-                    HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(word_NamedEntity.keySet());
+                    HashMap<String, String> entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
 
                     System.out.println(question_id + "\t" + question + "\t" + entity_URI + "\t" + "[corenlp][corenlp]");
                     return entity_URI;
@@ -539,8 +541,8 @@ public class ExternalEvaluator {
         } else {
 
             // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-            HashMap<String, String> word_NamedEntity = q_analysis.extractEntitiesWithType(question);
-            HashMap<String, String> cand_entities_uris = q_analysis.extractEntitiesWithSpotlight(question);
+            HashMap<String, String> word_NamedEntity = e_detection.extractCorenlpEntitiesWithType(question);
+            HashMap<String, String> cand_entities_uris = e_detection.extractEntitiesWithSpotlight(question);
 
             if (word_NamedEntity.isEmpty() && cand_entities_uris.isEmpty()) {
                 System.out.println(question_id + "\t" + question + "\t" + cand_entities_uris + "\t" + "[corenlp-both] [noEntities][noEntities]");
@@ -553,7 +555,7 @@ public class ExternalEvaluator {
                 EntitiesDetection entities_detection = new EntitiesDetection();
 
                 // Retrieve for each entity its candidate URIs from LODSyndesis
-                entities_detection.retrieveCandidateEntityURIs(word_NamedEntity.keySet());
+                entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
 
                 JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
@@ -569,7 +571,7 @@ public class ExternalEvaluator {
                     return new HashMap<>();
                 } else {
                     // Hashmap to store each entity and the selected URI (the highest scored)
-                    HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(word_NamedEntity.keySet());
+                    HashMap<String, String> entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
                     System.out.println(question_id + "\t" + question + "\t" + entity_URI + "\t" + "[corenlp-both] [][noEntities]");
                     return entity_URI;
                 }
@@ -578,7 +580,7 @@ public class ExternalEvaluator {
                 EntitiesDetection entities_detection = new EntitiesDetection();
 
                 // Retrieve for each entity its candidate URIs from LODSyndesis
-                entities_detection.retrieveCandidateEntityURIs(word_NamedEntity.keySet());
+                 entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
 
                 JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
@@ -594,9 +596,9 @@ public class ExternalEvaluator {
                     return cand_entities_uris;
                 } else {
                     // Hashmap to store each entity and the selected URI (the highest scored)
-                    HashMap<String, String> entity_URI = entities_detection.getMatchingURIs(word_NamedEntity.keySet());
+                    HashMap<String, String> entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
 
-                    HashMap<String, String> combined_entities = EntitiesDetection.extractCombinedEntities(question, entity_URI, cand_entities_uris);
+                    HashMap<String, String> combined_entities = entities_detection.extractCombinedEntities(question, entity_URI, cand_entities_uris);
                     System.out.println(question_id + "\t" + question + "\t" + combined_entities + "\t" + "[corenlp-both]");
 
                     return combined_entities;
