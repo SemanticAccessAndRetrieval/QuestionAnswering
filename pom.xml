@@ -123,6 +123,20 @@
         </dependency>
         <!-- end -->
         
+        <!-- Apache Jena -->
+        <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+        <!-- end -->
+        
         <!-- deeplearning4j -->
         <dependency>
             <groupId>org.deeplearning4j</groupId>
