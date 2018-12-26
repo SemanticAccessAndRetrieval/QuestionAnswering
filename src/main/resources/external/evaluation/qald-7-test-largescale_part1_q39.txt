@@ -1,0 +1,7 @@
+39	false	false	false	When was the Albany Municipal Auditorium built?	num	[1915^^http://www.w3.org/2001/XMLSchema#integer]
+39	false	false	false	When was the Chinese Society Halls on Maui built?	num	[various^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString]
+39	false	false	false	When was the Leonis Adobe built?	num	[1874^^http://www.w3.org/2001/XMLSchema#integer]
+39	false	false	false	When was the Meyer Theatre built?	num	[1930^^http://www.w3.org/2001/XMLSchema#integer]
+39	false	false	false	When was the Riverbank Laboratories built?	num	[1918^^http://www.w3.org/2001/XMLSchema#integer]
+39	false	false	false	When was the Ryman Auditorium built?	num	[1885^^http://www.w3.org/2001/XMLSchema#integer]
+39	false	false	false	When was the Williamson Field House built?	num	[February 1950-November 1951^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString]

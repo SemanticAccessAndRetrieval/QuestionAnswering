@@ -26,7 +26,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class ExternalDemoQaldTestSuit {
 
-    private static final String evalFileName = "qald-7-test-en-wikidata";
+    private static final String evalFileName = "qald-7-test-largescale_part1_q82";
     private static final String evalFileNameExtension = ".txt";
     private static final String filePath = "src/main/resources/external/evaluation/";
 

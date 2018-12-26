@@ -108,6 +108,18 @@ public class Utils {
                 ));
     }
 
+    public static <K, V extends Comparable<? super V>> Map<K, V> sortByValueReverseOrder(Map<K, V> map) {
+        return map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+    }
+
     public static void saveObject(Object result, String fileName) throws FileNotFoundException, IOException {
         // Write to disk with FileOutputStream
         FileOutputStream f_out = new FileOutputStream("src/main/resources/savedObjects/" + fileName + ".data");

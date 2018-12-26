@@ -1,0 +1,4 @@
+40	false	false	false	What is the ruling party in Bogor?	uri	[http://dbpedia.org/resource/Democratic_Party_(Indonesia)]
+40	false	false	false	What is the ruling party in Khandwa?	uri	[http://dbpedia.org/resource/Bharatiya_Janata_Party]
+40	false	false	false	What is the ruling party in Mundi?	uri	[http://dbpedia.org/resource/Bharatiya_Janata_Party]
+40	false	false	false	What is the ruling party in Pontevedra?	uri	[http://dbpedia.org/resource/PSdeG-PSOE]

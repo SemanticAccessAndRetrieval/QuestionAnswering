@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class ExternalExperiment1 {
 
-    private static final String fileName = "qald-7-test-multilingual_answers";
+    private static final String fileName = "qald-7-test-largescale_part1_q19_answers";
     private static final String fileExtension = ".txt";
     private static final String filePath = "src/main/resources/external/evaluation/";
 
@@ -59,6 +59,7 @@ public class ExternalExperiment1 {
             File file = new File(filePath + fileName + fileExtension);
             reader = new BufferedReader(new FileReader(file));
 
+            int cnt = 0;
             String line;
             while ((line = reader.readLine()) != null) {
 
@@ -67,14 +68,26 @@ public class ExternalExperiment1 {
                 Set<String> systemAns = new HashSet<String>(Arrays.asList(tuple[2].split(",")));
                 Set<String> goldAns = new HashSet<String>(Arrays.asList(tuple[3].substring(1, tuple[3].length() - 1).split(",")));
 
+                Set<String> systemAnsMapped = new HashSet<String>();
+
+                for (String ans : systemAns) {
+                    if (ans.equals("Yes!")) {
+                        systemAnsMapped.add("true");
+                    } else if (ans.equals("No!")) {
+                        systemAnsMapped.add("false");
+                    } else {
+                        systemAnsMapped.add(ans);
+                    }
+                }
 //                System.out.println("SA: " + systemAns);
 //                System.out.println("GA: " + goldAns);
 
-                Integer truePos = sumUpTruePositives(systemAns, goldAns);
-                Integer falsePos = sumUpFalsePositives(systemAns, goldAns);
-                Integer falseNeg = sumUpFalseNegatives(systemAns, goldAns);
+                Integer truePos = sumUpTruePositives(systemAnsMapped, goldAns);
+                Integer falsePos = sumUpFalsePositives(systemAnsMapped, goldAns);
+                Integer falseNeg = sumUpFalseNegatives(systemAnsMapped, goldAns);
                 Integer[] stats = {truePos, falsePos, falseNeg};
-                results.put(qId, stats);
+                results.put(qId + cnt, stats);
+                cnt++;
 
             }
 
