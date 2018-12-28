@@ -120,7 +120,11 @@ public class ExtJWNL {
                         }
                         if (derivedSynset.getPOS() == POS.NOUN) {
                             //System.out.println(derivedSynset.getWords());
-                            tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
+                            String tmp_noun = derivedSynset.getWords().get(0).getLemma().toLowerCase();
+                            for (String word : tmp_noun.split(" ")) {
+                                tmp.add(word.trim());
+                            }
+                            //tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
                         }
                     }
 
@@ -155,7 +159,12 @@ public class ExtJWNL {
                         }
                         if (derivedSynset.getPOS() == POS.VERB) {
                             //System.out.println(derivedSynset.getWords());
-                            tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
+                            String tmp_verb = derivedSynset.getWords().get(0).getLemma().toLowerCase();
+                            for (String word : tmp_verb.split(" ")) {
+                                tmp.add(word.trim());
+                            }
+
+                            //tmp.add(derivedSynset.getWords().get(0).getLemma().toLowerCase());
                         }
                     }
 

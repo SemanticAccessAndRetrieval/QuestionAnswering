@@ -25,6 +25,7 @@ import gr.forth.ics.isl.nlp.externalTools.models.ResourceItem;
 import gr.forth.ics.isl.utilities.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,6 +48,8 @@ public class EntitiesDetection {
     private HashMap<String, ArrayList<String>> corenlp_entities_cand_URIs;
     private HashMap<String, String> corenlp_entities_uris;
     private HashMap<String, String> final_entities_uris;
+
+    private ArrayList<String> dbpedia_blacklist = new ArrayList<>(Arrays.asList("time zone", "city", "area code"));
 
     public Set<String> getCorenlpEntities() {
         return corenlp_entities;
@@ -261,7 +264,7 @@ public class EntitiesDetection {
             HashMap<String, String> entity_uri = new HashMap<>();
             if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
                 for (ResourceItem tmp_resource : annotationUnit.getResources()) {
-                    if (!tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("time zone") && !tmp_resource.getSurfaceForm().toLowerCase().equalsIgnoreCase("city")) {
+                    if (!isInDBpediaBlackList(tmp_resource)) {
                         entity_uri.put(tmp_resource.getSurfaceForm().toLowerCase(), tmp_resource.getUri());
                     }
                 }
@@ -271,6 +274,14 @@ public class EntitiesDetection {
             Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new HashMap<>();
+    }
+
+    public boolean isInDBpediaBlackList(ResourceItem resource) {
+        String tmp_label = resource.getSurfaceForm().toLowerCase();
+        if (dbpedia_blacklist.contains(tmp_label)) {
+            return true;
+        }
+        return false;
     }
 
     public HashMap<String, String> extractEntitiesWithUris(String question) {

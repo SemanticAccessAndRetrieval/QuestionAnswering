@@ -99,7 +99,6 @@ public class AnswerExtraction {
             final_useful_words.add("place");
         }
          */
-
         HashSet<String> entities_words = new HashSet<>();
 
         // Find all entity words and store them
