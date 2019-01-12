@@ -91,16 +91,34 @@ public class EntitiesDetection {
         this.final_entities_uris = entities_final_URIs;
     }
 
-    public void identifyNamedEntities(String question) {
-        // Extract the Named Entities from the question with their type e.g. Location, Person etc.
-        HashMap<String, String> word_NamedEntity = extractCorenlpEntitiesWithType(question);
-        this.corenlp_entities = word_NamedEntity.keySet();
-        Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====CoreNLP Named Entities: {0}", word_NamedEntity);
+    public void identifyNamedEntities(String question, String tool) {
 
-        // Extract the Named Entities from the question with their corresponding dbpedia uri
-        HashMap<String, String> cand_entities_uris = extractEntitiesWithSpotlight(question);
-        this.spotlight_entities_uris = cand_entities_uris;
-        Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====Spotlight Named Entities: {0}", cand_entities_uris);
+        if (tool.equalsIgnoreCase("scnlp")) {
+            // Extract the Named Entities from the question with their type e.g. Location, Person etc.
+            HashMap<String, String> word_NamedEntity = extractCorenlpEntitiesWithType(question);
+            this.corenlp_entities = word_NamedEntity.keySet();
+            Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====CoreNLP Named Entities: {0}", word_NamedEntity);
+
+            this.spotlight_entities_uris = new HashMap<>();
+
+        } else if (tool.equalsIgnoreCase("dbpedia")) {
+            // Extract the Named Entities from the question with their corresponding dbpedia uri
+            HashMap<String, String> cand_entities_uris = extractEntitiesWithSpotlight(question);
+            this.spotlight_entities_uris = cand_entities_uris;
+            Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====Spotlight Named Entities: {0}", cand_entities_uris);
+
+            this.corenlp_entities = new HashSet<>();
+        } else {
+            // Extract the Named Entities from the question with their type e.g. Location, Person etc.
+            HashMap<String, String> word_NamedEntity = extractCorenlpEntitiesWithType(question);
+            this.corenlp_entities = word_NamedEntity.keySet();
+            Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====CoreNLP Named Entities: {0}", word_NamedEntity);
+
+            // Extract the Named Entities from the question with their corresponding dbpedia uri
+            HashMap<String, String> cand_entities_uris = extractEntitiesWithSpotlight(question);
+            this.spotlight_entities_uris = cand_entities_uris;
+            Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "=====Spotlight Named Entities: {0}", cand_entities_uris);
+        }
     }
 
     public HashMap<String, String> extractCorenlpEntitiesWithType(String question) {
@@ -284,13 +302,19 @@ public class EntitiesDetection {
         return false;
     }
 
-    public HashMap<String, String> extractEntitiesWithUris(String question) {
+    public HashMap<String, String> extractEntitiesWithUris(String question, String tool) {
+        // if both sets are empty, then return as final an empty set
         if (this.corenlp_entities.isEmpty() && this.spotlight_entities_uris.isEmpty()) {
             this.final_entities_uris = new HashMap<>();
             return this.final_entities_uris;
         }
 
-        if (!this.corenlp_entities.isEmpty()) {
+        if ((tool.equalsIgnoreCase("scnlp") && this.corenlp_entities.isEmpty()) || (tool.equalsIgnoreCase("dbpedia") && this.spotlight_entities_uris.isEmpty())) {
+            this.final_entities_uris = new HashMap<>();
+            return this.final_entities_uris;
+        }
+
+        if (tool.equalsIgnoreCase("scnlp") && !this.corenlp_entities.isEmpty()) {
             // Retrieve for each entity its candidate URIs from LODSyndesis
             retrieveCorenlpEntitiesCandidateURIs(this.corenlp_entities);
 
@@ -305,26 +329,54 @@ public class EntitiesDetection {
                 }
             }
             if (error) {
-                if (this.spotlight_entities_uris.isEmpty()) {
-                    this.final_entities_uris = new HashMap<>();
-                    return this.final_entities_uris;
-                } else {
-                    this.final_entities_uris = replaceOverlappingEntities(this.spotlight_entities_uris);
-                    return this.final_entities_uris;
-                }
+                this.final_entities_uris = new HashMap<>();
+                return this.final_entities_uris;
             } else {
                 this.corenlp_entities_uris = this.getMatchingCorenlpURIs(corenlp_entities);
-
-                if (this.spotlight_entities_uris.isEmpty()) {
-                    this.final_entities_uris = replaceOverlappingEntities(this.corenlp_entities_uris);
-                    return this.final_entities_uris;
-                } else {
-                    this.final_entities_uris = extractCombinedEntities(question, this.corenlp_entities_uris, this.spotlight_entities_uris);
-                }
+                this.final_entities_uris = replaceOverlappingEntities(this.corenlp_entities_uris);
+                return this.final_entities_uris;
             }
-        } else {
+        } else if (tool.equalsIgnoreCase("dbpedia") && !this.spotlight_entities_uris.isEmpty()) {
             this.final_entities_uris = replaceOverlappingEntities(this.spotlight_entities_uris);
             return this.final_entities_uris;
+        } else if (tool.equalsIgnoreCase("both")) {
+
+            if (!this.corenlp_entities.isEmpty()) {
+                // Retrieve for each entity its candidate URIs from LODSyndesis
+                retrieveCorenlpEntitiesCandidateURIs(this.corenlp_entities);
+
+                ArrayList<String> cand_URIs;
+                boolean error = false;
+                // Check if there is a problem
+                for (String entity : this.corenlp_entities_cand_URIs.keySet()) {
+                    cand_URIs = this.corenlp_entities_cand_URIs.get(entity);
+                    if (cand_URIs == null || cand_URIs.isEmpty()) {
+                        error = true;
+                        break;
+                    }
+                }
+                if (error) {
+                    if (this.spotlight_entities_uris.isEmpty()) {
+                        this.final_entities_uris = new HashMap<>();
+                        return this.final_entities_uris;
+                    } else {
+                        this.final_entities_uris = replaceOverlappingEntities(this.spotlight_entities_uris);
+                        return this.final_entities_uris;
+                    }
+                } else {
+                    this.corenlp_entities_uris = this.getMatchingCorenlpURIs(corenlp_entities);
+
+                    if (this.spotlight_entities_uris.isEmpty()) {
+                        this.final_entities_uris = replaceOverlappingEntities(this.corenlp_entities_uris);
+                        return this.final_entities_uris;
+                    } else {
+                        this.final_entities_uris = extractCombinedEntities(question, this.corenlp_entities_uris, this.spotlight_entities_uris);
+                    }
+                }
+            } else {
+                this.final_entities_uris = replaceOverlappingEntities(this.spotlight_entities_uris);
+                return this.final_entities_uris;
+            }
         }
         return this.final_entities_uris;
     }
@@ -340,7 +392,6 @@ public class EntitiesDetection {
         }
 
         //Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-matched URI: {0}", entity_URI);
-
         this.corenlp_entities_uris = entity_URI;
 
         return entity_URI;
@@ -356,7 +407,6 @@ public class EntitiesDetection {
         }
 
         //Logger.getLogger(EntitiesDetection.class.getName()).log(Level.INFO, "===== Entity-candidate URIs: {0}", entity_candidateURIs);
-
         this.corenlp_entities_cand_URIs = entity_candidateURIs;
     }
 
@@ -373,7 +423,6 @@ public class EntitiesDetection {
 
         return entity_equivalentURIs;
     }
-
 
     // Retrieve the best matching URI for the current entity
     public static String getTopScoredEntityURI(String entity, ArrayList<String> candidate_URIs) {

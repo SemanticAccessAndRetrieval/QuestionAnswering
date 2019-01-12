@@ -207,11 +207,11 @@ public class ExternalKnowledgeDemoMain {
 
             // ==== Entities Detection Step ====
             EntitiesDetection entities_detection = new EntitiesDetection();
-
+            String NEtool = "both";
             // identify NamedEntities in the question using SCNLP and Spotlight
-            entities_detection.identifyNamedEntities(question);
+            entities_detection.identifyNamedEntities(question, NEtool);
 
-            HashMap<String, String> entity_URI = entities_detection.extractEntitiesWithUris(question);
+            HashMap<String, String> entity_URI = entities_detection.extractEntitiesWithUris(question, NEtool);
 
             JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
@@ -225,8 +225,13 @@ public class ExternalKnowledgeDemoMain {
             // ==== Answer Extraction Step ====
             AnswerExtraction answer_extraction = new AnswerExtraction();
 
+            ArrayList<String> expansionResources = new ArrayList<>();
+            expansionResources.add("lemma");
+            expansionResources.add("verb");
+            expansionResources.add("noun");
+
             // Store the useful words of the question
-            Set<String> useful_words = answer_extraction.extractUsefulWords(question, question_type, entity_URI.keySet());
+            Set<String> useful_words = answer_extraction.extractUsefulWords(question, question_type, entity_URI.keySet(), expansionResources);
 
             answer_extraction.setUsefulWords(useful_words);
 

@@ -78,7 +78,7 @@ public class ExtJWNL {
         return null;
     }
 
-    public HashMap<String, ArrayList<String>> getDerived(HashMap<String, String> word_pos) {
+    public HashMap<String, ArrayList<String>> getDerived(HashMap<String, String> word_pos, ArrayList<String> expansionResources) {
 
         HashMap<String, ArrayList<String>> word_synset = new HashMap<>();
         for (String token : word_pos.keySet()) {
@@ -86,7 +86,10 @@ public class ExtJWNL {
             //Get the wordnet POS based on coreNLP POS
             edu.mit.jwi.item.POS tmp_word_pos = WordNet.getWordNetPos(tmp_pos);
             HashSet<String> tmp = new HashSet<>();
-            tmp.add(token);
+            // an 8eloume ta lemma? logika..
+            if (expansionResources.contains("lemma")) {
+                tmp.add(token);
+            }
 
             if (tmp_word_pos == null) {
                 ArrayList<String> syn = new ArrayList<>();
@@ -95,7 +98,8 @@ public class ExtJWNL {
                 continue;
             }
 
-            if (tmp_word_pos.toString().equalsIgnoreCase("verb")) {
+            // epipleon elegxos an 8eloume ta verbs antistoixa kai sto allo
+            if (tmp_word_pos.toString().equalsIgnoreCase("verb") && expansionResources.contains("verb")) {
                 try {
                     IndexWord verbIW = this.dictionary.lookupIndexWord(POS.VERB, token);
 
@@ -134,7 +138,7 @@ public class ExtJWNL {
                 } catch (JWNLException ex) {
                     Logger.getLogger(ExtJWNL.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else if (tmp_word_pos.toString().equalsIgnoreCase("noun")) {
+            } else if (tmp_word_pos.toString().equalsIgnoreCase("noun") && expansionResources.contains("noun")) {
                 try {
                     IndexWord nounIW = this.dictionary.lookupIndexWord(POS.NOUN, token);
 

@@ -57,7 +57,7 @@ public class AnswerExtraction {
         this.candidate_triples = triples;
     }
 
-    public HashSet<String> extractUsefulWords(String question, String question_type, Set<String> entities) {
+    public HashSet<String> extractUsefulWords(String question, String question_type, Set<String> entities, ArrayList<String> expansionResources) {
 
         // For definition question we search for certain tags e.g. comment, description, abstract
         // These tags should be included in the useful_words set
@@ -69,8 +69,8 @@ public class AnswerExtraction {
 
         HashSet<String> usef_words = extractUsefulWordsWithoutEntityWords(question, entities);
 
-        if (!usef_words.isEmpty()) {
-            usef_words = extractExpandedUsefulWordsWithWordnet(usef_words);
+        if (!usef_words.isEmpty() && !expansionResources.isEmpty()) {
+            usef_words = extractExpandedUsefulWordsWithWordnet(usef_words, expansionResources);
         }
         Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
         return usef_words;
@@ -116,7 +116,7 @@ public class AnswerExtraction {
 
     }
 
-    private HashSet<String> extractExpandedUsefulWordsWithWordnet(HashSet<String> words) {
+    private HashSet<String> extractExpandedUsefulWordsWithWordnet(HashSet<String> words, ArrayList<String> expansionResources) {
         String tmp_fact = extractFact(words);
 
         HashMap<String, String> useful_words_pos = QuestionAnalysis.getLemmatizedTokens(tmp_fact);
@@ -129,7 +129,7 @@ public class AnswerExtraction {
             Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (ArrayList<String> derived : jwnl.getDerived(useful_words_pos).values()) {
+        for (ArrayList<String> derived : jwnl.getDerived(useful_words_pos, expansionResources).values()) {
             words.addAll(derived);
         }
 
