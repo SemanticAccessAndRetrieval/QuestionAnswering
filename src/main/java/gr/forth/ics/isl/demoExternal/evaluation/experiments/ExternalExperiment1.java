@@ -28,9 +28,12 @@ import java.util.Set;
 
 public class ExternalExperiment1 {
 
-    private static final String fileName = "qald-7-test-largescale_part1_q19_answers";
+    private static final String fileName = "qald-7-test-largescale_part1_q82_answers";
     private static final String fileExtension = ".txt";
-    private static final String filePath = "src/main/resources/external/evaluation/";
+    //private static final String evalDirName = "combination";
+    //private static final String evalDirName = "scnlp";
+    private static final String evalDirName = "spotlight";
+    private static final String filePath = "src/main/resources/external/evaluation/" + evalDirName + "/";
 
     public static Integer sumUpTruePositives(Set<String> systemAns, Set<String> goldAns) {
         return Sets.intersection(systemAns, goldAns).size();
@@ -65,9 +68,12 @@ public class ExternalExperiment1 {
 
                 String[] tuple = line.split("\t");
                 String qId = tuple[0];
+                System.out.println(qId);
                 Set<String> systemAns = new HashSet<String>(Arrays.asList(tuple[2].split(",")));
+                System.out.println(systemAns);
                 Set<String> goldAns = new HashSet<String>(Arrays.asList(tuple[3].substring(1, tuple[3].length() - 1).split(",")));
-
+                System.out.println(goldAns);
+                System.out.println("");
                 Set<String> systemAnsMapped = new HashSet<String>();
 
                 for (String ans : systemAns) {

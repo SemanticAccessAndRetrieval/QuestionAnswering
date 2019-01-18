@@ -26,9 +26,17 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class ExternalDemoQaldTestSuit {
 
-    private static final String evalFileName = "qald-7-test-largescale_part1_q82";
+    private static final String evalFileName = "qald-7-test-largescale_part1_q19";
     private static final String evalFileNameExtension = ".txt";
-    private static final String filePath = "src/main/resources/external/evaluation/";
+    //private static final String filePath = "src/main/resources/external/evaluation/";
+    //private static final String evalDirName = "combination";
+    //private static final String evalDirName = "scnlp";
+    //private static final String evalDirName = "spotlight";
+    //private static final String evalDirName = "wo";
+    //private static final String evalDirName = "woLemma";
+    //private static final String evalDirName = "woVerb";
+    private static final String evalDirName = "woNoun";
+    private static final String filePath = "src/main/resources/external/evaluation/" + evalDirName + "/";
 
     public static void writeStringToFile(String fileName, String str, String sourceFileExtension, String targetFileExtension) throws IOException {
         fileName = fileName.replace(sourceFileExtension, sourceFileExtension);

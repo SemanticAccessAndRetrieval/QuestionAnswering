@@ -1,4 +1,0 @@
-40	What is the ruling party in Bogor?	No answer found!	[http://dbpedia.org/resource/Democratic_Party_(Indonesia)]
-40	What is the ruling party in Khandwa?	khandwa is a city and a nagar nigam in the nimar region of madhya pradesh, india. it is the administrative headquarters of khandwa district, formerly known as east nimar district.khandwa is an ancient city, with many places of worship, like many other cities in india. mostly they are hindu and jain temples. during the 12th century ad. it was a center of jainism. during british rule, it passed nearby burhanpur (now a separate district) as the main commercial centre of the nimaad region.	[http://dbpedia.org/resource/Bharatiya_Janata_Party]
-40	What is the ruling party in Mundi?	http://dbpedia.org/resource/Bharatiya_Janata_Party	[http://dbpedia.org/resource/Bharatiya_Janata_Party]
-40	What is the ruling party in Pontevedra?	mayor-council government|mayor-council	[http://dbpedia.org/resource/PSdeG-PSOE]

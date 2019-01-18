@@ -52,7 +52,7 @@ public class QaldEvalCollection {
 
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("src/main/resources/external/evaluation/" + fileName + fileExtention));
+            br = new BufferedReader(new FileReader("src/main/resources/external/evaluation/questionAnsPairs/" + fileName + fileExtention));
             try {
                 String line = br.readLine();
                 while (line != null) {

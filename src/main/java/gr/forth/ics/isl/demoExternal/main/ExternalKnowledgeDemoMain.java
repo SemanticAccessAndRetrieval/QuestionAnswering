@@ -208,6 +208,8 @@ public class ExternalKnowledgeDemoMain {
             // ==== Entities Detection Step ====
             EntitiesDetection entities_detection = new EntitiesDetection();
             String NEtool = "both";
+            //String NEtool = "scnlp";
+            //String NEtool = "dbpedia";
             // identify NamedEntities in the question using SCNLP and Spotlight
             entities_detection.identifyNamedEntities(question, NEtool);
 
@@ -228,7 +230,7 @@ public class ExternalKnowledgeDemoMain {
             ArrayList<String> expansionResources = new ArrayList<>();
             expansionResources.add("lemma");
             expansionResources.add("verb");
-            expansionResources.add("noun");
+            //expansionResources.add("noun");
 
             // Store the useful words of the question
             Set<String> useful_words = answer_extraction.extractUsefulWords(question, question_type, entity_URI.keySet(), expansionResources);

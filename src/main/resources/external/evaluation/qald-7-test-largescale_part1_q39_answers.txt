@@ -1,7 +1,0 @@
-39	When was the Albany Municipal Auditorium built?	1915	[1915^^http://www.w3.org/2001/XMLSchema#integer]
-39	When was the Chinese Society Halls on Maui built?	http://yago-knowledge.org/resource/Chinese_Society_Halls_on_Maui	[various^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString]
-39	When was the Leonis Adobe built?	http://dbpedia.org/resource/Category:Buildings_and_structures_by_construction_material	[1874^^http://www.w3.org/2001/XMLSchema#integer]
-39	When was the Meyer Theatre built?	larsen, l.p.; immel construction company	[1930^^http://www.w3.org/2001/XMLSchema#integer]
-39	When was the Riverbank Laboratories built?	http://dbpedia.org/resource/George_Fabyan	[1918^^http://www.w3.org/2001/XMLSchema#integer]
-39	When was the Ryman Auditorium built?	1891	[1885^^http://www.w3.org/2001/XMLSchema#integer]
-39	When was the Williamson Field House built?	1950	[February 1950-November 1951^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString]
