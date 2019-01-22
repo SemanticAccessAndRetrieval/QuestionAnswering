@@ -411,7 +411,6 @@
 82	Who was the successor of Arnie Stuthman?	http://dbpedia.org/resource/Paul_Schumacher	[http://dbpedia.org/resource/Paul_Schumacher]
 82	Who was the successor of Arnold Burns?	harold g. christensen	[http://dbpedia.org/resource/Stephen_S._Trott]
 82	Who was the successor of Arnold Cassola?	http://dbpedia.org/resource/Harry_Vassallo	[http://dbpedia.org/resource/Harry_Vassallo]
-82	Who was the successor of Arnold Cassola?	http://dbpedia.org/resource/Harry_Vassallo	[http://dbpedia.org/resource/Harry_Vassallo]
 82	Who was the successor of Arnold Moll?	http://dbpedia.org/resource/Isaak_Augustyn_Rumpf	[http://dbpedia.org/resource/Johannes_Hertenberg]
 82	Who was the successor of Arnold Morley?	http://dbpedia.org/resource/Henry_Fitzalan-Howard	[http://dbpedia.org/resource/Aretas_Akers-Douglas, http://dbpedia.org/resource/Henry_Fitzalan-Howard]
 82	Who was the successor of Arnold Naimark?	http://dbpedia.org/resource/Em?ke_Szathm�ry	[http://dbpedia.org/resource/Em?ke_Szathm�ry]
