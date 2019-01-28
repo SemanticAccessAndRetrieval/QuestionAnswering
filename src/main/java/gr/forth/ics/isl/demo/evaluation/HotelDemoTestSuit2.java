@@ -17,15 +17,9 @@ import gr.forth.ics.isl.demo.auxiliaryClasses.Timer;
 import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
-import gr.forth.ics.isl.demo.main.OnFocusRRR;
-import gr.forth.ics.isl.demo.models.BaselineModel;
-import gr.forth.ics.isl.demo.models.Doc2vecModel;
 import gr.forth.ics.isl.demo.models.Model;
-import gr.forth.ics.isl.demo.models.Word2vecModel;
-import gr.forth.ics.isl.demo.models.Word2vecModel_III;
-import gr.forth.ics.isl.demo.models.WordnetModel;
-import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
-import gr.forth.ics.isl.demo.models.WordnetWord2vecModel_III;
+import gr.forth.ics.isl.demo.models.Word2vecModel_IV;
+import gr.forth.ics.isl.demoCombined.main.combinedDemoMain;
 import static gr.forth.ics.isl.main.demo_main.getComments;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromBooking;
 import static gr.forth.ics.isl.main.demo_main.getCommentsFromWebAP;
@@ -43,13 +37,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 import mitos.stemmer.trie.Trie;
-import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 import org.deeplearning4j.models.word2vec.Word2Vec;
-import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryException;
@@ -60,8 +49,8 @@ import org.openrdf.repository.RepositoryException;
  */
 public class HotelDemoTestSuit2 {
 
-    static String evalFileName = "FRUCE_v2";
-    //static String evalFileName = "webAP";
+    //static String evalFileName = "FRUCE_v2";
+    static String evalFileName = "webAP";
     //static String evalFileName = "BookingEvalCollection";
     static String evalCollection = evalFileName + ".csv";
 
@@ -85,7 +74,7 @@ public class HotelDemoTestSuit2 {
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
         props.put("tokenize.language", "en");
-        OnFocusRRR.pipeline = new StanfordCoreNLP(props);
+        combinedDemoMain.pipeline = new StanfordCoreNLP(props);
         timer.start();
 
         // Create hotel database
@@ -148,25 +137,25 @@ public class HotelDemoTestSuit2 {
             contextWords.add("state");
         }
 
-        ClassPathResource resource = new ClassPathResource("/trainedModels/doc2vec");
-        TokenizerFactory t = new DefaultTokenizerFactory();
-        t.setTokenPreProcessor(new CommonPreprocessor());
-
-        // we load externally originated model
-        ParagraphVectors vectors = WordVectorSerializer.readParagraphVectors(resource.getFile());
-        vectors.setTokenizerFactory(t);
-        vectors.getConfiguration().setIterations(20); // please note, we set iterations to 1 here, just to speedup inference
-        Doc2vecModel d2vModel = new Doc2vecModel("Doc2VecModel", vectors, t, resource, comments);
-        produceResults(d2vModel, queryList, gt, relThreshold); // produce result set of model
-        d2vModel = null;
-
-        BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments); // Instantiate baseline model
-        produceResults(baseline, queryList, gt, relThreshold); // produce result set of model
+//        ClassPathResource resource = new ClassPathResource("/trainedModels/doc2vec");
+//        TokenizerFactory t = new DefaultTokenizerFactory();
+//        t.setTokenPreProcessor(new CommonPreprocessor());
+//
+//        // we load externally originated model
+//        ParagraphVectors vectors = WordVectorSerializer.readParagraphVectors(resource.getFile());
+//        vectors.setTokenizerFactory(t);
+//        vectors.getConfiguration().setIterations(20); // please note, we set iterations to 1 here, just to speedup inference
+//        Doc2vecModel d2vModel = new Doc2vecModel("Doc2VecModel", vectors, t, resource, comments);
+//        produceResults(d2vModel, queryList, gt, relThreshold); // produce result set of model
+//        d2vModel = null;
+//
+//        BaselineModel baseline = new BaselineModel("Baseline model (Jaccard Similarity)", comments); // Instantiate baseline model
+//        produceResults(baseline, queryList, gt, relThreshold); // produce result set of model
         //printResults(baseline.getDescription()); // print results
 //        ModelStats stats = new ModelStats(baseline.getDescription());
 //        stats.evaluate2(gt, relThreshold, evalFileName);
 //        System.out.println(stats);
-        baseline = null;
+//        baseline = null;
         timer.start();
         // Create WodNet Dictionary
         String wnhome = System.getenv("WNHOME");
@@ -182,17 +171,17 @@ public class HotelDemoTestSuit2 {
         timer.start();
 
         // Choose wordnet sources to be used
-        ArrayList<String> wordnetResources = new ArrayList<>();
-        wordnetResources.add("synonyms");
-        wordnetResources.add("antonyms");
-        wordnetResources.add("hypernyms");
-        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
-        produceResults(wordnet, queryList, gt, relThreshold); // produce result set of model
-        //printResults(baseline.getDescription()); // print results
-//        stats = new ModelStats(wordnet.getDescription());
-//        stats.evaluate2(gt, relThreshold, evalFileName);
-//        System.out.println(stats);
-        wordnet = null;
+//        ArrayList<String> wordnetResources = new ArrayList<>();
+//        wordnetResources.add("synonyms");
+//        wordnetResources.add("antonyms");
+//        wordnetResources.add("hypernyms");
+//        WordnetModel wordnet = new WordnetModel("Wordnet model", dict, wordnetResources, comments);
+//        produceResults(wordnet, queryList, gt, relThreshold); // produce result set of model
+//        //printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(wordnet.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        wordnet = null;
 
 //        WordnetModel_II wordnet_II = new WordnetModel_II("Wordnet model II", dict, wordnetResources, comments);
 //        produceResults(wordnet_II, queryList, gt, relThreshold); // produce result set of model
@@ -219,26 +208,26 @@ public class HotelDemoTestSuit2 {
         model_weights.put("wordnet", wordNet_w);
         model_weights.put("word2vec", word2vec_w);
 
-        WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
-        produceResults(combination, queryList, gt, relThreshold); // produce result set of model
+//        WordnetWord2vecModel combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights, comments);
+//        produceResults(combination, queryList, gt, relThreshold); // produce result set of model
+//        //printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(combination.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        combination = null;
+
+//        WordnetWord2vecModel combination_cw = new WordnetWord2vecModel("Word2vec and Wordnet Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
+//        if (evalCollection.contains("FRUCE")) {
+//            produceResults(combination_cw, queryList, gt, relThreshold); // produce result set of model
+//        } else if (evalCollection.contains("webAP")) {
+//            produceBigResults(combination_cw, queryList, gt, relThreshold); // produce result set of model
+//        }
+
         //printResults(baseline.getDescription()); // print results
 //        stats = new ModelStats(combination.getDescription());
 //        stats.evaluate2(gt, relThreshold, evalFileName);
 //        System.out.println(stats);
-        combination = null;
-
-        WordnetWord2vecModel combination_cw = new WordnetWord2vecModel("Word2vec and Wordnet Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
-        if (evalCollection.contains("FRUCE")) {
-            produceResults(combination_cw, queryList, gt, relThreshold); // produce result set of model
-        } else if (evalCollection.contains("webAP")) {
-            produceBigResults(combination_cw, queryList, gt, relThreshold); // produce result set of model
-        }
-
-        //printResults(baseline.getDescription()); // print results
-//        stats = new ModelStats(combination.getDescription());
-//        stats.evaluate2(gt, relThreshold, evalFileName);
-//        System.out.println(stats);
-        combination_cw = null;
+//        combination_cw = null;
 
 //        WordnetWord2vecModel_II combination_II = new WordnetWord2vecModel_II("Word2vec and Wordnet II", dict, wordnetResources, wm, vec, comments);
 //        produceResults(combination_II, queryList, gt, relThreshold); // produce result set of model
@@ -247,18 +236,18 @@ public class HotelDemoTestSuit2 {
 ////        stats.evaluate2(gt, relThreshold, evalFileName);
 ////        System.out.println(stats);
 //        combination_II = null;
-        WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
-        if (evalCollection.contains("FRUCE")) {
-            produceResults(combination_III, queryList, gt, relThreshold); // produce result set of model
-        } else if (evalCollection.contains("webAP")) {
-            produceBigResults(combination_III, queryList, gt, relThreshold); // produce result set of model
-        }
-        produceResults(combination_III, queryList, gt, relThreshold); // produce result set of model
+//        WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
+//        if (evalCollection.contains("FRUCE")) {
+//            produceResults(combination_III, queryList, gt, relThreshold); // produce result set of model
+//        } else if (evalCollection.contains("webAP")) {
+//            produceBigResults(combination_III, queryList, gt, relThreshold); // produce result set of model
+//        }
+//        produceResults(combination_III, queryList, gt, relThreshold); // produce result set of model
 //        printResults(baseline.getDescription()); // print results
 //        stats = new ModelStats(combination_II.getDescription());
 //        stats.evaluate2(gt, relThreshold, evalFileName);
 //        System.out.println(stats);
-        combination_III = null;
+//        combination_III = null;
 ////the code bellow is to concatenate and save partial results of produceBigResults() method.
 //        HashMap<String, ArrayList<Integer>> allQueriesTestSet = new HashMap<>();
 //        for (int cnt = 10; cnt <= 80; cnt += 10) {
@@ -268,26 +257,26 @@ public class HotelDemoTestSuit2 {
 //        Utils.saveObject(allQueriesTestSet, "results_Word2vec and Wordnet Context Words" + "_" + evalFileName);
 //        System.out.println(allQueriesTestSet.size());
 
-        WordnetWord2vecModel_III combination_III_CW = new WordnetWord2vecModel_III("Word2vec and Wordnet III Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
-        if (evalCollection.contains("FRUCE")) {
-            produceResults(combination_III_CW, queryList, gt, relThreshold); // produce result set of model
-        } else if (evalCollection.contains("webAP")) {
-            produceBigResults(combination_III_CW, queryList, gt, relThreshold); // produce result set of model
-        }
-//        printResults(baseline.getDescription()); // print results
-//        stats = new ModelStats(combination_II.getDescription());
-//        stats.evaluate2(gt, relThreshold, evalFileName);
-//        System.out.println(stats);
-        combination_III_CW = null;
-        dict = null;
+//        WordnetWord2vecModel_III combination_III_CW = new WordnetWord2vecModel_III("Word2vec and Wordnet III Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
+//        if (evalCollection.contains("FRUCE")) {
+//            produceResults(combination_III_CW, queryList, gt, relThreshold); // produce result set of model
+//        } else if (evalCollection.contains("webAP")) {
+//            produceBigResults(combination_III_CW, queryList, gt, relThreshold); // produce result set of model
+//        }
+////        printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(combination_II.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        combination_III_CW = null;
+//        dict = null;
 
-        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
-        produceResults(word2vec, queryList, gt, relThreshold); // produce result set of model
-        //printResults(baseline.getDescription()); // print results
-//        stats = new ModelStats(word2vec.getDescription());
-//        stats.evaluate2(gt, relThreshold, evalFileName);
-//        System.out.println(stats);
-        word2vec = null;
+//        Word2vecModel word2vec = new Word2vecModel("Word2vec model", wm, vec, comments);
+//        produceResults(word2vec, queryList, gt, relThreshold); // produce result set of model
+//        //printResults(baseline.getDescription()); // print results
+////        stats = new ModelStats(word2vec.getDescription());
+////        stats.evaluate2(gt, relThreshold, evalFileName);
+////        System.out.println(stats);
+//        word2vec = null;
 //        Word2vecModel_II word2vec_II = new Word2vecModel_II("Word2vec model II", wm, vec, comments);
 //        produceResults(word2vec_II, queryList, gt, relThreshold); // produce result set of model
 //        //printResults(baseline.getDescription()); // print results
@@ -296,17 +285,21 @@ public class HotelDemoTestSuit2 {
 //        //System.out.println(stats);
 //        word2vec_II = null;
 
-        Word2vecModel word2vec_CW = new Word2vecModel("Word2vec model Context Words", wm, vec, comments, contextWords);
-        produceResults(word2vec_CW, queryList, gt, relThreshold); // produce result set of model
-        word2vec_CW = null;
+//        Word2vecModel word2vec_CW = new Word2vecModel("Word2vec model Context Words", wm, vec, comments, contextWords);
+//        produceResults(word2vec_CW, queryList, gt, relThreshold); // produce result set of model
+//        word2vec_CW = null;
+//
+//        Word2vecModel_III word2vec_III = new Word2vecModel_III("Word2vec model III", wm, vec, comments);
+//        produceResults(word2vec_III, queryList, gt, relThreshold); // produce result set of model
+//        word2vec_III = null;
+//
+//        Word2vecModel_III word2vec_III_CW = new Word2vecModel_III("Word2vec model III Context Words", wm, vec, comments, contextWords);
+//        produceResults(word2vec_III_CW, queryList, gt, relThreshold); // produce result set of model
+//        word2vec_III_CW = null;
 
-        Word2vecModel_III word2vec_III = new Word2vecModel_III("Word2vec model III", wm, vec, comments);
-        produceResults(word2vec_III, queryList, gt, relThreshold); // produce result set of model
-        word2vec_III = null;
-
-        Word2vecModel_III word2vec_III_CW = new Word2vecModel_III("Word2vec model III Context Words", wm, vec, comments, contextWords);
-        produceResults(word2vec_III_CW, queryList, gt, relThreshold); // produce result set of model
-        word2vec_III_CW = null;
+        Word2vecModel_IV word2vec_IV_CW = new Word2vecModel_IV("Word2vec model IV Context Words", wm, vec, comments, contextWords);
+        produceResults(word2vec_IV_CW, queryList, gt, relThreshold); // produce result set of model
+        word2vec_IV_CW = null;
     }
 
     public static void produceResults(Model model, HashMap<String, String> queryList, HashMap<String, HashMap<String, EvaluationPair>> gt, int relThreshold) throws IOException {

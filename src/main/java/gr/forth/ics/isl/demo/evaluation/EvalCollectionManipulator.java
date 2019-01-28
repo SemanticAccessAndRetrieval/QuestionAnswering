@@ -25,11 +25,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
@@ -165,6 +168,59 @@ public class EvalCollectionManipulator {
                 groundTruth.put(query_id, pairsWithQueryId);
             }
 
+        }
+
+        return groundTruth;
+    }
+
+    /**
+     * This method is used to create our evaluation structure based on the
+     * evaluation collection.
+     *
+     * @param fileName
+     * @return HashMap<String, ArrayList<EvaluationPair>> groundTruth
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static HashMap<String, HashMap<String, EvaluationPair>> readEvaluationSetExternal(String fileName) throws FileNotFoundException, IOException {
+        HashMap<String, HashMap<String, EvaluationPair>> groundTruth = new HashMap<>();
+
+        InputStream is = EvalCollectionManipulator.class.getResourceAsStream("/evaluation/" + fileName);
+        ArrayList<String> lines = new ArrayList<>();
+
+        try (Stream<String> stream = new BufferedReader(new InputStreamReader(is, "UTF-8")).lines()) {
+
+            stream.forEach(line -> lines.add(line));
+
+            for (String line : lines) {
+                // use comma as separator
+                String[] tuple = line.split(";;");
+
+                int eval_pair_id = Integer.parseInt(tuple[0].trim());
+                //System.out.println(eval_pair_id);
+                String query_id = tuple[1];
+                String query_text = tuple[2];
+                String comment_id = tuple[3];
+                String comment_text = tuple[4];
+                String comment_date = tuple[5];
+                int relevance = Integer.parseInt(tuple[6].trim());
+
+                EvaluationQuery evalQuery = new EvaluationQuery(query_id, query_text);
+                EvaluationComment evalComment = new EvaluationComment(comment_id, comment_text, comment_date);
+                EvaluationPair evalPair = new EvaluationPair(eval_pair_id, evalQuery, evalComment, relevance);
+
+                HashMap<String, EvaluationPair> pairsWithQueryId = groundTruth.get(query_id);
+                if (pairsWithQueryId == null) {
+                    pairsWithQueryId = new HashMap<>();
+                    pairsWithQueryId.put(evalPair.getComment().getId(), evalPair);
+                    groundTruth.put(query_id, pairsWithQueryId);
+                } else {
+                    pairsWithQueryId.put(evalPair.getComment().getId(), evalPair);
+                    groundTruth.put(query_id, pairsWithQueryId);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return groundTruth;
