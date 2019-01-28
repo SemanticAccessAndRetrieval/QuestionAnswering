@@ -49,7 +49,7 @@ public class WebAPTestSuit {
 
     static String evalFilePath = "evalFilePath";
     static String evalCollection = "webAP.csv";
-    static String resultFileName = "";
+    static String resultFileName = "resultFileName";
     static String resultFilePath = "resultFilePath";
     static String wnhomePath = "wnhomePath";
     static String gModelPath = "gModelPath";
