@@ -38,6 +38,12 @@ public class WordnetModel extends Model {
         this.resourcesToRetrieve = resources;
     }
 
+    public WordnetModel(String description, IDictionary dict, ArrayList<String> resources) {
+        super.setDescription(description);
+        this.dictionary = dict;
+        this.resourcesToRetrieve = resources;
+    }
+
     public IDictionary getDictionary() {
         return this.dictionary;
     }

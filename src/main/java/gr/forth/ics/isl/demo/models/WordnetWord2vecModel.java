@@ -88,6 +88,10 @@ public class WordnetWord2vecModel extends Model {
         this.modelWeights = weights;
     }
 
+    public void setContextWords(ArrayList<String> contextWords) {
+        this.contextWords = contextWords;
+    }
+
     public IDictionary getDictionary() {
         return this.dictionary;
     }

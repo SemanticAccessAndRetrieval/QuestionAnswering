@@ -28,6 +28,10 @@ public class BaselineModel extends Model {
         super.setComments(comments);
     }
 
+    public BaselineModel(String description) {
+        super.setDescription(description);
+    }
+
     @Override
     public void scoreComments(String query) {
 

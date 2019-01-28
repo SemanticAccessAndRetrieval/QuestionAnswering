@@ -13,7 +13,7 @@ import com.crtomirmajer.wmd4j.WordMovers;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
-import gr.forth.ics.isl.demo.main.OnFocusRRR;
+import gr.forth.ics.isl.demoCombined.main.combinedDemoMain;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.NlpAnalyzer;
 import gr.forth.ics.isl.nlp.models.Comment;
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
@@ -36,31 +37,33 @@ import org.openrdf.repository.RepositoryException;
 
 /**
  *
- * @author Lefteris Dimitrakis
+ * @author Lefteris Dimitrakis and Sgo
  */
-public class Word2vecModel_III extends Model {
+public class Word2vecModel_IV extends Model {
 
     private WordMovers wordMovers;
     private final Word2Vec w2_vector;
     private double maxWMD = 0.0;
     private ArrayList<String> contextWords = null;
+    private INDArray contextPoint;
 
-    public Word2vecModel_III(String description, WordMovers wm, Word2Vec w2v, ArrayList<Comment> comments, ArrayList<String> contextWords) {
+    public Word2vecModel_IV(String description, WordMovers wm, Word2Vec w2v, ArrayList<Comment> comments, ArrayList<String> contextWords) {
         super.setDescription(description);
         super.setComments(comments);
         this.wordMovers = wm;
         this.w2_vector = w2v;
         this.contextWords = contextWords;
+        this.contextPoint = this.w2_vector.getWordVectorsMean(contextWords);
     }
 
-    public Word2vecModel_III(String description, WordMovers wm, Word2Vec w2v, ArrayList<Comment> comments) {
+    public Word2vecModel_IV(String description, WordMovers wm, Word2Vec w2v, ArrayList<Comment> comments) {
         super.setDescription(description);
         super.setComments(comments);
         this.wordMovers = wm;
         this.w2_vector = w2v;
     }
 
-    public Word2vecModel_III(String description, WordMovers wm, Word2Vec w2v) {
+    public Word2vecModel_IV(String description, WordMovers wm, Word2Vec w2v) {
         super.setDescription(description);
         this.wordMovers = wm;
         this.w2_vector = w2v;
@@ -121,17 +124,56 @@ public class Word2vecModel_III extends Model {
         return expantionTerms;
     }
 
+    /**
+     * weight based on distance from context point
+     */
     public ArrayList<String> weightContextWords(ArrayList<String> query, ArrayList<String> contextWords) {
         ArrayList<String> informativeTerms = new ArrayList<>();
 
+        HashMap<String, Double> wordDistsantces = new HashMap<>();
+        //double sum = 0.0;
+        double minDist = Double.MAX_VALUE;
+
         for (String queryTerm : query) {
-            if (!contextWords.contains(queryTerm)) {
-                informativeTerms.add(queryTerm);
+            INDArray termVec = this.w2_vector.getWordVectorMatrix(queryTerm);
+            double dist = Transforms.cosineDistance(termVec, contextPoint);
+            //sum += dist;
+            if (dist < minDist) {
+                minDist = dist;
+            }
+            wordDistsantces.put(queryTerm, dist);
+        }
+
+        //System.out.println(wordDistsantces);
+
+        // Normalization to [0,1] range
+//        for (String term : wordDistsantces.keySet()) {
+//            double dist = wordDistsantces.get(term);
+//            wordDistsantces.put(term, dist / sum);
+//        }
+//
+//        System.out.println(wordDistsantces);
+
+        Map<String, Integer> termDistPairsToInt = new HashMap<>();
+        for (String term : wordDistsantces.keySet()) {
+            int dist = ((int) Math.round(wordDistsantces.get(term) * 10) - ((int) Math.round(minDist * 10)));
+            termDistPairsToInt.put(term, dist);
+        }
+
+        //System.out.println(termDistPairsToInt);
+
+        for (String term : termDistPairsToInt.keySet()) {
+            int freq = termDistPairsToInt.get(term);
+            for (int i = 0; i < freq; i++) {
+                informativeTerms.add(term);
             }
         }
 
+        //System.out.println(informativeTerms);
+
         query.addAll(informativeTerms);
 
+        //System.out.println(query);
         return query;
     }
 
@@ -159,6 +201,7 @@ public class Word2vecModel_III extends Model {
             expandedQueryToString += " " + term;
         }
 
+        //System.out.println(expandedQueryToString);
         return expandedQueryToString.trim();
     }
 
@@ -261,7 +304,7 @@ public class Word2vecModel_III extends Model {
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
         props.put("tokenize.language", "en");
-        OnFocusRRR.pipeline = new StanfordCoreNLP(props);
+        combinedDemoMain.pipeline = new StanfordCoreNLP(props);
 
         ArrayList<String> contextWords = new ArrayList<>();
         contextWords.add("problem");
@@ -274,20 +317,64 @@ public class Word2vecModel_III extends Model {
 
         HashMap<String, HashMap<String, EvaluationPair>> gt = EvalCollectionManipulator.readEvaluationSet("FRUCE_v2.csv");
 
-        Word2vecModel_III word2vec = new Word2vecModel_III("Word2vec model", wm, vec, comments);
+        Word2vecModel_IV word2vec = new Word2vecModel_IV("Word2vec model", wm, vec, comments);
+        word2vec.scoreComments("Has anyone reported a problem about noise?");
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q1"));
+        System.out.println("");
+        word2vec.scoreComments("Is this hotel quiet?");
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q2"));
+        System.out.println("");
         word2vec.scoreComments("Has anyone reported a problem about cleanliness?");
         demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q3"));
+        System.out.println("");
+        word2vec.scoreComments("Has anyone complained about the bed linen?");
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q4"));
+        System.out.println("");
+        word2vec.scoreComments("Is the personnel polite?");
+        demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q5"));
         System.out.println("");
         word2vec.scoreComments("Is the hotel staff helpful?");
         demo_main.printEvalOnlyComments(word2vec.getTopComments(comments.size()), gt.get("q6"));
         System.out.println("");
 
-        Word2vecModel_III word2vecCW = new Word2vecModel_III("Word2vec model CW", wm, vec, comments, contextWords);
+        Word2vecModel_IV word2vecCW = new Word2vecModel_IV("Word2vec model IV CW", wm, vec, comments, contextWords);
+        word2vecCW.scoreComments("Has anyone reported a problem about noise?");
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q1"));
+        System.out.println("");
+        word2vecCW.scoreComments("Is this hotel quiet?");
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q2"));
+        System.out.println("");
         word2vecCW.scoreComments("Has anyone reported a problem about cleanliness?");
         demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q3"));
         System.out.println("");
+        word2vecCW.scoreComments("Has anyone complained about the bed linen?");
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q4"));
+        System.out.println("");
+        word2vecCW.scoreComments("Is the personnel polite?");
+        demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q5"));
+        System.out.println("");
         word2vecCW.scoreComments("Is the hotel staff helpful?");
         demo_main.printEvalOnlyComments(word2vecCW.getTopComments(comments.size()), gt.get("q6"));
+        System.out.println("");
+
+        Word2vecModel_III word2vecIIICW = new Word2vecModel_III("Word2vec model CW", wm, vec, comments, contextWords);
+        word2vecIIICW.scoreComments("Has anyone reported a problem about noise?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q1"));
+        System.out.println("");
+        word2vecIIICW.scoreComments("Is this hotel quiet?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q2"));
+        System.out.println("");
+        word2vecIIICW.scoreComments("Has anyone reported a problem about cleanliness?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q3"));
+        System.out.println("");
+        word2vecIIICW.scoreComments("Has anyone complained about the bed linen?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q4"));
+        System.out.println("");
+        word2vecIIICW.scoreComments("Is the personnel polite?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q5"));
+        System.out.println("");
+        word2vecIIICW.scoreComments("Is the hotel staff helpful?");
+        demo_main.printEvalOnlyComments(word2vecIIICW.getTopComments(comments.size()), gt.get("q6"));
         System.out.println("");
     }
 }

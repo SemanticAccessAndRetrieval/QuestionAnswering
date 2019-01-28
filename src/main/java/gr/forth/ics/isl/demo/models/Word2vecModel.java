@@ -43,6 +43,12 @@ public class Word2vecModel extends Model {
     private double maxWMD = 0.0;
     private ArrayList<String> contextWords = null;
 
+    public Word2vecModel(String description, WordMovers wm, Word2Vec w2v) {
+        super.setDescription(description);
+        this.wordMovers = wm;
+        this.w2_vector = w2v;
+    }
+
     public Word2vecModel(String description, WordMovers wm, Word2Vec w2v, ArrayList<Comment> comments) {
         super.setDescription(description);
         super.setComments(comments);
@@ -55,6 +61,10 @@ public class Word2vecModel extends Model {
         super.setComments(comments);
         this.wordMovers = wm;
         this.w2_vector = w2v;
+        this.contextWords = contextWords;
+    }
+
+    public void setContextWords(ArrayList<String> contextWords) {
         this.contextWords = contextWords;
     }
 

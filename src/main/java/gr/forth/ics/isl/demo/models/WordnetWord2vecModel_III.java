@@ -19,7 +19,7 @@ import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.getNumO
 import gr.forth.ics.isl.demo.evaluation.EvaluationMetrics;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.ModelHyperparameters;
-import gr.forth.ics.isl.demo.main.OnFocusRRR;
+import gr.forth.ics.isl.demoCombined.main.combinedDemoMain;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.NlpAnalyzer;
 import gr.forth.ics.isl.nlp.externalTools.WordNet;
@@ -92,6 +92,10 @@ public class WordnetWord2vecModel_III extends Model {
         this.modelWeights = weights;
     }
 
+    public void setContextWords(ArrayList<String> contextWords) {
+        this.contextWords = contextWords;
+    }
+
     public IDictionary getDictionary() {
         return this.dictionary;
     }
@@ -157,6 +161,9 @@ public class WordnetWord2vecModel_III extends Model {
         Double maxCosineSim = 0.0;
         Double tmpCosineSim = 0.0;
         INDArray expantionVec = null;
+
+        System.out.println(candidateExpTerms);
+
         for (String candidate : candidateExpTerms) {
             if (expantionTerms.isEmpty()) {
                 expantionTerms.add(candidate);
@@ -175,6 +182,9 @@ public class WordnetWord2vecModel_III extends Model {
                 }
             }
         }
+
+        System.out.println(expantionTerms);
+
         return expantionTerms;
     }
 
@@ -550,7 +560,7 @@ public class WordnetWord2vecModel_III extends Model {
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
         props.put("tokenize.language", "en");
-        OnFocusRRR.pipeline = new StanfordCoreNLP(props);
+        combinedDemoMain.pipeline = new StanfordCoreNLP(props);
 
         ArrayList<String> contextWords = new ArrayList<>();
         contextWords.add("problem");
@@ -578,19 +588,19 @@ public class WordnetWord2vecModel_III extends Model {
 
         HashMap<String, HashMap<String, EvaluationPair>> gt = EvalCollectionManipulator.readEvaluationSet("FRUCE_v2.csv");
 
-        WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
-        combination_III.scoreComments("Has anyone reported a problem about cleanliness?");
-        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q3"));
-        System.out.println();
-        combination_III.scoreComments("Is the hotel staff helpful?");
-        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q6"));
-        System.out.println();
+//        WordnetWord2vecModel_III combination_III = new WordnetWord2vecModel_III("Word2vec and Wordnet III", dict, wordnetResources, wm, vec, model_weights, comments);
+//        combination_III.scoreComments("Has anyone reported a problem about cleanliness?");
+//        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q3"));
+//        System.out.println();
+//        combination_III.scoreComments("Is the hotel staff helpful?");
+//        demo_main.printEvalOnlyComments(combination_III.getTopComments(comments.size()), gt.get("q6"));
+//        System.out.println();
 
         WordnetWord2vecModel_III combination_III_cw = new WordnetWord2vecModel_III("Word2vec and Wordnet III Context Words", dict, wordnetResources, wm, vec, model_weights, comments, contextWords);
-        combination_III_cw.scoreComments("Has anyone reported a problem about cleanliness?");
-        demo_main.printEvalOnlyComments(combination_III_cw.getTopComments(comments.size()), gt.get("q3"));
-        System.out.println();
-        combination_III_cw.scoreComments("Is the hotel staff helpful?");
+//        combination_III_cw.scoreComments("Has anyone reported a problem about cleanliness?");
+//        demo_main.printEvalOnlyComments(combination_III_cw.getTopComments(comments.size()), gt.get("q3"));
+//        System.out.println();
+        combination_III_cw.scoreComments("Is this hotel quiet?");
         demo_main.printEvalOnlyComments(combination_III_cw.getTopComments(comments.size()), gt.get("q6"));
         System.out.println();
     }
