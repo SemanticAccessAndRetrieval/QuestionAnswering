@@ -28,11 +28,16 @@ import java.util.Set;
 
 public class ExternalExperiment1 {
 
-    private static final String fileName = "qald-7-test-largescale_part1_q82_answers";
+    private static final String fileName = "overall_evaluation";
     private static final String fileExtension = ".txt";
-    //private static final String evalDirName = "combination";
+    private static final String evalDirName = "combination";
     //private static final String evalDirName = "scnlp";
-    private static final String evalDirName = "spotlight";
+    //private static final String evalDirName = "spotlight";
+    //private static final String evalDirName = "wo";
+    //private static final String evalDirName = "woLemma";
+    //private static final String evalDirName = "woNoun";
+    //private static final String evalDirName = "woVerb";
+
     private static final String filePath = "src/main/resources/external/evaluation/" + evalDirName + "/";
 
     public static Integer sumUpTruePositives(Set<String> systemAns, Set<String> goldAns) {
