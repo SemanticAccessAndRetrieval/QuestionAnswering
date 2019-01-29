@@ -15,14 +15,14 @@ package gr.forth.ics.isl.demo.evaluation.models;
  */
 public class EvaluationResult {
 
-    private int pairId;
+    private long pairId;
     private int queryId;
     private String queryText;
     private int passageId;
     private String passageText;
     private int pairRelevance;
 
-    public EvaluationResult(int pairId, int queryId, String queryText, int passageId, String passageText) {
+    public EvaluationResult(long pairId, int queryId, String queryText, int passageId, String passageText) {
         this.pairId = pairId;
         this.queryId = queryId;
         this.queryText = queryText;
@@ -30,7 +30,7 @@ public class EvaluationResult {
         this.passageText = passageText;
     }
 
-    public int getPairId() {
+    public long getPairId() {
         return this.pairId;
     }
 

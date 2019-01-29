@@ -16,7 +16,6 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demo.evaluation.models.EvalPair;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationResult;
-import gr.forth.ics.isl.demo.evaluation.models.ModelStats;
 import gr.forth.ics.isl.demo.models.BaselineModel;
 import gr.forth.ics.isl.demo.models.Model;
 import gr.forth.ics.isl.demo.models.Word2vecModel;
@@ -38,6 +37,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 
@@ -45,7 +46,7 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
  *
  * @author Sgo
  */
-public class WebAPTestSuit {
+public class WebAPTestSuit implements Runnable {
 
     static String evalFilePath = "evalFilePath";
     static String evalCollection = "webAP.csv";
@@ -103,7 +104,6 @@ public class WebAPTestSuit {
         System.out.println("Handmade resources were loaded successfully");
 
         ////////////////////////////////////////////////////////////////////////
-
         // Create the list of stopWords to use
         StringUtils.generateStopListsFromExternalSource(combinedDemoMain.filePath_en, combinedDemoMain.filePath_gr);
 
@@ -138,139 +138,225 @@ public class WebAPTestSuit {
         ArrayList<String> models = new ArrayList<String>();
         models.add("BSL");
         models.add("WQE_woAH");
-        models.add("WQE_woH");
-        models.add("WQE");
-        models.add("W2V");
-        models.add("W2V_cw");
-        models.add("W2V_sqe");
-        models.add("W2V_cw_sqe");
-        models.add("CMB");
-        models.add("CMB_cw");
-        models.add("CMB_sqe");
-        models.add("CMB_cw_sqe");
+//        models.add("WQE_woH");
+//        models.add("WQE");
+//        models.add("W2V");
+//        models.add("W2V_cw");
+//        models.add("W2V_sqe");
+//        models.add("W2V_cw_sqe");
+//        models.add("CMB");
+//        models.add("CMB_cw");
+//        models.add("CMB_sqe");
+//        models.add("CMB_cw_sqe");
 
         System.out.println("Model Names were loaded successfully");
         System.out.println("===================================================");
 
-        Model model = null; // model variable
-        ModelStats modelStats = null; // model statistics variable
-
+//        Model model = null; // model variable
+//        ModelStats modelStats = null; // model statistics variable
         for (String modelName : models) {
+            Thread crntThread = new Thread() {
+                @Override
+                public void run() {
+                    // initialize curent model
+                    if (modelName.equals("BSL")) {
 
-            // initialize curent model
-            if (modelName.equals("BSL")) {
+                        BaselineModel model = new BaselineModel("BSL"); // Instantiate baseline model
 
-                model = new BaselineModel("BSL"); // Instantiate baseline model
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-            } else if (modelName.equals("WQE_woAH")) {
+                    } else if (modelName.equals("WQE_woAH")) {
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                model = new WordnetModel("WQE_woAH", dict, wordnetResources);
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        WordnetModel model = new WordnetModel("WQE_woAH", dict, wordnetResources);
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-            } else if (modelName.equals("WQE_woH")) {
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                model = new WordnetModel("WQE_woH", dict, wordnetResources);
+                    } else if (modelName.equals("WQE_woH")) {
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        WordnetModel model = new WordnetModel("WQE_woH", dict, wordnetResources);
 
-            } else if (modelName.equals("WQE")) {
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                wordnetResources.add("hypernyms");
-                model = new WordnetModel("WQE", dict, wordnetResources);
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                    } else if (modelName.equals("WQE")) {
 
-            } else if (modelName.equals("W2V")) {
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        wordnetResources.add("hypernyms");
+                        WordnetModel model = new WordnetModel("WQE", dict, wordnetResources);
 
-                model = new Word2vecModel("W2V", wm, vec);
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-            } else if (modelName.equals("W2V_cw")) {
+                    } else if (modelName.equals("W2V")) {
 
-                model = new Word2vecModel("W2V", wm, vec);
-                ((Word2vecModel) model).setContextWords(contextWords);
+                        Word2vecModel model = new Word2vecModel("W2V", wm, vec);
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-            } else if (modelName.equals("W2V_sqe")) {
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-                model = new Word2vecModel_III("W2V", wm, vec);
+                    } else if (modelName.equals("W2V_cw")) {
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        Word2vecModel model = new Word2vecModel("W2V", wm, vec);
+                        ((Word2vecModel) model).setContextWords(contextWords);
 
-            } else if (modelName.equals("W2V_cw_sqe")) {
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                model = new Word2vecModel_III("W2V", wm, vec);
-                ((Word2vecModel_III) model).setContextWords(contextWords);
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                    } else if (modelName.equals("W2V_sqe")) {
 
-            } else if (modelName.equals("CMB")) {
+                        Word2vecModel_III model = new Word2vecModel_III("W2V", wm, vec);
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                wordnetResources.add("hypernyms");
-                model = new WordnetWord2vecModel("CMB", dict, wordnetResources, wm, vec, model_weights);
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-            } else if (modelName.equals("CMB_cw")) {
+                    } else if (modelName.equals("W2V_cw_sqe")) {
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                wordnetResources.add("hypernyms");
-                model = new WordnetWord2vecModel("CMB_cw", dict, wordnetResources, wm, vec, model_weights);
-                ((WordnetWord2vecModel) model).setContextWords(contextWords);
+                        Word2vecModel_III model = new Word2vecModel_III("W2V", wm, vec);
+                        ((Word2vecModel_III) model).setContextWords(contextWords);
 
-                System.out.println(model.getDescription() + " was initialized successfully");
-            } else if (modelName.equals("CMB_sqe")) {
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                wordnetResources.add("hypernyms");
-                model = new WordnetWord2vecModel_III("CMB_sqe", dict, wordnetResources, wm, vec, model_weights);
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
+                    } else if (modelName.equals("CMB")) {
 
-            } else if (modelName.equals("CMB_cw_sqe")) {
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        wordnetResources.add("hypernyms");
+                        WordnetWord2vecModel model = new WordnetWord2vecModel("CMB", dict, wordnetResources, wm, vec, model_weights);
 
-                wordnetResources = new ArrayList<>();
-                wordnetResources.add("synonyms");
-                wordnetResources.add("antonyms");
-                wordnetResources.add("hypernyms");
-                model = new WordnetWord2vecModel_III("CMB_cw", dict, wordnetResources, wm, vec, model_weights);
-                ((WordnetWord2vecModel_III) model).setContextWords(contextWords);
+                        System.out.println(model.getDescription() + " was initialized successfully");
 
-                System.out.println(model.getDescription() + " was initialized successfully");
-            } else {
-                System.out.println("There is no such model: " + modelName);
-            }
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println(model.getDescription() + " was evaluated successfully");
 
-            // produce result file of curent model
-            produceBigResultsWebAP(model, queryList);
-            System.out.println(model.getDescription() + " was evaluated successfully");
-            // evaluate model
-            modelStats = new ModelStats(model.getDescription());
-            modelStats.evaluateWebAP(gt, threshold, resultFilePath + resultFileName + "_" + model.getDescription() + ".tsv");
+                    } else if (modelName.equals("CMB_cw")) {
 
-            System.out.println(model.getDescription() + " RESULTS:");
-            System.out.println(modelStats);
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        wordnetResources.add("hypernyms");
+                        WordnetWord2vecModel model = new WordnetWord2vecModel("CMB_cw", dict, wordnetResources, wm, vec, model_weights);
+                        ((WordnetWord2vecModel) model).setContextWords(contextWords);
 
+                        System.out.println(model.getDescription() + " was initialized successfully");
+
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        System.out.println(model.getDescription() + " was evaluated successfully");
+
+                    } else if (modelName.equals("CMB_sqe")) {
+
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        wordnetResources.add("hypernyms");
+                        WordnetWord2vecModel_III model = new WordnetWord2vecModel_III("CMB_sqe", dict, wordnetResources, wm, vec, model_weights);
+
+                        System.out.println(model.getDescription() + " was initialized successfully");
+
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        System.out.println(model.getDescription() + " was evaluated successfully");
+
+                    } else if (modelName.equals("CMB_cw_sqe")) {
+
+                        ArrayList<String> wordnetResources = new ArrayList<>();
+                        wordnetResources.add("synonyms");
+                        wordnetResources.add("antonyms");
+                        wordnetResources.add("hypernyms");
+                        WordnetWord2vecModel_III model = new WordnetWord2vecModel_III("CMB_cw", dict, wordnetResources, wm, vec, model_weights);
+                        ((WordnetWord2vecModel_III) model).setContextWords(contextWords);
+
+                        System.out.println(model.getDescription() + " was initialized successfully");
+
+                        try {
+                            produceBigResultsWebAP(model, queryList);
+                        } catch (IOException ex) {
+                            Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        System.out.println(model.getDescription() + " was evaluated successfully");
+
+                    } else {
+                        System.out.println("There is no such model: " + modelName);
+                    }
+
+//            // produce result file of curent model
+//            produceBigResultsWebAP(model, queryList);
+//            System.out.println(model.getDescription() + " was evaluated successfully");
+                }
+            };
+            crntThread.start();
         }
 
         System.out.println("Evaluation was completed successfully");
@@ -485,14 +571,10 @@ public class WebAPTestSuit {
         }
     }
 
-    public static void produceBigResultsWebAP(Model model, HashMap<String, String> queryList) throws IOException {
+    public static void producePartialResultsWebAP(ArrayList<String> crntQueryList, Model model, HashMap<String, String> queryList) throws IOException {
+        for (String qID : crntQueryList) {
 
-        int queryNum = 0;
-        int resultId = 0;
-        //for each query
-        for (String qID : queryList.keySet()) {
-
-            System.out.println("======" + queryNum++ + " queries have been evaluated so far==========");
+            //System.out.println("======" + queryNum++ + " queries have been evaluated so far==========");
             //Set passages to be ranked for the current query
             ArrayList<Comment> passages = getCandidatePassages(qID);
             model.setComments(passages); // set candidate passages
@@ -517,9 +599,9 @@ public class WebAPTestSuit {
                 // if comment is unjudged skip it
                 //System.out.println(resultId + "passages so far...");
                 EvalPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
-                EvaluationResult result = new EvaluationResult(resultId, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText());
+                long pairID = Long.valueOf(p.getQueryId() + p.getPassageId());
+                EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText());
                 result.setPairRelevance(p.getRelevance());
-                resultId++;
 
                 writeResultToFile(result, model.getDescription());
             }
@@ -529,15 +611,52 @@ public class WebAPTestSuit {
         }
     }
 
+    public static void produceBigResultsWebAP(Model model, HashMap<String, String> queryList) throws IOException {
+
+        //for each query
+        ArrayList<String> thread1Set = new ArrayList<>();
+        ArrayList<String> thread2Set = new ArrayList<>();
+        ArrayList<String> thread3Set = new ArrayList<>();
+        ArrayList<String> thread4Set = new ArrayList<>();
+        int cnt = 0;
+
+        for (String qID : queryList.keySet()) {
+            if (cnt < 20) {
+                thread1Set.add(qID);
+            } else if (cnt < 40) {
+                thread2Set.add(qID);
+            } else if (cnt < 60) {
+                thread3Set.add(qID);
+            } else if (cnt < 80) {
+                thread4Set.add(qID);
+            }
+
+            cnt++;
+        }
+
+        producePartialResultsWebAP(thread1Set, model, queryList);
+        producePartialResultsWebAP(thread2Set, model, queryList);
+        producePartialResultsWebAP(thread3Set, model, queryList);
+        producePartialResultsWebAP(thread4Set, model, queryList);
+
+    }
+
     public static void writeResultToFile(EvaluationResult result, String model) throws IOException {
 
-        File file = new File(resultFilePath + resultFileName + "_" + model + ".tsv");
+        String folderPath = resultFilePath + resultFileName + "_" + model + "/";
+        File folder = new File(folderPath);
+
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        File file = new File(folder.getPath() + "/" + result.getQueryId() + ".tsv");
         BufferedWriter writer;
 
         if (file.exists()) {
-            writer = new BufferedWriter(new FileWriter(resultFilePath + resultFileName + "_" + model + ".tsv", true));
+            writer = new BufferedWriter(new FileWriter(file, true));
         } else {
-            writer = new BufferedWriter(new FileWriter(resultFilePath + resultFileName + "_" + model + ".tsv"));
+            writer = new BufferedWriter(new FileWriter(file));
         }
 
         writer.write(result.toString());
@@ -618,6 +737,11 @@ public class WebAPTestSuit {
         }
 
         return queryList;
+    }
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
