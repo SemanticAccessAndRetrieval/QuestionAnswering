@@ -137,17 +137,17 @@ public class WebAPTestSuit implements Runnable {
         // models to be evaluated
         ArrayList<String> models = new ArrayList<String>();
         models.add("BSL");
-        models.add("WQE_woAH");
+//        models.add("WQE_woAH");
 //        models.add("WQE_woH");
-//        models.add("WQE");
-//        models.add("W2V");
-//        models.add("W2V_cw");
-//        models.add("W2V_sqe");
-//        models.add("W2V_cw_sqe");
-//        models.add("CMB");
-//        models.add("CMB_cw");
-//        models.add("CMB_sqe");
-//        models.add("CMB_cw_sqe");
+        models.add("WQE");
+        models.add("W2V");
+        models.add("W2V_cw");
+        models.add("W2V_sqe");
+        models.add("W2V_cw_sqe");
+        models.add("CMB");
+        models.add("CMB_cw");
+        models.add("CMB_sqe");
+        models.add("CMB_cw_sqe");
 
         System.out.println("Model Names were loaded successfully");
         System.out.println("===================================================");
@@ -235,7 +235,7 @@ public class WebAPTestSuit implements Runnable {
 
                     } else if (modelName.equals("W2V_cw")) {
 
-                        Word2vecModel model = new Word2vecModel("W2V", wm, vec);
+                        Word2vecModel model = new Word2vecModel("W2V_cw", wm, vec);
                         ((Word2vecModel) model).setContextWords(contextWords);
 
                         System.out.println(model.getDescription() + " was initialized successfully");
@@ -249,7 +249,7 @@ public class WebAPTestSuit implements Runnable {
 
                     } else if (modelName.equals("W2V_sqe")) {
 
-                        Word2vecModel_III model = new Word2vecModel_III("W2V", wm, vec);
+                        Word2vecModel_III model = new Word2vecModel_III("W2V_sqe", wm, vec);
 
                         System.out.println(model.getDescription() + " was initialized successfully");
 
@@ -262,7 +262,7 @@ public class WebAPTestSuit implements Runnable {
 
                     } else if (modelName.equals("W2V_cw_sqe")) {
 
-                        Word2vecModel_III model = new Word2vecModel_III("W2V", wm, vec);
+                        Word2vecModel_III model = new Word2vecModel_III("W2V_cw_sqe", wm, vec);
                         ((Word2vecModel_III) model).setContextWords(contextWords);
 
                         System.out.println(model.getDescription() + " was initialized successfully");
@@ -334,7 +334,7 @@ public class WebAPTestSuit implements Runnable {
                         wordnetResources.add("synonyms");
                         wordnetResources.add("antonyms");
                         wordnetResources.add("hypernyms");
-                        WordnetWord2vecModel_III model = new WordnetWord2vecModel_III("CMB_cw", dict, wordnetResources, wm, vec, model_weights);
+                        WordnetWord2vecModel_III model = new WordnetWord2vecModel_III("CMB_cw_sqe", dict, wordnetResources, wm, vec, model_weights);
                         ((WordnetWord2vecModel_III) model).setContextWords(contextWords);
 
                         System.out.println(model.getDescription() + " was initialized successfully");
@@ -436,8 +436,24 @@ public class WebAPTestSuit implements Runnable {
     public static ArrayList<Comment> getCandidatePassages(String queryId) throws IOException {
 
         ArrayList<Comment> passages = extractPassagesFromFiles(queryId);
+        ArrayList<Comment> cleanPassages = new ArrayList<>();
+        ArrayList<String> uniquePassages = new ArrayList<>();
 
-        return passages;
+        for (Comment passage : passages) {
+            if (cleanPassages.isEmpty()) {
+                cleanPassages.add(passage);
+                uniquePassages.add(passage.getText());
+            } else {
+                if (uniquePassages.contains(passage.getText())) {
+                    continue;
+                } else {
+                    cleanPassages.add(passage);
+                    uniquePassages.add(passage.getText());
+                }
+            }
+        }
+
+        return cleanPassages;
 
     }
 
@@ -561,7 +577,7 @@ public class WebAPTestSuit implements Runnable {
                 // keep truck of comment's true and calculated relevance value
                 // if comment is unjudged skip it
                 EvalPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
-                EvaluationResult result = new EvaluationResult(resultId, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText());
+                EvaluationResult result = new EvaluationResult(resultId, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText(), resultCom.getScore(), resultCom.getBestSentence());
                 result.setPairRelevance(p.getRelevance());
                 resultId++;
             }
@@ -600,7 +616,7 @@ public class WebAPTestSuit implements Runnable {
                 //System.out.println(resultId + "passages so far...");
                 EvalPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
                 long pairID = Long.valueOf(p.getQueryId() + p.getPassageId());
-                EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText());
+                EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQueryId()), question, Integer.valueOf(p.getPassageId()), resultCom.getText(), resultCom.getScore(), resultCom.getBestSentence());
                 result.setPairRelevance(p.getRelevance());
 
                 writeResultToFile(result, model.getDescription());
@@ -609,6 +625,64 @@ public class WebAPTestSuit implements Runnable {
             System.out.println("Query " + qID + " was evaluated successfully");
             System.out.println("===============================================================");
         }
+    }
+
+    public static Model getModelInstance(Model model) {
+
+        if (model instanceof BaselineModel) {
+
+            return new BaselineModel(model.getDescription());
+
+        } else if (model instanceof WordnetModel) {
+
+            return new WordnetModel(model.getDescription(), ((WordnetModel) model).getDictionary(), ((WordnetModel) model).getResourcesToRetrieve());
+
+        } else if (model instanceof Word2vecModel) {
+
+            Word2vecModel m = new Word2vecModel(model.getDescription(), ((Word2vecModel) model).getWordMovers(), ((Word2vecModel) model).getWord2Vec());
+            m.setComments(model.getComments());
+            if (((Word2vecModel) model).getContextWords() == null) {
+                m.setContextWords(((Word2vecModel) model).getContextWords());
+                return m;
+            } else {
+                return m;
+            }
+
+        } else if (model instanceof Word2vecModel_III) {
+
+            Word2vecModel_III m = new Word2vecModel_III(model.getDescription(), ((Word2vecModel_III) model).getWordMovers(), ((Word2vecModel_III) model).getWord2Vec());
+            m.setComments(model.getComments());
+            if (((Word2vecModel_III) model).getContextWords() == null) {
+                m.setContextWords(((Word2vecModel_III) model).getContextWords());
+                return m;
+            } else {
+                return m;
+            }
+
+        } else if (model instanceof WordnetWord2vecModel) {
+
+            WordnetWord2vecModel m = new WordnetWord2vecModel(model.getDescription(), ((WordnetWord2vecModel) model).getDictionary(), ((WordnetWord2vecModel) model).getResourcesToRetrieve(), ((WordnetWord2vecModel) model).getWordMovers(), ((WordnetWord2vecModel) model).getWord2Vec(), ((WordnetWord2vecModel) model).getModelWeights());
+            m.setComments(model.getComments());
+            if (((WordnetWord2vecModel) model).getContextWords() == null) {
+                m.setContextWords(((WordnetWord2vecModel) model).getContextWords());
+                return m;
+            } else {
+                return m;
+            }
+
+        } else if (model instanceof WordnetWord2vecModel_III) {
+
+            WordnetWord2vecModel_III m = new WordnetWord2vecModel_III(model.getDescription(), ((WordnetWord2vecModel_III) model).getDictionary(), ((WordnetWord2vecModel_III) model).getResourcesToRetrieve(), ((WordnetWord2vecModel_III) model).getWordMovers(), ((WordnetWord2vecModel_III) model).getWord2Vec(), ((WordnetWord2vecModel_III) model).getModelWeights());
+            m.setComments(model.getComments());
+            if (((WordnetWord2vecModel_III) model).getContextWords() == null) {
+                m.setContextWords(((WordnetWord2vecModel_III) model).getContextWords());
+                return m;
+            } else {
+                return m;
+            }
+
+        }
+        return null;
     }
 
     public static void produceBigResultsWebAP(Model model, HashMap<String, String> queryList) throws IOException {
@@ -634,11 +708,50 @@ public class WebAPTestSuit implements Runnable {
             cnt++;
         }
 
-        producePartialResultsWebAP(thread1Set, model, queryList);
-        producePartialResultsWebAP(thread2Set, model, queryList);
-        producePartialResultsWebAP(thread3Set, model, queryList);
-        producePartialResultsWebAP(thread4Set, model, queryList);
+        Thread thread1 = new Thread() {
+            public void run() {
+                try {
+                    producePartialResultsWebAP(thread1Set, getModelInstance(model), new HashMap<>(queryList));
+                } catch (IOException ex) {
+                    Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
 
+        Thread thread2 = new Thread() {
+            public void run() {
+                try {
+                    producePartialResultsWebAP(thread2Set, getModelInstance(model), new HashMap<>(queryList));
+                } catch (IOException ex) {
+                    Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        Thread thread3 = new Thread() {
+            public void run() {
+                try {
+                    producePartialResultsWebAP(thread3Set, getModelInstance(model), new HashMap<>(queryList));
+                } catch (IOException ex) {
+                    Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        Thread thread4 = new Thread() {
+            public void run() {
+                try {
+                    producePartialResultsWebAP(thread4Set, getModelInstance(model), new HashMap<>(queryList));
+                } catch (IOException ex) {
+                    Logger.getLogger(WebAPTestSuit.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
     }
 
     public static void writeResultToFile(EvaluationResult result, String model) throws IOException {

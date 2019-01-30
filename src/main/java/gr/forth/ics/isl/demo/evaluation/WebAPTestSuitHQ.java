@@ -310,7 +310,7 @@ public class WebAPTestSuitHQ {
                 // if comment is unjudged skip it
                 EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
                 if (p != null) {
-                    EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQuery().getId()), p.getQuery().getText(), Integer.valueOf(p.getComment().getId()), p.getComment().getText());
+                    EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQuery().getId()), p.getQuery().getText(), Integer.valueOf(p.getComment().getId()), p.getComment().getText(), resultCom.getScore(), resultCom.getBestSentence());
                     pairID++;
                     if (resultCom.getScore() > 0.0001f) {
                         result.setPairRelevance(Integer.valueOf(p.getRelevance()));
@@ -350,7 +350,7 @@ public class WebAPTestSuitHQ {
                 // if comment is unjudged skip it
                 EvaluationPair p = evalPairsWithCrntQueryId.get(resultCom.getId());
                 if (p != null) {
-                    EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQuery().getId()), p.getQuery().getText(), Integer.valueOf(p.getComment().getId()), p.getComment().getText());
+                    EvaluationResult result = new EvaluationResult(pairID, Integer.valueOf(p.getQuery().getId()), p.getQuery().getText(), Integer.valueOf(p.getComment().getId()), p.getComment().getText(), resultCom.getScore(), resultCom.getBestSentence());
                     pairID++;
                     if (resultCom.getScore() > 0.0001f) {
                         result.setPairRelevance(Integer.valueOf(p.getRelevance()));

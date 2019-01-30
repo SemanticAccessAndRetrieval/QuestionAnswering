@@ -70,6 +70,10 @@ public class Word2vecModel_III extends Model {
         this.contextWords = contextWords;
     }
 
+    public ArrayList<String> getContextWords() {
+        return this.contextWords;
+    }
+
     public WordMovers getWordMovers() {
         return this.wordMovers;
     }

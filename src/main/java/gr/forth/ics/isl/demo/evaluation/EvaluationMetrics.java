@@ -10,6 +10,7 @@
 package gr.forth.ics.isl.demo.evaluation;
 
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
+import gr.forth.ics.isl.demo.evaluation.models.EvaluationResult;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -117,6 +118,35 @@ public class EvaluationMetrics {
         }
 
         return Sum / idealScore;
+    }
+
+    public static double getIDCGer(Collection<EvaluationResult> evalPairs) {
+        TreeMap<Integer, Integer> relevance_score = new TreeMap<>();
+
+        int tmp_relevance;
+        for (EvaluationResult p : evalPairs) {
+            tmp_relevance = p.getPairRelevance();
+
+            if (tmp_relevance != 0) {
+                if (!relevance_score.containsKey(tmp_relevance)) {
+                    relevance_score.put(tmp_relevance, 1);
+                } else {
+                    relevance_score.replace(tmp_relevance, relevance_score.get(tmp_relevance) + 1);
+                }
+            }
+        }
+
+        double ideal_score = 0.0f;
+        int position = 1;
+
+        for (int rel : relevance_score.descendingKeySet()) {
+            int num_of_comments = relevance_score.get(rel);
+            for (int i = position; i < (position + num_of_comments); i++) {
+                ideal_score += (Math.pow(2.0, (double) rel) - 1) / (Math.log(i + 1) / Math.log(2));
+            }
+            position += num_of_comments;
+        }
+        return ideal_score;
     }
 
     public static double getIDCG(Collection<EvaluationPair> evalPairs) {

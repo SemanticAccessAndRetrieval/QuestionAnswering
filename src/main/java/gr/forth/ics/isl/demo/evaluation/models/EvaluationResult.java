@@ -21,13 +21,36 @@ public class EvaluationResult {
     private int passageId;
     private String passageText;
     private int pairRelevance;
+    private double score;
+    private String bestSentence;
 
-    public EvaluationResult(long pairId, int queryId, String queryText, int passageId, String passageText) {
+    public EvaluationResult(long pairId, int queryId, String queryText, int passageId, String passageText, double score, String bestSentence) {
         this.pairId = pairId;
         this.queryId = queryId;
         this.queryText = queryText;
         this.passageId = passageId;
         this.passageText = passageText;
+        this.score = score;
+        this.bestSentence = bestSentence;
+    }
+
+    public EvaluationResult(long pairId, int queryId, String queryText, int passageId, String passageText, int pairRelevance, double score, String bestSentence) {
+        this.pairId = pairId;
+        this.queryId = queryId;
+        this.queryText = queryText;
+        this.passageId = passageId;
+        this.passageText = passageText;
+        this.pairRelevance = pairRelevance;
+        this.score = score;
+        this.bestSentence = bestSentence;
+    }
+
+    public double getScore() {
+        return this.score;
+    }
+
+    public String getBestSentence() {
+        return this.bestSentence;
     }
 
     public long getPairId() {
@@ -61,6 +84,7 @@ public class EvaluationResult {
     @Override
     public String toString() {
         return this.pairId + "\t" + this.queryId + "\t" + this.queryText + "\t"
-                + this.passageId + "\t" + this.passageText + "\t" + this.pairRelevance + "\n";
+                + this.passageId + "\t" + this.passageText + "\t" + this.pairRelevance
+                + "\t" + this.score + "\t" + this.bestSentence + "\n";
     }
 }

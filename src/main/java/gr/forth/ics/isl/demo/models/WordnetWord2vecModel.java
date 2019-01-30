@@ -92,6 +92,10 @@ public class WordnetWord2vecModel extends Model {
         this.contextWords = contextWords;
     }
 
+    public ArrayList<String> getContextWords() {
+        return this.contextWords;
+    }
+
     public IDictionary getDictionary() {
         return this.dictionary;
     }
