@@ -1,0 +1,1000 @@
+q1	http://dbpedia.org/resource/Adler_School_of_Professional_Psychology	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Vancouver
+q2	http://dbpedia.org/resource/Vancouver_Millionaires	http://dbpedia.org/property/city	http://dbpedia.org/resource/Vancouver
+q3	http://dbpedia.org/resource/Seymour_Parker_Gilbert	http://rdf.freebase.com/ns/people.person.profession	http://rdf.freebase.com/ns/m.02h6624
+q4	http://dbpedia.org/resource/Irving_Langmuir	http://rdf.freebase.com/ns/education.academic.advisors	http://dbpedia.org/resource/Walther_Nernst
+q5	http://dbpedia.org/resource/Hunyadi_family	http://dbpedia.org/property/country	http://dbpedia.org/resource/Duchy_of_Styria
+q6	http://rdf.freebase.com/ns/m.0gcy7df	http://rdf.freebase.com/ns/film.performance.film*	http://dbpedia.org/resource/Time_to_Kill_(1989_film)
+q7
+q8	http://dbpedia.org/resource/Yamakinkarudu	http://rdf.freebase.com/ns/film.film.produced_by	http://dbpedia.org/resource/Allu_Aravind
+q9	http://dbpedia.org/resource/Sub-Saharan_Africa	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/East_Africa_Time
+q10
+q11	http://dbpedia.org/resource/Fritz_Leiber_(Sr.)	http://rdf.freebase.com/ns/people.person.children*	http://dbpedia.org/resource/Fritz_Leiber
+q12
+q13
+q14	http://dbpedia.org/resource/Souad_Massi	http://rdf.freebase.com/ns/film.music_contributor.film	http://rdf.freebase.com/ns/m.0c09_nl
+q15	http://dbpedia.org/resource/Neon_Genesis_Evangelion	http://yago-knowledge.org/resource/infobox/en/producer	noriko kobayashinyutaka sugiyama
+q16
+q17	http://dbpedia.org/resource/Critical_Software	http://rdf.freebase.com/ns/business.business_operation.industry	http://rdf.freebase.com/ns/m.01mf0
+q18	http://dbpedia.org/resource/58	http://www.wikidata.org/entity/P31c	http://dbpedia.org/ontology/Year
+q19
+q20	http://dbpedia.org/resource/Comedy_film	http://www.wikidata.org/entity/P136	http://dbpedia.org/resource/Liverpool_(2012_film)
+q21
+q22	http://dbpedia.org/resource/8596_Alchata	http://rdf.freebase.com/ns/astronomy.astronomical_discovery.discovery_date	1973-09-29
+q23	http://dbpedia.org/resource/Bisaurin	http://dbpedia.org/property/range	http://dbpedia.org/resource/Pyrenees
+q24	http://dbpedia.org/resource/GrybÃ³w	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_European_Time
+q25	http://dbpedia.org/resource/Madagascar	http://dimitros.net/rdf/ontology#hasTitle	madagascar
+q26	http://dbpedia.org/resource/Canche	http://yago-knowledge.org/resource/infobox/en/watershed	1,274 kmÂ²
+q27	http://dbpedia.org/resource/Sandy_Denny	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1978-04-21
+q28	http://dbpedia.org/resource/Peter_Hlinka	http://rdf.freebase.com/ns/people.person.nationality	http://dbpedia.org/resource/Czechoslovakia
+q29	http://sws.geonames.org/4095982/	http://dbpedia.org/property/city*	http://dbpedia.org/resource/Alabama
+q30	http://rdf.freebase.com/ns/m.0h_1bwb	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Thriller_(genre)
+q31	http://dbpedia.org/resource/Ivesdale,_Illinois	http://dbpedia.org/property/country	united states
+q32	http://dbpedia.org/resource/Oratino	http://yago-knowledge.org/resource/isLocatedIn	http://wifo5-04.informatik.uni-mannheim.de/eurostat/resource/regions/Molise
+q33	http://dbpedia.org/resource/Dresden	http://yago-knowledge.org/resource/isLocatedIn	http://www.fao.org/countryprofiles/geoinfo/geopolitical/resource/Germany
+q34
+q35	http://dbpedia.org/resource/Friedrich_Block	http://dbpedia.org/property/location	http://dbpedia.org/resource/Holyoke,_Massachusetts
+q36
+q37
+q38
+q39	http://dbpedia.org/resource/Helena_Christensen	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.0k6nt
+q40	http://dbpedia.org/resource/Harald_Bohr	http://dbpedia.org/property/nationality	danish
+q41	http://dbpedia.org/resource/Namco	http://rdf.freebase.com/ns/cvg.cvg_publisher.game_versions_published	http://rdf.freebase.com/ns/m.02hl3vc
+q42
+q43
+q44	http://rdf.freebase.com/ns/m.05b80rg	http://rdf.freebase.com/ns/dataworld.gardening_hint.replaced_by*	http://dbpedia.org/resource/Film
+q45	http://dbpedia.org/resource/Medford_Bryan_Evans	http://dbpedia.org/property/nationality	http://logd.tw.rpi.edu/id/country/United_States
+q46
+q47	http://dbpedia.org/resource/Bink_(record_producer)	http://rdf.freebase.com/ns/people.person.profession	http://rdf.freebase.com/ns/m.09l65
+q48
+q49
+q50	http://dbpedia.org/resource/Maybole	http://yago-knowledge.org/resource/isLocatedIn	http://data.nobelprize.org/resource/country/Scotland
+q51	http://yago-knowledge.org/resource/7650_Kaname	http://rdf.freebase.com/ns/astronomy.celestial_object.category*	http://dbpedia.org/resource/Asteroid
+q52
+q53	http://dbpedia.org/resource/Savonlinna	http://rdf.freebase.com/ns/location.location.nearby_airports	http://dbpedia.org/resource/Savonlinna_Airport
+q54	http://dbpedia.org/resource/Classic_Vinyl	http://rdf.freebase.com/ns/broadcast.broadcast.area_served	http://rdf.freebase.com/ns/m.09c7w0
+q55
+q56	http://dbpedia.org/resource/BidonÃ¬	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_European_Time
+q57	http://viaf.org/viaf/180227358	http://rdf.freebase.com/ns/sports.sport.teams*	http://dbpedia.org/resource/Staten_Island_Yankees
+q58
+q59
+q60	http://dbpedia.org/resource/High_School_Musical	http://rdf.freebase.com/key/user.avh.ellerdale	0087-7499
+q61	http://dbpedia.org/resource/William_S._Burroughs	http://purl.org/dc/terms/created	1979-04-18t00:00:00
+q62	http://dbpedia.org/resource/IBM	http://xmlns.com/foaf/spec/#term_maker	http://yago-knowledge.org/resource/Model_M_keyboard
+q63
+q64	http://dbpedia.org/resource/William_Wall_(writer)	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q65
+q66	http://dbpedia.org/resource/Haunted_house	http://rdf.freebase.com/ns/book.book_subject.works	http://dbpedia.org/resource/The_Little_Stranger
+q67	http://dbpedia.org/resource/Robin_Hood	http://yago-knowledge.org/resource/redirectedFrom	robin hood 6Âº conde derby
+q68	http://dbpedia.org/resource/Claudin_de_Sermisy	http://yago-knowledge.org/resource/diedIn	http://dbpedia.org/resource/Paris
+q69	http://dbpedia.org/resource/Jules_Verne	http://rdf.freebase.com/ns/book.author.series_written_or_contributed_to	http://dbpedia.org/resource/Voyages_Extraordinaires
+q70	http://dbpedia.org/resource/Battlecruiser	http://d-nb.info/standards/elementset/gnd#broaderTermGeneral	http://dbpedia.org/resource/Cruiser
+q71
+q72	http://rdf.freebase.com/ns/m.040jmqk	http://rdf.freebase.com/ns/cvg.game_version.platform*	http://dbpedia.org/resource/Personal_computer
+q73
+q74	http://rdf.freebase.com/ns/m.038rf4	http://rdf.freebase.com/ns/base.educationalshortfilm.educational_short_film.subject*	http://dbpedia.org/resource/Racism
+q75	http://dbpedia.org/resource/Cuba_Crossing	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.09c7w0
+q76	http://dbpedia.org/resource/Dan_Abrams	http://dbpedia.org/property/parents	efrat abrams
+q77	http://dbpedia.org/resource/WCSX	http://dbpedia.org/property/area	metro detroit http://www.radio-locator.com/cgi-bin/pat?call=wcsx&service=fm&status=l&hours=u
+q78	http://dbpedia.org/resource/Borland_C++	http://rdf.freebase.com/ns/computer.software.developer*	http://dbpedia.org/resource/Borland
+q79
+q80	http://dbpedia.org/resource/South_Sydney_Rabbitohs	http://rdf.freebase.com/ns/sports.professional_sports_team.owner_s	http://data.bnf.fr/ark:/12148/cb14028218p#foaf:Person
+q81	http://dbpedia.org/resource/Timothy_Hackworth	http://rdf.freebase.com/ns/law.inventor.inventions	http://dbpedia.org/resource/Wylam_Dilly
+q82	http://dbpedia.org/resource/Timur_Zangiyev	http://dbpedia.org/ontology/nationality	http://data.nobelprize.org/resource/country/Russia
+q83
+q84	http://dbpedia.org/resource/Anna_Pavlova	http://schema.org/deathDate	1931-01-23
+q85	http://dbpedia.org/resource/Nadine_Njeim	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q86	http://dbpedia.org/resource/Magnum_Force	http://data.linkedmdb.org/resource/movie/featured_film_location	http://data.linkedmdb.org/resource/film_location/16
+q87	http://dbpedia.org/resource/Pop_Snyder	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://dbpedia.org/resource/Catcher
+q88
+q89	http://dbpedia.org/resource/ArtScroll	http://rdf.freebase.com/ns/business.business_operation.industry	http://dbpedia.org/resource/Publishing
+q90
+q91
+q92	http://dbpedia.org/resource/9297_Marchuk	http://purl.org/dc/elements/1.1/title	9297 marchuk
+q93
+q94	http://dbpedia.org/resource/Fred_Cooke	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://dbpedia.org/resource/Outfielder
+q95
+q96	http://dbpedia.org/resource/Joe_Bowman	http://dbpedia.org/property/deathPlace	http://dbpedia.org/resource/Kansas_City,_Missouri
+q97	http://dbpedia.org/resource/Matt_Stone	http://rdf.freebase.com/ns/fictional_universe.fictional_character_creator.fictional_characters_created	http://dbpedia.org/resource/Stan_Marsh
+q98
+q99	http://dbpedia.org/resource/Gottfried_Graf_von_Bismarck-SchÃ¶nhausen	http://dbpedia.org/ontology/birthPlace	http://dbpedia.org/resource/German_Empire
+q100	http://dbpedia.org/resource/Randy_Sanders	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q101	http://dbpedia.org/resource/Beira_Lake	http://www.geonames.org/ontology#countryCode	lk
+q102
+q103	http://dbpedia.org/resource/Mario_O'Hara	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q104	http://dbpedia.org/resource/Video_game_console	http://sw.opencyc.org/concept/Mx4rZOAVeiYGEdqAAAACs2IMmw	http://yago-knowledge.org/resource/Player_(game)
+q105	http://dbpedia.org/resource/Sannappa_Parameshwar_Gaonkar	http://dbpedia.org/property/deathPlace	http://dbpedia.org/resource/Ankola
+q106	http://dbpedia.org/resource/Peabody_Essex_Museum	http://rdf.freebase.com/ns/travel.tourist_attraction.near_travel_destination	http://dbpedia.org/resource/Salem,_Massachusetts
+q107	http://dbpedia.org/resource/Frederick_H._Prince	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q108	http://dbpedia.org/resource/Electric_chair	http://rdf.freebase.com/ns/people.cause_of_death.people	http://yago-knowledge.org/resource/Robert_Nixon_(serial_killer)
+q109	http://dbpedia.org/resource/Man's_Fate_(film)	http://dbpedia.org/property/writer*	http://dbpedia.org/resource/Han_Suyin
+q110	http://dbpedia.org/resource/Mobile_County,_Alabama	http://rdf.freebase.com/ns/location.location.containedby	http://rdf.freebase.com/ns/m.09c7w0
+q111	http://dbpedia.org/resource/Audubon_County,_Iowa	http://rdf.freebase.com/ns/location.location.contains*	http://dbpedia.org/resource/Kimballton,_Iowa
+q112	http://bnb.data.bl.uk/id/person/RansomMattW(MattWhitaker)1826-1904	http://dbpedia.org/property/battles*	http://dbpedia.org/resource/American_Civil_War
+q113	http://dbpedia.org/resource/The_Trojan_Women	http://dbpedia.org/property/characters*	http://dbpedia.org/resource/Poseidon
+q114
+q115	http://dbpedia.org/resource/Empedocles	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Provincia_di_Agrigento
+q116	http://dbpedia.org/resource/Glenrock_Lagoon	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/geography.geographical_feature
+q117
+q118
+q119
+q120
+q121
+q122	http://dbpedia.org/resource/Steven_Blaney	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q123
+q124	http://dbpedia.org/resource/Chris_von_der_Ahe	http://rdf.freebase.com/ns/people.deceased_person.cause_of_death	http://dbpedia.org/resource/Cirrhosis
+q125
+q126
+q127	http://dbpedia.org/resource/Somalia	http://rdf.freebase.com/ns/location.country.form_of_government*	http://dbpedia.org/resource/Republic
+q128
+q129	http://dbpedia.org/resource/Daniel_Garodnick	http://dbpedia.org/property/profession	http://dbpedia.org/resource/Politician
+q130	http://dbpedia.org/resource/Executioner	http://sw.opencyc.org/concept/wikipediaArticleURL	http://en.wikipedia.org/wiki/Executioner
+q131	http://dbpedia.org/resource/Vivi_Bach	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.0k6nt
+q132	http://dbpedia.org/resource/Candy_Csencsits	http://dbpedia.org/property/deathPlace	tulsa county, oklahoma, u.s.
+q133
+q134	http://dbpedia.org/resource/Midfielder	http://rdf.freebase.com/ns/soccer.football_position.players*	http://dbpedia.org/resource/Mariano_Bogliacino
+q135	http://dbpedia.org/resource/Claude_Jade	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	2006-12-01
+q136	http://dbpedia.org/resource/Celsius_(comics)	http://rdf.freebase.com/ns/fictional_universe.fictional_character.appears_in_these_fictional_universes*	http://dbpedia.org/resource/DC_Universe
+q137	http://dbpedia.org/resource/September_25	http://rdf.freebase.com/ns/time.day_of_year.calendar_system	http://dbpedia.org/resource/Gregorian_calendar
+q138	http://dbpedia.org/resource/Atari	http://rdf.freebase.com/ns/cvg.cvg_publisher.games_published	http://dbpedia.org/resource/Unreal_Tournament_2003
+q139	http://dbpedia.org/resource/Finland_at_the_1984_Winter_Olympics	http://dbpedia.org/property/flagbearer*	http://dbpedia.org/resource/Ice_hockey
+q140	http://dbpedia.org/resource/Swifts_Creek	http://rdf.freebase.com/ns/location.location.containedby	http://dbpedia.org/resource/Victoria_(Australia)
+q141	http://rdf.freebase.com/ns/m.0jb8psj	http://rdf.freebase.com/ns/book.publisher_imprint_tenure.imprints*	http://dbpedia.org/resource/Doubleday_(publisher)
+q142
+q143	http://dbpedia.org/resource/James_Lasdun	http://rdf.freebase.com/ns/people.person.ethnicity	http://dbpedia.org/resource/English_people
+q144	http://rdf.freebase.com/ns/m.07cmcw	http://rdf.freebase.com/ns/cvg.computer_videogame.cvg_genre*	http://dbpedia.org/resource/Steampunk
+q145
+q146
+q147	http://dbpedia.org/resource/Margaret_Kilgallen	http://rdf.freebase.com/ns/visual_art.visual_artist.art_forms	http://www.wikidata.org/entity/Q11629
+q148	http://dbpedia.org/resource/35mm_Bessa	http://www.wikidata.org/entity/P31c	http://rdf.freebase.com/ns/base.filmcameras.camera_series
+q149	http://dbpedia.org/resource/Tarzan	http://purl.org/dc/terms/subject	http://dbpedia.org/resource/Category:1930s_American_radio_programs
+q150	http://dbpedia.org/resource/Matt_Duke	http://rdf.freebase.com/ns/sports.pro_athlete.sports_played_professionally	http://rdf.freebase.com/ns/m.0d5gv_l
+q151
+q152	http://dbpedia.org/resource/James_Hahn	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q153	http://dbpedia.org/resource/Independence_Wealth_Management	http://dbpedia.org/property/companyType*	http://dbpedia.org/resource/Financial_services
+q154	http://dbpedia.org/resource/Texingtal	http://rdf.freebase.com/ns/location.location.people_born_here	http://dbpedia.org/resource/Engelbert_Dollfuss
+q155
+q156	http://dbpedia.org/resource/Clara_Barkley_Dorr_House	http://rdf.freebase.com/ns/architecture.structure.architectural_style	http://dbpedia.org/resource/Greek_Revival_architecture
+q157
+q158	http://dbpedia.org/resource/Metra	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Chicago
+q159
+q160	http://dbpedia.org/resource/Outing_Riley	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.09c7w0
+q161	http://dbpedia.org/resource/Eris_Muhandes	http://dbpedia.org/property/birthPlace	http://dbtune.org/musicbrainz/resource/country/AF
+q162	http://dbpedia.org/resource/Battle_of_Ferkeh	http://yago-knowledge.org/resource/happenedIn*	http://dbpedia.org/resource/Dongola
+q163	http://dbpedia.org/resource/Donna_Tartt	http://rdf.freebase.com/ns/book.author.book_editions_published	http://rdf.freebase.com/ns/m.04v7l1_
+q164
+q165
+q166	http://dbpedia.org/resource/2_Filhos_de_Francisco	http://rdf.freebase.com/ns/film.film.music*	http://dbpedia.org/resource/Caetano_Veloso
+q167	http://dbpedia.org/resource/Mossflower	http://rdf.freebase.com/ns/book.written_work.original_language	http://dbpedia.org/resource/English_language
+q168
+q169
+q170	http://dbpedia.org/resource/WrestleMania	http://yago-knowledge.org/resource/redirectedFrom	wwf wrestlemania
+q171	http://dbpedia.org/resource/George_Barnes_(cinematographer)	http://www.wikidata.org/entity/P106c*	http://dbpedia.org/resource/Cinematographer
+q172	http://dbpedia.org/resource/Cougar_Creek_Elementary_School_(Washington)	http://dbpedia.org/property/freeLabel*	http://dbpedia.org/resource/Mascot
+q173
+q174
+q175
+q176
+q177	http://dbpedia.org/resource/Firearm	http://rdf.freebase.com/ns/people.cause_of_death.people	http://yago-knowledge.org/resource/Eduardo_Dato_e_Iradier
+q178
+q179	http://dbpedia.org/resource/11104_Airion	http://rdf.freebase.com/ns/astronomy.asteroid.member_of_asteroid_group*	http://dbpedia.org/resource/Asteroid_belt
+q180	http://dbpedia.org/resource/Apostolic_Age	http://rdf.freebase.com/ns/common.topic.image	http://rdf.freebase.com/ns/m.044tzlf
+q181	http://dbpedia.org/resource/Ruben_Studdard	http://dbpedia.org/property/origin	http://dbpedia.org/resource/Birmingham,_Alabama_(Amtrak_station)
+q182	http://dbpedia.org/resource/Paranoia	http://www.w3.org/2000/01/rdf-schema#seeAlso	http://dbtropes.org/resource/Film/Paranoia2013
+q183	http://dbpedia.org/resource/Three's_Co.	http://rdf.freebase.com/key/authority.musicbrainz	a5410d89-bab3-3479-849c-8f3cb35181f2
+q184	http://dbpedia.org/resource/Lillian_McMurry	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q185	http://dbpedia.org/resource/Rolling_Thunder_3	http://rdf.freebase.com/ns/cvg.computer_videogame.cvg_genre	http://dbpedia.org/resource/Action_game
+q186
+q187	http://dbpedia.org/resource/Road_Hogs	http://www.w3.org/2006/vcard/ns#type	http://schema.org/Book
+q188	http://dbpedia.org/resource/Pima_County_Fair	http://dbpedia.org/property/location	11300
+q189	http://dbpedia.org/resource/The_Mind's_I	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Douglas_Hofstadter
+q190
+q191	http://dbpedia.org/resource/American_Warships	http://www.w3.org/2000/01/rdf-schema#comment	american warships is a science fiction action film by the asylum, that was released direct-to-video on may 15, 2012. in the tradition of the asylum's film catalog, the film is a mockbuster of the hasbro/universal pictures film battleship.originally the film was titled american battleship, but universal later involved the asylum in a copyright lawsuit over the film due to its resemblance to their film. as a result of the controversy, the name of the film was changed to american warships.
+q192	http://dbpedia.org/resource/Talk_radio	http://rdf.freebase.com/ns/broadcast.radio_format.stations*	http://dbpedia.org/resource/KVTT
+q193	http://dbpedia.org/resource/Frank_McIntyre	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q194
+q195	http://dbpedia.org/resource/Chaya_Singh	http://yago-knowledge.org/resource/hasGivenName	chaya
+q196
+q197	http://dbpedia.org/resource/County_Louth	http://rdf.freebase.com/ns/location.location.events	http://dbpedia.org/resource/Battle_of_Faughart
+q198	http://dbpedia.org/resource/Jason_London	http://rdf.freebase.com/ns/people.person.parents	http://rdf.freebase.com/ns/m.0j67wl7
+q199
+q200	http://dbpedia.org/resource/Versailles_Township,_Brown_County,_Illinois	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_Time_Zone
+q201	http://dbpedia.org/resource/Joseph_Curran	http://rdf.freebase.com/ns/people.deceased_person.cause_of_death	http://dbpedia.org/resource/Cancer
+q202	http://dbpedia.org/resource/Khe_Sanh	http://rdf.freebase.com/key/user.avh.ellerdale	0081-bf88
+q203
+q204	http://dbpedia.org/resource/Stratford-upon-Avon	http://rdf.freebase.com/ns/travel.travel_destination.tourist_attractions	http://dbpedia.org/resource/Church_of_the_Holy_Trinity,_Stratford-upon-Avon
+q205	http://dbpedia.org/resource/Stand_for_Children	http://dbpedia.org/property/areaServed*	http://dbpedia.org/resource/Texas
+q206	http://dbpedia.org/resource/Fred_Hahn	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q207	http://dbpedia.org/resource/Independent_film	http://rdf.freebase.com/ns/base.parody.parodied_subject.parodies	http://dbpedia.org/resource/The_Independent_(film)
+q208	http://dbpedia.org/resource/Baal_Veer	http://dbpedia.org/property/genre*	http://dbpedia.org/resource/Magic_in_fiction
+q209	http://dbpedia.org/resource/Matt_Gentry	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q210	http://dbpedia.org/resource/Michiyo_Okusu	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q211	http://dbpedia.org/resource/Verl	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/base.aareas.schema.de.city
+q212
+q213	http://dbpedia.org/resource/Alex_Hardy	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://dbpedia.org/resource/Pitcher
+q214	http://yago-knowledge.org/resource/The_Conan_Chronicles	http://dbpedia.org/property/series*	http://dbpedia.org/resource/Conan_the_Barbarian
+q215	http://dbpedia.org/resource/Jessica_Wakefield	http://rdf.freebase.com/ns/book.book_character.appears_in_book	http://rdf.freebase.com/ns/m.0j1fykl
+q216
+q217	http://dbpedia.org/resource/AlmÃ¨	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Province_of_Bergamo
+q218	http://dbpedia.org/resource/Hans_GrÃ¤ssel	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1939
+q219	http://dbpedia.org/resource/Nikola_Rachelle	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q220	http://dbpedia.org/resource/Roman_legion	http://www.w3.org/2000/01/rdf-schema#subClassOf	http://www.wikidata.org/entity/Q15199248
+q221	http://dbpedia.org/resource/Logan_International_Airport	http://rdf.freebase.com/ns/aviation.airport.serves	http://dbpedia.org/resource/East_Boston,_Massachusetts
+q222	http://rdf.freebase.com/ns/m.0h_1bwb	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Thriller_(genre)
+q223	http://dbpedia.org/resource/Ludwig_Stickelberger	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1936-04-11
+q224
+q225
+q226	http://dbpedia.org/resource/Derek_Mio	http://rdf.freebase.com/ns/people.person.ethnicity	http://dbpedia.org/resource/Japanese_American
+q227	http://dbpedia.org/resource/Clara_Harris	http://dbpedia.org/property/parents	http://dbpedia.org/resource/Ira_Harris
+q228	http://dbpedia.org/resource/Benny_Goodman	http://rdf.freebase.com/ns/people.person.profession	http://dbpedia.org/resource/Songwriter
+q229
+q230
+q231	http://dbpedia.org/resource/Alice_B._Toklas	http://www.w3.org/2006/vcard/ns#type	http://yago-knowledge.org/resource/wikicat_American_cookbook_writers
+q232	http://dbpedia.org/resource/Latakia	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Mutaz_Kailouni
+q233	http://dbpedia.org/resource/Amusement_park	http://www.wikidata.org/entity/P31c	http://rdf.freebase.com/ns/base.allthingsnewyork.topic
+q234	http://yago-knowledge.org/resource/Defensive_end	http://rdf.freebase.com/ns/american_football.football_position.players*	http://dbpedia.org/resource/Alphonso_Carreker
+q235
+q236	http://dbpedia.org/resource/Battle	http://purl.obolibrary.org/obo/BFO_0000050	http://dbpedia.org/resource/War
+q237	http://dbpedia.org/resource/Supernatural	http://rdf.freebase.com/ns/tv.tv_genre.programs	http://dbpedia.org/resource/Afterlife_(TV_series)
+q238	http://rdf.freebase.com/ns/m.0kc8vvy	http://rdf.freebase.com/ns/sports.pro_sports_played.sport*	http://dbpedia.org/resource/Rugby_league
+q239
+q240
+q241	http://dbpedia.org/resource/Ilya_Salkind	http://dbpedia.org/property/occupation*	http://dbpedia.org/resource/Film_producer
+q242
+q243	http://dbpedia.org/resource/Cinderella_Man	http://rdf.freebase.com/ns/film.film.production_companies	http://dbpedia.org/resource/Universal_Studios
+q244	http://dbpedia.org/resource/Philip_Pullman	http://rdf.freebase.com/ns/book.author.works_written	http://dbpedia.org/resource/Lyra's_Oxford
+q245	http://dbpedia.org/resource/Khandhar	http://yago-knowledge.org/resource/infobox/en/released	8 june 1984
+q246	http://dbpedia.org/resource/Sunways	http://dbpedia.org/property/hubs*	http://dbpedia.org/resource/Stockholm_Arlanda_Airport
+q247	http://dbpedia.org/resource/Burny_Mattinson	http://rdf.freebase.com/ns/film.film_story_contributor.film_story_credits	http://dbpedia.org/resource/Tarzan_(1999_film)
+q248	http://dbpedia.org/resource/April	http://www.geonames.org/ontology#parentCountry	http://de.dbpedia.org/resource/Frankreich
+q249
+q250	http://dbpedia.org/resource/Craig_Raine	http://rdf.freebase.com/ns/book.author.book_editions_published	http://rdf.freebase.com/ns/m.04xr2c0
+q251
+q252	http://dbpedia.org/resource/Judge_Alex	http://rdf.freebase.com/ns/tv.tv_program.country_of_origin	http://rdf.freebase.com/ns/m.09c7w0
+q253
+q254
+q255	http://dbpedia.org/resource/Orlando_Solar_Bears_(ECHL)	http://dbpedia.org/property/city*	http://dbpedia.org/resource/Florida
+q256
+q257	http://dbpedia.org/resource/Nuba_Conversations	http://yago-knowledge.org/resource/infobox/en/language	nuba
+q258	http://dbpedia.org/resource/Xfce	http://rdf.freebase.com/ns/computer.software.first_released	1998
+q259	http://dbpedia.org/resource/Astronomical_object	http://d-nb.info/standards/elementset/gnd#gndSubjectCategory	http://d-nb.info/standards/vocab/gnd/gnd-sc#20
+q260	http://dbpedia.org/resource/Fizzy_apple_cocktail	http://dbpedia.org/property/ingredients	*1 shot apple vodkan*1/2 cup apple juicen*1/2 cup lemonade
+q261	http://d.opencalais.com/er/company/ralg-tr1r/c491581b-a887-397c-9538-d20adefda314	http://rdf.freebase.com/ns/computer.software_developer.software*	http://dbpedia.org/resource/VMware_Server
+q262
+q263	http://dbpedia.org/resource/Denmark	http://www.wikidata.org/entity/P19	http://dbpedia.org/resource/Frederick_VIII,_Duke_of_Schleswig-Holstein
+q264	http://dbpedia.org/resource/German_American	http://rdf.freebase.com/ns/people.ethnicity.people	http://dbpedia.org/resource/Robert_Downey_Jr.
+q265	http://dbpedia.org/resource/Julian_Rotter	http://rdf.freebase.com/ns/influence.influence_node.influenced*	http://dbpedia.org/resource/Walter_Mischel
+q266
+q267	http://dbpedia.org/resource/Arthur_B._Hancock	http://schema.org/deathDate	1957-04-01
+q268
+q269
+q270
+q271	http://dbpedia.org/resource/Robert_Brasillach	http://yago-knowledge.org/resource/diedIn	http://dbpedia.org/resource/Montrouge
+q272
+q273	http://dbpedia.org/resource/Midfielder	http://rdf.freebase.com/ns/soccer.football_position.players*	http://dbpedia.org/resource/Oscar_Heisserer
+q274
+q275	http://dbpedia.org/resource/Wolverine	http://yago-knowledge.org/resource/redirectedFrom	wolverine (animal)
+q276	http://dbpedia.org/resource/Solar_System	http://dbpedia.org/property/outerplanetname	http://dbpedia.org/resource/Neptune
+q277	http://dbpedia.org/resource/Darkness_Falls_(1999_film)	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Thriller_(genre)
+q278
+q279
+q280	http://dbpedia.org/resource/Reichstag_building	http://rdf.freebase.com/ns/architecture.structure.architect	http://rdf.freebase.com/ns/m.05fg2
+q281
+q282	http://dbpedia.org/resource/Lebanon	http://yago-knowledge.org/resource/infobox/en/timezone	eastern european time|eet
+q283
+q284	http://dbpedia.org/resource/Atari	http://rdf.freebase.com/ns/cvg.cvg_developer.games_developed	http://dbpedia.org/resource/Battlezone_(1980_video_game)
+q285
+q286	http://dbpedia.org/resource/Ryerson_University	http://www.w3.org/2006/vcard/ns#type	http://yago-knowledge.org/resource/wikicat_Business_schools_in_Canada
+q287	http://dbpedia.org/resource/A_Walking_Tour_of_the_Shambles	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Gene_Wolfe
+q288	http://dbpedia.org/resource/Relativity_Media	http://rdf.freebase.com/ns/film.production_company.films	http://dbpedia.org/resource/The_Producers_(2005_film)
+q289
+q290
+q291	http://dbpedia.org/resource/Appaloosa_Interactive	http://rdf.freebase.com/ns/cvg.cvg_developer.games_developed	http://dbpedia.org/resource/Ecco_the_Dolphin
+q292	http://dbpedia.org/resource/Angelino_Fons	http://yago-knowledge.org/resource/diedIn	http://dbpedia.org/resource/Madrid
+q293	http://dbpedia.org/resource/Thriller_(genre)	http://rdf.freebase.com/ns/tv.tv_genre.programs*	http://dbpedia.org/resource/The_Night_Strangler_(film)
+q294
+q295
+q296
+q297
+q298
+q299	http://dbpedia.org/resource/WQMZ	http://rdf.freebase.com/ns/broadcast.broadcast.area_served	http://dbpedia.org/resource/Charlottesville,_Virginia
+q300	http://dbpedia.org/resource/New_Guinea	http://www.w3.org/2002/07/owl#sameAs	http://dbpedia.org/resource/New_Guinea
+q301	http://rdf.freebase.com/ns/m.02vb8h7	http://rdf.freebase.com/ns/film.performance.film*	http://dbpedia.org/resource/Maniac_Cop_2
+q302	http://dbpedia.org/resource/Guy_Endore	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q303	http://dbpedia.org/resource/Palermo	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Sicily
+q304	http://dbpedia.org/resource/IPad_2	http://rdf.freebase.com/ns/base.gadgets.gadget.file_formats	http://dbpedia.org/resource/MP3
+q305	http://dbpedia.org/resource/Matt_Winston	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q306	http://dbpedia.org/resource/Alcmena_(comics)	http://rdf.freebase.com/ns/fictional_universe.fictional_character.appears_in_these_fictional_universes*	http://dbpedia.org/resource/Marvel_Universe
+q307	http://dbpedia.org/resource/Paul_CÃ©zanne	http://schema.org/givenName	paul
+q308
+q309
+q310	http://dbpedia.org/resource/Greg_Stokes	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/New_Haven,_Connecticut
+q311
+q312	http://dbpedia.org/resource/Astronomical_object	http://d-nb.info/standards/elementset/gnd#gndSubjectCategory	http://d-nb.info/standards/vocab/gnd/gnd-sc#20
+q313	http://dbpedia.org/resource/Oxygen_(film)	http://dbpedia.org/property/director*	http://dbpedia.org/resource/Richard_Shepard
+q314	http://data.linkedmdb.org/resource/film/34159	http://dbpedia.org/property/producer*	http://dbpedia.org/resource/Alexander_Korda
+q315
+q316	http://dbpedia.org/resource/Steve_Crossley	http://rdf.freebase.com/ns/base.rugby.rugby_player.type_of_rugby	http://dbpedia.org/resource/Rugby_league
+q317	http://dbpedia.org/resource/Multiplayer_video_game	http://rdf.freebase.com/ns/cvg.gameplay_mode.games_with_this_mode*	http://dbpedia.org/resource/Ricochet_Infinity
+q318	http://dbpedia.org/resource/Gulzar	http://rdf.freebase.com/ns/film.writer.film	http://dbpedia.org/resource/7_Khoon_Maaf
+q319
+q320
+q321	http://dbpedia.org/resource/Orange_County_Community_College	http://dbpedia.org/property/colors	navy blue and orange
+q322	http://dbpedia.org/resource/Roy_Messing	http://dbpedia.org/property/birthPlace	http://dbpedia.org/resource/United_states
+q323
+q324	http://dbpedia.org/resource/Beau-pÃ¨re	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.0f8l9c
+q325
+q326	http://rdf.freebase.com/ns/m.01sn3	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Ed_Zmich
+q327
+q328
+q329
+q330
+q331	http://dbpedia.org/resource/Dover	http://rdf.freebase.com/ns/travel.travel_destination.tourist_attractions*	http://dbpedia.org/resource/Dover_Castle
+q332	http://dbpedia.org/resource/Lourdes_DomÃ­nguez_Lino	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Pontevedra_(city)
+q333
+q334	http://dbpedia.org/resource/James_J._Howard	http://dbpedia.org/ontology/nationality	http://logd.tw.rpi.edu/id/country/United_States
+q335
+q336	http://dbpedia.org/resource/Stoned_(film)	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Film
+q337	http://dbpedia.org/resource/Leeds	http://yago-knowledge.org/resource/isLocatedIn	http://data.nytimes.com/66705302048946451041
+q338
+q339	http://dbpedia.org/resource/East_Coast_State_Railway	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	east coast state railway
+q340	http://dbpedia.org/resource/Mario_Cipollini	http://dbpedia.org/ontology/birthPlace	http://dbpedia.org/resource/Lucca
+q341
+q342	http://yago-knowledge.org/resource/Codependent_No_More	http://rdf.freebase.com/ns/book.written_work.subjects*	http://dbpedia.org/resource/Internal_medicine
+q343	http://dbpedia.org/resource/Orbit	http://www.w3.org/2000/01/rdf-schema#comment	in physics, an orbit is the gravitationally curved path of an object around a point in space, for example the orbit of a planet around the center of a star system, such as the solar system. orbits of planets are typically elliptical.
+q344	http://dbpedia.org/resource/Honesdale,_Pennsylvania	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Edgar_Jadwin
+q345	http://dbpedia.org/resource/John_Eberson	http://rdf.freebase.com/ns/architecture.architect.structures_designed	http://rdf.freebase.com/ns/m.0g_zj8
+q346	http://dbpedia.org/resource/Brescia	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Marco_Ambrosio
+q347	http://dbpedia.org/resource/Pope_Clement_XI	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1721-03-19
+q348	http://dbpedia.org/resource/Tampa_Bay_Area	http://rdf.freebase.com/ns/location.place_with_neighborhoods.neighborhoods	http://dbpedia.org/resource/Woodland_Terrace
+q349	http://dbpedia.org/resource/Astronomical_object	http://rdf.freebase.com/ns/freebase.equivalent_topic.equivalent_type	http://rdf.freebase.com/ns/m.0220ntj
+q350	http://dbpedia.org/resource/Puno_Region	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/base.aareas.schema.administrative_area
+q351	http://dbpedia.org/resource/Nathan_Wood	http://rdf.freebase.com/ns/base.rugby.rugby_player.type_of_rugby*	http://dbpedia.org/resource/Rugby_league
+q352	http://dbpedia.org/resource/Documentary_film	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	dokumentarfilm
+q353	http://dbpedia.org/resource/Alien_vs._Predator_(film)	http://rdf.freebase.com/ns/film.film.sequel*	http://dbpedia.org/resource/Aliens_vs._Predator:_Requiem
+q354	http://dbpedia.org/resource/Benjamin_DeMott	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q355	http://dbpedia.org/resource/Elebits	http://rdf.freebase.com/ns/cvg.computer_videogame.gameplay_modes	http://dbpedia.org/resource/Single-player_video_game
+q356	http://dbpedia.org/resource/THQ	http://rdf.freebase.com/ns/cvg.cvg_publisher.game_versions_published	http://rdf.freebase.com/ns/m.02hmbq2
+q357	http://dbpedia.org/resource/Volta_Region	http://www.geonames.org/ontology#parentCountry	http://dbpedia.org/resource/Ghana
+q358	http://dbpedia.org/resource/Syne_Mitchell	http://yago-knowledge.org/resource/hasGender	http://yago-knowledge.org/resource/female
+q359
+q360	http://dbpedia.org/resource/Lufthansa_Flight_540	http://rdf.freebase.com/ns/aviation.airliner_accident.flight_destination*	http://dbpedia.org/resource/O._R._Tambo_International_Airport
+q361
+q362
+q363	http://dbpedia.org/resource/Kivik	http://www.geonames.org/ontology#parentCountry	http://dbpedia.org/resource/Sweden
+q364	http://dbpedia.org/resource/Mount_Vernon	http://schema.org/addressCountry	http://dbpedia.org/resource/United_states
+q365	http://dbpedia.org/resource/Jean-Luc_Marion	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	jean-luc marion
+q366	http://dbpedia.org/resource/Ernst_SchrÃ¶der	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1902-06-16
+q367
+q368	http://rdf.freebase.com/ns/m.02kd3tv	http://rdf.freebase.com/ns/user.mt.default_domain.metabolite.tissue_location*	http://dbpedia.org/resource/Brain
+q369	http://dbpedia.org/resource/Residential_college	http://xmlns.com/foaf/spec/#term_primaryTopic	http://dbpedia.org/resource/Category:Types_of_university_or_college
+q370	http://rdf.freebase.com/ns/m.094jv	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Dean_Wurzberger
+q371
+q372	http://dbpedia.org/resource/South_Loop_Printing_House_District	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Chicago
+q373	http://dbpedia.org/resource/Steve_Brye	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://dbpedia.org/resource/Outfielder
+q374	http://dbpedia.org/resource/Pentagon	http://www.ontosearch.com/2008/02/ontosminer-ns/domain/common/english#Located_Represented*	http://dbpedia.org/resource/Washington
+q375	http://dbpedia.org/resource/Uttar_Pradesh	http://rdf.freebase.com/ns/location.location.contains*	http://dbpedia.org/resource/Sardhana
+q376	http://dbpedia.org/resource/Sitgreaves_Expedition	http://dbpedia.org/property/partof	the american indian wars
+q377
+q378
+q379	http://dbpedia.org/resource/Breed	http://www.w3.org/2000/01/rdf-schema#comment	a breed is a specific group of domestic animals having homogeneous appearance (phenotype), homogeneous behavior, and/or other characteristics that distinguish it from other organisms of the same species and that were arrived at through selective breeding. despite the centrality of the idea of breeds to animal husbandry and agriculture, no single, scientifically accepted definition of the term exists.
+q380	http://dbpedia.org/resource/Space_Cowboys	http://data.linkedmdb.org/resource/movie/featured_film_location	http://data.linkedmdb.org/resource/film_location/1052
+q381	http://dbpedia.org/resource/Grand_Duchess_Anastasia_Nikolaevna_of_Russia	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/film.film_subject
+q382	http://rdf.freebase.com/ns/m.05psbxd	http://rdf.freebase.com/ns/event.disaster_victim.killed_in_disaster*	http://dbpedia.org/resource/Columbine_High_School_massacre
+q383	http://dbpedia.org/resource/Shire_of_Aramac	http://yago-knowledge.org/resource/infobox/en/state	qld
+q384	http://dbpedia.org/resource/Maxwell_Lock_&_Dam	http://dbpedia.org/property/damCrosses*	http://dbpedia.org/resource/Monongahela_River
+q385
+q386	http://rdf.freebase.com/ns/m.0chghy	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Sylvia_Lance_Harper
+q387	http://dbpedia.org/resource/Arunachal_Pradesh	http://rdf.freebase.com/ns/location.in_state.judicial_capital	http://dbpedia.org/resource/Guwahati
+q388	http://dbpedia.org/resource/Pat_Studstill	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q389	http://yago-knowledge.org/resource/Hundred_Flowers_Award_for_Best_Co-produced_Film	http://rdf.freebase.com/ns/award.award_category.disciplines_or_subjects*	http://dbpedia.org/resource/Film
+q390	http://dbpedia.org/resource/Everything's_Eventual_(novella)	http://dbpedia.org/property/series*	http://dbpedia.org/resource/Fantasy
+q391
+q392
+q393	http://rdf.freebase.com/ns/m.07ssc	http://rdf.freebase.com/ns/olympics.olympic_participating_country.olympics_participated_in*	http://dbpedia.org/resource/1932_Winter_Olympics
+q394	http://dbpedia.org/resource/University_of_the_Virgin_Islands	http://yago-knowledge.org/resource/infobox/en/colors	color box|#0053a3
+q395	http://dbpedia.org/resource/Osamu_Tezuka	http://rdf.freebase.com/ns/tv.tv_program_creator.programs_created*	http://dbpedia.org/resource/Astro_Boy
+q396
+q397
+q398	http://dbpedia.org/resource/Travis_Banton	http://rdf.freebase.com/ns/film.film_costumer_designer.costume_design_for_film*	http://dbpedia.org/resource/Sister_Kenny
+q399
+q400	http://dbpedia.org/resource/St._Petersburg_High_School	http://yago-knowledge.org/resource/infobox/en/district	pinellas county schools
+q401	http://dbpedia.org/resource/King_Lear_(1999_film)	http://rdf.freebase.com/ns/film.film.directed_by*	http://dbpedia.org/resource/Brian_Blessed
+q402
+q403
+q404
+q405	http://dbpedia.org/resource/Anne's_Song	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Single
+q406	http://dbpedia.org/resource/Mary_Ann_Aldersey	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1868
+q407	http://yago-knowledge.org/resource/Odin_Township,_Watonwan_County,_Minnesota	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Watonwan_County,_Minnesota
+q408
+q409
+q410
+q411
+q412
+q413	http://dbpedia.org/resource/Valley_Trail_(Grand_Teton_National_Park)	http://www.wikidata.org/entity/P131c*	http://dbpedia.org/resource/Wyoming
+q414
+q415
+q416	http://dbpedia.org/resource/Andrejs_Pumpurs	http://rdf.freebase.com/ns/people.person.ethnicity	http://dbpedia.org/resource/Latvian_people
+q417
+q418	http://dbpedia.org/resource/Robin_Hood	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/film.film_character
+q419
+q420	http://dbpedia.org/resource/West_Orange_High_School	http://www.w3.org/2006/vcard/ns#type	http://www.wikidata.org/ontology#Item
+q421	http://dbpedia.org/resource/Gold_Rush_Maisie	http://dbpedia.org/property/country	united states
+q422	http://dbpedia.org/resource/Jindabyne_Dam	http://yago-knowledge.org/resource/infobox/en/opening	1967
+q423
+q424
+q425	http://dbpedia.org/resource/Myocardial_infarction	http://rdf.freebase.com/ns/people.cause_of_death.people*	http://dbpedia.org/resource/Burt_Gillett
+q426	http://dbpedia.org/resource/Valerie_Vaz	http://dbpedia.org/property/nationality	http://dbpedia.org/resource/United_Kingdom
+q427	http://dbpedia.org/resource/Logicworks	http://dbpedia.org/property/areaServed*	http://dbpedia.org/resource/International
+q428	http://dbpedia.org/resource/Barry_Simon	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q429
+q430
+q431	http://rdf.freebase.com/ns/m.0bj9hjt	http://rdf.freebase.com/ns/theater.play.characters*	http://dbpedia.org/resource/Jeeves
+q432
+q433	http://dbpedia.org/resource/Bhumibol_Adulyadej	http://dbpedia.org/property/religion	http://dbpedia.org/resource/Theravada
+q434
+q435	http://dbpedia.org/resource/River_Avonmore	http://www.wikidata.org/entity/P31c	http://yago-knowledge.org/resource/wikicat_Rivers_of_County_Wicklow
+q436
+q437	http://dbpedia.org/resource/Astronomical_object	http://rdf.freebase.com/ns/freebase.equivalent_topic.equivalent_type	http://rdf.freebase.com/ns/m.0220ntj
+q438	http://dbpedia.org/resource/World_Police_Museum	http://dbpedia.org/property/buildingType*	http://dbpedia.org/resource/Museum
+q439
+q440
+q441	http://dbpedia.org/resource/Sesame_Street	http://rdf.freebase.com/ns/tv.tv_program.theme_song	http://dbpedia.org/resource/Can_You_Tell_Me_How_to_Get_to_Sesame_Street%3F
+q442	http://dbpedia.org/resource/North_American_Aviation	http://rdf.freebase.com/ns/spaceflight.satellite_manufacturer.spacecraft_manufactured*	http://dbpedia.org/resource/Apollo_8
+q443
+q444	http://dbpedia.org/resource/Hyperthermia	http://rdf.freebase.com/ns/people.cause_of_death.people	http://dbpedia.org/resource/Korey_Stringer
+q445
+q446
+q447	http://dbpedia.org/resource/Michael_Vick	http://rdf.freebase.com/ns/american_football.football_player.position_s	http://dbpedia.org/resource/Quarterback
+q448
+q449	http://rdf.freebase.com/ns/m.06syy3j	http://rdf.freebase.com/ns/baseball.batting_statistics.player*	http://dbpedia.org/resource/Tom_Timmermann
+q450
+q451
+q452	http://dbpedia.org/resource/Parker_MacDonald	http://rdf.freebase.com/ns/people.person.nationality	http://dbpedia.org/resource/Canada
+q453	http://dbpedia.org/resource/Jamal_Sadat	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q454	http://dbpedia.org/resource/Horst_Bollmann	http://dbpedia.org/ontology/nationality	http://transparency.270a.info/classification/country/DE
+q455	http://dbpedia.org/resource/Babylon	http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage	http://www.geonames.org/98228/
+q456	http://dbpedia.org/resource/Bumper_Crop	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Joe_R._Lansdale
+q457
+q458
+q459
+q460	http://dbpedia.org/resource/Aranmula_Ponnamma	http://dbpedia.org/property/deathPlace	http://de.dbpedia.org/resource/Indien
+q461
+q462	http://dbpedia.org/resource/The_Pink_Panther	http://rdf.freebase.com/ns/film.film_series.films_in_series	http://dbpedia.org/resource/The_Return_of_the_Pink_Panther
+q463	http://dbpedia.org/resource/Mary_Butts	http://rdf.freebase.com/ns/people.person.religion	http://rdf.freebase.com/ns/m.0kpl
+q464	http://dbpedia.org/resource/Winnipeg	http://rdf.freebase.com/ns/location.location.people_born_here	http://dbpedia.org/resource/Gary_Filmon
+q465	http://dbpedia.org/resource/Ali_Akbar_Nategh-Nouri	http://dbpedia.org/property/religion	http://dbpedia.org/resource/Shia_Islam
+q466
+q467	http://dbpedia.org/resource/GnuCash	http://rdf.freebase.com/ns/computer.software.languages_used	http://dbpedia.org/resource/Scheme_(programming_language)
+q468	http://dbpedia.org/resource/Gautama_Buddha	http://rdf.freebase.com/ns/influence.influence_node.influenced*	http://dbpedia.org/resource/Jigme_Khesar_Namgyel_Wangchuck
+q469	http://dbpedia.org/resource/Motif_Window_Manager	http://rdf.freebase.com/ns/computer.software.software_genre*	http://dbpedia.org/resource/Window_manager
+q470	http://dbpedia.org/resource/Christian_Democrat_Party_(Democratic_Republic_of_the_Congo)	http://rdf.freebase.com/ns/government.political_party.ideology*	http://dbpedia.org/resource/Christian_democracy
+q471	http://dbpedia.org/resource/Anna_Christina_Radziwill	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q472	http://dbpedia.org/resource/R-Point	http://rdf.freebase.com/ns/film.film.language	http://dbpedia.org/resource/Korean_language
+q473
+q474
+q475	http://dbpedia.org/resource/Gal_Mekel	http://yago-knowledge.org/resource/wasBornIn*	http://dbpedia.org/resource/Petah_Tikva
+q476
+q477	http://dbpedia.org/resource/Botany	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	botanik
+q478	http://dbpedia.org/resource/Joseph_Chaikin	http://rdf.freebase.com/ns/influence.influence_node.influenced	http://dbpedia.org/resource/Sam_Shepard
+q479	http://dbpedia.org/resource/Bloodfist	http://rdf.freebase.com/ns/film.film.genre	http://simple.dbpedia.org/resource/Independent_movie
+q480	http://dbpedia.org/resource/Kurt_Schumacher	http://www.w3.org/2000/01/rdf-schema#comment	kurt schumacher (13 october 1895 u2013 20 august 1952), german social democratic politician, who served as chairman of the social democratic party of germany from 1946 and was the first leader of the opposition in the west german bundestag from 1949 until his death. an opponent of chancellor konrad adenauer's government, but an even stronger opponent of the east german socialist unity party and communism in general, he was one of the founding fathers of post-war german democracy.
+q481	http://dbpedia.org/resource/Edwin_Morgan_(poet)	http://rdf.freebase.com/ns/influence.influence_node.influenced	http://dbpedia.org/resource/James_Kelman
+q482	http://dbpedia.org/resource/Birger_Maertens	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Bruges
+q483	http://rdf.freebase.com/ns/m.0fjrb	http://rdf.freebase.com/ns/education.school_category.schools_of_this_kind*	http://dbpedia.org/resource/Semmelweis_University
+q484
+q485
+q486	http://dbpedia.org/resource/Burt_Brinckerhoff	http://rdf.freebase.com/ns/tv.tv_director.episodes_directed	http://rdf.freebase.com/ns/m.06xt_0_
+q487
+q488	http://dbpedia.org/resource/Kao_Challengers	http://rdf.freebase.com/ns/cvg.computer_videogame.cvg_genre	http://dbpedia.org/resource/Adventure_game
+q490
+q489	http://rdf.freebase.com/ns/m.068p2	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Bobby_Del_Greco
+q491	http://dbpedia.org/resource/Guard_(American_and_Canadian_football)	http://rdf.freebase.com/ns/american_football.football_position.players*	http://dbpedia.org/resource/Antone_Davis
+q492
+q493	http://dbpedia.org/resource/Astronomical_object	http://rdf.freebase.com/ns/freebase.equivalent_topic.equivalent_type	http://rdf.freebase.com/ns/m.0220ntj
+q494	http://dbpedia.org/resource/Hobgoblins_2	http://rdf.freebase.com/ns/film.film.genre	http://rdf.freebase.com/ns/m.0hj3m_q
+q495
+q496	http://rdf.freebase.com/ns/m.06fq3x8	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Hannah_Whitall_Smith
+q497
+q498	http://dbpedia.org/resource/Fancy_Pants_(film)	http://rdf.freebase.com/ns/film.film.directed_by	http://rdf.freebase.com/ns/m.09y4k1
+q499
+q500	http://dbpedia.org/resource/FrÃ©dÃ©ric_Studer	http://schema.org/nationality	http://dbtune.org/musicbrainz/resource/country/CH
+q501	http://dbpedia.org/resource/Ponderosa_High_School	http://rdf.freebase.com/ns/education.school.lowest_grade_taught	http://dbpedia.org/resource/Ninth_grade
+q502	http://dbpedia.org/resource/Carib_Aviation	http://rdf.freebase.com/ns/business.business_operation.industry	http://dbpedia.org/resource/Airline
+q503
+q504	http://dbpedia.org/resource/Cannibalism	http://rdf.freebase.com/ns/film.film_subject.films	http://rdf.freebase.com/ns/m.0crxx__
+q505
+q506
+q507
+q508
+q509	http://dbpedia.org/resource/Diverted	http://rdf.freebase.com/ns/film.film.directed_by*	http://dbpedia.org/resource/Alex_Chapple
+q510	http://dbpedia.org/resource/Hayley_Hasselhoff	http://dbpedia.org/property/parents	http://dbpedia.org/resource/David_Hasselhoff
+q511	http://dbpedia.org/resource/TUIfly	http://rdf.freebase.com/ns/aviation.airline.focus_cities*	http://dbpedia.org/resource/Hannover_Airport
+q512	http://dbpedia.org/resource/Charlie_Tully	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1971-07-27
+q513	http://dbpedia.org/resource/Johnny_Doyle	http://dbpedia.org/property/deathPlace	http://dbpedia.org/resource/Scotland
+q514	http://dbpedia.org/resource/Orbit	http://www.w3.org/2000/01/rdf-schema#comment	in physics, an orbit is the gravitationally curved path of an object around a point in space, for example the orbit of a planet around the center of a star system, such as the solar system. orbits of planets are typically elliptical.
+q515
+q516	http://dbpedia.org/resource/Harvey_Lim	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.02jx1
+q517	http://dbpedia.org/resource/Chris_Cornell	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Seattle
+q518	http://dbpedia.org/resource/Brian_Selznick	http://ns.nature.com/terms/name	brian selznick
+q519
+q520
+q521	http://dbpedia.org/resource/Operating_system	http://rdf.freebase.com/ns/user.uoa_it.uoa_it.uoa_technology_type.uoa_category	http://rdf.freebase.com/ns/m.05k6dnr
+q522
+q523
+q524
+q525
+q526	http://dbpedia.org/resource/High_school	http://rdf.freebase.com/ns/education.school_category.schools_of_this_kind*	http://dbpedia.org/resource/Fudan_International_School
+q527	http://rdf.freebase.com/ns/m.0177z	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Joseph-Hector_Fiocco
+q528
+q529	http://dbpedia.org/resource/Sardis_Lake_(Oklahoma)	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Lake
+q530	http://dbpedia.org/resource/Moritz_Cantor	http://rdf.freebase.com/ns/people.person.ethnicity	http://dbpedia.org/resource/Germans
+q531	http://dbpedia.org/resource/Asteroid	http://dbpedia.org/property/caption	sizes of the first ten asteroids to be discovered, compared to the moon
+q532	http://dbpedia.org/resource/El_Hijo_del_crack	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.0jgd
+q533	http://dbpedia.org/resource/New_Zealand	http://www.wikidata.org/entity/P31c	http://www.mindswap.org/2003/owl/geo/geoFeatures20040307.owl#GeographicFeature
+q534	http://dbpedia.org/resource/The_Major_and_the_Minor	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Farce
+q535	http://dbpedia.org/resource/Jacques_GrÃ©ber	http://dbpedia.org/ontology/birthPlace	http://dbpedia.org/resource/Paris
+q536	http://dbpedia.org/resource/Apsley_House	http://rdf.freebase.com/ns/architecture.structure.architectural_style	http://dbpedia.org/resource/Gothic_Revival_architecture
+q537
+q538	http://dbpedia.org/resource/1980%E2%80%9381_NBA_season	http://dbpedia.org/property/finalsChamp*	http://dbpedia.org/resource/Boston_Celtics
+q539
+q540
+q541	http://dbpedia.org/resource/St._Louis_Rams	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/St._Louis
+q542
+q543	http://dbpedia.org/resource/Kedah	http://dbpedia.org/property/leaderName	http://dbpedia.org/resource/Abdul_Halim_of_Kedah
+q544	http://dbpedia.org/resource/Mercantile_Trust_and_Deposit_Company	http://rdf.freebase.com/ns/architecture.structure.architectural_style	http://dbpedia.org/resource/Romanesque_architecture
+q545
+q546	http://dbpedia.org/resource/Heinrich_BÃ¶ll	http://dbpedia.org/ontology/birthPlace	http://dbpedia.org/resource/Cologne
+q547	http://dbpedia.org/resource/Delta_Air_Lines_Flight_191	http://yago-knowledge.org/resource/infobox/en/type	aircraft occurrence
+q548	http://dbpedia.org/resource/Rent-a-Goalie	http://dimitros.net/rdf/ontology#hasTitle	rent-a-goalie
+q549
+q550	http://dbpedia.org/resource/Nykesha_Sales	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q551	http://dbpedia.org/resource/William_Henry_Willimon	http://rdf.freebase.com/key/authority.openlibrary.author	ol221252a
+q552
+q553	http://dbpedia.org/resource/Perfect_Creature	http://yago-knowledge.org/resource/infobox/en/writer	glenn standring
+q554
+q555	http://dbpedia.org/resource/Buick_Limited	http://xmlns.com/foaf/spec/#term_maker	http://dbpedia.org/resource/General_Motors
+q556	http://dbpedia.org/resource/Battle	http://www.w3.org/2000/01/rdf-schema#comment	generally, a battle is a conceptual component in the hierarchy of combat in warfare between two or more armed forces, or combatants. a war sometimes consists of many battles. battles generally are well defined in duration, area, and force commitment.wars and military campaigns are guided by strategy, whereas battles take place on a level of planning and execution known as operational mobility. german strategist carl von clausewitz stated that the employment of battles ...
+q557
+q558	http://dbpedia.org/resource/Conrad_Ansorge	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q559	http://dbpedia.org/resource/Astronomical_object	http://d-nb.info/standards/elementset/gnd#gndSubjectCategory	http://d-nb.info/standards/vocab/gnd/gnd-sc#20
+q560	http://dbpedia.org/resource/Ziff_Davis	http://rdf.freebase.com/ns/common.topic.official_website	http://www.ziffdavis.com
+q561	http://dbpedia.org/resource/Paul_J._Swain	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q562
+q563	http://dbpedia.org/resource/David_Seaborg	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Person
+q564
+q565	http://dbpedia.org/resource/West_Point,_Iowa	http://rdf.freebase.com/ns/location.hud_county_place.place	http://dbpedia.org/resource/West_Point,_Iowa
+q566
+q567	http://dbpedia.org/resource/Wei-Liang_Chow	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q568	http://dbpedia.org/resource/Edward_Clarke_Cabot	http://rdf.freebase.com/ns/architecture.architect.structures_designed	http://dbpedia.org/resource/Boston_AthenÃ¦um
+q569
+q570	http://yago-knowledge.org/resource/Kansas_City_metropolitan_area	http://rdf.freebase.com/ns/location.place_with_neighborhoods.neighborhoods*	http://dbpedia.org/resource/Quality_Hill,_Kansas_City
+q571
+q572
+q573
+q574
+q575
+q576	http://dbpedia.org/resource/Video_game	http://rdf.freebase.com/ns/business.industry.companies	http://dbpedia.org/resource/Nude_Maker
+q577	http://rdf.freebase.com/ns/m.0bzty	http://rdf.freebase.com/ns/location.location.contains*	http://dbpedia.org/resource/Castiglione_Olona
+q578	http://yago-knowledge.org/resource/Another_Gay_Movie	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Gay
+q579	http://dbpedia.org/resource/Hooksett,_New_Hampshire	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Eastern_Time_Zone
+q580	http://dbpedia.org/resource/Infarction	http://www.w3.org/2000/01/rdf-schema#subClassOf	http://dbpedia.org/resource/Necrosis
+q581	http://dbpedia.org/resource/Monessen,_Pennsylvania	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/James_J._Manderino
+q582	http://dbpedia.org/resource/Fear_Factor	http://rdf.freebase.com/ns/tv.tv_program.air_date_of_final_episode	2006-09-12
+q583
+q584
+q585	http://dbpedia.org/resource/Li_Shuangjiang	http://yago-knowledge.org/resource/hasGivenName	li
+q586	http://dbpedia.org/resource/First_Persian_invasion_of_Greece	http://yago-knowledge.org/resource/happenedIn*	http://dbpedia.org/resource/Macedonia_(ancient_kingdom)
+q587
+q588
+q589	http://dbpedia.org/resource/Dibu_3	http://data.linkedmdb.org/resource/movie/runtime	85
+q590
+q591	http://dbpedia.org/resource/Longbridge_plant	http://rdf.freebase.com/ns/automotive.manufacturing_plant.models_manufactured	http://rdf.freebase.com/ns/m.051q_lf
+q592	http://dbpedia.org/resource/Orca_(film)	http://rdf.freebase.com/ns/film.film.rating	http://www.wikidata.org/entity/Q18665334
+q593
+q594	http://dbpedia.org/resource/Ham_salad	http://dbpedia.org/property/country*	http://dbpedia.org/resource/North_America
+q595	http://dbpedia.org/resource/Paul_McCandless	http://dbpedia.org/ontology/nationality	http://logd.tw.rpi.edu/id/country/United_States
+q596	http://dbpedia.org/resource/Buffalo_Wild_Wings	http://rdf.freebase.com/ns/organization.organization.legal_structure	http://rdf.freebase.com/ns/m.01mxzw
+q597	http://dbpedia.org/resource/The_Cider_House_Rules	http://rdf.freebase.com/ns/book.written_work.subjects*	http://dbpedia.org/resource/Orphanage
+q598	http://dbpedia.org/resource/Glenwood_City,_Wisconsin	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Wisconsin
+q599	http://dbpedia.org/resource/Bantayan_Airport	http://dbpedia.org/property/cityServed	http://dbpedia.org/resource/Bantayan_Island
+q600
+q601	http://dbpedia.org/resource/Digital_Chocolate	http://rdf.freebase.com/ns/cvg.cvg_publisher.game_versions_published	http://rdf.freebase.com/ns/m.09p69dt
+q602	http://dbpedia.org/resource/12615_Mendesdeleon	http://rdf.freebase.com/ns/astronomy.astronomical_discovery.discovery_date	1960-09-24
+q603	http://dbpedia.org/resource/Mansfield_Township,_Burlington_County,_New_Jersey	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Burlington_County,_New_Jersey
+q604
+q605
+q606	http://dbpedia.org/resource/Jesuit_Church,_Vienna	http://dbpedia.org/property/architecture	yes
+q607
+q608	http://dbpedia.org/resource/Habib_Ali_al-Jifri	http://dbpedia.org/property/religion	http://dbpedia.org/resource/Islam
+q609	http://dbpedia.org/resource/Kurt_Weill	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Dessau-RoÃ?lau
+q610	http://dbpedia.org/resource/Chuck_Yeager	http://rdf.freebase.com/ns/fictional_universe.person_in_fiction.representations_in_fiction	http://rdf.freebase.com/ns/m.0h4pqw1
+q611	http://dbpedia.org/resource/Maria_Shriver	http://dbpedia.org/property/religion	http://dbpedia.org/resource/Catholicism
+q612	http://dbpedia.org/resource/Melvil_Dewey	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1931-12-26
+q613	http://dbpedia.org/resource/Manuel_Lisa	http://dbpedia.org/property/nationality	http://dbpedia.org/resource/Spain
+q614
+q615
+q616	http://www.imagesnippets.com/imgtag/images/jed.dekalb@tn.gov/web40016_001.jpg	https://w3id.org/lio/v1#shows*	http://dbpedia.org/resource/Deer
+q617	http://dbpedia.org/resource/Scandinavian_Airlines	http://yago-knowledge.org/resource/infobox/en/alliance	star alliance
+q618
+q619	http://dbpedia.org/resource/Ashwin_Navin	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q620	http://dbpedia.org/resource/British_Columbia	http://dbpedia.org/property/coatofarms	coat of arms of british columbia.png
+q621	http://dbpedia.org/resource/Swedish_Americans	http://rdf.freebase.com/ns/people.ethnicity.people*	http://dbpedia.org/resource/Nelson_Algren
+q622
+q623	http://dbpedia.org/resource/Burma_Campaign	http://rdf.freebase.com/ns/base.culturalevent.event.entity_involved	http://bnb.data.bl.uk/id/organization/IndianNationalArmy
+q624	http://dbpedia.org/resource/General_Motors	http://rdf.freebase.com/ns/organization.organization.legal_structure	http://rdf.freebase.com/ns/m.023k2
+q625	http://rdf.freebase.com/ns/m.03gby7q	http://rdf.freebase.com/ns/broadcast.content.artist*	http://dbpedia.org/resource/John_Waite
+q626	http://dbpedia.org/resource/Stephen_Schiff	http://rdf.freebase.com/ns/film.writer.film*	http://dbpedia.org/resource/Lolita_(1997_film)
+q627	http://dbpedia.org/resource/WWJ-TV	http://rdf.freebase.com/ns/broadcast.broadcast.content	http://dbpedia.org/resource/Television
+q628
+q629
+q630	http://dbpedia.org/resource/Kroy_Biermann	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q631
+q632
+q633	http://dbpedia.org/resource/Slaughter_Studios	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	slaughter studios
+q634	http://dbpedia.org/resource/Jollyville,_Texas	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_Time_Zone
+q635	http://dbpedia.org/resource/National_Register_of_Historic_Places_listings_in_western_Washington,_D.C.	http://dbpedia.org/property/city*	http://dbpedia.org/resource/Cathedral_Heights
+q636	http://dbpedia.org/resource/Costa_rica	http://rdf.freebase.com/ns/location.location.people_born_here	http://dbpedia.org/resource/Jos%C3%A9_Le%C3%B3n_S%C3%A1nchez
+q637	http://dbpedia.org/resource/Youthful_(publisher)	http://dbpedia.org/property/publications*	http://dbpedia.org/resource/Comic_book
+q638	http://dbpedia.org/resource/Nebula_Award_for_Best_Novella	http://rdf.freebase.com/ns/award.award_category.category_of*	http://dbpedia.org/resource/Nebula_Award
+q639	http://dbpedia.org/resource/Hunting	http://bibleontology.com/property/explanation	hunting is the practice of pursuing living animals for food, recreation, or trade. in present-day use, the term refers to lawful hunting, as distinguished from poaching, which is the killing, trapping or capture of the hunted species contrary to applicable law. the species which are hunted are referred to as game and are usually mammals and migratory or non-migratory gamebirds.
+q640	http://dbpedia.org/resource/DAY	http://www.wikidata.org/entity/P31c	http://d-nb.info/standards/elementset/gnd#SubjectHeading
+q641	http://dbpedia.org/resource/Gogebic_County,_Michigan	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Bessemer,_Michigan
+q642
+q643	http://dbpedia.org/resource/Ivan_Maric	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q644
+q645
+q646	http://dbpedia.org/resource/Ken_Saro-Wiwa	http://www.w3.org/2006/vcard/ns#Child	http://id.loc.gov/authorities/names/no2001015154
+q647
+q648
+q649	http://dbpedia.org/resource/Roccaverano	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_European_Time
+q650
+q651
+q652
+q653	http://dbpedia.org/resource/Lorena_Ochoa	http://rdf.freebase.com/ns/people.person.nationality	http://dbpedia.org/resource/Mexico
+q654
+q655
+q656
+q657	http://dbpedia.org/resource/X-Men	http://schema.org/isBasedOn	http://data.linkedmdb.org/resource/film/65
+q658
+q659
+q660	http://rdf.freebase.com/ns/m.07s9rl0	http://rdf.freebase.com/ns/film.film_genre.films_in_this_genre*	http://dbpedia.org/resource/El_juego_de_Arcibel
+q661	http://dbpedia.org/resource/Chicago_metropolitan_area	http://yago-knowledge.org/resource/isLocatedIn	http://sws.geonames.org/4904405/
+q662
+q663
+q664	http://rdf.freebase.com/ns/m.0h_1bwb	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Thriller_(genre)
+q665	http://dbpedia.org/resource/Krishnanagar,_Nadia	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Nadia_district
+q666	http://dbpedia.org/resource/Wine	http://dbpedia.org/property/producers	france, italy, spain, united states, argentina, australia, china, germany, south africa, portugal, chile, romania, greece, russia, hungary
+q667	http://dbpedia.org/resource/Salalah_Airport	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Salalah
+q668	http://dbpedia.org/resource/Catch_and_Release_(film)	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Romance_film
+q669
+q670	http://dbpedia.org/resource/Julie_Delpy	http://rdf.freebase.com/ns/people.person.parents	http://rdf.freebase.com/ns/m.0bdtm5k
+q671	http://dbpedia.org/resource/Punjai_Puliampatti	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Tamil_Nadu
+q672
+q673	http://umbel.org/umbel/ne/wikipedia/Campaign_against_Dong_Zhuo	http://rdf.freebase.com/ns/base.culturalevent.event.entity_involved*	http://dbpedia.org/resource/Dong_Zhuo
+q674	http://dbpedia.org/resource/Yorba_Linda,_California	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Kerissa_Fare
+q675	http://dbpedia.org/resource/Comedy_film	http://www.wikidata.org/entity/P136	http://dbpedia.org/resource/Reality_Bites
+q676	http://dbpedia.org/resource/Astronomical_object	http://rdf.freebase.com/ns/freebase.equivalent_topic.equivalent_type	http://rdf.freebase.com/ns/m.0220ntj
+q677
+q678	http://dbpedia.org/resource/Gloria_De_Piero	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q679	http://dbpedia.org/resource/Robert_Pierpoint	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q680
+q681
+q682	http://dbpedia.org/resource/Olga_Souza	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.015fr
+q683	http://rdf.freebase.com/ns/m.05t0g1	http://rdf.freebase.com/ns/book.school_or_movement.associated_authors*	http://dbpedia.org/resource/David_Leavitt
+q684	http://dbpedia.org/resource/African_American	http://rdf.freebase.com/ns/people.ethnicity.people*	http://dbpedia.org/resource/Jermaine_Jackson
+q685	http://dbpedia.org/resource/St._Paul's_Bay	http://www.geonames.org/ontology#parentCountry	http://sws.geonames.org/2562770/
+q686
+q687
+q688
+q689	http://yago-knowledge.org/resource/The_Legend_of_Zelda	http://dbpedia.org/property/game*	http://dbpedia.org/resource/The_Legend_of_Zelda:_Twilight_Princess
+q690	http://dbpedia.org/resource/Middle_East_Theatre_of_World_War_II	http://rdf.freebase.com/ns/time.event.included_in_event*	http://dbpedia.org/resource/World_War_II
+q691	http://dbpedia.org/resource/1C_Company	http://yago-knowledge.org/resource/created*	http://dbpedia.org/resource/Pacific_Fighters
+q692
+q693	http://dbpedia.org/resource/Zagreb_TV_Tower	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Medvednica
+q694	http://yago-knowledge.org/resource/Passport,_Illinois	http://dbpedia.org/property/subdivisionName*	http://dbpedia.org/resource/Illinois
+q695	http://dbpedia.org/resource/Bruce_McNall	http://rdf.freebase.com/ns/film.producer.films_executive_produced	http://dbpedia.org/resource/Weekend_at_Bernie's
+q696
+q697	http://dbpedia.org/resource/Scott_McInnis	http://yago-knowledge.org/resource/wasBornIn*	http://dbpedia.org/resource/Glenwood_Springs,_Colorado
+q698	http://dbpedia.org/resource/Les_Andelys	http://rdf.freebase.com/ns/location.location.people_born_here	http://dbpedia.org/resource/Charles_Joshua_Chaplin
+q699	http://dbpedia.org/resource/Management_Development_Institute	http://dbpedia.org/property/type	http://umbel.org/umbel/sc/BusinessSchool
+q700	http://dbpedia.org/resource/Sandcastle_Waterpark	http://rdf.freebase.com/ns/travel.tourist_attraction.near_travel_destination	http://dbpedia.org/resource/West_Homestead,_Pennsylvania
+q701	http://dbpedia.org/resource/Cadillac_Series_62	http://www.w3.org/2006/vcard/ns#label	cadillac series 62
+q702
+q703
+q704	http://dbpedia.org/resource/Hayashima,_Okayama	http://schema.org/location	http://viaf.org/viaf/132556041/#Place/Japan
+q705
+q706	http://dbpedia.org/resource/Caribbean_Sea	http://rdf.freebase.com/ns/geography.body_of_water.islands	http://sws.geonames.org/3648752/
+q707
+q708	http://dbpedia.org/resource/Nokia_N78	http://rdf.freebase.com/ns/user.robert.mobile_phones.mobile_phone.broadband_technology_supported	http://dbpedia.org/resource/High-Speed_Downlink_Packet_Access
+q709	http://dbpedia.org/resource/Lew_Krausse,_Sr.	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q710	http://dbpedia.org/resource/King_O'Malley	http://d-nb.info/standards/elementset/gnd#biographicalOrHistoricalInformation	australischer politiker amerikanischer herkunft
+q711
+q712	http://dbpedia.org/resource/Wilton_High_School	http://rdf.freebase.com/ns/education.school.lowest_grade_taught	http://dbpedia.org/resource/Ninth_grade
+q713
+q714	http://dbpedia.org/resource/Romance_film	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	liebesfilm
+q715	http://rdf.freebase.com/ns/m.04nv3t6	http://rdf.freebase.com/ns/film.film_festival_event.films*	http://dbpedia.org/resource/Zift
+q716	http://dbpedia.org/resource/Edgar_Johan_Kuusik	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1974-08-03
+q717	http://dbpedia.org/resource/VÃ¡clav_Treitz	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1872-08-27
+q718	http://dbpedia.org/resource/Herding_dog	http://www.w3.org/2006/vcard/ns#type	http://yago-knowledge.org/resource/wikicat_Domesticated_animals
+q719	http://dbpedia.org/resource/Thunderheart	http://yago-knowledge.org/resource/infobox/en/producer	michael nozik
+q720	http://dbpedia.org/resource/Unitarian_Universalism	http://rdf.freebase.com/ns/religion.religion.branched_from*	http://dbpedia.org/resource/Unitarianism
+q721	http://dbpedia.org/resource/Aasai	http://schema.org/countryOfOrigin	http://dbpedia.org/resource/India
+q722	http://dbpedia.org/resource/Sonic_Jam	http://dbpedia.org/property/modes	http://dbpedia.org/resource/Multiplayer_game
+q723	http://rdf.freebase.com/ns/m.010t4v	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Jo_Koy
+q724
+q725	http://dbpedia.org/resource/Jeanne_HÃ©buterne	http://yago-knowledge.org/resource/diedIn	http://dbpedia.org/resource/Paris
+q726	http://dbpedia.org/resource/Ferruccio_Furlanetto	http://yago-knowledge.org/resource/hasGender	http://yago-knowledge.org/resource/male
+q727	http://dbpedia.org/resource/Electra_Private_Equity	http://dbpedia.org/property/companyType*	http://dbpedia.org/resource/Public_company
+q728	http://dbpedia.org/resource/Christopher_Priest_(novelist)	http://rdf.freebase.com/ns/book.author.series_written_or_contributed_to	http://rdf.freebase.com/ns/m.05qd7g0
+q729	http://rdf.freebase.com/ns/m.06fnym	http://rdf.freebase.com/ns/organization.organization_founder.organizations_founded*	http://dbpedia.org/resource/Synopsys
+q730
+q731
+q732
+q733	http://rdf.freebase.com/ns/m.04307sq	http://rdf.freebase.com/ns/broadcast.content.artist*	http://dbpedia.org/resource/Los_Lobos
+q734	http://dbpedia.org/resource/Houghton_County,_Michigan	http://dbpedia.org/property/founded	1846
+q735
+q736	http://dbpedia.org/resource/Romance_film	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	liebesfilm
+q737	http://dbpedia.org/resource/4bia	http://yago-knowledge.org/resource/infobox/en/producer	jira maligool
+q738	http://dbpedia.org/resource/KBXD	http://rdf.freebase.com/ns/broadcast.radio_station.serves_area	http://dbpedia.org/resource/Dallasâ??Fort_Worth_metroplex
+q739	http://dbpedia.org/resource/Capital_Birmingham	http://yago-knowledge.org/resource/infobox/en/slogan	birmingham's no.1 hit music station
+q740	http://dbpedia.org/resource/Terrence_McNally	http://rdf.freebase.com/ns/book.author.works_written*	http://dbpedia.org/resource/Master_Class
+q741	http://rdf.freebase.com/ns/m.080h2	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Mickey_Walls
+q742	http://dbpedia.org/resource/Richard_Hull	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.07ssc
+q743	http://dbpedia.org/resource/Orry-Kelly	http://rdf.freebase.com/ns/film.film_costumer_designer.costume_design_for_film	http://dbpedia.org/resource/A_Dispatch_from_Reuter's
+q744	http://dbpedia.org/resource/Ian_Moss_(darts_player)	http://dbpedia.org/property/music*	http://dbpedia.org/resource/Slade
+q745
+q746	http://dbpedia.org/resource/Womankind_Worldwide	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	womankind worldwide
+q747	http://dbpedia.org/resource/Richard_Rudolph	http://rdf.freebase.com/ns/people.person.religion*	http://dbpedia.org/resource/Ashkenazi_Jews
+q748
+q749	http://dbpedia.org/resource/Boo_Moon	http://yago-knowledge.org/resource/infobox/en/language	english
+q750	http://dbpedia.org/resource/Lily_Pons	http://dbpedia.org/property/nationality	u.s.
+q751
+q752	http://dbpedia.org/resource/Misir_River	http://dbpedia.org/property/country	http://dbpedia.org/resource/Romania
+q753	http://dbpedia.org/resource/Jesse_R._Pitts	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/East_Palestine,_Ohio
+q754	http://yago-knowledge.org/resource/Kaysville,_Utah	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Utah
+q755	http://dbpedia.org/resource/Richard	http://www.wikidata.org/entity/P735c	http://bnb.data.bl.uk/id/person/CarpenterRichard1929-2012
+q756	http://dbpedia.org/resource/Marcel_Deprez	http://rdf.freebase.com/ns/influence.influence_node.influenced*	http://dbpedia.org/resource/RenÃ©_Thury
+q757	http://yago-knowledge.org/resource/The_Release_of_Dan_Forbes	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Short_film
+q758	http://dbpedia.org/resource/Starlight_Park	http://dbpedia.org/property/theme*	http://dbpedia.org/resource/Amusement_park
+q759	http://dbpedia.org/resource/Catch_and_Release_(film)	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Romance_film
+q760
+q761	http://rdf.freebase.com/ns/m.0yyh	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Pendyala_Nageswara_Rao
+q762	http://dbpedia.org/resource/Ted_Post	http://yago-knowledge.org/resource/directed	http://data.linkedmdb.org/resource/film/4815
+q763	http://rdf.freebase.com/ns/m.03gc4_9	http://rdf.freebase.com/ns/broadcast.content.artist*	http://dbpedia.org/resource/Rufus_Wainwright
+q764	http://dbpedia.org/resource/Lee_Meadows	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q765	http://dbpedia.org/resource/Steppenwolf_(novel)	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Hermann_Hesse
+q766	http://id.loc.gov/authorities/names/no97072901	http://rdf.freebase.com/ns/book.written_work.subjects*	http://dbpedia.org/resource/Espionage
+q767	http://dbpedia.org/resource/Steve_Adkins	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://dbpedia.org/resource/Pitcher
+q768	http://dbpedia.org/resource/Goodhue_Township,_Goodhue_County,_Minnesota	http://yago-knowledge.org/resource/infobox/en/timezone	north american central time zone|central (cst)
+q769
+q770	http://dbpedia.org/resource/Asteroid	http://dbpedia.org/property/caption	sizes of the first ten asteroids to be discovered, compared to the moon
+q771	http://dbpedia.org/resource/Namastey_London	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Romance_film
+q772	http://dbpedia.org/resource/Guard_(American_and_Canadian_football)	http://rdf.freebase.com/ns/american_football.football_position.players*	http://dbpedia.org/resource/Century_Milstead
+q773	http://dbpedia.org/resource/McDonnell_Douglas_AV-8B_Harrier_II	http://dbpedia.org/property/manufacturer	http://dbpedia.org/resource/BAE_Systems
+q774	http://dbpedia.org/resource/Post_office	http://www.wikidata.org/entity/P910c	http://dbpedia.org/resource/Category:Post_office_buildings
+q775	http://rdf.freebase.com/ns/m.03ps6b3	http://rdf.freebase.com/ns/people.place_lived.person*	http://dbpedia.org/resource/Alexander_Macfarlane
+q776	http://dbpedia.org/resource/Wisdom_Fofo_Agbo	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q777
+q778	http://dbpedia.org/resource/Interplay_Entertainment	http://rdf.freebase.com/ns/cvg.cvg_developer.games_developed*	http://dbpedia.org/resource/Stonekeep
+q779	http://dbpedia.org/resource/Paris	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/City
+q780
+q781	http://dbpedia.org/resource/Stroke	http://rdf.freebase.com/ns/people.cause_of_death.people	http://yago-knowledge.org/resource/Gustav_Diessl
+q782
+q783	http://dbpedia.org/resource/Divided_Kingdom	http://rdf.freebase.com/ns/book.book.genre	http://dbpedia.org/resource/Speculative_fiction
+q784	http://dbpedia.org/resource/Illinois_River	http://dbpedia.org/property/source	confluence of the kankakee and des plaines rivers
+q785	http://rdf.freebase.com/ns/m.0ht8_	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Arthur_M._Jolly
+q786	http://dbpedia.org/resource/Zain_Verjee	http://dbpedia.org/property/religion	http://dbpedia.org/resource/Nizari
+q787	http://dbpedia.org/resource/SymPy	http://rdf.freebase.com/ns/computer.software.license	http://rdf.freebase.com/ns/m.018s4
+q788	http://rdf.freebase.com/ns/m.06wfr0d	http://rdf.freebase.com/ns/base.yupgrade.user.topics*	http://dbpedia.org/resource/Drag_queen
+q789
+q790
+q791
+q792	http://yago-knowledge.org/resource/7650_Kaname	http://rdf.freebase.com/ns/astronomy.celestial_object.category*	http://dbpedia.org/resource/Asteroid
+q793
+q794
+q795	http://dbpedia.org/resource/Mourning_Wife	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.03_3d
+q796	http://yago-knowledge.org/resource/Cathedral_of_Magdeburg	http://www.wikidata.org/entity/P131c*	http://dbpedia.org/resource/Magdeburg
+q797	http://dbpedia.org/resource/Crafty	http://rdf.freebase.com/ns/computer.software.developer*	http://dbpedia.org/resource/Robert_Hyatt
+q798	http://dbpedia.org/resource/60_Seconds	http://yago-knowledge.org/resource/infobox/en/language	english
+q799	http://dbpedia.org/resource/Richmond_Football_Club	http://dbpedia.org/ontology/thumbnail	http://en.wikipedia.org/wiki/Special:FilePath/RoyalHotel1874.jpg?width=300
+q800
+q801	http://dbpedia.org/resource/Alaa_Abd_El-Fattah	http://dbpedia.org/ontology/nationality	http://data.nobelprize.org/resource/country/Egypt
+q802
+q803	http://dbpedia.org/resource/Abramowitz_and_Stegun	http://rdf.freebase.com/ns/book.written_work.author*	http://dbpedia.org/resource/Milton_Abramowitz
+q804
+q805	http://dbpedia.org/resource/Category:Hunting_by_country	http://www.wikidata.org/entity/P301c*	http://dbpedia.org/resource/Hunting
+q806	http://dbpedia.org/resource/Rudi_Hedman	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.02jx1
+q807
+q808
+q809
+q810
+q811
+q812	http://dbpedia.org/resource/Asteroid	http://dbpedia.org/property/caption	sizes of the first ten asteroids to be discovered, compared to the moon
+q813
+q814
+q815	http://dbpedia.org/resource/Documentary_film	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	dokumentarfilm
+q816	http://dbpedia.org/resource/John_Marshall_Hamilton	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1905-09-22
+q817	http://dbpedia.org/resource/Cles	http://rdf.freebase.com/ns/location.location.time_zones	http://dbpedia.org/resource/Central_European_Time
+q818	http://rdf.freebase.com/ns/m.038rf4	http://rdf.freebase.com/ns/base.educationalshortfilm.educational_short_film.subject*	http://dbpedia.org/resource/Racism
+q819	http://dbpedia.org/resource/Michael_McKeon	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q820	http://dbpedia.org/resource/Henry_Stephens_Salt	http://rdf.freebase.com/ns/people.person.religion	http://rdf.freebase.com/ns/m.0kpl
+q821	http://dbpedia.org/resource/Pomfret_School	http://dbpedia.org/property/type	private, coeducational, secondary, boarding
+q822
+q823	http://dbpedia.org/resource/Joe_Meek	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Person
+q824
+q825
+q826	http://dbpedia.org/resource/Michael	http://www.wikidata.org/entity/P735c	http://umbel.org/umbel/ne/wikipedia/Michael_Pittman
+q827
+q828	http://dbpedia.org/resource/Oscar_(fish)	http://yago-knowledge.org/resource/redirectedFrom	tiger oscar
+q829
+q830
+q831	http://dbpedia.org/resource/Stacy_Peralta	http://yago-knowledge.org/resource/directed	http://data.linkedmdb.org/resource/film/36361
+q832	http://dbpedia.org/resource/Martin_Frederick_Ansel	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1945-08-23
+q833	http://dbpedia.org/resource/Tribal_chief	http://rdf.freebase.com/ns/fictional_universe.character_occupation.characters_with_this_occupation	http://rdf.freebase.com/ns/m.09ns4x1
+q834	http://dbpedia.org/resource/Corn_flakes	http://rdf.freebase.com/ns/business.product_with_ingredients.ingredients	http://dbpedia.org/resource/Sucrose
+q835	http://dbpedia.org/resource/Pneumonia	http://rdf.freebase.com/ns/people.cause_of_death.people	http://data.bnf.fr/ark:/12148/cb14006026v#foaf:Person
+q836
+q837	http://dbpedia.org/resource/CITIC_Securities	http://rdf.freebase.com/ns/business.business_operation.industry	http://rdf.freebase.com/ns/m.015p1m
+q838	http://dbpedia.org/resource/Herbert_Hugo_Menges	http://schema.org/deathDate	1941-12-07
+q839
+q840	http://dbpedia.org/resource/Irish_Hill,_Louisville	http://www.w3.org/2006/vcard/ns#country-name	http://yago-knowledge.org/resource/United_States
+q841
+q842
+q843
+q844	http://dbpedia.org/resource/Christopher_Connelly_(actor)	http://yago-knowledge.org/resource/wasBornIn*	http://dbpedia.org/resource/Wichita,_Kansas
+q845	http://dbpedia.org/resource/Sherlock_Holmes	http://rdf.freebase.com/ns/fictional_universe.fictional_character.powers_or_abilities	http://dbpedia.org/resource/Forensic_science
+q846	http://dbpedia.org/resource/Bear_Creek,_Texas	http://dbpedia.org/property/subdivisionName*	http://dbpedia.org/resource/Texas
+q847	http://www.bbc.co.uk/programmes/places/melbourne#place	http://yago-knowledge.org/resource/isLocatedIn*	http://dbpedia.org/resource/Victoria_(Australia)
+q848
+q849	http://dbpedia.org/resource/Jackie_French	http://schema.org/gender	http://www.wikidata.org/entity/Q6581072
+q850	http://dbpedia.org/resource/Experimental_film	http://www.w3.org/2006/vcard/ns#type	http://www.wikidata.org/ontology#Item
+q851	http://yago-knowledge.org/resource/Twinkle,_Twinkle_Lucky_Stars	http://dbpedia.org/property/starring*	http://dbpedia.org/resource/Jackie_Chan
+q852
+q853	http://dbpedia.org/resource/Illusions_by_Julie_Dash	http://dbpedia.org/property/filmStock*	http://dbpedia.org/resource/Black_and_white
+q854	http://dbpedia.org/resource/Bradford_Alhambra	http://dbpedia.org/property/city	http://www.bbc.co.uk/programmes/places/bradford#place
+q855	http://rdf.freebase.com/ns/m.06wxw	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Tom_Howe
+q856
+q857
+q858	http://dbpedia.org/resource/Formiga	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/Marcelo_Garcia_(grappler)
+q859	http://dbpedia.org/resource/KYNS	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/broadcast.radio_station
+q860	http://dbpedia.org/resource/Romance_film	http://rdf.freebase.com/ns/tv.tv_genre.programs	http://dbpedia.org/resource/My_Cheating_Heart
+q861
+q862	http://dbpedia.org/resource/Adele_Mara	http://d-nb.info/standards/elementset/gnd#gender	http://d-nb.info/standards/vocab/gnd/Gender#female
+q863	http://dbpedia.org/resource/Asteroid_belt	http://rdf.freebase.com/ns/astronomy.orbital_relationship.orbits	http://dbpedia.org/resource/Sun
+q864	http://dbpedia.org/resource/Geoffrey_Chaucer	http://rdf.freebase.com/ns/book.author.series_written_or_contributed_to	http://rdf.freebase.com/ns/m.0hmv0v4
+q865
+q866	http://dbpedia.org/resource/Ernest_Bloch	http://purl.org/vocab/relationship/influencedBy	http://dbpedia.org/resource/Ernesto_Balducci
+q867	http://dbpedia.org/resource/Cerro_Veronese	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Veneto
+q868	http://dbpedia.org/resource/Dorchester_Publishing	http://rdf.freebase.com/ns/book.publishing_company.imprints*	http://dbpedia.org/resource/Leisure_Books
+q869
+q870	http://dbpedia.org/resource/Sylvestra_Le_Touzel	http://rdf.freebase.com/ns/people.person.ethnicity	http://dbpedia.org/resource/British_people
+q871	http://dbpedia.org/resource/Eat_Pray_Love	http://purl.org/ontology/mo/composer	http://dbpedia.org/resource/Dario_Marianelli
+q872
+q873
+q874
+q875	http://dbpedia.org/resource/Caravan_raids	http://rdf.freebase.com/ns/base.culturalevent.event.entity_involved*	http://dbpedia.org/resource/Mecca
+q876	http://dbpedia.org/resource/Philip_B._Thompson,_Jr.	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1909-12-15
+q877
+q878	http://dbpedia.org/resource/Ursa_Major	http://d-nb.info/standards/elementset/gnd#broaderTermGeneral	http://dbpedia.org/resource/Constellation
+q879	http://dbpedia.org/resource/Night-Glo	http://dbpedia.org/property/type	album
+q880
+q881
+q882	http://dbpedia.org/resource/New_York_University_College_of_Dentistry	http://dbpedia.org/property/city	http://dbpedia.org/resource/New_York_City
+q883
+q884	http://dbpedia.org/resource/Steve_Parker	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	steve parker
+q885	http://dbpedia.org/resource/Battle	http://www.wikidata.org/entity/P31c	http://yago-knowledge.org/resource/Battle_of_Chapultepec
+q886	http://dbpedia.org/resource/Grant_Hill	http://schema.org/producer	http://yago-knowledge.org/resource/V_for_Vendetta_(film)
+q887
+q888	http://dbpedia.org/resource/Star_system	http://purl.org/dc/terms/isPartOf	http://dbpedia.org/ontology/Galaxy
+q889	http://dbpedia.org/resource/Goalkeeper_(association_football)	http://rdf.freebase.com/ns/soccer.football_position.players*	http://dbpedia.org/resource/Scott_Vallow
+q890	http://dbpedia.org/resource/International_Organization_for_Standardization	http://d-nb.info/standards/elementset/gnd#gndIdentifier	1008314-5
+q891	http://dbpedia.org/resource/Mike_Parker_Pearson	http://dbpedia.org/property/nationality	british
+q892
+q893	http://dbpedia.org/resource/Maj_SjÃ¶wall	http://rdf.freebase.com/ns/influence.influence_node.influenced	http://dbpedia.org/resource/Henning_Mankell
+q894	http://dbpedia.org/resource/Kunsthaus_Tacheles	http://www.w3.org/2006/vcard/ns#type	http://rdf.freebase.com/ns/architecture.building
+q895
+q896	http://dbpedia.org/resource/Dragon_Quest	http://yago-knowledge.org/resource/infobox/en/creator	yuji horii
+q897	http://dbpedia.org/resource/Wilderness	http://www.w3.org/2006/vcard/ns#type	http://sw.opencyc.org/concept/Mx4r_4bScKNtQdiVw7XtX-HN0Q
+q898	http://dbpedia.org/resource/Park_Chung-hee	http://yago-knowledge.org/resource/diedIn	http://telegraphis.net/data/capitals/KR/Seoul#Seoul
+q899
+q900	http://yago-knowledge.org/resource/7650_Kaname	http://rdf.freebase.com/ns/astronomy.celestial_object.category*	http://dbpedia.org/resource/Asteroid
+q901	http://dbpedia.org/resource/Shasta_County,_California	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Sacramento_Valley
+q902
+q903	http://dbpedia.org/resource/Guinness_Storehouse	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Dublin
+q904
+q905
+q906	http://dbpedia.org/resource/DALnet	http://dbpedia.org/property/locatedIn*	http://dbpedia.org/resource/Europe
+q907	http://dbpedia.org/resource/IHeartMedia	http://rdf.freebase.com/ns/broadcast.radio_station_owner.radio_stations	http://dbpedia.org/resource/KIOC
+q908	http://dbpedia.org/resource/Bert_Weedon	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q909	http://dbpedia.org/resource/Autumn_Sonata	http://dbpedia.org/property/country	http://dbpedia.org/resource/West_Germany
+q910
+q911	http://dbpedia.org/resource/Pocoyo	http://yago-knowledge.org/resource/infobox/en/language	castilian spanishnenglish language|english
+q912	http://dbpedia.org/resource/Carl_Veart	http://dbpedia.org/ontology/nationality	http://dbtune.org/musicbrainz/resource/country/AU
+q913
+q914	http://dbpedia.org/resource/Mingo_County,_West_Virginia	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Williamson,_West_Virginia
+q915	http://dbpedia.org/resource/North_Georgia	http://dbpedia.org/ontology/thumbnail	http://commons.wikimedia.org/wiki/Special:FilePath/North_georgia_mountains.JPG?width=300
+q916
+q917	http://dbpedia.org/resource/Devadatta	http://rdf.freebase.com/ns/people.person.religion	http://dbpedia.org/resource/Buddhism
+q918	http://dbpedia.org/resource/Medina_Lake	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Lake
+q919	http://dbpedia.org/resource/Gridiron_football	http://www.w3.org/2006/vcard/ns#type	http://www.wikidata.org/ontology#Item
+q920
+q921	http://dbpedia.org/resource/East_Mecklenburg_High_School	http://rdf.freebase.com/ns/education.educational_institution.phone_number	http://rdf.freebase.com/ns/m.0dhdzm8
+q922	http://dbpedia.org/resource/Oktapodi	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.0f8l9c
+q923
+q924	http://sws.geonames.org/5361784/	http://rdf.freebase.com/ns/broadcast.radio_station.format*	http://dbpedia.org/resource/Adult_contemporary_music
+q925	http://dbpedia.org/resource/Arthur_Q._Bryan	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q926
+q927	http://dbpedia.org/resource/Academia_Maria_Reina	http://dbpedia.org/property/type	private all-female high school and middle-school english and spanish spoken, most classes are in english except language classes.
+q928	http://dbpedia.org/resource/Arundel_Mills	http://rdf.freebase.com/ns/business.shopping_center.owner	http://dbpedia.org/resource/Simon_Property_Group
+q929	http://dbpedia.org/resource/Mathematician	http://dbpedia.org/property/urlname	unsolvedproblems
+q930
+q931	http://dbpedia.org/resource/Southern_California	http://dbpedia.org/ontology/deathPlace	http://dbpedia.org/resource/Haji_(actress)
+q932
+q933	http://dbpedia.org/resource/Jim_Silva	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q934	http://dbpedia.org/resource/Pontifical_Gregorian_University	http://rdf.freebase.com/ns/education.educational_institution.phone_number	http://rdf.freebase.com/ns/m.0h6g4wr
+q935
+q936
+q937
+q938	http://dbpedia.org/resource/Heath_High_School_(Ohio)	http://dbpedia.org/property/colors	brown and white
+q939
+q940
+q941	http://dbpedia.org/resource/12617_Angelusilesius	http://purl.org/dc/elements/1.1/title	12617 angelusilesius
+q942	http://dbpedia.org/resource/LeRoy_Neiman	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Saint_Paul,_Minnesota
+q943	http://dbpedia.org/resource/Cashiers,_North_Carolina	http://yago-knowledge.org/resource/isLocatedIn	http://logd.tw.rpi.edu/id/country/United_States
+q944
+q945	http://dbpedia.org/resource/Mumbai_Matinee	http://rdf.freebase.com/ns/film.film.language	http://dbpedia.org/resource/English_language
+q946	http://dbpedia.org/resource/Meningitis	http://rdf.freebase.com/ns/people.cause_of_death.people	http://yago-knowledge.org/resource/Addie_Joss
+q947	http://dbpedia.org/resource/Bill_Hague	http://rdf.freebase.com/ns/baseball.baseball_player.position_s	http://rdf.freebase.com/ns/m.01sdzg
+q948	http://dbpedia.org/resource/Maxwell_Street_Jimmy_Davis	http://rdf.freebase.com/ns/people.person.profession	http://dbpedia.org/resource/Songwriter
+q949	http://dbpedia.org/resource/The_Best_Movie_2	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Comedy-drama
+q950	http://dbpedia.org/resource/Victorian_architecture	http://rdf.freebase.com/ns/architecture.architectural_style.examples	http://dbpedia.org/resource/Chester_County_Courthouse_(Pennsylvania)
+q951	http://dbpedia.org/resource/Battle_of_the_North_Cape	http://rdf.freebase.com/ns/base.culturalevent.event.entity_involved	http://dbpedia.org/resource/Canada
+q952
+q953
+q954
+q955	http://dbpedia.org/resource/Poet	http://dbpedia.org/property/officialNames	poet, troubador, bard
+q956	http://dbpedia.org/resource/Alberto_Magnelli	http://dbpedia.org/ontology/deathPlace	http://dbpedia.org/resource/France
+q957
+q958	http://dbpedia.org/resource/Stealing_Heaven	http://rdf.freebase.com/ns/film.film.country	http://rdf.freebase.com/ns/m.07ssc
+q959	http://dbpedia.org/resource/Carrie_Stevens	http://yago-knowledge.org/resource/wasBornIn	http://dbpedia.org/resource/Buffalo,_New_York
+q960	http://dbpedia.org/resource/Sigmund_Groven	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q961
+q962
+q963	http://dbpedia.org/resource/St._Mary_Help_of_Christians_Church_(Aiken,_South_Carolina)	http://rdf.freebase.com/ns/architecture.structure.architectural_style	http://dbpedia.org/resource/Gothic_Revival_architecture
+q964
+q965	http://dbpedia.org/resource/William_E._McAnulty_Jr.	http://schema.org/gender	http://www.wikidata.org/entity/Q6581097
+q966	http://dbpedia.org/resource/Park_Region_Luther_College	http://rdf.freebase.com/ns/architecture.structure.architectural_style	http://dbpedia.org/resource/Romanesque_architecture
+q967	http://dbpedia.org/resource/Detroit,_Michigan	http://rdf.freebase.com/ns/location.location.people_born_here*	http://dbpedia.org/resource/John_DiGiorgio
+q968	http://dbpedia.org/resource/African_American	http://d-nb.info/standards/elementset/gnd#preferredNameForThePlaceOrGeographicName	afroamerikaner
+q969
+q970
+q971	http://dbpedia.org/resource/Shirley_Adams	http://rdf.freebase.com/key/authority.netflix.movie	70124688
+q972	http://dbpedia.org/resource/Nap	http://schema.org/description	short period of sleep
+q973
+q974	http://rdf.freebase.com/ns/m.040k_76	http://rdf.freebase.com/ns/film.performance.film*	http://dbpedia.org/resource/Human_Stuff
+q975
+q976	http://dbpedia.org/resource/Winsor_McCay_Award	http://minsky.gsi.dit.upm.es/semanticwiki/index.php/Special:URIResolver/Property-3ATitle	winsor mccay award
+q977	http://dbpedia.org/resource/The_Cat_and_the_Canary_(1927_film)	http://rdf.freebase.com/ns/film.film.genre*	http://dbpedia.org/resource/Black_and_white
+q978	http://dbpedia.org/resource/Ayesha_Takia	http://rdf.freebase.com/ns/people.person.religion	http://dbpedia.org/resource/Islam
+q979
+q980	http://dbpedia.org/resource/New_Zealand	http://schema.org/deathPlace	http://dbpedia.org/resource/Hilda_Hewlett
+q981	http://dbpedia.org/resource/Karl_Zerbe	http://www.w3.org/2006/vcard/ns#type	http://dbpedia.org/ontology/Person
+q982	http://dbpedia.org/resource/Procesado_1040	http://rdf.freebase.com/ns/film.film.language	http://dbpedia.org/resource/Spanish_language
+q983	http://dbpedia.org/resource/Freestyle_skiing	http://rdf.freebase.com/ns/olympics.olympic_sport.olympic_games_contested	http://dbpedia.org/resource/2002_Winter_Olympics
+q984	http://dbpedia.org/resource/Salisbury	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/SP_postcode_area
+q985
+q986	http://dbpedia.org/resource/Hennepin_County_Library	http://yago-knowledge.org/resource/isLocatedIn	http://dbpedia.org/resource/Minnesota
+q987
+q988	http://dbpedia.org/resource/Leo_McCarey	http://yago-knowledge.org/resource/directed	http://dbpedia.org/resource/Big_Business_(1929_film)
+q989
+q990
+q991	http://dbpedia.org/resource/Shane_Black	http://rdf.freebase.com/ns/film.writer.film	http://dbpedia.org/resource/The_Last_Boy_Scout
+q992	http://dbpedia.org/resource/Philanthropy	http://d-nb.info/standards/elementset/gnd#preferredNameForTheSubjectHeading	philanthropie
+q993	http://dbpedia.org/resource/Pistoia	http://dbpedia.org/property/province	http://dbpedia.org/resource/Province_of_Pistoia
+q994	http://dbpedia.org/resource/Patrick_Cobbs	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q995	http://dbpedia.org/resource/Harald_Pietschmann	http://rdf.freebase.com/ns/people.person.nationality	http://rdf.freebase.com/ns/m.09c7w0
+q996	http://rdf.freebase.com/ns/m.04w2f2f	http://rdf.freebase.com/ns/book.written_work.subjects*	http://dbpedia.org/resource/Baroque
+q997	http://dbpedia.org/resource/Kamarhati	http://rdf.freebase.com/ns/travel.travel_destination.tourist_attractions*	http://dbpedia.org/resource/Dakshineswar_Kali_Temple
+q998
+q999
+q1000	http://dbpedia.org/resource/Homer_Blankenship	http://rdf.freebase.com/ns/people.deceased_person.date_of_death	1974-06-22
