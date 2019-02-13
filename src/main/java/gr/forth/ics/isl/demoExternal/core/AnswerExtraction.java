@@ -150,7 +150,7 @@ public class AnswerExtraction {
         return fact_str;
     }
 
-    public void retrieveCandidateTriplesOptimized(String question_type, HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
+    public void retrieveCandidateTriplesOptimized(String question_type, HashMap<String, String> entity_URI, String fact, int numOfUsefulWords, String cardinal) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
 
@@ -160,7 +160,7 @@ public class AnswerExtraction {
             return;
         }
 
-        String max_entity = getEntityWithMaxCardinality(entity_URI);
+        String max_entity = getEntityWithMaxCardinality(entity_URI, cardinal);
 
         // Get the question entities
         Set<String> entities = new HashSet<>(entity_URI.keySet());
@@ -237,7 +237,6 @@ public class AnswerExtraction {
         }
 
         //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Cand. Relations: {0}", cand_relations);
-
         return cand_relations;
     }
 
@@ -644,31 +643,57 @@ public class AnswerExtraction {
         return clean_uri;
     }
 
-    public static String getEntityWithMaxCardinality(HashMap<String, String> entity_URI) {
+    public static String getEntityWithMaxCardinality(HashMap<String, String> entity_URI, String cardinal) {
         String final_entity = "";
-        int max_card = Integer.MIN_VALUE;
+        if (cardinal.equalsIgnoreCase("max")) {
+            int max_card = Integer.MIN_VALUE;
 
-        String cardinality_result = "";
-        JSONObject uri_cardinality;
+            String cardinality_result = "";
+            JSONObject uri_cardinality;
 
-        for (String entity : entity_URI.keySet()) {
-            cardinality_result = "";
-            for (String str : chanel.getCardinalityAsJSON(entity_URI.get(entity)).get(0)) {
-                cardinality_result += str + " ";
-            }
-
-            uri_cardinality = AnswerExtraction.extractJSONObjectsFromString(cardinality_result).get(0);
-
-            try {
-                if (uri_cardinality.getInt("cardinality") > max_card) {
-                    max_card = uri_cardinality.getInt("cardinality");
-                    final_entity = entity;
+            for (String entity : entity_URI.keySet()) {
+                cardinality_result = "";
+                for (String str : chanel.getCardinalityAsJSON(entity_URI.get(entity)).get(0)) {
+                    cardinality_result += str + " ";
                 }
-            } catch (JSONException ex) {
-                Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+
+                uri_cardinality = AnswerExtraction.extractJSONObjectsFromString(cardinality_result).get(0);
+
+                try {
+                    if (uri_cardinality.getInt("cardinality") > max_card) {
+                        max_card = uri_cardinality.getInt("cardinality");
+                        final_entity = entity;
+                    }
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            return final_entity;
+        } else {
+            int min_card = Integer.MAX_VALUE;
+
+            String cardinality_result = "";
+            JSONObject uri_cardinality;
+
+            for (String entity : entity_URI.keySet()) {
+                cardinality_result = "";
+                for (String str : chanel.getCardinalityAsJSON(entity_URI.get(entity)).get(0)) {
+                    cardinality_result += str + " ";
+                }
+
+                uri_cardinality = AnswerExtraction.extractJSONObjectsFromString(cardinality_result).get(0);
+
+                try {
+                    if (uri_cardinality.getInt("cardinality") < min_card) {
+                        min_card = uri_cardinality.getInt("cardinality");
+                        final_entity = entity;
+                    }
+                } catch (JSONException ex) {
+                    Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return final_entity;
         }
-        return final_entity;
     }
 
     public static ArrayList<JSONObject> extractJSONObjectsFromString(String cand_facts) {

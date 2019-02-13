@@ -80,7 +80,7 @@ public class ExternalKnowledgeDemoMain {
         String def2 = "What is Mount Everest?";
         String def3 = "What is Nintendo?";
 
-        System.out.println(getAnswerAsJson("Who was killed by the electric chair for murder?", "plain"));
+        System.out.println(getAnswerAsJson("Is Crete located in Greece?", "plain"));
     }
 
     public ExternalKnowledgeDemoMain() {
@@ -249,7 +249,7 @@ public class ExternalKnowledgeDemoMain {
 
             String fact = answer_extraction.extractFact(useful_words);
 
-            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size());
+            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size(), "min");
 
             JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
 
@@ -336,7 +336,7 @@ public class ExternalKnowledgeDemoMain {
 
             String fact = answer_extraction.extractFact(useful_words);
 
-            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size());
+            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size(), "max");
 
             JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
 
