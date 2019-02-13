@@ -9,7 +9,6 @@
  */
 package gr.forth.ics.isl.demoExternal.main;
 
-import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import gr.forth.ics.isl.demoExternal.LODsyndesis.LODSyndesisChanel;
@@ -19,13 +18,12 @@ import gr.forth.ics.isl.demoExternal.core.ModulesErrorHandling;
 import gr.forth.ics.isl.demoExternal.core.QuestionAnalysis;
 import gr.forth.ics.isl.nlp.externalTools.Spotlight;
 import gr.forth.ics.isl.utilities.StringUtils;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -82,10 +80,15 @@ public class ExternalKnowledgeDemoMain {
         String def2 = "What is Mount Everest?";
         String def3 = "What is Nintendo?";
 
-        System.out.println(getAnswerAsJson("Which is the foundation place of Sony?"));
+        System.out.println(getAnswerAsJson("Who was killed by the electric chair for murder?", "plain"));
     }
 
-    public ExternalKnowledgeDemoMain(String wordnetPath) {
+    public ExternalKnowledgeDemoMain() {
+        try {
+            initializeToolsAndResources("");
+        } catch (IOException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -137,6 +140,7 @@ public class ExternalKnowledgeDemoMain {
         Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "...Generating stop-words lists...");
         StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
 
+        /*
         Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...loading wordnet...");
         String wnhome = System.getenv(wordnetPath);
         String path = wnhome + File.separator + "dict";
@@ -149,7 +153,7 @@ public class ExternalKnowledgeDemoMain {
         wordnetResources.add("synonyms");
         //wordnetResources.add("antonyms");
         //wordnetResources.add("hypernyms");
-
+*/
         Properties split_props = new Properties();
         //Properties including lemmatization
         //props.put("annotators", "tokenize, ssplit, pos, lemma");
@@ -179,6 +183,99 @@ public class ExternalKnowledgeDemoMain {
 
         chanel = new LODSyndesisChanel();
 
+    }
+
+    public static JSONObject getAnswerAsJson(String query, String format) {
+        try {
+            JSONObject obj = new JSONObject();
+
+            obj.put("source", "external");
+
+            // ==== Question Analysis Step ====
+            QuestionAnalysis q_analysis = new QuestionAnalysis();
+            q_analysis.analyzeQuestion(query);
+
+            String question = q_analysis.getQuestion();
+
+            obj.put("question", question);
+
+            JSONObject q_aErrorHandling = ModulesErrorHandling.questionAnalysisErrorHandling(q_analysis);
+
+            if (q_aErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, q_aErrorHandling, "questionAnalysis");
+            }
+
+            String question_type = q_analysis.getQuestionType();
+
+
+            // ==== Entities Detection Step ====
+            EntitiesDetection entities_detection = new EntitiesDetection();
+            String NEtool = "both";
+
+            // identify NamedEntities in the question using SCNLP and Spotlight
+            entities_detection.identifyNamedEntities(question, NEtool);
+
+            HashMap<String, String> entity_URI = entities_detection.extractEntitiesWithUris(question, NEtool);
+
+            JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
+
+            if (e_dErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                obj.put("question_type", question_type);
+                return constructErrorJson(obj, e_dErrorHandling, "entitiesDetection");
+            }
+
+            obj.put("question_entities", entity_URI.keySet());
+            obj.put("retrievedEntities", entity_URI);
+
+            // ==== Answer Extraction Step ====
+            AnswerExtraction answer_extraction = new AnswerExtraction();
+
+            ArrayList<String> expansionResources = new ArrayList<>();
+            expansionResources.add("lemma");
+            expansionResources.add("verb");
+            expansionResources.add("noun");
+
+            HashSet<String> usef_words = answer_extraction.extractUsefulWordsWithoutEntityWords(question, entity_URI.keySet());
+
+            if (usef_words.isEmpty() && question.toLowerCase().startsWith("what is")) {
+                question_type = "definition";
+            }
+            obj.put("question_type", question_type);
+
+            // Store the useful words of the question
+            Set<String> useful_words = answer_extraction.extractUsefulWords(question, question_type, entity_URI.keySet(), expansionResources);
+
+            answer_extraction.setUsefulWords(useful_words);
+
+            String fact = answer_extraction.extractFact(useful_words);
+
+            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size());
+
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
+
+            if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
+                return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
+            }
+
+            obj.put("useful_words", useful_words);
+
+            JSONObject answer_triple = answer_extraction.extractAnswer(useful_words, fact, entity_URI, question_type);
+
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "===== Answer: {0}", answer_triple);
+
+            String answer = answer_triple.getString("answer");
+            obj.put("plain_answer", AnswerExtraction.getSuffixOfURI(answer));
+            obj.put("answer", answer_triple.get("answer"));
+            answer_triple.remove("answer");
+            obj.put("triple", answer_triple);
+
+            return obj;
+
+        } catch (JSONException ex) {
+            Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     public static JSONObject getAnswerAsJson(String query) {
@@ -230,7 +327,7 @@ public class ExternalKnowledgeDemoMain {
             ArrayList<String> expansionResources = new ArrayList<>();
             expansionResources.add("lemma");
             expansionResources.add("verb");
-            //expansionResources.add("noun");
+            expansionResources.add("noun");
 
             // Store the useful words of the question
             Set<String> useful_words = answer_extraction.extractUsefulWords(question, question_type, entity_URI.keySet(), expansionResources);
@@ -239,9 +336,9 @@ public class ExternalKnowledgeDemoMain {
 
             String fact = answer_extraction.extractFact(useful_words);
 
-            answer_extraction.retrieveCandidateTriplesOptimized(entity_URI, fact, useful_words.size());
+            answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size());
 
-            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction);
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
 
             if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
                 return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");

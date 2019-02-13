@@ -36,11 +36,13 @@ import org.codehaus.jettison.json.JSONObject;
 public class ExternalEvaluator {
 
     public static void main(String[] args) throws IOException, JSONException {
+        /*
         ExternalKnowledgeDemoMain.initializeToolsAndResources("WNHOME");
 
             TreeMap<Integer, String> questionId_question;
 
-        questionId_question = readQuestionsFile("questions");
+        questionId_question = readQuestionsFile("simpleQuestions");
+
 
         int no_entities = 0;
         for (int question_id : questionId_question.keySet()) {
@@ -56,19 +58,20 @@ public class ExternalEvaluator {
             }
         }
         System.out.println(no_entities);
-        /*
+         */
+
         try {
             ExternalKnowledgeDemoMain.initializeToolsAndResources("WNHOME");
 
             TreeMap<Integer, String> questionId_question;
 
-            questionId_question = readQuestionsFile("questions_no_ne");
+            questionId_question = readQuestionsFile("simpleQuestionsReformulated");
 
-            TreeMap<Integer, JSONObject> questionId_answer = partialPipelineEvaluation(questionId_question, 0, 114);
+            TreeMap<Integer, JSONObject> questionId_answer = partialPipelineEvaluation(questionId_question, 875, 125);
 
             try {
-                writeSystemAnswersToFile(questionId_answer, "system_answersPartNO");
-                writeSystemAnswersAsJsonToFile(questionId_answer, "system_answers_detailedPartNO");
+                writeSystemAnswersToFile(questionId_answer, "simpleQuestions_WithoutVerb_1000");
+                writeSystemAnswersAsJsonToFile(questionId_answer, "simpleQuestions_WithoutVerb_Detailed1000");
             } catch (JSONException ex) {
                 Logger.getLogger(ExternalEvaluator.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -76,8 +79,8 @@ public class ExternalEvaluator {
             Logger.getLogger(ExternalEvaluator.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        validateAnswers("system_answersPartNO", "answers");
-        getStatsForUnansweredQuestions("system_answers_detailedPartNO");*/
+        //validateAnswers("simpleQuestions_OurMethod_300", "simpleQuestions_answers");
+        //getStatsForUnansweredQuestions("simpleQuestions_OurMethod_Detailed300");
     }
 
     public static void validateAnswers(String system_ans_filename, String gold_ans_filename) throws JSONException {
@@ -150,7 +153,7 @@ public class ExternalEvaluator {
         int unanswered = 0;
         for (int question_id : questionId_question.keySet()) {
             if (question_id > start_question_id) {
-                if (question_id == 289 || question_id == 240 || question_id == 224) {
+                if (question_id == 19 || question_id == 55 || question_id == 90 || question_id == 133 || question_id == 151 || question_id == 159 || question_id == 164 || question_id == 165 || question_id == 199 || question_id == 224 || question_id == 240 || question_id == 289 || question_id == 290 || question_id == 308 || question_id == 411 || question_id == 424 || question_id == 443 || question_id == 466 || question_id == 490 || question_id == 506 || question_id == 507 || question_id == 519 || question_id == 523 || question_id == 525 || question_id == 537 || question_id == 615 || question_id == 622 || question_id == 652 || question_id == 841 || question_id == 848 || question_id == 880 || question_id == 969) {
                     //if (question_id == 133 || question_id == 159 || question_id == 165) {
                     continue;
                 }
@@ -465,7 +468,7 @@ public class ExternalEvaluator {
 
                     // Retrieve for each entity its candidate URIs from LODSyndesis
                     entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
-
+                    /*
                     JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
                     String status = "";
@@ -476,15 +479,22 @@ public class ExternalEvaluator {
                     }
 
                     if (status.equalsIgnoreCase("error")) {
-                        System.out.println(question_id + "\t" + question + "\t" + new HashMap<>() + "\t" + "[dbpedia][corenlp] [noEntities][noEntitiesLOD]");
-                        return new HashMap<>();
-                    } else {
-
+   */
+                    if (entities_detection.getCorenlpEntitiesWithCandidateURIs() != null && !entities_detection.getCorenlpEntitiesWithCandidateURIs().isEmpty()) {
+                        HashMap<String, String> entity_URI = new HashMap<>();
+                        try {
                         // Hashmap to store each entity and the selected URI (the highest scored)
-                        HashMap<String, String> entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
-
+                       entity_URI = entities_detection.getMatchingCorenlpURIs(word_NamedEntity.keySet());
+                        } catch (Exception ex) {
+                            System.out.println(question_id + "\t" + question + "\t" + new HashMap<>() + "\t" + "[dbpedia][corenlp] [noEntities][noEntitiesLOD]");
+                            return new HashMap<>();
+                        }
                         System.out.println(question_id + "\t" + question + "\t" + entity_URI + "\t" + "[dbpedia][corenlp] [noEntities]");
                         return entity_URI;
+
+                    } else {
+                        System.out.println(question_id + "\t" + question + "\t" + new HashMap<>() + "\t" + "[dbpedia][corenlp] [noEntities][noEntitiesLOD]");
+                        return new HashMap<>();
                     }
                 }
             } else {
@@ -510,6 +520,7 @@ public class ExternalEvaluator {
                 // Retrieve for each entity its candidate URIs from LODSyndesis
                 entities_detection.retrieveCorenlpEntitiesCandidateURIs(word_NamedEntity.keySet());
 
+                /*
                 JSONObject e_dErrorHandling = ModulesErrorHandling.entitiesDetectionErrorHandling(entities_detection);
 
                 String status = "";
@@ -520,7 +531,10 @@ public class ExternalEvaluator {
                 }
 
                 if (status.equalsIgnoreCase("error")) {
-                    HashMap<String, String> cand_entities_uris = entities_detection.extractEntitiesWithSpotlight(question);
+                */
+                if (entities_detection.getCorenlpEntitiesWithCandidateURIs() != null && !entities_detection.getCorenlpEntitiesWithCandidateURIs().isEmpty()) {
+
+                HashMap<String, String> cand_entities_uris = entities_detection.extractEntitiesWithSpotlight(question);
                     if (cand_entities_uris.isEmpty()) {
                         System.out.println(question_id + "\t" + question + "\t" + cand_entities_uris + "\t" + "[corenlp][dbpedia] [noEntitiesLOD][noEntities]");
                     } else {

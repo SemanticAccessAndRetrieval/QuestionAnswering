@@ -63,20 +63,27 @@ public class AnswerExtraction {
         // These tags should be included in the useful_words set
         if (question_type.equalsIgnoreCase("definition")) {
             HashSet<String> usef_words = new HashSet<>(AnswerExtraction.definition_relations);
-            Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
+            //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
             return usef_words;
         }
 
         HashSet<String> usef_words = extractUsefulWordsWithoutEntityWords(question, entities);
 
+        if (usef_words.isEmpty()) {
+            if (question_type.equalsIgnoreCase("factoid")) {
+                usef_words = new HashSet<>(AnswerExtraction.definition_relations);
+                return usef_words;
+            }
+        }
+
         if (!usef_words.isEmpty() && !expansionResources.isEmpty()) {
             usef_words = extractExpandedUsefulWordsWithWordnet(usef_words, expansionResources);
         }
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "===== Useful_words: {0}", usef_words);
         return usef_words;
     }
 
-    private HashSet<String> extractUsefulWordsWithoutEntityWords(String question, Set<String> entities) {
+    public HashSet<String> extractUsefulWordsWithoutEntityWords(String question, Set<String> entities) {
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
 
@@ -94,11 +101,6 @@ public class AnswerExtraction {
         // Remove all single char useful words
         final_useful_words.removeAll(stop_words);
 
-        /*
-        if (question.toLowerCase().startsWith("where")) {
-            final_useful_words.add("place");
-        }
-         */
         HashSet<String> entities_words = new HashSet<>();
 
         // Find all entity words and store them
@@ -148,12 +150,12 @@ public class AnswerExtraction {
         return fact_str;
     }
 
-    public void retrieveCandidateTriplesOptimized(HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
+    public void retrieveCandidateTriplesOptimized(String question_type, HashMap<String, String> entity_URI, String fact, int numOfUsefulWords) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
 
         // If there are no available useful words
-        if (numOfUsefulWords == 0) {
+        if (numOfUsefulWords == 0 && !question_type.equalsIgnoreCase("confirmation")) {
             this.candidate_triples = cand_facts;
             return;
         }
@@ -210,7 +212,7 @@ public class AnswerExtraction {
         // Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched relations: {0}", matched_relations);
 
         ArrayList<JSONObject> matched_triples = extractMatchedTriples(matched_relations, this.candidate_triples);
-        Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
+        //Logger.getLogger(AnswerExtraction.class.getName()).log(Level.INFO, "=====Matched triples: {0}", matched_triples);
 
         //(TODO) Here we can check the entities and then retrieve the topScored
         JSONObject answer = extractAnswerText(matched_triples, question_type, entity_URI);
@@ -407,7 +409,7 @@ public class AnswerExtraction {
             int numOfEntities = entity_URI.keySet().size();
 
             JSONObject final_triple = null;
-            //edw auta pou exoun 2 mporoume na ta vazoume se ena set kai na pairnoume thn tripleta me ta perissotera provenance
+
             if (numOfEntities >= 2) {
                 for (JSONObject triple : triplesWithCorrectEntities) {
 
@@ -430,7 +432,7 @@ public class AnswerExtraction {
                         Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    final_triple.remove("threshold");
+                    //final_triple.remove("threshold");
                     try {
                         final_triple.put("answer", "Yes!");
                     } catch (JSONException ex) {
@@ -467,7 +469,7 @@ public class AnswerExtraction {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (isMatchingUris(predicate_uri, relation)) {
-                    triple.remove("threshold");
+                    //triple.remove("threshold");
                     try {
                         triple.put("answer", triple.getString("object"));
                     } catch (JSONException ex) {
@@ -498,7 +500,7 @@ public class AnswerExtraction {
 
             }
             JSONObject answer_triple = numOfProvenanceDatasets_triple.get(numOfProvenanceDatasets_triple.lastKey());
-            answer_triple.remove("threshold");
+            //answer_triple.remove("threshold");
             return answer_triple;
         } catch (JSONException ex) {
             Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);

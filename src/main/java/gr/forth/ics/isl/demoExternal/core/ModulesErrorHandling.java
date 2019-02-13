@@ -100,12 +100,12 @@ public class ModulesErrorHandling {
 
     }
 
-    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e) {
+    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e, String question_type) {
         JSONObject answer = new JSONObject();
 
         Set<String> useful_words = a_e.getUsefulWords();
 
-        if (useful_words.isEmpty()) {
+        if (useful_words.isEmpty() && !question_type.equalsIgnoreCase("confirmation")) {
             try {
                 answer.put("status", "error");
                 answer.put("message", "[AnswerExtraction] No available useful words.");

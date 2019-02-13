@@ -44,7 +44,7 @@ public class LODSyndesisChanel {
     private HttpGet factChecking;
     private HttpGet keywordEntity;
     private HttpGet entityCardinality;
-    private static final String URL = "http://83.212.101.8:8080/LODsyndesis/rest-api";
+    private static final String URL = "http://83.212.101.193:8080/LODsyndesis/rest-api";
     private String serviceName;
 
     private static DecimalFormat df = new DecimalFormat(".##");
@@ -256,7 +256,7 @@ public class LODSyndesisChanel {
             keywordEntity = new HttpGet(URL + "/" + serviceName + "?keyword=" + keyword.trim().replaceAll(" ", "_"));
             keywordEntity.addHeader(ACCEPT, "application/json");
             keywordEntity.addHeader(CONTENT_TYPE, "application/json");
-            System.out.println(keywordEntity);
+            // System.out.println(keywordEntity);
             ArrayList<String> candidateEntities = getJsonContent(keywordEntity);
 
             return candidateEntities;
