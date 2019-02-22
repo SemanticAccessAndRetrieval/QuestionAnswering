@@ -83,6 +83,64 @@ public class ExternalEvaluator {
         //getStatsForUnansweredQuestions("simpleQuestions_OurMethod_Detailed300");
     }
 
+    public static JSONObject extractQuestionStatistics(String datasetName, int numOfQuestions) throws IOException, JSONException {
+        JSONObject stats = new JSONObject();
+
+        float avgWords = 0.0f;
+        int minWords = Integer.MAX_VALUE;
+        int maxWords = Integer.MIN_VALUE;
+
+        float avgCleanWords = 0.0f;
+        int minCleanWords = Integer.MAX_VALUE;
+        int maxCleanWords = Integer.MIN_VALUE;
+
+        ExternalKnowledgeDemoMain.initializeToolsAndResources("WNHOME");
+
+        TreeMap<Integer, String> questionId_question;
+
+        questionId_question = readQuestionsFile(datasetName);
+
+        for (int q_id : questionId_question.keySet()) {
+            if (q_id <= numOfQuestions) {
+                System.out.println(q_id);
+                String question = questionId_question.get(q_id);
+                QuestionAnalysis qa = new QuestionAnalysis();
+                int words = qa.getTokensWithPos(question).size();
+                //System.out.println(words);
+                int clean_words = qa.getCleanTokensWithPos(question).size();
+                //System.out.println(clean_words);
+                if (words < minWords) {
+                    minWords = words;
+                }
+                if (words > maxWords) {
+                    maxWords = words;
+                }
+
+                if (clean_words < minCleanWords) {
+                    minCleanWords = clean_words;
+                }
+                if (clean_words > maxCleanWords) {
+                    maxCleanWords = clean_words;
+                }
+
+                avgWords += words;
+                avgCleanWords += clean_words;
+            }
+        }
+        avgWords = avgWords / (numOfQuestions * 1.0f);
+        avgCleanWords = avgCleanWords / (numOfQuestions * 1.0f);
+
+        stats.put("avgWords", avgWords);
+        stats.put("minWords", minWords);
+        stats.put("maxWords", maxWords);
+
+        stats.put("avgCleanWords", avgCleanWords);
+        stats.put("minCleanWords", minCleanWords);
+        stats.put("maxCleanWords", maxCleanWords);
+
+        return stats;
+    }
+
     public static void validateAnswers(String system_ans_filename, String gold_ans_filename) throws JSONException {
 
         TreeMap<Integer, JSONObject> qID_answers = readAnswersFiles(system_ans_filename, gold_ans_filename);

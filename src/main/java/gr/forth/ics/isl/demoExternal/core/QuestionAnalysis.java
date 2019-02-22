@@ -169,6 +169,34 @@ public class QuestionAnalysis {
 
     }
 
+    public static HashSet<String> getNouns(String text) {
+        Annotation document = new Annotation(text);
+        split_pipeline.annotate(document);
+
+        List<CoreLabel> tokens = document.get(CoreAnnotations.TokensAnnotation.class);
+
+        HashSet<String> noun_tokens = new HashSet<>();
+
+        String tmp_token = "";
+        for (CoreLabel tok : tokens) {
+
+            tmp_token = tok.get(CoreAnnotations.TextAnnotation.class).replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
+            if (!tmp_token.isEmpty() && !StringUtils.isStopWord(tmp_token)) {
+                //Get the POS tag of the token
+                String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                System.out.println(pos);
+                if (!pos.startsWith("-") && pos.toLowerCase().startsWith("n")) {
+                    noun_tokens.add(tmp_token);
+                }
+
+            }
+
+        }
+
+        return noun_tokens;
+
+    }
+
     public static HashMap<String, String> getLemmatizedTokens(String text) {
         Annotation document = new Annotation(text);
         lemma_pipeline.annotate(document);
@@ -204,10 +232,11 @@ public class QuestionAnalysis {
         String tmp_token = "";
         for (CoreLabel tok : tokens) {
 
-            tmp_token = tok.get(CoreAnnotations.TextAnnotation.class).toLowerCase().trim();
+            tmp_token = tok.get(CoreAnnotations.TextAnnotation.class).replaceAll("[^a-zA-Z ]", "").toLowerCase().trim();
             if (!tmp_token.isEmpty()) {
                 //Get the POS tag of the token
                 String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                if (!pos.startsWith("-"))
                 final_tokens.put(tmp_token, pos);
             }
 

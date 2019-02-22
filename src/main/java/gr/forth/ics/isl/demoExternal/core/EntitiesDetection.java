@@ -305,8 +305,14 @@ public class EntitiesDetection {
     public HashMap<String, String> extractEntitiesWithUris(String question, String tool) {
         // if both sets are empty, then return as final an empty set
         if (this.corenlp_entities.isEmpty() && this.spotlight_entities_uris.isEmpty()) {
-            this.final_entities_uris = new HashMap<>();
-            return this.final_entities_uris;
+            HashSet<String> nouns = QuestionAnalysis.getNouns(question);
+
+            if (!nouns.isEmpty()) {
+                setCorenlpEntities(nouns);
+            } else {
+                this.final_entities_uris = new HashMap<>();
+                return this.final_entities_uris;
+            }
         }
 
         if ((tool.equalsIgnoreCase("scnlp") && this.corenlp_entities.isEmpty()) || (tool.equalsIgnoreCase("dbpedia") && this.spotlight_entities_uris.isEmpty())) {
