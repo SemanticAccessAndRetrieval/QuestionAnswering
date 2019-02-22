@@ -1,0 +1,2500 @@
+q1	What is the area code of Dubrovnik?
+q2	What is the area code of Dudhrej?
+q3	What is the area code of Dugo Selo?
+q4	What is the area code of Duisburg?
+q5	What is the area code of Dumaguete?
+q6	What is the area code of Dumka?
+q7	What is the area code of Dunakeszi?
+q8	What is the area code of Dungargarh?
+q9	What is the area code of Dungarpur?
+q10	What is the area code of Dunhua?
+q11	What is the area code of Durazno?
+q12	What is the area code of Durgapur?
+q13	What is the area code of Duyun?
+q14	What is the area code of Duzduzan?
+q15	What is the area code of Dzhankoy?
+q16	What is the area code of East Harlem?
+q17	What is the area code of East Kolkata?
+q18	What is the area code of Ecatepec de Morelos?
+q19	What is the area code of Edappadi?
+q20	What is the area code of Edinburgh?
+q21	What is the area code of Edmonton?
+q22	What is the area code of Eger?
+q23	What is the area code of Ehden?
+q24	What is the area code of Eindhoven?
+q25	What is the area code of Ejbeh?
+q26	What is the area code of Eklahare?
+q27	What is the area code of Eko Atlantic?
+q28	What is the area code of El Mollar?
+q29	What is the area code of Ellenabad?
+q30	What is the area code of Elliot Lake?
+q31	What is the area code of Eluru?
+q32	What is the area code of Enathu?
+q33	What is the area code of Encinas Reales?
+q34	What is the area code of Enfeh?
+q35	What is the area code of English Bazar?
+q36	What is the area code of Enshi City?
+q37	What is the area code of Enugu?
+q38	What is the area code of Envigado?
+q39	What is the area code of Eqlid?
+q40	What is the area code of Erenhot?
+q41	What is the area code of Eresk?
+q42	What is the area code of Erfurt?
+q43	What is the area code of Ergun City?
+q44	What is the area code of Eriyodu?
+q45	What is the area code of Erlangen?
+q46	What is the area code of Ernakulam?
+q47	What is the area code of Erode?
+q48	What is the area code of Eruvadi?
+q49	What is the area code of Esfarvarin?
+q50	What is the area code of Essen?
+q51	What is the area code of Estahban?
+q52	What is the area code of Esztergom?
+q53	What is the area code of Etawah?
+q54	What is the area code of Etmadpur?
+q55	What is the area code of Ettayapuram?
+q56	What is the area code of Evaz?
+q57	What is the area code of Faisalabad?
+q58	What is the area code of Faitroun?
+q59	What is the area code of Faizabad?
+q60	What is the area code of Faizpur?
+q61	What is the area code of Falna?
+q62	What is the area code of Fangchenggang?
+q63	What is the area code of Fanipol?
+q64	What is the area code of Faridabad?
+q65	What is the area code of Farooqabad?
+q66	What is the area code of Farrukhabad?
+q67	What is the area code of Fastiv?
+q68	What is the area code of Fatehganj Pashchimi?
+q69	What is the area code of Fatehgarh Sahib?
+q70	What is the area code of Fatehpora?
+q71	What is the area code of Fazilka?
+q72	What is the area code of Fengzhen?
+q73	What is the area code of Ferizaj?
+q74	What is the area code of Fermont?
+q75	What is the area code of Firmat?
+q76	What is the area code of Firozabad?
+q77	What is the area code of Firozpur?
+q78	What is the area code of Flin Flon?
+q79	What is the area code of Forbesganj?
+q80	What is the area code of Fort Saskatchewan?
+q81	What is the area code of Foshan?
+q82	What is the area code of Fossambault-sur-le-Lac?
+q83	What is the area code of Frankfurt?
+q84	What is the area code of Fray Bentos?
+q85	What is the area code of Fredericton?
+q86	What is the area code of FRI and College Area?
+q87	What is the area code of Frutillar?
+q88	What is the area code of Fujin City?
+q89	What is the area code of Fuladshahr?
+q90	What is the area code of Fushun?
+q91	What is the area code of Futrono?
+q92	What is the area code of Fuxin?
+q93	What is the area code of Fuyang?
+q94	What is the area code of Fuzhou?
+q95	What is the area code of Gaborone?
+q96	What is the area code of Gadag-Betageri?
+q97	What is the area code of Gadarwara?
+q98	What is the area code of Gadasarai?
+q99	What is the area code of Gadhinglaj?
+q100	What is the area code of Gahwareh?
+q101	What is the area code of Gairatganj?
+q102	What is the area code of Gairi Pangma?
+q103	What is the area code of Galle?
+q104	What is the area code of Gamdi?
+q105	What is the area code of Gandevi?
+q106	What is the area code of Gandhinagar?
+q107	What is the area code of Ganzhou?
+q108	What is the area code of Gaobeidian?
+q109	What is the area code of Gaomi?
+q110	What is the area code of Gaoyou?
+q111	What is the area code of Gaozhou?
+q112	What is the area code of Gapan?
+q113	What is the area code of Garhshanker?
+q114	What is the area code of Garoth?
+q115	What is the area code of Gatineau?
+q116	What is the area code of Geertruidenberg?
+q117	What is the area code of Gejiu?
+q118	What is the area code of Gelsenkirchen?
+q119	What is the area code of Genhe?
+q120	What is the area code of Gevrai?
+q121	What is the area code of Ghakhar Mandi?
+q122	What is the area code of Ghatanji?
+q123	What is the area code of Ghazipur?
+q124	What is the area code of Ghoghardiha?
+q125	What is the area code of Ghonda?
+q126	What is the area code of Ghuwara?
+q127	What is the area code of Giddarbaha?
+q128	What is the area code of Gilan-e Gharb?
+q129	What is the area code of Gingoog?
+q130	What is the area code of Girdharpur?
+q131	What is the area code of Gjakova?
+q132	What is the area code of Gloucester?
+q133	What is the area code of Gobernador Virasoro?
+q134	What is the area code of Godadara?
+q135	What is the area code of Godda?
+q136	What is the area code of Goes?
+q137	What is the area code of Gogawan?
+q138	What is the area code of Gogounou?
+q139	What is the area code of Gohana?
+q140	What is the area code of Gokak?
+q141	What is the area code of Gola Gokarannath?
+q142	What is the area code of Golaghat?
+q143	What is the area code of Golanthara?
+q144	What is the area code of Golpayegan?
+q145	What is the area code of Goluwala?
+q146	What is the area code of Gomoh?
+q147	What is the area code of Gondia?
+q148	What is the area code of Gorakhpur?
+q149	What is the area code of Goshainganj?
+q150	What is the area code of Gossaigaon?
+q151	What is the area code of Granada?
+q152	What is the area code of Granadero Baigorria?
+q153	What is the area code of Grande Prairie?
+q154	What is the area code of Graneros?
+q155	What is the area code of Greater Cochin?
+q156	What is the area code of Greater Sudbury?
+q157	What is the area code of Guachochi?
+q158	What is the area code of Guanghan?
+q159	What is the area code of Guangyuan?
+q160	What is the area code of Guangzhou?
+q161	What is the area code of Gubbi?
+q162	What is the area code of Guelph?
+q163	What is the area code of Guernica?
+q164	What is the area code of Guhagar?
+q165	What is the area code of Guigang?
+q166	What is the area code of Guihulngan?
+q167	What is the area code of Guilin?
+q168	What is the area code of Guiping?
+q169	What is the area code of Guiyang?
+q170	What is the area code of Gujarat International Finance Tec-City?
+q171	What is the area code of Gujranwala?
+q172	What is the area code of Gulab Bagh and Zoo?
+q173	What is the area code of Gumla?
+q174	What is the area code of Gundlupet?
+q175	What is the area code of Gunnaur?
+q176	What is the area code of Guntakal?
+q177	What is the area code of Guntur?
+q178	What is the area code of Gunungsitoli?
+q179	What is the area code of Gurazala?
+q180	What is the area code of Gurgaon?
+q181	What is the area code of Guru Har Sahai?
+q182	What is the area code of Guwahati?
+q183	What is the area code of Guyuan?
+q184	What is the area code of Gwadar?
+q185	What is the area code of Gwalior?
+q186	What is the area code of Gyalshing?
+q187	What is the area code of Haarlem?
+q188	What is the area code of Habra?
+q189	What is the area code of Hadath El Jebbeh?
+q190	What is the area code of Hadchit?
+q191	What is the area code of Hafizabad?
+q192	What is the area code of Hagen?
+q193	What is the area code of Haikou?
+q194	What is the area code of Hailakandi?
+q195	What is the area code of Hailin?
+q196	What is the area code of Hailun?
+q197	What is the area code of Haimen?
+q198	What is the area code of Halba?
+q199	What is the area code of Halebidu?
+q200	What is the area code of Halisahar?
+q201	What is the area code of Hamar?
+q202	What is the area code of Hamat?
+q203	What is the area code of Hamburg?
+q204	What is the area code of Hamm?
+q205	What is the area code of Hammana?
+q206	What is the area code of Hanover?
+q207	What is the area code of Hansi?
+q208	What is the area code of Hanumangarh?
+q209	What is the area code of Hanzhong?
+q210	What is the area code of Hapur?
+q211	What is the area code of Harare?
+q212	What is the area code of Harbin?
+q213	What is the area code of Harda?
+q214	What is the area code of Harduaganj?
+q215	What is the area code of Haret ech Cheikh?
+q216	What is the area code of Haridwar?
+q217	What is the area code of Harihar?
+q218	What is the area code of Harlem?
+q219	What is the area code of Harpanahalli?
+q220	What is the area code of Hasanpur Baru?
+q221	What is the area code of Hasilpur?
+q222	What is the area code of Hasroun?
+q223	What is the area code of Hassanpur?
+q224	What is the area code of Hathras?
+q225	What is the area code of Hatpipalya?
+q226	What is the area code of Havana?
+q227	What is the area code of Haveli Lakha?
+q228	What is the area code of Hawqa?
+q229	What is the area code of Hbaline?
+q230	What is the area code of Hebi?
+q231	What is the area code of Hechi?
+q232	What is the area code of Hefei?
+q233	What is the area code of Hegang?
+q234	What is the area code of Heggadadevana kote?
+q235	What is the area code of Heihe?
+q236	What is the area code of Hejian?
+q237	What is the area code of Hejin?
+q238	What is the area code of Helta?
+q239	What is the area code of Hengyang?
+q240	What is the area code of Henichesk?
+q241	What is the area code of Hermosillo?
+q242	What is the area code of Heyuan?
+q243	What is the area code of Heze?
+q244	What is the area code of Hezhou?
+q245	What is the area code of Hezuo?
+q246	What is the area code of Hijuelas?
+q247	What is the area code of Himamaylan?
+q248	What is the area code of Himatnagar?
+q249	What is the area code of Hindaun?
+q250	What is the area code of Hingoli?
+q251	What is the area code of Hiranagar?
+q252	What is the area code of Hiriyur?
+q253	What is the area code of Hlegu?
+q254	What is the area code of Hlobyne?
+q255	What is the area code of Hohhot?
+q256	What is the area code of Hola Prystan?
+q257	What is the area code of Holalkere?
+q258	What is the area code of Holingol?
+q259	What is the area code of Hoovina Hadagali?
+q260	What is the area code of Horqueta?
+q261	What is the area code of Hoshangabad?
+q262	What is the area code of Hoshiarpur?
+q263	What is the area code of Hoskote?
+q264	What is the area code of Hospet?
+q265	What is the area code of Hotan?
+q266	What is the area code of Houston?
+q267	What is the area code of Howrah?
+q268	What is the area code of Hrebinka?
+q269	What is the area code of Hsarat?
+q270	What is the area code of Hsinchu?
+q271	What is the area code of Huaibei?
+q272	What is the area code of Huainan?
+q273	What is the area code of Hualqui?
+q274	What is the area code of Huangshan City?
+q275	What is the area code of Huasco?
+q276	What is the area code of Huauchinango?
+q277	What is the area code of Huechuraba?
+q278	What is the area code of Huejotzingo?
+q279	What is the area code of Hugli-Chuchura?
+q280	What is the area code of Huizhou?
+q281	What is the area code of Hukeri?
+q282	What is the area code of Huludao?
+q283	What is the area code of Hulunbuir?
+q284	What is the area code of Humahuaca?
+q285	What is the area code of Hunagunda?
+q286	What is the area code of Hunsur?
+q287	What is the area code of Huozhou?
+q288	What is the area code of Huzhou?
+q289	What is the area code of Hyderabad?
+q290	What is the area code of Ichalkaranji?
+q291	What is the area code of Ichchapuram?
+q292	What is the area code of Ichhawar?
+q293	What is the area code of Idaikattur?
+q294	What is the area code of Ilagan?
+q295	What is the area code of Iligan?
+q296	What is the area code of Illapel?
+q297	What is the area code of Illintsi?
+q298	What is the area code of Iloilo City?
+q299	What is the area code of Imphal?
+q300	What is the area code of Imus?
+q301	What is the area code of Indore?
+q302	What is the area code of Iqaluit?
+q303	What is the area code of Iquitos?
+q304	What is the area code of Irbid?
+q305	What is the area code of Iriga?
+q306	What is the area code of Islamabad?
+q307	What is the area code of Islamabad Capital Territory?
+q308	What is the area code of Istok?
+q309	What is the area code of Itaituba?
+q310	What is the area code of Itarsi?
+q311	What is the area code of Ivano-Frankivsk?
+q312	What is the area code of Izadkhvast?
+q313	What is the area code of Izamal?
+q314	What is the area code of Jabalpur?
+q315	What is the area code of Jagadhri?
+q316	What is the area code of Jagdalpur?
+q317	What is the area code of Jagiroad?
+q318	What is the area code of Jagodina?
+q319	What is the area code of Jagraon?
+q320	What is the area code of Jaipur?
+q321	What is the area code of Jaisalmer?
+q322	What is the area code of Jaisinghpur?
+q323	What is the area code of Jaitaran?
+q324	What is the area code of Jaithari?
+q325	What is the area code of Jaitu?
+q326	What is the area code of Jalalpore?
+q327	What is the area code of Jalalpur Bhattian?
+q328	What is the area code of Jalandhar?
+q329	What is the area code of Jalgaon?
+q330	What is the area code of Jalore?
+q331	What is the area code of Jalpaiguri?
+q332	What is the area code of Jam Jodhpur?
+q333	What is the area code of Jamakhandi?
+q334	What is the area code of Jambi City?
+q335	What is the area code of Jamnagar?
+q336	What is the area code of Jampur?
+q337	What is the area code of Jamshedpur?
+q338	What is the area code of Jamtara?
+q339	What is the area code of Jamui?
+q340	What is the area code of Janakpur Road?
+q341	What is the area code of Janjgir?
+q342	What is the area code of Jaora?
+q343	What is the area code of Jasrana?
+q344	What is the area code of Jatara?
+q345	What is the area code of Jattari?
+q346	What is the area code of Jauharabad?
+q347	What is the area code of Jawhar?
+q348	What is the area code of Jayapura?
+q349	What is the area code of Jdeideh?
+q350	What is the area code of Jecheon?
+q351	What is the area code of Jeddah?
+q352	What is the area code of Jejuri?
+q353	What is the area code of Jelgava?
+q354	What is the area code of Jena?
+q355	What is the area code of Jeonju?
+q356	What is the area code of Jerash?
+q357	What is the area code of Jerusalem?
+q358	What is the area code of Jevargi?
+q359	What is the area code of Jhajha?
+q360	What is the area code of Jhajjar?
+q361	What is the area code of Jhalda?
+q362	What is the area code of Jhalu?
+q363	What is the area code of Jhang?
+q364	What is the area code of Jhansi?
+q365	What is the area code of Jhargram?
+q366	What is the area code of Jhelum?
+q367	What is the area code of Jhinjhak?
+q368	What is the area code of Jhumri Telaiya?
+q369	What is the area code of Jhunjhunu?
+q370	What is the area code of Jiamusi?
+q371	What is the area code of Jiangmen?
+q372	What is the area code of Jiangyin?
+q373	What is the area code of Jiangyou?
+q374	What is the area code of Jiaonan?
+q375	What is the area code of Jiaozuo?
+q376	What is the area code of Jiaxing?
+q377	What is the area code of Jieh?
+q378	What is the area code of Jiexiu?
+q379	What is the area code of Jieyang?
+q380	What is the area code of Jilin City?
+q381	What is the area code of Jinan?
+q382	What is the area code of Jincheng?
+q383	What is the area code of Jind?
+q384	What is the area code of Jingdezhen?
+q385	What is the area code of Jinggangshan City?
+q386	What is the area code of Jinghong?
+q387	What is the area code of Jingmen?
+q388	What is the area code of Jinhua?
+q389	What is the area code of Jining?
+q390	What is the area code of Jinzhong?
+q391	What is the area code of Jinzhou?
+q392	What is the area code of Jiran?
+q393	What is the area code of Jiuquan?
+q394	What is the area code of Jixi?
+q395	What is the area code of Jiyuan?
+q396	What is the area code of Joda?
+q397	What is the area code of Joliette?
+q398	What is the area code of Jorhat?
+q399	What is the area code of Juan Lacaze?
+q400	What is the area code of Junagadh?
+q401	What is the area code of Juybar?
+q402	What is the area code of Kabankalan?
+q403	What is the area code of Kabul?
+q404	What is the area code of Kadapa?
+q405	What is the area code of Kadayanallur?
+q406	What is the area code of Kafarakab?
+q407	What is the area code of Kaftoun?
+q408	What is the area code of Kagal?
+q409	What is the area code of Kaghaznagar?
+q410	What is the area code of Kahla?
+q411	What is the area code of Kaifeng?
+q412	What is the area code of Kailashahar?
+q413	What is the area code of Kaili City?
+q414	What is the area code of Kaimganj?
+q415	What is the area code of Kaiping?
+q416	What is the area code of Kairana?
+q417	What is the area code of Kaithal?
+q418	What is the area code of Kakching Khunou?
+q419	What is the area code of Kakinada?
+q420	What is the area code of Kalabagh?
+q421	What is the area code of Kalambur?
+q422	What is the area code of Kalan Wali?
+q423	What is the area code of Kalayat?
+q424	What is the area code of Kaljawade?
+q425	What is the area code of Kamid al lawz?
+q426	What is the area code of Kamptee?
+q427	What is the area code of Kamuthi?
+q428	What is the area code of Kanakpur-Kansad?
+q429	What is the area code of Kanchrapara?
+q430	What is the area code of Kandhla?
+q431	What is the area code of Kaniv?
+q432	What is the area code of Kannur?
+q433	What is the area code of Kantabanjhi?
+q434	What is the area code of Kapurthala?
+q435	What is the area code of Karachi?
+q436	What is the area code of Karaganda?
+q437	What is the area code of Karaikudi?
+q438	What is the area code of Karaj?
+q439	What is the area code of Karamay?
+q440	What is the area code of Karanja Lad?
+q441	What is the area code of Karari?
+q442	What is the area code of Karera?
+q443	What is the area code of Kariamangalam?
+q444	What is the area code of Karilopatna?
+q445	What is the area code of Karimnagar?
+q446	What is the area code of Karjan?
+q447	What is the area code of Karjat?
+q448	What is the area code of Karkala?
+q449	What is the area code of Karlovac?
+q450	What is the area code of Karmala?
+q451	What is the area code of Karmsaddeh?
+q452	What is the area code of Karungal?
+q453	What is the area code of Kasara?
+q454	What is the area code of Kashgar?
+q455	What is the area code of Kassel?
+q456	What is the area code of Kasur?
+q457	What is the area code of Katera?
+q458	What is the area code of Kathmandu?
+q459	What is the area code of Kathua?
+q460	What is the area code of Katni?
+q461	What is the area code of Kattuputhur?
+q462	What is the area code of Katzenelnbogen?
+q463	What is the area code of Kaunas?
+q464	What is the area code of Kaveripakkam?
+q465	What is the area code of Kawardha?
+q466	What is the area code of Kawartha Lakes?
+q467	What is the area code of Kazerun?
+q468	What is the area code of Keelung?
+q469	What is the area code of Kekri?
+q470	What is the area code of Kelowna?
+q471	What is the area code of Kendari?
+q472	What is the area code of Kendrapara?
+q473	What is the area code of Kenora?
+q474	What is the area code of Keolari?
+q475	What is the area code of Kerch?
+q476	What is the area code of Kerman?
+q477	What is the area code of Kermanshah?
+q478	What is the area code of Keshod?
+q479	What is the area code of Kfarfou?
+q480	What is the area code of Kfarhamam?
+q481	What is the area code of Kfarhata?
+q482	What is the area code of Kfarhata Zgharta?
+q483	What is the area code of Kfarsghab?
+q484	What is the area code of Kfaryachit?
+q485	What is the area code of Kfeir?
+q486	What is the area code of Khair?
+q487	What is the area code of Khairpur Tamiwali?
+q488	What is the area code of Khambhat?
+q489	What is the area code of Khambhra?
+q490	What is the area code of Khanauri?
+q491	What is the area code of Khandwa?
+q492	What is the area code of Kharagpur?
+q493	What is the area code of Khargone?
+q494	What is the area code of Khariar Road?
+q495	What is the area code of Kharkhoda?
+q496	What is the area code of Kharsawan?
+q497	What is the area code of Khatauli?
+q498	What is the area code of Khategaon?
+q499	What is the area code of Khatima?
+q500	What is the area code of Khenchara?
+q501	Is A A Mamun starring in Batman Begins?
+q502	Is A Allen starring in Batman Begins?
+q503	Is A Latangadasu starring in Batman Begins?
+q504	Is A Martinez starring in Batman Begins?
+q505	Is A Playfair starring in Batman Begins?
+q506	Is A R Mallick starring in Batman Begins?
+q507	Is A R Narayanan starring in Batman Begins?
+q508	Is A R Shamsud Doha starring in Batman Begins?
+q509	Is A Ramakrishna starring in Batman Begins?
+q510	Is A V George starring in Batman Begins?
+q511	Is Aa Tarmana starring in Batman Begins?
+q512	Is Aabed-El ben Asher ben Matzliach starring in Batman Begins?
+q513	Is Aabid Khan starring in Batman Begins?
+q514	Is Aad Knutsson Gjelle starring in Batman Begins?
+q515	Is Aad Kosto starring in Batman Begins?
+q516	Is Aad van Mil starring in Batman Begins?
+q517	Is Aad Wagenaar starring in Batman Begins?
+q518	Is Aadesh Bandekar starring in Batman Begins?
+q519	Is Aadesh Chaudhary starring in Batman Begins?
+q520	Is Aadesh Shrivastava starring in Batman Begins?
+q521	Is Aadukalam Murugadoss starring in Batman Begins?
+q522	Is Aadukalam Naren starring in Batman Begins?
+q523	Is Aaf Bouber starring in Batman Begins?
+q524	Is Aafia Siddiqui starring in Batman Begins?
+q525	Is Aage Bendixen starring in Batman Begins?
+q526	Is Aage Birch starring in Batman Begins?
+q527	Is Aage Emborg starring in Batman Begins?
+q528	Is Aage Eriksen starring in Batman Begins?
+q529	Is Aage Fahrenholtz starring in Batman Begins?
+q530	Is Aage Foss starring in Batman Begins?
+q531	Is Aage Frandsen starring in Batman Begins?
+q532	Is Aage Heimann starring in Batman Begins?
+q533	Is Aage Indahl starring in Batman Begins?
+q534	Is Aage Jepsen Sparre starring in Batman Begins?
+q535	Is Aage Kirkegaard starring in Batman Begins?
+q536	Is Aage Marius Hansen starring in Batman Begins?
+q537	Is Aage Myhrvold starring in Batman Begins?
+q538	Is Aage Rasmussen starring in Batman Begins?
+q539	Is Aage Redal starring in Batman Begins?
+q540	Is Aage Roussell starring in Batman Begins?
+q541	Is Aage Rundberget starring in Batman Begins?
+q542	Is Aage Samuelsen starring in Batman Begins?
+q543	Is Aage Steen starring in Batman Begins?
+q544	Is Aage Stentoft starring in Batman Begins?
+q545	Is Aage Tanggaard starring in Batman Begins?
+q546	Is Aage Walther starring in Batman Begins?
+q547	Is Aagot Didriksen starring in Batman Begins?
+q548	Is Aagot Nissen starring in Batman Begins?
+q549	Is Aagt Jafies starring in Batman Begins?
+q550	Is Aahotepre starring in Batman Begins?
+q551	Is Aajonus Vonderplanitz starring in Batman Begins?
+q552	Is Aakash Pandey starring in Batman Begins?
+q553	Is Aake Anker Ording starring in Batman Begins?
+q554	Is Aake Kalliala starring in Batman Begins?
+q555	Is Aaley Haider starring in Batman Begins?
+q556	Is Aamani starring in Batman Begins?
+q557	Is Aameen Taqi Butt starring in Batman Begins?
+q558	Is Aamer Anwar starring in Batman Begins?
+q559	Is Aamer Gulzar starring in Batman Begins?
+q560	Is Aamer Haleem starring in Batman Begins?
+q561	Is Aamer Ilyas starring in Batman Begins?
+q562	Is Aamer Jaffery starring in Batman Begins?
+q563	Is Aamer Khan starring in Batman Begins?
+q564	Is Aamer Munir starring in Batman Begins?
+q565	Is Aamer Zahid starring in Batman Begins?
+q566	Is Aamina Sheikh starring in Batman Begins?
+q567	Is Aamir Ageeb starring in Batman Begins?
+q568	Is Aamir Ali starring in Batman Begins?
+q569	Is Aamir Bashir starring in Batman Begins?
+q570	Is Aamir Hayat Khan Rokhri starring in Batman Begins?
+q571	Is Aamir Khan starring in Batman Begins?
+q572	Is Aamir Latif starring in Batman Begins?
+q573	Is Aamir Masood starring in Batman Begins?
+q574	Is Aamir Rashadi Madni starring in Batman Begins?
+q575	Is Aamir Raza Husain starring in Batman Begins?
+q576	Is Aamir Tameem starring in Batman Begins?
+q577	Is Aamna Sharif starring in Batman Begins?
+q578	Is AAMS Arefin Siddique starring in Batman Begins?
+q579	Is Aanaahad starring in Batman Begins?
+q580	Is Aanchal Kumar starring in Batman Begins?
+q581	Is Aanchal Munjal starring in Batman Begins?
+q582	Is Aanchal Thakur starring in Batman Begins?
+q583	Is Aanjjan Srivastav starring in Batman Begins?
+q584	Is Aanund Hylland starring in Batman Begins?
+q585	Is Aapo Ilves starring in Batman Begins?
+q586	Is Aarani Satyanarayana starring in Batman Begins?
+q587	Is Aarathi starring in Batman Begins?
+q588	Is Aarav Singh starring in Batman Begins?
+q589	Is Aarele Ben Arieh starring in Batman Begins?
+q590	Is Aari starring in Batman Begins?
+q591	Is Aarik Wilson starring in Batman Begins?
+q592	Is Aarne Kainlauri starring in Batman Begins?
+q593	Is Aarne Pelkonen starring in Batman Begins?
+q594	Is Aarne Pohjonen starring in Batman Begins?
+q595	Is Aarne Reini starring in Batman Begins?
+q596	Is Aarne Salovaara starring in Batman Begins?
+q597	Is Aarne Tarkas starring in Batman Begins?
+q598	Is Aarne Valkama starring in Batman Begins?
+q599	Is Aarni Neuvonen starring in Batman Begins?
+q600	Is Aarno Raninen starring in Batman Begins?
+q601	Is Aarno Sulkanen starring in Batman Begins?
+q602	Is Aaron A starring in Batman Begins?
+q603	Is Aaron Abba ben Johanan ha-Levi starring in Batman Begins?
+q604	Is Aaron Abbas starring in Batman Begins?
+q605	Is Aaron Abiob starring in Batman Begins?
+q606	Is Aaron Abraham ben Baruch Simeon ha-Levi starring in Batman Begins?
+q607	Is Aaron Abraham Kabak starring in Batman Begins?
+q608	Is Aaron Abrams starring in Batman Begins?
+q609	Is Aaron Albert Mossell starring in Batman Begins?
+q610	Is Aaron Alfandari starring in Batman Begins?
+q611	Is Aaron Alpeoria Bradley starring in Batman Begins?
+q612	Is Aaron Altaras starring in Batman Begins?
+q613	Is Aaron Alward starring in Batman Begins?
+q614	Is Aaron Antonovsky starring in Batman Begins?
+q615	Is Aaron Archer starring in Batman Begins?
+q616	Is Aaron Ashmore starring in Batman Begins?
+q617	Is Aaron Atayde starring in Batman Begins?
+q618	Is Aaron Augenblick starring in Batman Begins?
+q619	Is Aaron Aziz starring in Batman Begins?
+q620	Is Aaron Baker starring in Batman Begins?
+q621	Is Aaron Banks starring in Batman Begins?
+q622	Is Aaron Bare starring in Batman Begins?
+q623	Is Aaron Barnes starring in Batman Begins?
+q624	Is Aaron Barschak starring in Batman Begins?
+q625	Is Aaron Bedard starring in Batman Begins?
+q626	Is Aaron ben Benjamin Wolf starring in Batman Begins?
+q627	Is Aaron ben David Cohen of Ragusa starring in Batman Begins?
+q628	Is Aaron ben Elijah starring in Batman Begins?
+q629	Is Aaron ben Gershon abu al-Rabi starring in Batman Begins?
+q630	Is Aaron ben Isaac of Rechnitz starring in Batman Begins?
+q631	Is Aaron ben Isaac Sason starring in Batman Begins?
+q632	Is Aaron ben Jacob ha-Kohen starring in Batman Begins?
+q633	Is Aaron ben Joseph ha-Levi starring in Batman Begins?
+q634	Is Aaron ben Joseph of Beaugency starring in Batman Begins?
+q635	Is Aaron ben Joseph of Constantinople starring in Batman Begins?
+q636	Is Aaron ben Meir of Brest starring in Batman Begins?
+q637	Is Aaron ben Meshullam ben Jacob of Lunel starring in Batman Begins?
+q638	Is Aaron ben Moses ben Asher starring in Batman Begins?
+q639	Is Aaron ben Moses Teomim starring in Batman Begins?
+q640	Is Aaron ben Perez of Avignon starring in Batman Begins?
+q641	Is Aaron ben Phinehas starring in Batman Begins?
+q642	Is Aaron ben Samuel starring in Batman Begins?
+q643	Is Aaron ben Samuel ha-Nasi starring in Batman Begins?
+q644	Is Aaron ben Zerah starring in Batman Begins?
+q645	Is Aaron Ben-zion ibn Alamani starring in Batman Begins?
+q646	Is Aaron Berechiah ben Moses ben Nehemiah of Modena starring in Batman Begins?
+q647	Is Aaron Berkman starring in Batman Begins?
+q648	Is Aaron Bidois starring in Batman Begins?
+q649	Is Aaron Blabey starring in Batman Begins?
+q650	Is Aaron Blitzstein starring in Batman Begins?
+q651	Is Aaron Bodansky starring in Batman Begins?
+q652	Is Aaron Bolot starring in Batman Begins?
+q653	Is Aaron Booth starring in Batman Begins?
+q654	Is Aaron Boucher starring in Batman Begins?
+q655	Is Aaron Boulding starring in Batman Begins?
+q656	Is Aaron Brookner starring in Batman Begins?
+q657	Is Aaron Broussard starring in Batman Begins?
+q658	Is Aaron Brown starring in Batman Begins?
+q659	Is Aaron Buerge starring in Batman Begins?
+q660	Is Aaron Burkart starring in Batman Begins?
+q661	Is Aaron Bushkowsky starring in Batman Begins?
+q662	Is Aaron Cardozo starring in Batman Begins?
+q663	Is Aaron Carotta starring in Batman Begins?
+q664	Is Aaron Chatman starring in Batman Begins?
+q665	Is Aaron Chimbel starring in Batman Begins?
+q666	Is Aaron Christian Howles starring in Batman Begins?
+q667	Is Aaron Cleare starring in Batman Begins?
+q668	Is Aaron Cleveland starring in Batman Begins?
+q669	Is Aaron Coker starring in Batman Begins?
+q670	Is Aaron Columbus Burr starring in Batman Begins?
+q671	Is Aaron Cormican starring in Batman Begins?
+q672	Is Aaron Craze starring in Batman Begins?
+q673	Is Aaron Cross starring in Batman Begins?
+q674	Is Aaron Crossley Hobart Seymour starring in Batman Begins?
+q675	Is Aaron Cupino starring in Batman Begins?
+q676	Is Aaron Curry starring in Batman Begins?
+q677	Is Aaron Dalbec starring in Batman Begins?
+q678	Is Aaron Dashiell starring in Batman Begins?
+q679	Is Aaron Davis starring in Batman Begins?
+q680	Is Aaron de Mey starring in Batman Begins?
+q681	Is Aaron del Valle starring in Batman Begins?
+q682	Is Aaron Dessner starring in Batman Begins?
+q683	Is Aaron Devor starring in Batman Begins?
+q684	Is Aaron Dilloway starring in Batman Begins?
+q685	Is Aaron Dismuke starring in Batman Begins?
+q686	Is Aaron Doering starring in Batman Begins?
+q687	Is Aaron Dollar starring in Batman Begins?
+q688	Is Aaron Dunn starring in Batman Begins?
+q689	Is Aaron Duran starring in Batman Begins?
+q690	Is Aaron Durley starring in Batman Begins?
+q691	Is Aaron Dwight Stevens starring in Batman Begins?
+q692	Is Aaron Eckhart starring in Batman Begins?
+q693	Is Aaron Ehasz starring in Batman Begins?
+q694	Is Aaron Ezekiel Harif starring in Batman Begins?
+q695	Is Aaron Faulls starring in Batman Begins?
+q696	Is Aaron Feinberg starring in Batman Begins?
+q697	Is Aaron Feltham starring in Batman Begins?
+q698	Is Aaron Fernandes starring in Batman Begins?
+q699	Is Aaron Feuerstein starring in Batman Begins?
+q700	Is Aaron Fish starring in Batman Begins?
+q701	Is Aaron Flint Jamison starring in Batman Begins?
+q702	Is Aaron Forsythe starring in Batman Begins?
+q703	Is Aaron Frazier starring in Batman Begins?
+q704	Is Aaron Freeman starring in Batman Begins?
+q705	Is Aaron Fricke starring in Batman Begins?
+q706	Is Aaron Fruchtman starring in Batman Begins?
+q707	Is Aaron Fukuhara starring in Batman Begins?
+q708	Is Aaron Fulkerson starring in Batman Begins?
+q709	Is Aaron Gadama starring in Batman Begins?
+q710	Is Aaron Gale starring in Batman Begins?
+q711	Is Aaron Gate starring in Batman Begins?
+q712	Is Aaron Gelman starring in Batman Begins?
+q713	Is Aaron Gleeman starring in Batman Begins?
+q714	Is Aaron Goldsmith starring in Batman Begins?
+q715	Is Aaron Goodwin starring in Batman Begins?
+q716	Is Aaron Gordian starring in Batman Begins?
+q717	Is Aaron Goulette starring in Batman Begins?
+q718	Is Aaron Grainger starring in Batman Begins?
+q719	Is Aaron Gural starring in Batman Begins?
+q720	Is Aaron ha-Levi Oettingen starring in Batman Begins?
+q721	Is Aaron ha-Levi of Barcelona starring in Batman Begins?
+q722	Is Aaron Hankinson starring in Batman Begins?
+q723	Is Aaron Harber starring in Batman Begins?
+q724	Is Aaron Harry Gorson starring in Batman Begins?
+q725	Is Aaron Hazzan starring in Batman Begins?
+q726	Is Aaron Heading starring in Batman Begins?
+q727	Is Aaron Henry Furlong starring in Batman Begins?
+q728	Is Aaron Heslehurst starring in Batman Begins?
+q729	Is Aaron Himelstein starring in Batman Begins?
+q730	Is Aaron Horkey starring in Batman Begins?
+q731	Is Aaron Huey starring in Batman Begins?
+q732	Is Aaron ibn Sargado starring in Batman Begins?
+q733	Is Aaron Isaac starring in Batman Begins?
+q734	Is Aaron Jackson starring in Batman Begins?
+q735	Is Aaron James Sorensen starring in Batman Begins?
+q736	Is Aaron Jeffery starring in Batman Begins?
+q737	Is Aaron Jernigan starring in Batman Begins?
+q738	Is Aaron Katersky starring in Batman Begins?
+q739	Is Aaron Kearney starring in Batman Begins?
+q740	Is Aaron Kernan starring in Batman Begins?
+q741	Is Aaron Korsh starring in Batman Begins?
+q742	Is Aaron Kosminski starring in Batman Begins?
+q743	Is Aaron Kozak starring in Batman Begins?
+q744	Is Aaron Krane starring in Batman Begins?
+q745	Is Aaron Kraten starring in Batman Begins?
+q746	Is Aaron Krister Johnson starring in Batman Begins?
+q747	Is Aaron Krohn starring in Batman Begins?
+q748	Is Aaron Krolikowski starring in Batman Begins?
+q749	Is Aaron LaCrate starring in Batman Begins?
+q750	Is Aaron Lapapa starring in Batman Begins?
+q751	Is Aaron Laraman starring in Batman Begins?
+q752	Is Aaron Latham starring in Batman Begins?
+q753	Is Aaron Lazar starring in Batman Begins?
+q754	Is Aaron Lebedeff starring in Batman Begins?
+q755	Is Aaron Leland starring in Batman Begins?
+q756	Is Aaron Lemonick starring in Batman Begins?
+q757	Is Aaron Levie starring in Batman Begins?
+q758	Is Aaron Levinson starring in Batman Begins?
+q759	Is Aaron Lipstadt starring in Batman Begins?
+q760	Is Aaron Lisi starring in Batman Begins?
+q761	Is Aaron Lohr starring in Batman Begins?
+q762	Is Aaron Long starring in Batman Begins?
+q763	Is Aaron Lopez starring in Batman Begins?
+q764	Is Aaron Louis Tordini starring in Batman Begins?
+q765	Is Aaron Lubarsky starring in Batman Begins?
+q766	Is Aaron Lufkin Dennison starring in Batman Begins?
+q767	Is Aaron Lustig starring in Batman Begins?
+q768	Is Aaron Lyle starring in Batman Begins?
+q769	Is Aaron Maddron starring in Batman Begins?
+q770	Is Aaron Margalita starring in Batman Begins?
+q771	Is Aaron Markovich of Wilna starring in Batman Begins?
+q772	Is Aaron Mason starring in Batman Begins?
+q773	Is Aaron Matson starring in Batman Begins?
+q774	Is Aaron McCarthy starring in Batman Begins?
+q775	Is Aaron McCormack starring in Batman Begins?
+q776	Is Aaron McCusker starring in Batman Begins?
+q777	Is Aaron McMillan starring in Batman Begins?
+q778	Is Aaron Meeks starring in Batman Begins?
+q779	Is Aaron Messiah starring in Batman Begins?
+q780	Is Aaron Michael Davies starring in Batman Begins?
+q781	Is Aaron Michael Metchik starring in Batman Begins?
+q782	Is Aaron Mills starring in Batman Begins?
+q783	Is Aaron Mitchell starring in Batman Begins?
+q784	Is Aaron Montgomery Ward starring in Batman Begins?
+q785	Is Aaron Mushimba starring in Batman Begins?
+q786	Is Aaron Nagel starring in Batman Begins?
+q787	Is Aaron Naparstek starring in Batman Begins?
+q788	Is Aaron Norris starring in Batman Begins?
+q789	Is Aaron Novik starring in Batman Begins?
+q790	Is Aaron Nusbaum starring in Batman Begins?
+q791	Is Aaron Nye starring in Batman Begins?
+q792	Is Aaron of Alexandria starring in Batman Begins?
+q793	Is Aaron of Canterbury starring in Batman Begins?
+q794	Is Aaron of Lincoln starring in Batman Begins?
+q795	Is Aaron of Neustadt starring in Batman Begins?
+q796	Is Aaron of Pesaro starring in Batman Begins?
+q797	Is Aaron of Pinsk starring in Batman Begins?
+q798	Is Aaron of York starring in Batman Begins?
+q799	Is Aaron Olmsted starring in Batman Begins?
+q800	Is Aaron Olsen starring in Batman Begins?
+q801	Is Aaron Osmond starring in Batman Begins?
+q802	Is Aaron Padilla starring in Batman Begins?
+q803	Is Aaron Patzer starring in Batman Begins?
+q804	Is Aaron Paul starring in Batman Begins?
+q805	Is Aaron Peasley starring in Batman Begins?
+q806	Is Aaron Pedersen starring in Batman Begins?
+q807	Is Aaron Persico starring in Batman Begins?
+q808	Is Aaron Pike starring in Batman Begins?
+q809	Is Aaron Platt starring in Batman Begins?
+q810	Is Aaron Poole starring in Batman Begins?
+q811	Is Aaron Pott starring in Batman Begins?
+q812	Is Aaron Rahsaan Thomas starring in Batman Begins?
+q813	Is Aaron Refvem starring in Batman Begins?
+q814	Is Aaron Rhodes starring in Batman Begins?
+q815	Is Aaron Riches starring in Batman Begins?
+q816	Is Aaron Rimbui starring in Batman Begins?
+q817	Is Aaron Ringera starring in Batman Begins?
+q818	Is Aaron Robison starring in Batman Begins?
+q819	Is Aaron Rochin starring in Batman Begins?
+q820	Is Aaron Rosanoff starring in Batman Begins?
+q821	Is Aaron Rose starring in Batman Begins?
+q822	Is Aaron Rubashkin starring in Batman Begins?
+q823	Is Aaron Ruben starring in Batman Begins?
+q824	Is Aaron Ruell starring in Batman Begins?
+q825	Is Aaron Rule starring in Batman Begins?
+q826	Is Aaron Russo starring in Batman Begins?
+q827	Is Aaron Sabaoni starring in Batman Begins?
+q828	Is Aaron Sagers starring in Batman Begins?
+q829	Is Aaron Saltzman starring in Batman Begins?
+q830	Is Aaron Samuel ben Moses Shalom of Kremnitz starring in Batman Begins?
+q831	Is Aaron Sanders starring in Batman Begins?
+q832	Is Aaron Sangala starring in Batman Begins?
+q833	Is Aaron Sapiro starring in Batman Begins?
+q834	Is Aaron Saxton starring in Batman Begins?
+q835	Is Aaron Scharf starring in Batman Begins?
+q836	Is Aaron Schatz starring in Batman Begins?
+q837	Is Aaron Schechter starring in Batman Begins?
+q838	Is Aaron Schneider starring in Batman Begins?
+q839	Is Aaron Schoenke starring in Batman Begins?
+q840	Is Aaron Schroeder starring in Batman Begins?
+q841	Is Aaron Schwartz starring in Batman Begins?
+q842	Is Aaron Scotus starring in Batman Begins?
+q843	Is Aaron Seeman starring in Batman Begins?
+q844	Is Aaron Seigo starring in Batman Begins?
+q845	Is Aaron Selig ben Moses of Zolkiev starring in Batman Begins?
+q846	Is Aaron Shang starring in Batman Begins?
+q847	Is Aaron Shaw starring in Batman Begins?
+q848	Is Aaron Shenk Kreider starring in Batman Begins?
+q849	Is Aaron Shirley starring in Batman Begins?
+q850	Is Aaron Shure starring in Batman Begins?
+q851	Is Aaron Sidwell starring in Batman Begins?
+q852	Is Aaron Sillis starring in Batman Begins?
+q853	Is Aaron Simpson starring in Batman Begins?
+q854	Is Aaron Smith starring in Batman Begins?
+q855	Is Aaron Smolinski starring in Batman Begins?
+q856	Is Aaron Solomon starring in Batman Begins?
+q857	Is Aaron Soltz starring in Batman Begins?
+q858	Is Aaron Sopher starring in Batman Begins?
+q859	Is Aaron Spangler starring in Batman Begins?
+q860	Is Aaron Spelling starring in Batman Begins?
+q861	Is Aaron Sperling starring in Batman Begins?
+q862	Is Aaron Sperske starring in Batman Begins?
+q863	Is Aaron Springer starring in Batman Begins?
+q864	Is Aaron Stanford starring in Batman Begins?
+q865	Is Aaron Staton starring in Batman Begins?
+q866	Is Aaron Steadman starring in Batman Begins?
+q867	Is Aaron Stern starring in Batman Begins?
+q868	Is Aaron Swartz starring in Batman Begins?
+q869	Is Aaron Sweet starring in Batman Begins?
+q870	Is Aaron Tap starring in Batman Begins?
+q871	Is Aaron Task starring in Batman Begins?
+q872	Is Aaron Taylor-Johnson starring in Batman Begins?
+q873	Is Aaron Teitelbaum starring in Batman Begins?
+q874	Is Aaron the Tyrant starring in Batman Begins?
+q875	Is Aaron Tolson starring in Batman Begins?
+q876	Is Aaron Torres starring in Batman Begins?
+q877	Is Aaron Trinder starring in Batman Begins?
+q878	Is Aaron Tsang starring in Batman Begins?
+q879	Is Aaron Tuten starring in Batman Begins?
+q880	Is Aaron Tveit starring in Batman Begins?
+q881	Is Aaron Twersky of Chernobyl starring in Batman Begins?
+q882	Is Aaron Van Camp starring in Batman Begins?
+q883	Is Aaron Wade starring in Batman Begins?
+q884	Is Aaron Walpole starring in Batman Begins?
+q885	Is Aaron Webber starring in Batman Begins?
+q886	Is Aaron Webster starring in Batman Begins?
+q887	Is Aaron Weistrop starring in Batman Begins?
+q888	Is Aaron Wexler starring in Batman Begins?
+q889	Is Aaron White starring in Batman Begins?
+q890	Is Aaron Willard starring in Batman Begins?
+q891	Is Aaron Wise starring in Batman Begins?
+q892	Is Aaron Woodley starring in Batman Begins?
+q893	Is Aaron Woolfolk starring in Batman Begins?
+q894	Is Aaron Worms starring in Batman Begins?
+q895	Is Aaron Wright starring in Batman Begins?
+q896	Is Aaron Yonda starring in Batman Begins?
+q897	Is Aaron Yoo starring in Batman Begins?
+q898	Is Aaron Younger starring in Batman Begins?
+q899	Is Aaron Zebede starring in Batman Begins?
+q900	Is Aaron Zigman starring in Batman Begins?
+q901	Is Aaron Zorogon starring in Batman Begins?
+q902	Is Aaron-Carl Ragland starring in Batman Begins?
+q903	Is Aart Alblas starring in Batman Begins?
+q904	Is Aart de Geus starring in Batman Begins?
+q905	Is Aart Jan de Geus starring in Batman Begins?
+q906	Is Aart Kemink starring in Batman Begins?
+q907	Is Aart Koopmans starring in Batman Begins?
+q908	Is Aart Staartjes starring in Batman Begins?
+q909	Is Aart van Antum starring in Batman Begins?
+q910	Is Aart van Asperen starring in Batman Begins?
+q911	Is Aarthi starring in Batman Begins?
+q912	Is Aarthi Aggarwal starring in Batman Begins?
+q913	Is Aarti Bajaj starring in Batman Begins?
+q914	Is Aarti Chhabria starring in Batman Begins?
+q915	Is Aarti Mann starring in Batman Begins?
+q916	Is Aarti Mukherji starring in Batman Begins?
+q917	Is Aarti Pole starring in Batman Begins?
+q918	Is Aarti Puri starring in Batman Begins?
+q919	Is Aarti Shrivastava starring in Batman Begins?
+q920	Is Aarudhra starring in Batman Begins?
+q921	Is Aarushi starring in Batman Begins?
+q922	Is Aaryan Sigdel starring in Batman Begins?
+q923	Is Aaryn Gries starring in Batman Begins?
+q924	Is Aasa Helgesen starring in Batman Begins?
+q925	Is Aase Bye starring in Batman Begins?
+q926	Is Aase Texmon Rygh starring in Batman Begins?
+q927	Is Aasha Davis starring in Batman Begins?
+q928	Is Aashif Sheikh starring in Batman Begins?
+q929	Is Aashika Bhatia starring in Batman Begins?
+q930	Is Aashiq Abu starring in Batman Begins?
+q931	Is Aashiq Ali Mikrani starring in Batman Begins?
+q932	Is Aashish Chaudhary starring in Batman Begins?
+q933	Is Aashish Kaul starring in Batman Begins?
+q934	Is Aashish Singh starring in Batman Begins?
+q935	Is Aashka Goradia starring in Batman Begins?
+q936	Is Aasia starring in Batman Begins?
+q937	Is Aasif Mandvi starring in Batman Begins?
+q938	Is Aasiya Kazi starring in Batman Begins?
+q939	Is Aasiya Zubair starring in Batman Begins?
+q940	Is Aaslaug Aasland starring in Batman Begins?
+q941	Is Aasmah Mir starring in Batman Begins?
+q942	Is Aasmund Frisak starring in Batman Begins?
+q943	Is Aasmund Halvorsen Vinje starring in Batman Begins?
+q944	Is Aasmund Kulien starring in Batman Begins?
+q945	Is Aastha Chaudhary starring in Batman Begins?
+q946	Is Aasulv Olsen Bryggesaa starring in Batman Begins?
+q947	Is Aasutosh Panigrahi starring in Batman Begins?
+q948	Is Aat de Roos starring in Batman Begins?
+q949	Is Aatami Tanttu starring in Batman Begins?
+q950	Is Aatisha Naik starring in Batman Begins?
+q951	Is Aatos Erkko starring in Batman Begins?
+q952	Is Aatos Jaskari starring in Batman Begins?
+q953	Is Aatsista-Mahkan starring in Batman Begins?
+q954	Is Aatto Suppanen starring in Batman Begins?
+q955	Is Aavo Sarap starring in Batman Begins?
+q956	Is Ab DeMarco starring in Batman Begins?
+q957	Is Ab Douglas starring in Batman Begins?
+q958	Is Ab Ekels starring in Batman Begins?
+q959	Is Ab Gowanlock starring in Batman Begins?
+q960	Is Ab Harrewijn starring in Batman Begins?
+q961	Is Ab Jenkins starring in Batman Begins?
+q962	Is Ab Justice starring in Batman Begins?
+q963	Is Ab Saunders starring in Batman Begins?
+q964	Is Ab Tresling starring in Batman Begins?
+q965	Is Ab van Bemmel starring in Batman Begins?
+q966	Is Ab Wolders starring in Batman Begins?
+q967	Is Aba Dunner starring in Batman Begins?
+q968	Is Abaaq al-Khwarazmi starring in Batman Begins?
+q969	Is Ababiya Abajobir starring in Batman Begins?
+q970	Is Ababu Namwamba starring in Batman Begins?
+q971	Is Abadawn starring in Batman Begins?
+q972	Is Abadir Umar Ar-Rida starring in Batman Begins?
+q973	Is Abagail Grey starring in Batman Begins?
+q974	Is Abala Bose starring in Batman Begins?
+q975	Is Aban Elias starring in Batman Begins?
+q976	Is Aban ibn Taghlib starring in Batman Begins?
+q977	Is Aban Pestonjee starring in Batman Begins?
+q978	Is Abang Haji Abdillah starring in Batman Begins?
+q979	Is Abani Mukherji starring in Batman Begins?
+q980	Is Abani Roy starring in Batman Begins?
+q981	Is Abaqa Khan starring in Batman Begins?
+q982	Is Abas Daud starring in Batman Begins?
+q983	Is Abasaheb Garware starring in Batman Begins?
+q984	Is Abaskiron starring in Batman Begins?
+q985	Is Abass Akande Obesere starring in Batman Begins?
+q986	Is Abasse Ndione starring in Batman Begins?
+q987	Is Abay Tsehaye starring in Batman Begins?
+q988	Is Abaye starring in Batman Begins?
+q989	Is Abaz Hoxha starring in Batman Begins?
+q990	Is Abba bar Dudai starring in Batman Begins?
+q991	Is Abba bar Memel starring in Batman Begins?
+q992	Is Abba bar Pappai starring in Batman Begins?
+q993	Is Abba bar Zabdai starring in Batman Begins?
+q994	Is Abba bar Zemina starring in Batman Begins?
+q995	Is Abba Berman starring in Batman Begins?
+q996	Is Abba Bina starring in Batman Begins?
+q997	Is Abba Estifanos of Gwendagwende starring in Batman Begins?
+q998	Is Abba Gorion of Sidon starring in Batman Begins?
+q999	Is Abba Habib starring in Batman Begins?
+q1000	Is Abba Hilkiah starring in Batman Begins?
+q1001	Is Abba Jofir starring in Batman Begins?
+q1002	Is Abba Judan starring in Batman Begins?
+q1003	Is Abba Kohen Bardela starring in Batman Begins?
+q1004	Is Abba Mari starring in Batman Begins?
+q1005	Is Abba Mari ben Eligdor starring in Batman Begins?
+q1006	Is Abba Mari ben Isaac of St Gilles starring in Batman Begins?
+q1007	Is Abba of Acre starring in Batman Begins?
+q1008	Is Abba of Carthage starring in Batman Begins?
+q1009	Is Abba Rebu starring in Batman Begins?
+q1010	Is Abba Sabra starring in Batman Begins?
+q1011	Is Abba Saga starring in Batman Begins?
+q1012	Is Abba Sakkara starring in Batman Begins?
+q1013	Is Abba Samuel Wolde Kahin starring in Batman Begins?
+q1014	Is Abba Schoengold starring in Batman Begins?
+q1015	Is Abba Seru Gwangul starring in Batman Begins?
+q1016	Is Abba Siddick starring in Batman Begins?
+q1017	Is Abbad ibn Bishr starring in Batman Begins?
+q1018	Is Abbahu starring in Batman Begins?
+q1019	Is Abbas Abdi starring in Batman Begins?
+q1020	Is Abbas Abu Amin starring in Batman Begins?
+q1021	Is Abbas Akbar starring in Batman Begins?
+q1022	Is Abbas Al-Aibi starring in Batman Begins?
+q1023	Is Abbas al-Bayati starring in Batman Begins?
+q1024	Is Abbas al-Fadini starring in Batman Begins?
+q1025	Is Abbas Ali starring in Batman Begins?
+q1026	Is Abbas Ali Mahdi starring in Batman Begins?
+q1027	Is Abbas Alizadeh starring in Batman Begins?
+q1028	Is Abbas Almohri starring in Batman Begins?
+q1029	Is Abbas al-Noury starring in Batman Begins?
+q1030	Is Abbas Al-Qaisoum starring in Batman Begins?
+q1031	Is Abbas Amirifar starring in Batman Begins?
+q1032	Is Abbas Ansarifard starring in Batman Begins?
+q1033	Is Abbas Arnaout starring in Batman Begins?
+q1034	Is Abbas Bayat starring in Batman Begins?
+q1035	Is Abbas Benedictus starring in Batman Begins?
+q1036	Is Abbas Beydoun starring in Batman Begins?
+q1037	Is Abbas Dabbaghi starring in Batman Begins?
+q1038	Is Abbas Djoussouf starring in Batman Begins?
+q1039	Is Abbas Ekrami starring in Batman Begins?
+q1040	Is Abbas El Gamal starring in Batman Begins?
+q1041	Is Abbas el-Akkad starring in Batman Begins?
+q1042	Is Abbas Fahdel starring in Batman Begins?
+q1043	Is Abbas Fallah starring in Batman Begins?
+q1044	Is Abbas Fares starring in Batman Begins?
+q1045	Is Abbas Farid starring in Batman Begins?
+q1046	Is Abbas Farzanegan starring in Batman Begins?
+q1047	Is Abbas Gharabaghi starring in Batman Begins?
+q1048	Is Abbas Gharib starring in Batman Begins?
+q1049	Is Abbas Gueye starring in Batman Begins?
+q1050	Is Abbas Hajkenari starring in Batman Begins?
+q1051	Is Abbas Halim starring in Batman Begins?
+q1052	Is Abbas Hashmi starring in Batman Begins?
+q1053	Is Abbas Hosseini Kashani starring in Batman Begins?
+q1054	Is Abbas Husain starring in Batman Begins?
+q1055	Is Abbas Ibn Firnas starring in Batman Begins?
+q1056	Is Abbas Ibrahim starring in Batman Begins?
+q1057	Is Abbas Jadidi starring in Batman Begins?
+q1058	Is Abbas Jafri starring in Batman Begins?
+q1059	Is Abbas Jamalipour starring in Batman Begins?
+q1060	Is Abbas Katouzian starring in Batman Begins?
+q1061	Is Abbas Kazmi starring in Batman Begins?
+q1062	Is Abbas Khalaf starring in Batman Begins?
+q1063	Is Abbas Kiarostami starring in Batman Begins?
+q1064	Is Abbas koosha starring in Batman Begins?
+q1065	Is Abbas Koty starring in Batman Begins?
+q1066	Is Abbas Maleki starring in Batman Begins?
+q1067	Is Abbas Mirakhor starring in Batman Begins?
+q1068	Is Abbas Mirza Sharifzadeh starring in Batman Begins?
+q1069	Is Abbas Modaresi Yazdi starring in Batman Begins?
+q1070	Is Abbas Musliyar starring in Batman Begins?
+q1071	Is Abbas Namazian starring in Batman Begins?
+q1072	Is Abbas Noyan starring in Batman Begins?
+q1073	Is Abbas Palizdar starring in Batman Begins?
+q1074	Is Abbas Qumi starring in Batman Begins?
+q1075	Is Abbas Sadriwala starring in Batman Begins?
+q1076	Is Abbas Sahhat starring in Batman Begins?
+q1077	Is Abbas Samimi starring in Batman Begins?
+q1078	Is Abbas Shafiee starring in Batman Begins?
+q1079	Is Abbas Shiblak starring in Batman Begins?
+q1080	Is Abbas Torabian starring in Batman Begins?
+q1081	Is Abbas Tyabji starring in Batman Begins?
+q1082	Is Abbas Tyrewala starring in Batman Begins?
+q1083	Is Abbas Vaez-Tabasi starring in Batman Begins?
+q1084	Is Abbas Vali starring in Batman Begins?
+q1085	Is Abbas Yari starring in Batman Begins?
+q1086	Is Abbas Zaki starring in Batman Begins?
+q1087	Is Abbas Zakour starring in Batman Begins?
+q1088	Is Abbas Zaryab starring in Batman Begins?
+q1089	Is Abbas-Ali Amid Zanjani starring in Batman Begins?
+q1090	Is Abbasia Begum Mecci starring in Batman Begins?
+q1091	Is Abbas-Mustan starring in Batman Begins?
+q1092	Is Abbassa Malik starring in Batman Begins?
+q1093	Is Abbassi Madani starring in Batman Begins?
+q1094	Is Abbe Lane starring in Batman Begins?
+q1095	Is Abbe Lowell starring in Batman Begins?
+q1096	Is Abbe Mowshowitz starring in Batman Begins?
+q1097	Is Abbey DiGregorio starring in Batman Begins?
+q1098	Is Abbey Fleck starring in Batman Begins?
+q1099	Is Abbey Ryan starring in Batman Begins?
+q1100	Is Abbey Silverstone starring in Batman Begins?
+q1101	Is Abbi starring in Batman Begins?
+q1102	Is Abbi Glines starring in Batman Begins?
+q1103	Is Abbi Jacobson starring in Batman Begins?
+q1104	Is Abbi Tatton starring in Batman Begins?
+q1105	Is Abbie Boudreau starring in Batman Begins?
+q1106	Is Abbie Burgess starring in Batman Begins?
+q1107	Is Abbie Cobb starring in Batman Begins?
+q1108	Is Abbie Cornish starring in Batman Begins?
+q1109	Is Abbie de Quant starring in Batman Begins?
+q1110	Is Abbie Farwell Brown starring in Batman Begins?
+q1111	Is Abbie Gerrish-Jones starring in Batman Begins?
+q1112	Is Abbie Graham starring in Batman Begins?
+q1113	Is Abbie Mitchell starring in Batman Begins?
+q1114	Is Abbie Shaba starring in Batman Begins?
+q1115	Is Abbo II of Metz starring in Batman Begins?
+q1116	Is Abbo of Auxerre starring in Batman Begins?
+q1117	Is Abbo of Provence starring in Batman Begins?
+q1118	Is Abbot Artemy starring in Batman Begins?
+q1119	Is Abbot Augustus Low starring in Batman Begins?
+q1120	Is Abbot Low Moffat starring in Batman Begins?
+q1121	Is Abbot Oliba starring in Batman Begins?
+q1122	Is Abbott Lawrence Pattison starring in Batman Begins?
+q1123	Is Abbud al-Zumar starring in Batman Begins?
+q1124	Is Abbud Pasha starring in Batman Begins?
+q1125	Is Abburi Chayadevi starring in Batman Begins?
+q1126	Is Abburi Ravi starring in Batman Begins?
+q1127	Is Abby Abadi starring in Batman Begins?
+q1128	Is Abby Aldrich Rockefeller starring in Batman Begins?
+q1129	Is Abby Brammell starring in Batman Begins?
+q1130	Is Abby Burrows starring in Batman Begins?
+q1131	Is Abby Dalton starring in Batman Begins?
+q1132	Is Abby Denson starring in Batman Begins?
+q1133	Is Abby DeWald starring in Batman Begins?
+q1134	Is Abby Dobson starring in Batman Begins?
+q1135	Is Abby Elliott starring in Batman Begins?
+q1136	Is Abby Folsom starring in Batman Begins?
+q1137	Is Abby Francis starring in Batman Begins?
+q1138	Is Abby Gaines starring in Batman Begins?
+q1139	Is Abby Hagyard starring in Batman Begins?
+q1140	Is Abby Huntsman starring in Batman Begins?
+q1141	Is Abby Jimenez starring in Batman Begins?
+q1142	Is Abby Johnson starring in Batman Begins?
+q1143	Is Abby Joseph Cohen starring in Batman Begins?
+q1144	Is Abby Kasonik starring in Batman Begins?
+q1145	Is Abby Kelley starring in Batman Begins?
+q1146	Is Abby Leach starring in Batman Begins?
+q1147	Is Abby Leigh starring in Batman Begins?
+q1148	Is Abby Marlatt starring in Batman Begins?
+q1149	Is Abby Martin starring in Batman Begins?
+q1150	Is Abby Mavers starring in Batman Begins?
+q1151	Is Abby May starring in Batman Begins?
+q1152	Is Abby Miller starring in Batman Begins?
+q1153	Is Abby Pivaronas starring in Batman Begins?
+q1154	Is Abby Rakic-Platt starring in Batman Begins?
+q1155	Is Abby Rockefeller starring in Batman Begins?
+q1156	Is Abby Rubenfeld starring in Batman Begins?
+q1157	Is Abby Scott Baker starring in Batman Begins?
+q1158	Is Abby Singer starring in Batman Begins?
+q1159	Is Abby Sunderland starring in Batman Begins?
+q1160	Is Abby Wilde starring in Batman Begins?
+q1161	Is Abby Zotz starring in Batman Begins?
+q1162	Is Abbygale Arenas starring in Batman Begins?
+q1163	Is Abd al Aziz al-Amawi starring in Batman Begins?
+q1164	Is Abd Al Aziz Awda starring in Batman Begins?
+q1165	Is Abd al Haqq Kielan starring in Batman Begins?
+q1166	Is Abd Al Rahim Abdul Rassak Janko starring in Batman Begins?
+q1167	Is Abd al Razaq Abdallah Hamid Ibrahim al Sharikh starring in Batman Begins?
+q1168	Is Abd al-Aziz al-Ghumari starring in Batman Begins?
+q1169	Is Abd al-Aziz ibn al-Walid starring in Batman Begins?
+q1170	Is Abd al-Aziz ibn Mansur starring in Batman Begins?
+q1171	Is Abd al-Aziz ibn Marwan starring in Batman Begins?
+q1172	Is Abd al-Aziz ibn Musa starring in Batman Begins?
+q1173	Is Abd al-Ghani al-Maqdisi starring in Batman Begins?
+q1174	Is Abd al-Hamid Kishk starring in Batman Begins?
+q1175	Is Abd al-Haqq I starring in Batman Begins?
+q1176	Is Abd al-Hosayn Ayati starring in Batman Begins?
+q1177	Is Abd al-Jabbar ibn Ahmad starring in Batman Begins?
+q1178	Is Abd al-Jalil ibn Wahbun starring in Batman Begins?
+q1179	Is Abd Al-Karim Al-Iryani starring in Batman Begins?
+q1180	Is Abd al-Karim al-Nahlawi starring in Batman Begins?
+q1181	Is Abd al-Karim al-Razihi starring in Batman Begins?
+q1182	Is Abd Allah starring in Batman Begins?
+q1183	Is Abd Allah al-Qaysi starring in Batman Begins?
+q1184	Is Abd Allah ibn Abd al-Latif Al ash-Sheikh starring in Batman Begins?
+q1185	Is Abd Allah ibn al-Zubayr starring in Batman Begins?
+q1186	Is Abd al-Majeed al-Qadi starring in Batman Begins?
+q1187	Is Abd al-Majid ibn Abdun starring in Batman Begins?
+q1188	Is Abd al-Malik Abd al-Wahid starring in Batman Begins?
+q1189	Is Abd al-Malik al-Muzaffar starring in Batman Begins?
+q1190	Is Abd al-Malik ibn Katan al-Fihri starring in Batman Begins?
+q1191	Is Abd al-Malik ibn Rabi starring in Batman Begins?
+q1192	Is Abd al-Malik ibn Salih starring in Batman Begins?
+q1193	Is Abd al-Nasir al-Janabi starring in Batman Begins?
+q1194	Is Abd al-Qadir starring in Batman Begins?
+q1195	Is Abd al-Qadir II starring in Batman Begins?
+q1196	Is Abd al-Qadir Maraghi starring in Batman Begins?
+q1197	Is Abd al-Rahim al-Hajj Muhammad starring in Batman Begins?
+q1198	Is Abd al-Rahim al-Hasini starring in Batman Begins?
+q1199	Is Abd al-Rahim al-Nashiri starring in Batman Begins?
+q1200	Is Abd Al-Rahman starring in Batman Begins?
+q1201	Is Abd al-Rahman al-Jadiri starring in Batman Begins?
+q1202	Is Abd al-Rahman al-Rafai starring in Batman Begins?
+q1203	Is Abd al-Rahman al-Shaghouri starring in Batman Begins?
+q1204	Is Abd al-Rahman ben Uqba starring in Batman Begins?
+q1205	Is Abd al-Rahman Bin Khalil Bin Abdallah Nur starring in Batman Begins?
+q1206	Is Abd al-Rahman Fakhri starring in Batman Begins?
+q1207	Is Abd al-Rahman ibn Habib al-Fihri starring in Batman Begins?
+q1208	Is Abd al-Rahman Mowakket starring in Batman Begins?
+q1209	Is Abd al-Rahman Sanchuelo starring in Batman Begins?
+q1210	Is Abd al-Razzaq Maymandi starring in Batman Begins?
+q1211	Is Abd al-Salam al-Hadrami starring in Batman Begins?
+q1212	Is Abd al-Wahhab Adarrak starring in Batman Begins?
+q1213	Is Abd al-Wahhab Al-Bayati starring in Batman Begins?
+q1214	Is Abd Al-Wahhab bin Ahmad Al-Misri Al-Sharani starring in Batman Begins?
+q1215	Is Abd al-Wahid II starring in Batman Begins?
+q1216	Is Abd an-Nabi Abd al-Qadir Mursal starring in Batman Begins?
+q1217	Is Abd ar-Rahman ibn Rabiah starring in Batman Begins?
+q1218	Is Abd ar-Rahman IV starring in Batman Begins?
+q1219	Is Abd as-Salam al-Alami starring in Batman Begins?
+q1220	Is Abd As-Salam Al-Asmar starring in Batman Begins?
+q1221	Is Abd Dhiyab al-Ajili starring in Batman Begins?
+q1222	Is Abd El Aziz Muhammad Hegazi starring in Batman Begins?
+q1223	Is Abd El Gadir Salim starring in Batman Begins?
+q1224	Is Abd el-Aziz el-Zoubi starring in Batman Begins?
+q1225	Is Abd el-Ouahed ben Messaoud starring in Batman Begins?
+q1226	Is Abd Manaf ibn Qusai starring in Batman Begins?
+q1227	Is Abd Shams ibn Abd Manaf starring in Batman Begins?
+q1228	Is Abd ul-Hamid Musa Madibbo starring in Batman Begins?
+q1229	Is Abda and Abdjesus starring in Batman Begins?
+q1230	Is Abda and Sabas starring in Batman Begins?
+q1231	Is Abdagases I starring in Batman Begins?
+q1232	Is Abdagus starring in Batman Begins?
+q1233	Is Abd-al-Dar ibn Qusai starring in Batman Begins?
+q1234	Is Abd-al-Hafid Mahmud al-Zulaytini starring in Batman Begins?
+q1235	Is Abd-al-Hamid Siddiqui starring in Batman Begins?
+q1236	Is Abdalla Abdelgadir starring in Batman Begins?
+q1237	Is Abdalla Ahmed starring in Batman Begins?
+q1238	Is Abdalla El-Masri starring in Batman Begins?
+q1239	Is Abdalla Eltayeb starring in Batman Begins?
+q1240	Is Abdalla Jabir starring in Batman Begins?
+q1241	Is Abdallah Abderamane Ahmed starring in Batman Begins?
+q1242	Is Abdallah al-Adil starring in Batman Begins?
+q1243	Is Abdallah al-Ajmi starring in Batman Begins?
+q1244	Is Abdallah al-Asbah starring in Batman Begins?
+q1245	Is Abdallah Albert starring in Batman Begins?
+q1246	Is Abdallah al-Qahdi starring in Batman Begins?
+q1247	Is Abdallah al-Qutbi starring in Batman Begins?
+q1248	Is Abdallah Baali starring in Batman Begins?
+q1249	Is Abdallah Bakr Mustafa starring in Batman Begins?
+q1250	Is Abdallah Banda starring in Batman Begins?
+q1251	Is Abdallah Ben Abdel Mohsen At-Turki starring in Batman Begins?
+q1252	Is Abdallah Beyhum starring in Batman Begins?
+q1253	Is Abdallah bin Alawi starring in Batman Begins?
+q1254	Is Abdallah Bin Bayyah starring in Batman Begins?
+q1255	Is Abdallah bin Laden starring in Batman Begins?
+q1256	Is Abdallah Daar starring in Batman Begins?
+q1257	Is Abdallah El Akal starring in Batman Begins?
+q1258	Is Abdallah Farhat starring in Batman Begins?
+q1259	Is Abdallah Higazy starring in Batman Begins?
+q1260	Is Abd-Allah ibn Aamir Hadhrami starring in Batman Begins?
+q1261	Is Abdallah ibn Abd al-Malik starring in Batman Begins?
+q1262	Is Abdallah ibn Azzuz starring in Batman Begins?
+q1263	Is Abd-Allah ibn Ibadh starring in Batman Begins?
+q1264	Is Abd-Allah ibn Jahsh starring in Batman Begins?
+q1265	Is Abd-Allah ibn Muhammad starring in Batman Begins?
+q1266	Is Abdallah ibn Qais starring in Batman Begins?
+q1267	Is Abd-Allah ibn Ubayy starring in Batman Begins?
+q1268	Is Abd-Allah ibn Umm-Maktum starring in Batman Begins?
+q1269	Is Abdallah ibn Yasin starring in Batman Begins?
+q1270	Is Abdallah II of Ifriqiya starring in Batman Begins?
+q1271	Is Abdallah Kallel starring in Batman Begins?
+q1272	Is Abdallah Khalil starring in Batman Begins?
+q1273	Is Abdallah Khan starring in Batman Begins?
+q1274	Is Abdallah Mohamed starring in Batman Begins?
+q1275	Is Abdallah Mohamed Kamil starring in Batman Begins?
+q1276	Is Abdallah Muhammed at-Tom starring in Batman Begins?
+q1277	Is Abdallah of Morocco starring in Batman Begins?
+q1278	Is Abdallah Salem el-Badri starring in Batman Begins?
+q1279	Is Abdallah Salim Bawazir starring in Batman Begins?
+q1280	Is Abdallah Schleifer starring in Batman Begins?
+q1281	Is Abdallah Sharif starring in Batman Begins?
+q1282	Is Abdallah Wafy starring in Batman Begins?
+q1283	Is Abdallahi Hassen Ben Hmeida starring in Batman Begins?
+q1284	Is Abdallahi ibn Muhammad starring in Batman Begins?
+q1285	Is Abdalmalik of Morocco starring in Batman Begins?
+q1286	Is Abd-Al-Minaam Khaleel starring in Batman Begins?
+q1287	Is Abdalong of Marseilles starring in Batman Begins?
+q1288	Is Abdalqadir as-Sufi starring in Batman Begins?
+q1289	Is Abd-al-Uzza ibn Qusai starring in Batman Begins?
+q1290	Is Abdas-Samad Esfahani starring in Batman Begins?
+q1291	Is Abdeali Saifuddin starring in Batman Begins?
+q1292	Is Abdel Aaal Rashed starring in Batman Begins?
+q1293	Is Abdel Ahad Gamal El Din starring in Batman Begins?
+q1294	Is Abdel Ali Slimani starring in Batman Begins?
+q1295	Is Abdel Amir Abbud Rahima starring in Batman Begins?
+q1296	Is Abdel Azim Ashry starring in Batman Begins?
+q1297	Is Abdel Aziz al-Muqrin starring in Batman Begins?
+q1298	Is Abdel Aziz al-Rantisi starring in Batman Begins?
+q1299	Is Abdel Aziz Khoja starring in Batman Begins?
+q1300	Is Abdel Bari Atwan starring in Batman Begins?
+q1301	Is Abdel Basset Turki starring in Batman Begins?
+q1302	Is Abdel Falah al-Sudani starring in Batman Begins?
+q1303	Is Abdel Fattah Yahya Pasha starring in Batman Begins?
+q1304	Is Abdel Hadi Al Gazzar starring in Batman Begins?
+q1305	Is Abdel Hadi Mahbooba starring in Batman Begins?
+q1306	Is Abdel Hakim Shelmani starring in Batman Begins?
+q1307	Is Abdel Hakim Tizegha starring in Batman Begins?
+q1308	Is Abdel Halim Muhammad starring in Batman Begins?
+q1309	Is Abdel Hamid al-Ghazzawi starring in Batman Begins?
+q1310	Is Abdel Hamid Badawi starring in Batman Begins?
+q1311	Is Abdel hay Mashhour starring in Batman Begins?
+q1312	Is Abdel Hussein Shandal starring in Batman Begins?
+q1313	Is Abdel Jabbar Dhifallah starring in Batman Begins?
+q1314	Is Abdel Karim Obeid starring in Batman Begins?
+q1315	Is Abdel Khaliq al-Rikabi starring in Batman Begins?
+q1316	Is Abdel Latif Ahmed starring in Batman Begins?
+q1317	Is Abdel Latif El Menawy starring in Batman Begins?
+q1318	Is Abdel Latif El Zein starring in Batman Begins?
+q1319	Is Abdel Latif Moussa starring in Batman Begins?
+q1320	Is Abdel Mawgoud Ahmad El Habashy starring in Batman Begins?
+q1321	Is Abdel Meguid Amir starring in Batman Begins?
+q1322	Is Abdel Meguid Mahmoud starring in Batman Begins?
+q1323	Is Abdel Moneim Amin starring in Batman Begins?
+q1324	Is Abdel Moneim El Shahat starring in Batman Begins?
+q1325	Is Abdel Moneim El-Guindi starring in Batman Begins?
+q1326	Is Abdel Moneim Madbouly starring in Batman Begins?
+q1327	Is Abdel Moneim Wahby starring in Batman Begins?
+q1328	Is Abdel Nasser Ould Ethmane starring in Batman Begins?
+q1329	Is Abdel Nasser Tawfik starring in Batman Begins?
+q1330	Is Abdel Rahman Abdel Hamid starring in Batman Begins?
+q1331	Is Abdel Rahman Zuabi starring in Batman Begins?
+q1332	Is Abdel Raouf Dafri starring in Batman Begins?
+q1333	Is Abdel Salam Al Nabulsy starring in Batman Begins?
+q1334	Is Abdelali Daraa starring in Batman Begins?
+q1335	Is Abdelali Kasbane starring in Batman Begins?
+q1336	Is Abdelatif Chemlal starring in Batman Begins?
+q1337	Is Abdelatif Hannachi starring in Batman Begins?
+q1338	Is Abdelaziz al-Hilu starring in Batman Begins?
+q1339	Is Abdelaziz al-Malzuzi starring in Batman Begins?
+q1340	Is Abdelaziz al-Tebaa starring in Batman Begins?
+q1341	Is Abdelaziz Ben Dhia starring in Batman Begins?
+q1342	Is Abdelaziz Dakhane starring in Batman Begins?
+q1343	Is Abdelaziz Khallouf starring in Batman Begins?
+q1344	Is Abdelaziz Merzoughi starring in Batman Begins?
+q1345	Is Abdelaziz Sahere starring in Batman Begins?
+q1346	Is Abdelaziz Sanqour starring in Batman Begins?
+q1347	Is Abdelbaki Sahraoui starring in Batman Begins?
+q1348	Is Abdelbaset al-Megrahi starring in Batman Begins?
+q1349	Is Abdelghani Bousta starring in Batman Begins?
+q1350	Is Abdelghani Gtaib starring in Batman Begins?
+q1351	Is Abdelghani Mzoudi starring in Batman Begins?
+q1352	Is Abdelhadi Habassa starring in Batman Begins?
+q1353	Is Abdelhafid Boussouf starring in Batman Begins?
+q1354	Is Abdelhak Benhamouda starring in Batman Begins?
+q1355	Is Abdelhak Layada starring in Batman Begins?
+q1356	Is Abdelhak Zakaria starring in Batman Begins?
+q1357	Is Abdel-Hakim al-Hasidi starring in Batman Begins?
+q1358	Is Abdelhakim Bagy starring in Batman Begins?
+q1359	Is Abdel-Halim Caracalla starring in Batman Begins?
+q1360	Is Abdelhalim Ouradi starring in Batman Begins?
+q1361	Is Abdelhamid Abou Zeid starring in Batman Begins?
+q1362	Is Abdelhamid Bouchouk starring in Batman Begins?
+q1363	Is Abdelhamid Mehri starring in Batman Begins?
+q1364	Is Abdelhamid Slama starring in Batman Begins?
+q1365	Is Abdelhamid Temmar starring in Batman Begins?
+q1366	Is Abdelhani Kenzi starring in Batman Begins?
+q1367	Is Abdelilah Fahmi starring in Batman Begins?
+q1368	Is Abdelillah Mame starring in Batman Begins?
+q1369	Is Abdelillah Nhaila starring in Batman Begins?
+q1370	Is Abdeljelil Temimi starring in Batman Begins?
+q1371	Is Abdelkader Chadi starring in Batman Begins?
+q1372	Is Abdelkader Chaou starring in Batman Begins?
+q1373	Is Abdelkader El Mouaziz starring in Batman Begins?
+q1374	Is Abdelkader Hachani starring in Batman Begins?
+q1375	Is Abdelkader Hachlaf starring in Batman Begins?
+q1376	Is Abdelkader Kraichi starring in Batman Begins?
+q1377	Is Abdelkader Lecheheb starring in Batman Begins?
+q1378	Is Abdelkader Mokhtari starring in Batman Begins?
+q1379	Is Abdelkader Zaddem starring in Batman Begins?
+q1380	Is Abdelkader Zrouri starring in Batman Begins?
+q1381	Is Abdelkarim El Haouari starring in Batman Begins?
+q1382	Is Abdelkarim Harouni starring in Batman Begins?
+q1383	Is Abdelkarim Hussein Mohamed Al-Nasser starring in Batman Begins?
+q1384	Is Abdel-Karim Mahoud al-Mohammedawi starring in Batman Begins?
+q1385	Is Abdelkarim Zbidi starring in Batman Begins?
+q1386	Is Abdelkhader Houamel starring in Batman Begins?
+q1387	Is Abdelkhalek Torres starring in Batman Begins?
+q1388	Is Abdelkrim al-Khatib starring in Batman Begins?
+q1389	Is Abdelkrim Motii starring in Batman Begins?
+q1390	Is Abdellah Dami starring in Batman Begins?
+q1391	Is Abdellah el-Ayachi starring in Batman Begins?
+q1392	Is Abdellah Ez Zine starring in Batman Begins?
+q1393	Is Abdellah Falil starring in Batman Begins?
+q1394	Is Abdellah Ouzghar starring in Batman Begins?
+q1395	Is Abdellatief Abouheif starring in Batman Begins?
+q1396	Is Abdellatif Abdelhamid starring in Batman Begins?
+q1397	Is Abdellatif Abid starring in Batman Begins?
+q1398	Is Abdellatif Jrindou starring in Batman Begins?
+q1399	Is Abdellatif Kechiche starring in Batman Begins?
+q1400	Is Abdellatif Laabi starring in Batman Begins?
+q1401	Is Abdellatif Mekki starring in Batman Begins?
+q1402	Is Abdellatif Zeroual starring in Batman Begins?
+q1403	Is Abdelmadjid Mada starring in Batman Begins?
+q1404	Is Abdelmadjid Sidi Said starring in Batman Begins?
+q1405	Is Abdelmahmood Abdelhaleem starring in Batman Begins?
+q1406	Is Abdelmajid Dahoumane starring in Batman Begins?
+q1407	Is Abdelmajid Lakhal starring in Batman Begins?
+q1408	Is Abdelmajid Saleh starring in Batman Begins?
+q1409	Is Abdelmalek Belghiti starring in Batman Begins?
+q1410	Is Abdelmalek Rahou starring in Batman Begins?
+q1411	Is Abdel-Malik Mansour starring in Batman Begins?
+q1412	Is Abdel-Moniem El-Ganayni starring in Batman Begins?
+q1413	Is Abdelouahad Abdessamad starring in Batman Begins?
+q1414	Is Abdelouahed Idrissi Chorfi starring in Batman Begins?
+q1415	Is Abdelrahim Mohamed Abdelrahim starring in Batman Begins?
+q1416	Is Abdelrahman al-Dajani starring in Batman Begins?
+q1417	Is Abdelrahman Fakhri Abou el-Ila starring in Batman Begins?
+q1418	Is AbdelRahman Mansour starring in Batman Begins?
+q1419	Is Abdelrahman Ossama starring in Batman Begins?
+q1420	Is Abdelrazak al-Restom al-Dandachi starring in Batman Begins?
+q1421	Is Abdel-Razak al-Yehiyeh starring in Batman Begins?
+q1422	Is Abdel-Sattar Abdel-Jabbar starring in Batman Begins?
+q1423	Is Abdelwahab Doukkali starring in Batman Begins?
+q1424	Is Abdelwaheb Maatar starring in Batman Begins?
+q1425	Is Abdel-Wahhab Tawaf starring in Batman Begins?
+q1426	Is Abdelwahid Aboud Mackaye starring in Batman Begins?
+q1427	Is Abdelwahid al-Marrakushi starring in Batman Begins?
+q1428	Is Abdennour Abrous starring in Batman Begins?
+q1429	Is Abderahim Mechenouai starring in Batman Begins?
+q1430	Is Abderahmane Djemadi starring in Batman Begins?
+q1431	Is Abderhaman Mami starring in Batman Begins?
+q1432	Is Abderites starring in Batman Begins?
+q1433	Is Abderrachid Boukerzaza starring in Batman Begins?
+q1434	Is Abderrafi Jouahri starring in Batman Begins?
+q1435	Is Abderrahim El Haouzy starring in Batman Begins?
+q1436	Is Abderrahim Foukara starring in Batman Begins?
+q1437	Is Abderrahim Goumri starring in Batman Begins?
+q1438	Is Abderrahim Najah starring in Batman Begins?
+q1439	Is Abderrahim Qanir starring in Batman Begins?
+q1440	Is Abderrahim Zitouna starring in Batman Begins?
+q1441	Is Abderrahim Zouari starring in Batman Begins?
+q1442	Is Abderrahman Ladgham starring in Batman Begins?
+q1443	Is Abderrahman Sadik Karim starring in Batman Begins?
+q1444	Is Abderrahmane Ameuroud starring in Batman Begins?
+q1445	Is Abderrahmane Morceli starring in Batman Begins?
+q1446	Is Abderrahmane Nekli starring in Batman Begins?
+q1447	Is Abderrahmane Soukhane starring in Batman Begins?
+q1448	Is Abderraouf El Basti starring in Batman Begins?
+q1449	Is Abderraouf Jdey starring in Batman Begins?
+q1450	Is Abderrazak Boukebba starring in Batman Begins?
+q1451	Is Abderrazak Bounour starring in Batman Begins?
+q1452	Is Abderrazak El Albani starring in Batman Begins?
+q1453	Is Abderrazak Khairi starring in Batman Begins?
+q1454	Is Abderrazak Kilani starring in Batman Begins?
+q1455	Is Abdesalam Kames starring in Batman Begins?
+q1456	Is Abdeslam Ahizoune starring in Batman Begins?
+q1457	Is Abdeslam Boulaich starring in Batman Begins?
+q1458	Is Abdessadeq Cheqara starring in Batman Begins?
+q1459	Is Abdessalem Arous starring in Batman Begins?
+q1460	Is Abdessalem Mansour starring in Batman Begins?
+q1461	Is Abdesslam El Alami starring in Batman Begins?
+q1462	Is Abdi Bashir Indhobuur starring in Batman Begins?
+q1463	Is Abdi Farah starring in Batman Begins?
+q1464	Is Abdi Garad starring in Batman Begins?
+q1465	Is Abdi Hasan Awale Qeybdiid starring in Batman Begins?
+q1466	Is Abdi Jeylani Malaq Marshale starring in Batman Begins?
+q1467	Is Abdi Mohamed Ulusso starring in Batman Begins?
+q1468	Is Abdi Shire Warsame starring in Batman Begins?
+q1469	Is Abdias Assheton starring in Batman Begins?
+q1470	Is Abdi-Ashirta starring in Batman Begins?
+q1471	Is Abdiel Colberg starring in Batman Begins?
+q1472	Is Abdikadir Hussein Mohamed starring in Batman Begins?
+q1473	Is Abdikadir Yusuf Aar starring in Batman Begins?
+q1474	Is Abdikarim Egeh Gulaid starring in Batman Begins?
+q1475	Is Abdilaqim Ademi starring in Batman Begins?
+q1476	Is Abdilda Tazhibaev starring in Batman Begins?
+q1477	Is Abdillahi Mohammed Ahmed starring in Batman Begins?
+q1478	Is Abdilwali Hersi Abdille Indhaguran starring in Batman Begins?
+q1479	Is Abdi-Milkutti starring in Batman Begins?
+q1480	Is Abdirahim Hussein Mohamed starring in Batman Begins?
+q1481	Is Abdirahman Abdullahi Baadiyow starring in Batman Begins?
+q1482	Is Abdirahman Ahmed starring in Batman Begins?
+q1483	Is Abdirahman Ali Hassan starring in Batman Begins?
+q1484	Is Abdirahman Hussein starring in Batman Begins?
+q1485	Is Abdirahman Saylici starring in Batman Begins?
+q1486	Is Abdirashid Duale starring in Batman Begins?
+q1487	Is Abdirashid Mohamed Hidig starring in Batman Begins?
+q1488	Is Abdisalaam Issa Khatib starring in Batman Begins?
+q1489	Is Abdisalam Aato starring in Batman Begins?
+q1490	Is Abdisho starring in Batman Begins?
+q1491	Is Abdisho bar Berika starring in Batman Begins?
+q1492	Is Abdiso Brika bar starring in Batman Begins?
+q1493	Is Abdo Hussameddin starring in Batman Begins?
+q1494	Is Abdo Khal starring in Batman Begins?
+q1495	Is Abdoel Rivai starring in Batman Begins?
+q1496	Is Abdol Ghayoom Ebrahimi starring in Batman Begins?
+q1497	Is Abdol Hossein Sardari starring in Batman Begins?
+q1498	Is Abdol-Ali Mirza Farmanfarmaian starring in Batman Begins?
+q1499	Is Abdol-Aziz Mirza Farmanfarmaian starring in Batman Begins?
+q1500	Is Abdolfattah Soltani starring in Batman Begins?
+q1501	Who founded 13 Flames Empire?
+q1502	Who founded 15Five?
+q1503	Who founded 2 Sisters Food Group?
+q1504	Who founded 21st Century Media?
+q1505	Who founded 21st Century Newspapers?
+q1506	Who founded 23snaps?
+q1507	Who founded 24 Hour Fitness?
+q1508	Who founded 360networks?
+q1509	Who founded 3Com?
+q1510	Who founded 40 Acres and a Mule Filmworks?
+q1511	Who founded 5by5 Studios?
+q1512	Who founded 888poker?
+q1513	Who founded 99 Cents Only Stores?
+q1514	Who founded 99 Ranch Market?
+q1515	Who founded 9GAG?
+q1516	Who founded A Hundred Monkeys?
+q1517	Who founded A2Z Group?
+q1518	Who founded AAMCO Transmissions?
+q1519	Who founded Aardman Animations?
+q1520	Who founded Aardvark-Vanaheim?
+q1521	Who founded Aarong?
+q1522	Who founded Abarth?
+q1523	Who founded Abbott Northwestern Hospital?
+q1524	Who founded AbbottVision?
+q1525	Who founded ABC Supply?
+q1526	Who founded ABKCO Records?
+q1527	Who founded ABS-CBN Corporation?
+q1528	Who founded Absolute Entertainment?
+q1529	Who founded Abt Sportsline?
+q1530	Who founded AC Hotels?
+q1531	Who founded Academi?
+q1532	Who founded Access Industries?
+q1533	Who founded Access International Advisors?
+q1534	Who founded AccessKenya Group?
+q1535	Who founded Acclaim Entertainment?
+q1536	Who founded Acclaim Studios Austin?
+q1537	Who founded Accuracy International?
+q1538	Who founded AccuWeather?
+q1539	Who founded Ace Aircraft Manufacturing Company?
+q1540	Who founded Ace Gallery?
+q1541	Who founded Ace Hardware?
+q1542	Who founded Acorn Computers?
+q1543	Who founded Acquia?
+q1544	Who founded Acronis?
+q1545	Who founded Act3animation?
+q1546	Who founded Actavis?
+q1547	Who founded Action Lab Comics?
+q1548	Who founded Active Interest Media?
+q1549	Who founded Ad Council Japan?
+q1550	Who founded Adamjee Group?
+q1551	Who founded Adams Express Company?
+q1552	Who founded Adams Golf?
+q1553	Who founded Adani Group?
+q1554	Who founded Addepar?
+q1555	Who founded Addictive Games?
+q1556	Who founded Addison Lee?
+q1557	Who founded AddToAny?
+q1558	Who founded Adidas?
+q1559	Who founded ADINA?
+q1560	Who founded Aditi Technologies?
+q1561	Who founded Aditya Birla Group?
+q1562	Who founded AdKeeper?
+q1563	Who founded Advance Publications?
+q1564	Who founded Advanced Digital Broadcast?
+q1565	Who founded Advanced Info Service?
+q1566	Who founded Advanced Micro Devices?
+q1567	Who founded Advent Software?
+q1568	Who founded Aedas?
+q1569	Who founded AEG?
+q1570	Who founded Aegean Marine Petroleum Network?
+q1571	Who founded Aermacchi?
+q1572	Who founded Aerostich?
+q1573	Who founded AES Corporation?
+q1574	Who founded Aetna?
+q1575	Who founded Affectiva?
+q1576	Who founded Affiliated Computer Services?
+q1577	Who founded Affiliated Foods Southwest?
+q1578	Who founded Afren?
+q1579	Who founded Aggregate Films?
+q1580	Who founded Agilent Technologies?
+q1581	Who founded Agora Financial?
+q1582	Who founded Agriprocessors?
+q1583	Who founded Agrofert?
+q1584	Who founded Agrokor?
+q1585	Who founded AH Basic?
+q1586	Who founded Ahlstrom?
+q1587	Who founded AIA Group Limited?
+q1588	Who founded Aimco?
+q1589	Who founded Airbrite?
+q1590	Who founded Airbus?
+q1591	Who founded Aircel Comics?
+q1592	Who founded Ajia-do Animation Works?
+q1593	Who founded Akfen Holding?
+q1594	Who founded AKOM?
+q1595	Who founded Al Baik?
+q1596	Who founded Aladdin Knowledge Systems?
+q1597	Who founded Alamy?
+q1598	Who founded Alarko Holding?
+q1599	Who founded Alberta Health Services?
+q1600	Who founded Alberto-Culver?
+q1601	Who founded Albertsons?
+q1602	Who founded Albion Motors?
+q1603	Who founded Alchimie Forever?
+q1604	Who founded Alcoa?
+q1605	Who founded Alcon Entertainment?
+q1606	Who founded Aldermaston Pottery?
+q1607	Who founded Aldo Group?
+q1608	Who founded Alex and Ani?
+q1609	Who founded Alfa Group?
+q1610	Who founded Alfa Romeo?
+q1611	Who founded Alfred Booth and Company?
+q1612	Who founded Alias Enterprises?
+q1613	Who founded Alibaba Group?
+q1614	Who founded Alimentation Couche-Tard?
+q1615	Who founded All Media Network?
+q1616	Who founded Allaire Iron Works?
+q1617	Who founded Alleghany Corporation?
+q1618	Who founded Allensbach Institute?
+q1619	Who founded Aller Media?
+q1620	Who founded Allison Engine Company?
+q1621	Who founded Allison Transmission?
+q1622	Who founded Allods Team?
+q1623	Who founded Allozyne?
+q1624	Who founded Al-Mulla Group?
+q1625	Who founded Alpari Group?
+q1626	Who founded Alta Communications?
+q1627	Who founded Alta Partners?
+q1628	Who founded Altarea SCA?
+q1629	Who founded Altintel?
+q1630	Who founded Altria?
+q1631	Who founded AltusGroup?
+q1632	Who founded Alvarez and Marsal?
+q1633	Who founded Alvis Car and Engineering Company?
+q1634	Who founded Amalgamated Sugar Company?
+q1635	Who founded Amanita Design?
+q1636	Who founded Amara Raja Group?
+q1637	Who founded Amaranth Advisors?
+q1638	Who founded AmBank?
+q1639	Who founded Ambassador Theatre Group?
+q1640	Who founded Amblimation?
+q1641	Who founded Amdahl Corporation?
+q1642	Who founded Amdocs?
+q1643	Who founded American Apparel?
+q1644	Who founded American Appraisal?
+q1645	Who founded American Association for Respiratory Care?
+q1646	Who founded American Crystal Sugar Company?
+q1647	Who founded American Elements?
+q1648	Who founded American Greetings?
+q1649	Who founded American Income Life Insurance Company?
+q1650	Who founded American Institute in Taiwan?
+q1651	Who founded American International Group?
+q1652	Who founded American Liver Foundation?
+q1653	Who founded American Respiratory Care Foundation?
+q1654	Who founded American Road and Transportation Builders Association?
+q1655	Who founded American Seafoods?
+q1656	Who founded American Taekwondo Association?
+q1657	Who founded Ameriprise Financial?
+q1658	Who founded Amiando?
+q1659	Who founded Amilcar?
+q1660	Who founded Amoco?
+q1661	Who founded AMP Technologies?
+q1662	Who founded Ampex?
+q1663	Who founded Amphenol?
+q1664	Who founded Ampm?
+q1665	Who founded Amway?
+q1666	Who founded Anand Group?
+q1667	Who founded ANAS?
+q1668	Who founded Ancel?
+q1669	Who founded Ancon?
+q1670	Who founded Andell Holdings?
+q1671	Who founded Andhra Bank?
+q1672	Who founded Andrade Gutierrez?
+q1673	Who founded Andreessen Horowitz?
+q1674	Who founded Anheuser-Busch?
+q1675	Who founded Aniche Mining Company?
+q1676	Who founded Animation Collective?
+q1677	Who founded Animation studios owned by The Walt Disney Company?
+q1678	Who founded Animoto?
+q1679	Who founded Animusic?
+q1680	Who founded Anjana Productions?
+q1681	Who founded Annapurna Pictures?
+q1682	Who founded Annapurna Studios?
+q1683	Who founded Ansair?
+q1684	Who founded Answer Underground?
+q1685	Who founded Antarctic Press?
+q1686	Who founded ANTEL?
+q1687	Who founded Anthon B Nilsen?
+q1688	Who founded Anthropologie?
+q1689	Who founded Antix Productions?
+q1690	Who founded Antony Morato?
+q1691	Who founded Anurag Kashyap Films?
+q1692	Who founded AOC International?
+q1693	Who founded AP Films?
+q1694	Who founded Apache Corporation?
+q1695	Who founded Apatow Productions?
+q1696	Who founded Apcar and Company?
+q1697	Who founded Apex Global Internet Services?
+q1698	Who founded Apollo Global Management?
+q1699	Who founded Apollo Hospitals?
+q1700	Who founded AppGratis?
+q1701	Who founded Apple Boutique?
+q1702	Who founded Apple Comics?
+q1703	Who founded Applied Predictive Technologies?
+q1704	Who founded Appnovation?
+q1705	Who founded Aqua Books?
+q1706	Who founded Aquarama Aquarium Theater of the Sea?
+q1707	Who founded Arcana Studio?
+q1708	Who founded Archambault?
+q1709	Who founded Archant?
+q1710	Who founded Ardent Studios?
+q1711	Who founded Ares Incorporated?
+q1712	Who founded Ares Management?
+q1713	Who founded Argela?
+q1714	Who founded ArgoFilms?
+q1715	Who founded Argonaut Games?
+q1716	Who founded Ark Collective?
+q1717	Who founded Arkem?
+q1718	Who founded Arkus Financial Services?
+q1719	Who founded Art Technology Group?
+q1720	Who founded Artega Automobile?
+q1721	Who founded Arteluce?
+q1722	Who founded Artha Graha Peduli Foundation?
+q1723	Who founded Article 25?
+q1724	Who founded Artificial Artificial Intelligence Centerligence Center?
+q1725	Who founded Artists Music Guild?
+q1726	Who founded As seen on TV?
+q1727	Who founded AS220?
+q1728	Who founded ASBIS?
+q1729	Who founded Ascot-Pullin Motorcycles?
+q1730	Who founded Asegarce?
+q1731	Who founded Ashdown Engineering?
+q1732	Who founded Asia Brewery?
+q1733	Who founded Asia World?
+q1734	Who founded Asiaep?
+q1735	Who founded Asian Educational Services?
+q1736	Who founded ASIMCO Technologies?
+q1737	Who founded AS-International?
+q1738	Who founded ASmallWorld?
+q1739	Who founded Associated Artists Productions?
+q1740	Who founded Associated University Presses?
+q1741	Who founded Assorted Nuts Animation Studios?
+q1742	Who founded Aston Martin?
+q1743	Who founded Astra International?
+q1744	Who founded Astrium?
+q1745	Who founded Asus?
+q1746	Who founded Atlantic Television?
+q1747	Who founded Atlantis Diesel Engines?
+q1748	Who founded Atlas Maritime?
+q1749	Who founded Atlet AB?
+q1750	Who founded Atomeka Press?
+q1751	Who founded Atomico?
+q1752	Who founded ATP Oil and Gas?
+q1753	Who founded ATS Automation Tooling Systems?
+q1754	Who founded Attica Group?
+q1755	Who founded Aubuchon Hardware?
+q1756	Who founded Auchan?
+q1757	Who founded Auctionair?
+q1758	Who founded Audi?
+q1759	Who founded Audimated?
+q1760	Who founded Augmentation Research Center?
+q1761	Who founded August Cinema?
+q1762	Who founded Aura Sonic?
+q1763	Who founded Auricchio?
+q1764	Who founded Aurora Flight Sciences?
+q1765	Who founded Aust Ferry?
+q1766	Who founded Austrian Student Aid Foundation?
+q1767	Who founded Autokoritehdas?
+q1768	Who founded Automata UK?
+q1769	Who founded Automated Weather Source?
+q1770	Who founded Automatic Data Processing?
+q1771	Who founded Automatic Electric?
+q1772	Who founded Automatix?
+q1773	Who founded Automobiles Rally?
+q1774	Who founded Automotive Financial Group?
+q1775	Who founded Autoteollisuus-Bilindustri?
+q1776	Who founded Avedis Zildjian Company?
+q1777	Who founded Aveling-Barford?
+q1778	Who founded Aventi Technology?
+q1779	Who founded Avenue Capital Group?
+q1780	Who founded Avere Systems?
+q1781	Who founded Avery Company?
+q1782	Who founded Avesthagen?
+q1783	Who founded Avex Group?
+q1784	Who founded Aviastroitel?
+q1785	Who founded Avions Voisin?
+q1786	Who founded Avista Capital Partners?
+q1787	Who founded Avita Medical?
+q1788	Who founded AVM Productions?
+q1789	Who founded Avon Products?
+q1790	Who founded Avvo?
+q1791	Who founded AWAL?
+q1792	Who founded Awesome Comics?
+q1793	Who founded AXA?
+q1794	Who founded Axis Group Yacht Design?
+q1795	Who founded Axminster Carpets?
+q1796	Who founded Ayeyarwady Bank?
+q1797	Who founded Aygaz?
+q1798	Who founded Azerbaijan Rural Investment Project?
+q1799	Who founded Azimut Hotels?
+q1800	Who founded Baby Phat?
+q1801	Who founded Bacardi?
+q1802	Who founded Bad Hat Harry Productions?
+q1803	Who founded Bagdasarian Productions?
+q1804	Who founded Bahnhof?
+q1805	Who founded Bahrain Petroleum Company?
+q1806	Who founded Bahria Town?
+q1807	Who founded Bajaj Auto?
+q1808	Who founded Bajaj Corp?
+q1809	Who founded Bajaj Group?
+q1810	Who founded Bajaj Hindusthan?
+q1811	Who founded Baker Boyer Bank?
+q1812	Who founded Bakrie Group?
+q1813	Who founded Balaji Motion Pictures?
+q1814	Who founded Balaji Telefilms?
+q1815	Who founded Balconi?
+q1816	Who founded Baldwin Locomotive Works?
+q1817	Who founded Baldwin Piano Company?
+q1818	Who founded Balenciaga?
+q1819	Who founded Bally Shoe?
+q1820	Who founded Balubaid?
+q1821	Who founded Bamboo Bike Project?
+q1822	Who founded Banana Republic?
+q1823	Who founded Banco Galliano?
+q1824	Who founded Bandai Channel?
+q1825	Who founded Bangkok Bank?
+q1826	Who founded Bangkok Insurance?
+q1827	Who founded Banif Financial Group?
+q1828	Who founded Bank Central Asia?
+q1829	Who founded Bank Medici?
+q1830	Who founded Bank Mizrahi-Tefahot?
+q1831	Who founded Bank of America?
+q1832	Who founded Bank of Baroda?
+q1833	Who founded Bank of Ceylon?
+q1834	Who founded Bank of Credit and Commerce International?
+q1835	Who founded Bank of Hawaii?
+q1836	Who founded Bank of the People?
+q1837	Who founded Banque Misr?
+q1838	Who founded Banque Zitouna?
+q1839	Who founded Bansal Classes?
+q1840	Who founded Banter Media?
+q1841	Who founded Barburrito?
+q1842	Who founded Barcelona Traction?
+q1843	Who founded Bareeze?
+q1844	Who founded Barings Bank?
+q1845	Who founded Baristas?
+q1846	Who founded Barloworld Limited?
+q1847	Who founded Barnes family?
+q1848	Who founded Barnett Bank?
+q1849	Who founded Barneys New York?
+q1850	Who founded Barracuda Networks?
+q1851	Who founded Barrett Technology?
+q1852	Who founded Barrick Gold?
+q1853	Who founded Barrington Broadcasting?
+q1854	Who founded Bartolini Pickups and Electronics?
+q1855	Who founded BASA-press?
+q1856	Who founded Basement Comics?
+q1857	Who founded BaseN?
+q1858	Who founded Bass Brewery?
+q1859	Who founded Bass Pro Shops?
+q1860	Who founded Basse und Selve?
+q1861	Who founded Bata Shoes?
+q1862	Who founded Bateman Hardware?
+q1863	Who founded Bath Iron Works?
+q1864	Who founded Batjac Productions?
+q1865	Who founded Batshaw Youth and Family Centres?
+q1866	Who founded Bauer Type Foundry?
+q1867	Who founded BauMax?
+q1868	Who founded Baupost Group?
+q1869	Who founded Bavaria Film?
+q1870	Who founded Bavarian Auto Group?
+q1871	Who founded Bazelevs Company?
+q1872	Who founded BBC?
+q1873	Who founded BBK Electronics?
+q1874	Who founded BBN Technologies?
+q1875	Who founded Beate Uhse AG?
+q1876	Who founded Beauty Brands?
+q1877	Who founded Bebe Stores?
+q1878	Who founded Bebo?
+q1879	Who founded Bechtel?
+q1880	Who founded Beckett Media?
+q1881	Who founded Beckman Coulter?
+q1882	Who founded Becton Dickinson?
+q1883	Who founded Bee Train?
+q1884	Who founded Beetham Organization?
+q1885	Who founded Beko?
+q1886	Who founded Belcan Corporation?
+q1887	Who founded Belgrano Cargas?
+q1888	Who founded Believe Pictures?
+q1889	Who founded Bell Canada?
+q1890	Who founded Bellator MMA?
+q1891	Who founded Bellwether Pictures?
+q1892	Who founded Ben Dunne Gyms?
+q1893	Who founded Benetech?
+q1894	Who founded Benetton Group?
+q1895	Who founded Bentley?
+q1896	Who founded Bergen Student-TV?
+q1897	Who founded Berkeley Software Design?
+q1898	Who founded Berkeley Systems?
+q1899	Who founded Berkshire Hathaway?
+q1900	Who founded Berliet?
+q1901	Who founded Berlitz Corporation?
+q1902	Who founded Berry and Wollstonecraft?
+q1903	Who founded Bertelsmann?
+q1904	Who founded Berthold Type Foundry?
+q1905	Who founded Bespoke Collection?
+q1906	Who founded Best Buy?
+q1907	Who founded Bestway?
+q1908	Who founded Bet365?
+q1909	Who founded BETDAQ?
+q1910	Who founded Betfair?
+q1911	Who founded Bethesda Softworks?
+q1912	Who founded Better Place?
+q1913	Who founded Beuchat?
+q1914	Who founded Beulah London?
+q1915	Who founded Beyer Blinder Belle?
+q1916	Who founded Beyond Software?
+q1917	Who founded BFL CANADA?
+q1918	Who founded BgC3?
+q1919	Who founded Bharat Heavy Electricals?
+q1920	Who founded BharatBala Productions?
+q1921	Who founded BharatMatrimony?
+q1922	Who founded Bharti Airtel?
+q1923	Who founded Bharti Enterprises?
+q1924	Who founded Bhima Jewellers?
+q1925	Who founded Bianchi Bicycles?
+q1926	Who founded Biba?
+q1927	Who founded Big Apple Donuts and Coffee?
+q1928	Who founded Big Boy Restaurants?
+q1929	Who founded Big Ideas Learning?
+q1930	Who founded Big Talk Productions?
+q1931	Who founded Big Time Attic?
+q1932	Who founded Bigelow Aerospace?
+q1933	Who founded Bigfoot Entertainment?
+q1934	Who founded Bigshoes Foundation?
+q1935	Who founded Bilingual Review Press?
+q1936	Who founded Bilka?
+q1937	Who founded BillGuard?
+q1938	Who founded Billpoint?
+q1939	Who founded Biltema?
+q1940	Who founded Bimota?
+q1941	Who founded Binatone?
+q1942	Who founded Bincho?
+q1943	Who founded Biocon?
+q1944	Who founded Biovail?
+q1945	Who founded BioWare?
+q1946	Who founded Birdhouse Skateboards?
+q1947	Who founded Birds Eye?
+q1948	Who founded Bit Managers?
+q1949	Who founded BitInstant?
+q1950	Who founded Bitter Cars?
+q1951	Who founded Black Eye Productions?
+q1952	Who founded Black Red White?
+q1953	Who founded Black Sun Press?
+q1954	Who founded Black Toast Music?
+q1955	Who founded Blackfella Films?
+q1956	Who founded Blackfish Publishing?
+q1957	Who founded Blackthorne Publishing?
+q1958	Who founded BlackTV247?
+q1959	Who founded Blackwell UK?
+q1960	Who founded Bland Group?
+q1961	Who founded Blendo Games?
+q1962	Who founded Blendtec?
+q1963	Who founded Bloom Energy Server?
+q1964	Who founded Blowback Productions?
+q1965	Who founded Blucora?
+q1966	Who founded Blue Bird Corporation?
+q1967	Who founded Blue Fountain Media?
+q1968	Who founded Blue Shield of California?
+q1969	Who founded Blue Star Line?
+q1970	Who founded Bluebella?
+q1971	Who founded Bluefin Labs?
+q1972	Who founded Bluehost?
+q1973	Who founded Bluemercury?
+q1974	Who founded Blueseed?
+q1975	Who founded Blum Capital?
+q1976	Who founded BMW?
+q1977	Who founded Boardman Bikes?
+q1978	Who founded Bob Jane T-Marts?
+q1979	Who founded Bodog?
+q1980	Who founded BodyMedia?
+q1981	Who founded Bo-Dyn Bobsled Project?
+q1982	Who founded Boeing?
+q1983	Who founded Boeing Commercial Airplanes?
+q1984	Who founded Boingo Wireless?
+q1985	Who founded Bolder Media?
+q1986	Who founded Bollack Netter and Co?
+q1987	Who founded Bombardier Recreational Products?
+q1988	Who founded Bomis?
+q1989	Who founded Bona AB?
+q1990	Who founded Boost Juice?
+q1991	Who founded Booth Newspapers?
+q1992	Who founded Boots UK?
+q1993	Who founded Booz Allen Hamilton?
+q1994	Who founded Born Free Entertainment?
+q1995	Who founded Boston Book Festival?
+q1996	Who founded Boston Micromachines Corporation?
+q1997	Who founded Boston Properties?
+q1998	Who founded Bottecchia?
+q1999	Who founded Boucheron?
+q2000	Who founded Boudin Bakery?
+q2001	Who was the successor of Amelia Gordon?
+q2002	Who was the successor of Amelita Ramos?
+q2003	Who was the successor of Ameurfina Melencio-Herrera?
+q2004	Who was the successor of Amin Howeidi?
+q2005	Who was the successor of Amina Benkhadra?
+q2006	Who was the successor of Aminu Sule Garo?
+q2007	Who was the successor of Aminu Waziri Tambuwal?
+q2008	Who was the successor of Amir Abdullah Khan Niazi?
+q2009	Who was the successor of Amir Khosrow Afshar?
+q2010	Who was the successor of Amir Sjarifuddin?
+q2011	Who was the successor of Amleto Giovanni Cicognani?
+q2012	Who was the successor of Amnon Lipkin-Shahak?
+q2013	Who was the successor of Amos Edwin Botsford?
+q2014	Who was the successor of Amos Hutchinson?
+q2015	Who was the successor of Amos Kendall?
+q2016	Who was the successor of Amos Makalla?
+q2017	Who was the successor of Amos Wako?
+q2018	Who was the successor of Amr Moussa?
+q2019	Who was the successor of Amrullah Saleh?
+q2020	Who was the successor of Amy Klobuchar?
+q2021	Who was the successor of Amy Koch?
+q2022	Who was the successor of Amy Tuck?
+q2023	Who was the successor of Ana Botella?
+q2024	Who was the successor of Ana Lovrin?
+q2025	Who was the successor of Ana Pauker?
+q2026	Who was the successor of Anam Ramanarayana Reddy?
+q2027	Who was the successor of Anand Paranjpe?
+q2028	Who was the successor of Anand Ramlogan?
+q2029	Who was the successor of Anand Sharma?
+q2030	Who was the successor of Anand Singh?
+q2031	Who was the successor of Anandacharlu?
+q2032	Who was the successor of Ananga Udaya Singh Deo?
+q2033	Who was the successor of Anant Geete?
+q2034	Who was the successor of Anant Kumar Hegde?
+q2035	Who was the successor of Ananta Nayak?
+q2036	Who was the successor of Anantram Jaiswal?
+q2037	Who was the successor of Anas Urbaningrum?
+q2038	Who was the successor of Anatole Carignan?
+q2039	Who was the successor of Anatoliy Serdyukov?
+q2040	Who was the successor of Anatoly Lukyanov?
+q2041	Who was the successor of Anatoly Sobchak?
+q2042	Who was the successor of Ancher Nelsen?
+q2043	Who was the successor of Anders Fogh Rasmussen?
+q2044	Who was the successor of Anders Lange?
+q2045	Who was the successor of Anderson Dawson?
+q2046	Who was the successor of Andor Festetics?
+q2047	Who was the successor of Andrass Samuelsen?
+q2048	Who was the successor of Andrea Cabral?
+q2049	Who was the successor of Andrea Dalessandro?
+q2050	Who was the successor of Andrea Horwath?
+q2051	Who was the successor of Andrea Lea?
+q2052	Who was the successor of Andrea Nahles?
+q2053	Who was the successor of Andrea Olivero?
+q2054	Who was the successor of Andrea Orlando?
+q2055	Who was the successor of Andrea Zafferani?
+q2056	Who was the successor of Andreas Kopasis?
+q2057	Who was the successor of Andreas Loverdos?
+q2058	Who was the successor of Andreas Ludwig Leitgeb?
+q2059	Who was the successor of Andreas Tofte?
+q2060	Who was the successor of Andreas von Graben?
+q2061	Who was the successor of Andrei Fursenko?
+q2062	Who was the successor of Andrei Grechko?
+q2063	Who was the successor of Andrei Gromyko?
+q2064	Who was the successor of Andrei Marga?
+q2065	Who was the successor of Andrei Zhdanov?
+q2066	Who was the successor of Andres Castillo?
+q2067	Who was the successor of Andres Narvasa?
+q2068	Who was the successor of Andreu Mas-Colell?
+q2069	Who was the successor of Andrew Archibald Macdonald?
+q2070	Who was the successor of Andrew Billow?
+q2071	Who was the successor of Andrew Caldecott?
+q2072	Who was the successor of Andrew Caldwell Mailer?
+q2073	Who was the successor of Andrew Card?
+q2074	Who was the successor of Andrew Carn?
+q2075	Who was the successor of Andrew Chenge?
+q2076	Who was the successor of Andrew Coulouris?
+q2077	Who was the successor of Andrew Cripps?
+q2078	Who was the successor of Andrew Cuomo?
+q2079	Who was the successor of Andrew Deoki?
+q2080	Who was the successor of Andrew Dickson White?
+q2081	Who was the successor of Andrew Esinhart?
+q2082	Who was the successor of Andrew Ewing?
+q2083	Who was the successor of Andrew Fenrich?
+q2084	Who was the successor of Andrew Fisher?
+q2085	Who was the successor of Andrew Gault?
+q2086	Who was the successor of Andrew Gonzalez?
+q2087	Who was the successor of Andrew Gregg?
+q2088	Who was the successor of Andrew Harold Gibson?
+q2089	Who was the successor of Andrew Hogan?
+q2090	Who was the successor of Andrew Holness?
+q2091	Who was the successor of Andrew Hsia?
+q2092	Who was the successor of Andrew Jackson?
+q2093	Who was the successor of Andrew Jackson Clements?
+q2094	Who was the successor of Andrew Jackson Montague?
+q2095	Who was the successor of Andrew James Macauley?
+q2096	Who was the successor of Andrew Johnson?
+q2097	Who was the successor of Andrew Kleinfeld?
+q2098	Who was the successor of Andrew Lansley?
+q2099	Who was the successor of Andrew Lanza?
+q2100	Who was the successor of Andrew Leung?
+q2101	Who was the successor of Andrew Lusk Shields?
+q2102	Who was the successor of Andrew McConnell January Cochran?
+q2103	Who was the successor of Andrew McGraw?
+q2104	Who was the successor of Andrew McKenna?
+q2105	Who was the successor of Andrew Mitchell?
+q2106	Who was the successor of Andrew Moscrip?
+q2107	Who was the successor of Andrew Natsios?
+q2108	Who was the successor of Andrew Nori?
+q2109	Who was the successor of Andrew Philps?
+q2110	Who was the successor of Andrew Rae Duncan?
+q2111	Who was the successor of Andrew Rainsford Wetmore?
+q2112	Who was the successor of Andrew Semple?
+q2113	Who was the successor of Andrew Shuman?
+q2114	Who was the successor of Andrew Stein?
+q2115	Who was the successor of Andrew Stevenson?
+q2116	Who was the successor of Andrew Swan?
+q2117	Who was the successor of Andrew Yang?
+q2118	Who was the successor of Andrew Young?
+q2119	Who was the successor of Andrew Ziolkowski?
+q2120	Who was the successor of Andrews Breed?
+q2121	Who was the successor of Andrey Belousov?
+q2122	Who was the successor of Andrey Nelidov?
+q2123	Who was the successor of Andrey Vyshinsky?
+q2124	Who was the successor of Andrey Yuryevich Vorobyov?
+q2125	Who was the successor of Andria Urushadze?
+q2126	Who was the successor of Andries Bicker?
+q2127	Who was the successor of Andries Cornelis Dirk de Graeff?
+q2128	Who was the successor of Andries de Graeff?
+q2129	Who was the successor of Andrii Deshchytsia?
+q2130	Who was the successor of Andris Piebalgs?
+q2131	Who was the successor of Andris Vilks?
+q2132	Who was the successor of Andrius Kubilius?
+q2133	Who was the successor of Andriy Vasylyshyn?
+q2134	Who was the successor of Androulla Vassiliou?
+q2135	Who was the successor of Andrus Ansip?
+q2136	Who was the successor of Andry Rajoelina?
+q2137	Who was the successor of Andrzej Beck?
+q2138	Who was the successor of Andrzej Olechowski?
+q2139	Who was the successor of Andrzej Stelmachowski?
+q2140	Who was the successor of Andrzej Zoll?
+q2141	Who was the successor of Andy Billig?
+q2142	Who was the successor of Andy Burnham?
+q2143	Who was the successor of Andy Coulson?
+q2144	Who was the successor of Andy Dillon?
+q2145	Who was the successor of Andy Dinniman?
+q2146	Who was the successor of Andy Gardiner?
+q2147	Who was the successor of Andy Neumann?
+q2148	Who was the successor of Andy Tsang?
+q2149	Who was the successor of Andy Vidak?
+q2150	Who was the successor of Aneesh Chopra?
+q2151	Who was the successor of Anerood Jugnauth?
+q2152	Who was the successor of Angel Morey?
+q2153	Who was the successor of Angel Taveras?
+q2154	Who was the successor of Angela Constance?
+q2155	Who was the successor of Angela Merkel?
+q2156	Who was the successor of Angelica Singleton Van Buren?
+q2157	Who was the successor of Angelina Sandoval-Gutierrez?
+q2158	Who was the successor of Angelino Alfano?
+q2159	Who was the successor of Angelito Sarmiento?
+q2160	Who was the successor of Angelo Errichetti?
+q2161	Who was the successor of Angelo Joseph Rossi?
+q2162	Who was the successor of Angie Bray?
+q2163	Who was the successor of Angie Paccione?
+q2164	Who was the successor of Angus Alexander McLean?
+q2165	Who was the successor of Angus Claude Macdonell?
+q2166	Who was the successor of Angus King?
+q2167	Who was the successor of Angus MacIsaac?
+q2168	Who was the successor of Angus MacLennan?
+q2169	Who was the successor of Angus Maude?
+q2170	Who was the successor of Anies Baswedan?
+q2171	Who was the successor of Anil Bachoo?
+q2172	Who was the successor of Anis Birou?
+q2173	Who was the successor of Anis Matta?
+q2174	Who was the successor of Anita Dunn?
+q2175	Who was the successor of Anita Palermo Kelly?
+q2176	Who was the successor of Anjan Kumar Yadav?
+q2177	Who was the successor of Ank Bijleveld?
+q2178	Who was the successor of Anke Fuchs?
+q2179	Who was the successor of Ankie Broekers-Knol?
+q2180	Who was the successor of Ann Abraham?
+q2181	Who was the successor of Ann Barker?
+q2182	Who was the successor of Ann Bartlett?
+q2183	Who was the successor of Ann Claire Williams?
+q2184	Who was the successor of Ann Gerry?
+q2185	Who was the successor of Ann Hartley?
+q2186	Who was the successor of Ann Hercus?
+q2187	Who was the successor of Ann Kirkpatrick?
+q2188	Who was the successor of Ann McLaughlin Korologos?
+q2189	Who was the successor of Ann Meekitjuk Hanson?
+q2190	Who was the successor of Ann Peoples?
+q2191	Who was the successor of Ann Richards?
+q2192	Who was the successor of Ann Rivers?
+q2193	Who was the successor of Ann Romney?
+q2194	Who was the successor of Ann Veneman?
+q2195	Who was the successor of Anna Bligh?
+q2196	Who was the successor of Anna Crook?
+q2197	Who was the successor of Anna Diamantopoulou?
+q2198	Who was the successor of Anna Escobedo Cabral?
+q2199	Who was the successor of Anna Finocchiaro?
+q2200	Who was the successor of Anna Fotyga?
+q2201	Who was the successor of Anna Harrison?
+q2202	Who was the successor of Anna Komorowska?
+q2203	Who was the successor of Anna Lindh?
+q2204	Who was the successor of Anna Maria Muccioli?
+q2205	Who was the successor of Anna Mkapa?
+q2206	Who was the successor of Anna Morton?
+q2207	Who was the successor of Anna Nagy?
+q2208	Who was the successor of Anna Terrana?
+q2209	Who was the successor of Anna Tibaijuka?
+q2210	Who was the successor of Annabel Goldie?
+q2211	Who was the successor of Anna-Maja Henriksson?
+q2212	Who was the successor of Annamalai Varadaraja Perumal?
+q2213	Who was the successor of Annamaria Cancellieri?
+q2214	Who was the successor of Annastacia Palaszczuk?
+q2215	Who was the successor of Anne Anstine?
+q2216	Who was the successor of Anne Armstrong?
+q2217	Who was the successor of Anne Blouin?
+q2218	Who was the successor of Anne Enger?
+q2219	Who was the successor of Anne Gobi?
+q2220	Who was the successor of Anne Gorsuch Burford?
+q2221	Who was the successor of Anne Maddern?
+q2222	Who was the successor of Anne Makinda?
+q2223	Who was the successor of Anne McLaughlin?
+q2224	Who was the successor of Anne Milgram?
+q2225	Who was the successor of Anne Rand?
+q2226	Who was the successor of Anne Rudin?
+q2227	Who was the successor of Anne Swarbrick?
+q2228	Who was the successor of Anne Wexler?
+q2229	Who was the successor of Annemarie Huber-Hotz?
+q2230	Who was the successor of Annemarie Jorritsma?
+q2231	Who was the successor of Anne-Marie Lizin?
+q2232	Who was the successor of Annemie Turtelboom?
+q2233	Who was the successor of Annet de Clermont-Gessant?
+q2234	Who was the successor of Annette Dubas?
+q2235	Who was the successor of Annette Hurley?
+q2236	Who was the successor of Annette King?
+q2237	Who was the successor of Annette Lu?
+q2238	Who was the successor of Annette Schavan?
+q2239	Who was the successor of Annette Strauss?
+q2240	Who was the successor of Annie Chidzira Muluzi?
+q2241	Who was the successor of Annie Courtney?
+q2242	Who was the successor of Annie Okonkwo?
+q2243	Who was the successor of Anniken Huitfeldt?
+q2244	Who was the successor of Annise Parker?
+q2245	Who was the successor of Ann-Margaret Carrozza?
+q2246	Who was the successor of Annuar Musa?
+q2247	Who was the successor of Anouchka van Miltenburg?
+q2248	Who was the successor of Anri Jergenia?
+q2249	Who was the successor of Ansel Briggs?
+q2250	Who was the successor of Anshuman Singh?
+q2251	Who was the successor of Ansito Walter?
+q2252	Who was the successor of Anson Chan?
+q2253	Who was the successor of Anson Dodge?
+q2254	Who was the successor of Antanas Merkys?
+q2255	Who was the successor of Antanas Mockus?
+q2256	Who was the successor of Anthony Albanese?
+q2257	Who was the successor of Anthony Andrezeski?
+q2258	Who was the successor of Anthony Anenih?
+q2259	Who was the successor of Anthony Barrowclough?
+q2260	Who was the successor of Anthony Cannella?
+q2261	Who was the successor of Anthony Cimini?
+q2262	Who was the successor of Anthony Colaizzo?
+q2263	Who was the successor of Anthony Crosland?
+q2264	Who was the successor of Anthony DiDonato?
+q2265	Who was the successor of Anthony Eden?
+q2266	Who was the successor of Anthony Foxx?
+q2267	Who was the successor of Anthony George Manzo?
+q2268	Who was the successor of Anthony Hart?
+q2269	Who was the successor of Anthony Howells?
+q2270	Who was the successor of Anthony Joseph Scirica?
+q2271	Who was the successor of Anthony Julian?
+q2272	Who was the successor of Anthony Lake?
+q2273	Who was the successor of Anthony Lima?
+q2274	Who was the successor of Anthony Lombard?
+q2275	Who was the successor of Anthony Mamo?
+q2276	Who was the successor of Anthony Mandile?
+q2277	Who was the successor of Anthony Melio?
+q2278	Who was the successor of Anthony Merchant?
+q2279	Who was the successor of Anthony Mooyart?
+q2280	Who was the successor of Anthony Portantino?
+q2281	Who was the successor of Anthony Principi?
+q2282	Who was the successor of Anthony Rosenroll?
+q2283	Who was the successor of Anthony Shorris?
+q2284	Who was the successor of Anthony Shorten?
+q2285	Who was the successor of Anthony van der Eb?
+q2286	Who was the successor of Anthony Verga?
+q2287	Who was the successor of Anthony Wayne?
+q2288	Who was the successor of Antin Holovaty?
+q2289	Who was the successor of Antipas Mbusa?
+q2290	Who was the successor of Antoine Casavant?
+q2291	Who was the successor of Antoine Castonguay?
+q2292	Who was the successor of Antoine de Paule?
+q2293	Who was the successor of Antoine Raymond?
+q2294	Who was the successor of Antoine Rivard?
+q2295	Who was the successor of Antoinette Sandbach?
+q2296	Who was the successor of Antoinette Spaak?
+q2297	Who was the successor of Anton Bertram?
+q2298	Who was the successor of Anton Buttigieg?
+q2299	Who was the successor of Anton Cermak?
+q2300	Who was the successor of Anton Joseph Leeb?
+q2301	Who was the successor of Anton Muscatelli?
+q2302	Who was the successor of Anton Rop?
+q2303	Who was the successor of Anton Storch?
+q2304	Who was the successor of Anton von Schmerling?
+q2305	Who was the successor of Antonella Mularoni?
+q2306	Who was the successor of Antoni Jaszczak?
+q2307	Who was the successor of Antoni Macierewicz?
+q2308	Who was the successor of Antoni Ponikowski?
+q2309	Who was the successor of Antonia Novello?
+q2310	Who was the successor of Antonin Galipeault?
+q2311	Who was the successor of Antonio Bonfatti?
+q2312	Who was the successor of Antonio Borja Won Pat?
+q2313	Who was the successor of Antonio Brack Egg?
+q2314	Who was the successor of Antonio Carpio?
+q2315	Who was the successor of Antonio Carrillo Flores?
+q2316	Who was the successor of Antonio Castro Leal?
+q2317	Who was the successor of Antonio Cerilles?
+q2318	Who was the successor of Antonio Cuenco?
+q2319	Who was the successor of Antonio de Benavides?
+q2320	Who was the successor of Antonio de Mendoza?
+q2321	Who was the successor of Antonio Di Pietro?
+q2322	Who was the successor of Antonio Eduardo Nachura?
+q2323	Who was the successor of Antonio Flamand?
+q2324	Who was the successor of Antonio Guarco?
+q2325	Who was the successor of Antonio Imbert Barrera?
+q2326	Who was the successor of Antonio Maccanico?
+q2327	Who was the successor of Antonio Marzano?
+q2328	Who was the successor of Antonio Narbona?
+q2329	Who was the successor of Antonio Ortiz Mena?
+q2330	Who was the successor of Antonio Patriota?
+q2331	Who was the successor of Antonio Prince?
+q2332	Who was the successor of Antonio Serapio?
+q2333	Who was the successor of Antonio Tajani?
+q2334	Who was the successor of Antonio Talbot?
+q2335	Who was the successor of Antonio Villaraigosa?
+q2336	Who was the successor of Antonio Villa-Real?
+q2337	Who was the successor of Antonio Villavicencio?
+q2338	Who was the successor of Antoniotto Adorno?
+q2339	Who was the successor of Antoniotto di Montaldo?
+q2340	Who was the successor of Antonis Manitakis?
+q2341	Who was the successor of Antonis Samaras?
+q2342	Who was the successor of Antony Leung?
+q2343	Who was the successor of Antti Hackzell?
+q2344	Who was the successor of Antti Tulenheimo?
+q2345	Who was the successor of Anugrah Narayan Sinha?
+q2346	Who was the successor of Anushavan Danielyan?
+q2347	Who was the successor of Anwar Ibrahim?
+q2348	Who was the successor of Anwar Sadat?
+q2349	Who was the successor of Anwar ul-Haq Ahady?
+q2350	Who was the successor of Anwar Zaheer Jamali?
+q2351	Who was the successor of Anyim Pius Anyim?
+q2352	Who was the successor of Anyimchukwu Ude?
+q2353	Who was the successor of Ao Man Long?
+q2354	Who was the successor of Aoyama Tadanaga?
+q2355	Who was the successor of Aper Aku?
+q2356	Who was the successor of Apisai Ielemia?
+q2357	Who was the successor of Apolinario Mabini?
+q2358	Who was the successor of Apolo Nsibambi?
+q2359	Who was the successor of Apostol Arsache?
+q2360	Who was the successor of Apostolos Kaklamanis?
+q2361	Who was the successor of April Glaspie?
+q2362	Who was the successor of Aquila Walsh?
+q2363	Who was the successor of Araga Jnanendra?
+q2364	Who was the successor of Aram Manukian?
+q2365	Who was the successor of Arben Imami?
+q2366	Who was the successor of Archduke Joseph August of Austria?
+q2367	Who was the successor of Archer Allen Phlegar?
+q2368	Who was the successor of Archibald Bulloch?
+q2369	Who was the successor of Archibald Cox?
+q2370	Who was the successor of Archibald McCoig?
+q2371	Who was the successor of Archibald McKellar?
+q2372	Who was the successor of Archibald McLelan?
+q2373	Who was the successor of Archibald Peter McNab?
+q2374	Who was the successor of Archibald Stuart?
+q2375	Who was the successor of Archibald Weigall?
+q2376	Who was the successor of Archie Matheson?
+q2377	Who was the successor of Archie Michaelis?
+q2378	Who was the successor of Ardeshir Zahedi?
+q2379	Who was the successor of Arent Magnin?
+q2380	Who was the successor of Ari Fleischer?
+q2381	Who was the successor of Ari Porth?
+q2382	Who was the successor of Ariel Sharon?
+q2383	Who was the successor of Arif Abd ar-Razzaq?
+q2384	Who was the successor of Arif Alvi?
+q2385	Who was the successor of Arima Harunobu?
+q2386	Who was the successor of Arima Naozumi?
+q2387	Who was the successor of Arjun Modhwadia?
+q2388	Who was the successor of Arjun Munda?
+q2389	Who was the successor of Arjun Singh?
+q2390	Who was the successor of Arkadi Ghukasyan?
+q2391	Who was the successor of Arlan Meekhof?
+q2392	Who was the successor of Arlen Specter?
+q2393	Who was the successor of Arlene Foster?
+q2394	Who was the successor of Arman Dunayev?
+q2395	Who was the successor of Armand Daigle?
+q2396	Who was the successor of Armand De Ceuninck?
+q2397	Who was the successor of Armand De Decker?
+q2398	Who was the successor of Armand Lavergne?
+q2399	Who was the successor of Armand Russell?
+q2400	Who was the successor of Armando Benedetti?
+q2401	Who was the successor of Armando Guebuza?
+q2402	Who was the successor of Armando Sanchez?
+q2403	Who was the successor of Armin Luistro?
+q2404	Who was the successor of Armistead Burt?
+q2405	Who was the successor of Armond Budish?
+q2406	Who was the successor of Arnaldo Forlani?
+q2407	Who was the successor of Arnaud Montebourg?
+q2408	Who was the successor of Arne Duncan?
+q2409	Who was the successor of Arnhim Eustace?
+q2410	Who was the successor of Arnie Roblan?
+q2411	Who was the successor of Arnie Stuthman?
+q2412	Who was the successor of Arnold Burns?
+q2413	Who was the successor of Arnold Cassola?
+q2414	Who was the successor of Arnold Moll?
+q2415	Who was the successor of Arnold Morley?
+q2416	Who was the successor of Arnold Naimark?
+q2417	Who was the successor of Arnold Naudain?
+q2418	Who was the successor of Arnold Nordmeyer?
+q2419	Who was the successor of Arnold Schwarzenegger?
+q2420	Who was the successor of Arnold Wienholt Hodson?
+q2421	Who was the successor of Arnulfo Fuentebella?
+q2422	Who was the successor of Aron Modig?
+q2423	Who was the successor of Arsen Kanokov?
+q2424	Who was the successor of Arsenio Cruz-Herrera?
+q2425	Who was the successor of Arseniy Yatsenyuk?
+q2426	Who was the successor of Arseny Zverev?
+q2427	Who was the successor of Arshad al-Umari?
+q2428	Who was the successor of Art Agnos?
+q2429	Who was the successor of Art Eggleton?
+q2430	Who was the successor of Art Hanes?
+q2431	Who was the successor of Art Lee?
+q2432	Who was the successor of Art Martinez de Vara?
+q2433	Who was the successor of Art Sour?
+q2434	Who was the successor of Art Staed?
+q2435	Who was the successor of Artemio Panganiban?
+q2436	Who was the successor of Arthur Balfour?
+q2437	Who was the successor of Arthur Beauchesne?
+q2438	Who was the successor of Arthur Bliss Copp?
+q2439	Who was the successor of Arthur Bliss Lane?
+q2440	Who was the successor of Arthur Boyer?
+q2441	Who was the successor of Arthur Broadhurst?
+q2442	Who was the successor of Arthur Bunster?
+q2443	Who was the successor of Arthur Cardin?
+q2444	Who was the successor of Arthur Cassini?
+q2445	Who was the successor of Arthur Cecil Hynes?
+q2446	Who was the successor of Arthur Chapin?
+q2447	Who was the successor of Arthur Charles Hardy?
+q2448	Who was the successor of Arthur Chaskalson?
+q2449	Who was the successor of Arthur Coles?
+q2450	Who was the successor of Arthur Corvese?
+q2451	Who was the successor of Arthur Cyril Boyce?
+q2452	Who was the successor of Arthur Cyrille Albert Malouin?
+q2453	Who was the successor of Arthur Delisle?
+q2454	Who was the successor of Arthur Dion Hanna?
+q2455	Who was the successor of Arthur Doherty?
+q2456	Who was the successor of Arthur Drewry?
+q2457	Who was the successor of Arthur Earley?
+q2458	Who was the successor of Arthur Edward Moore?
+q2459	Who was the successor of Arthur Ernest Morgan?
+q2460	Who was the successor of Arthur Eustace Morgan?
+q2461	Who was the successor of Arthur Foulkes?
+q2462	Who was the successor of Arthur Godbout?
+q2463	Who was the successor of Arthur Greiser?
+q2464	Who was the successor of Arthur Griffith?
+q2465	Who was the successor of Arthur Griffith-Boscawen?
+q2466	Who was the successor of Arthur Henry Williams?
+q2467	Who was the successor of Arthur Hill Gillmor?
+q2468	Who was the successor of Arthur Hunter Palmer?
+q2469	Who was the successor of Arthur Kenneth Reading?
+q2470	Who was the successor of Arthur Larouche?
+q2471	Who was the successor of Arthur Lesieur Desaulniers?
+q2472	Who was the successor of Arthur Levitt?
+q2473	Who was the successor of Arthur Li?
+q2474	Who was the successor of Arthur Louis Schechter?
+q2475	Who was the successor of Arthur Macalister?
+q2476	Who was the successor of Arthur Mauro?
+q2477	Who was the successor of Arthur Maxwell House?
+q2478	Who was the successor of Arthur Meighen?
+q2479	Who was the successor of Arthur Norreys Worthington?
+q2480	Who was the successor of Arthur Ohnimus?
+q2481	Who was the successor of Arthur Peters?
+q2482	Who was the successor of Arthur Phillip?
+q2483	Who was the successor of Arthur Piasecki?
+q2484	Who was the successor of Arthur Plante?
+q2485	Who was the successor of Arthur Pue Gorman?
+q2486	Who was the successor of Arthur Purves Phayre?
+q2487	Who was the successor of Arthur Radcliffe Boswell?
+q2488	Who was the successor of Arthur Rajotte?
+q2489	Who was the successor of Arthur Rupert Dickey?
+q2490	Who was the successor of Arthur Rylah?
+q2491	Who was the successor of Arthur Seymour?
+q2492	Who was the successor of Arthur Seyss-Inquart?
+q2493	Who was the successor of Arthur Sherwood Flemming?
+q2494	Who was the successor of Arthur Sifton?
+q2495	Who was the successor of Arthur Summerfield?
+q2496	Who was the successor of Arthur Trahan?
+q2497	Who was the successor of Arthur Tremblay?
+q2498	Who was the successor of Arthur Turcotte?
+q2499	Who was the successor of Arthur Vivian Watkins?
+q2500	Who was the successor of Arthur von Posadowsky-Wehner?
