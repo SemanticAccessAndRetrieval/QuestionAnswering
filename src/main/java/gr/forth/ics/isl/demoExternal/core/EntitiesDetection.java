@@ -409,6 +409,7 @@ public class EntitiesDetection {
 
         // For each entity retrieve from LODSyndesis the candidate URIs
         for (String entity : question_entities) {
+            System.out.println(chanel.getEntityFromKeyWord(entity));
             entity_candidateURIs.put(entity, chanel.getEntityFromKeyWord(entity));
         }
 

@@ -30,13 +30,13 @@ public class ModulesErrorHandling {
         String question_type = q_a.getQuestionType();
 
         if (question_type.equalsIgnoreCase("none")) {
-            try {
+            /*   try {
                 answer.put("status", "error");
                 answer.put("message", "[QuestionAnalysis] Unrecognized type of question.");
                 return answer;
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         } else {
             try {
                 answer.put("question_type", q_a.getQuestionType());

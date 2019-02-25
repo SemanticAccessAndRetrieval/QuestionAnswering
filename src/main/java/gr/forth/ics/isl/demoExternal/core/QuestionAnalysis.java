@@ -132,7 +132,7 @@ public class QuestionAnalysis {
             }
         }
 
-        ArrayList<String> confirmation_words = new ArrayList<>(Arrays.asList("are", "did", "is", "was", "does", "were", "do"));
+        ArrayList<String> confirmation_words = new ArrayList<>(Arrays.asList("are", "did", "is ", "was", "does", "were", "do "));
 
         for (String c_word : confirmation_words) {
             if (question.startsWith(c_word)) {

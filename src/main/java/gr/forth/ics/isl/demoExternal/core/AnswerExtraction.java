@@ -70,7 +70,7 @@ public class AnswerExtraction {
         HashSet<String> usef_words = extractUsefulWordsWithoutEntityWords(question, entities);
 
         if (usef_words.isEmpty()) {
-            if (question_type.equalsIgnoreCase("factoid")) {
+            if (question_type.equalsIgnoreCase("factoid") || question_type.equalsIgnoreCase("none")) {
                 usef_words = new HashSet<>(AnswerExtraction.definition_relations);
                 return usef_words;
             }
@@ -684,13 +684,16 @@ public class AnswerExtraction {
                 uri_cardinality = AnswerExtraction.extractJSONObjectsFromString(cardinality_result).get(0);
 
                 try {
-                    if (uri_cardinality.getInt("cardinality") < min_card) {
+                    if (uri_cardinality.getInt("cardinality") < min_card && uri_cardinality.getInt("cardinality") > 0) {
                         min_card = uri_cardinality.getInt("cardinality");
                         final_entity = entity;
                     }
                 } catch (JSONException ex) {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            if (final_entity.isEmpty()) {
+                final_entity = entity_URI.keySet().iterator().next();
             }
             return final_entity;
         }
