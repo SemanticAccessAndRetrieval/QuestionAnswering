@@ -309,7 +309,7 @@ public class AnswerExtraction {
         if (matched_triples.isEmpty()) {
             JSONObject tmp_ans = new JSONObject();
             try {
-                tmp_ans.put("answer", "No answer found!");
+                tmp_ans.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
                 return tmp_ans;
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,7 +356,7 @@ public class AnswerExtraction {
             if (triplesWithCorrectEntities.isEmpty()) {
                 JSONObject tmp_ans = new JSONObject();
                 try {
-                    tmp_ans.put("answer", "No answer found! None of the triples contain the correct entities!");
+                    tmp_ans.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
                     return tmp_ans;
                 } catch (JSONException ex) {
                     Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
@@ -398,7 +398,7 @@ public class AnswerExtraction {
             JSONObject tmp_ans = new JSONObject();
 
             try {
-                tmp_ans.put("answer", "No! No matching triples found!");
+                tmp_ans.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
             } catch (JSONException ex) {
                 Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -480,7 +480,7 @@ public class AnswerExtraction {
         }
 
         try {
-            tmp_ans.put("answer", "No answer found!");
+            tmp_ans.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
         } catch (JSONException ex) {
             Logger.getLogger(AnswerExtraction.class.getName()).log(Level.SEVERE, null, ex);
         }

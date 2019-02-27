@@ -169,7 +169,7 @@ public class QuestionAnalysis {
 
     }
 
-    public static HashSet<String> getNouns(String text) {
+    public static HashSet<String> getNounsAndAdjectives(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
 
@@ -185,7 +185,7 @@ public class QuestionAnalysis {
                 //Get the POS tag of the token
                 String pos = tok.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                 System.out.println(pos);
-                if (!pos.startsWith("-") && pos.toLowerCase().startsWith("n")) {
+                if (!pos.startsWith("-") && (pos.toLowerCase().startsWith("n") || pos.toLowerCase().startsWith("j"))) {
                     noun_tokens.add(tmp_token);
                 }
 

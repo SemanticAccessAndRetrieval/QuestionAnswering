@@ -100,13 +100,15 @@ public class ModulesErrorHandling {
 
     }
 
-    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e, String question_type) {
+    public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e, String question_type, HashMap<String, String> entity_URI) {
         JSONObject answer = new JSONObject();
 
         Set<String> useful_words = a_e.getUsefulWords();
 
         if (useful_words.isEmpty() && !question_type.equalsIgnoreCase("confirmation")) {
             try {
+                answer.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
+                answer.put("plain_answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
                 answer.put("status", "error");
                 answer.put("message", "[AnswerExtraction] No available useful words.");
                 return answer;
@@ -115,6 +117,8 @@ public class ModulesErrorHandling {
             }
         } else {
             try {
+                answer.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
+                answer.put("plain_answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
                 answer.put("useful_words", useful_words);
             } catch (JSONException ex) {
                 Logger.getLogger(ModulesErrorHandling.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +128,8 @@ public class ModulesErrorHandling {
         ArrayList<JSONObject> cand_triples = a_e.getCandidateTriples();
         if (cand_triples == null || cand_triples.isEmpty()) {
             try {
+                answer.put("answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
+                answer.put("plain_answer", "I cannot directly answer this question, but I have found the following relevant entities: " + entity_URI.values().toString());
                 answer.put("status", "error");
                 answer.put("message", "[AnswerExtraction] No candidate triples found.");
                 return answer;

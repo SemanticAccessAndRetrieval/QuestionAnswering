@@ -251,7 +251,7 @@ public class ExternalKnowledgeDemoMain {
 
             answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size(), "min");
 
-            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type, entity_URI);
 
             if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
                 return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
@@ -338,7 +338,7 @@ public class ExternalKnowledgeDemoMain {
 
             answer_extraction.retrieveCandidateTriplesOptimized(question_type, entity_URI, fact, useful_words.size(), "max");
 
-            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type);
+            JSONObject a_eErrorHandling = ModulesErrorHandling.answerExtractionErrorHandling(answer_extraction, question_type, entity_URI);
 
             if (a_eErrorHandling.getString("status").equalsIgnoreCase("error")) {
                 return constructErrorJson(obj, a_eErrorHandling, "answerExtraction");
@@ -366,7 +366,7 @@ public class ExternalKnowledgeDemoMain {
     private static JSONObject constructErrorJson(JSONObject current_answer, JSONObject error, String module) {
         ArrayList<String> qA_tags = new ArrayList<>(Arrays.asList("question_type"));
         ArrayList<String> eD_tags = new ArrayList<>(Arrays.asList("question_entities", "retrievedEntities"));
-        ArrayList<String> aE_tags = new ArrayList<>(Arrays.asList("useful_words"));
+        ArrayList<String> aE_tags = new ArrayList<>(Arrays.asList("useful_words", "answer", "plain_answer"));
 
         try {
             String error_message = error.getString("message");

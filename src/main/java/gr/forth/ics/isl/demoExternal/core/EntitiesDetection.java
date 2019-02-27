@@ -305,7 +305,7 @@ public class EntitiesDetection {
     public HashMap<String, String> extractEntitiesWithUris(String question, String tool) {
         // if both sets are empty, then return as final an empty set
         if (this.corenlp_entities.isEmpty() && this.spotlight_entities_uris.isEmpty()) {
-            HashSet<String> nouns = QuestionAnalysis.getNouns(question);
+            HashSet<String> nouns = QuestionAnalysis.getNounsAndAdjectives(question);
 
             if (!nouns.isEmpty()) {
                 setCorenlpEntities(nouns);
