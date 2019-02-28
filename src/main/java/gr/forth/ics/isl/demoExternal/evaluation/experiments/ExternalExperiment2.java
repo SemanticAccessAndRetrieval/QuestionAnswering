@@ -26,16 +26,35 @@ public class ExternalExperiment2 {
 
     private static String evalPath = "src/main/resources/external/evaluation/";
     private static String folderName = "simpleQuestions";
+    private static String perfectNerQuestionsPath = evalPath + folderName + "/ner_successful_only_questions.txt";
+
+    public static ArrayList<String> getPerfectNerQuestions(String path) throws FileNotFoundException, IOException {
+
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        ArrayList<String> perfectNerQuestions = new ArrayList<>();
+
+        while ((line = br.readLine()) != null) {
+            String queryId = line;
+            //System.out.println(queryId);
+            perfectNerQuestions.add(queryId);
+        }
+
+        return perfectNerQuestions;
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> evalModels = readEvalFolder(evalPath, folderName);
+        ArrayList<String> perfectNerQuestions = getPerfectNerQuestions(perfectNerQuestionsPath);
 
         for (String model : evalModels.keySet()) {
             double microPrecision = 0.0;
             double macroPrecision = 0.0;
+            double PrecisionPerfectNerOnly = 0.0;
+            int entityFound = 0;
             ArrayList<Integer> allAnswers = new ArrayList<>();
             HashMap<String, ArrayList<Integer>> queryAnswerPairs = evalModels.get(model);
             System.out.println("===================================");
@@ -45,29 +64,47 @@ public class ExternalExperiment2 {
                 // get microPrecision input
                 ArrayList<Integer> crntAnswer = queryAnswerPairs.get(qID);
                 ArrayList<Integer> crntAnswerClean = new ArrayList<>();
+                ArrayList<Integer> crntAnswerPrefectNER = new ArrayList<>();
+
                 for (int i = 0; i < crntAnswer.size(); i++) {
                     if (crntAnswer.get(i) == -1) {
                         crntAnswerClean.add(0);
+
+                        if (perfectNerQuestions.contains(qID)) {
+                            crntAnswerPrefectNER.add(0);
+                        }
+
                     } else {
+
                         crntAnswerClean.add(crntAnswer.get(i));
+
+                        if (perfectNerQuestions.contains(qID)) {
+                            crntAnswerPrefectNER.add(crntAnswer.get(i));
+                        }
                     }
                 }
 
                 // calcutale Precision for the current answer
                 microPrecision += EvaluationMetrics.R_Precision(crntAnswerClean, 1, 0);
-
+                if (perfectNerQuestions.contains(qID)) {
+                    PrecisionPerfectNerOnly += EvaluationMetrics.R_Precision(crntAnswerPrefectNER, 1, 0);
+                } else {
+                    entityFound++;
+                }
                 // get macroPrecision input
                 allAnswers.addAll(crntAnswerClean);
             }
 
             // calcutale micro Precision by avg of all precisions for each answer
             microPrecision /= queryAnswerPairs.size();
+            PrecisionPerfectNerOnly /= (queryAnswerPairs.size() - entityFound);
 
             // calcutale macro Precision
             macroPrecision = EvaluationMetrics.R_Precision(allAnswers, allAnswers.size(), 0);
 
             System.out.println("Micro-Precision: " + microPrecision);
             System.out.println("Macro-Precision: " + macroPrecision);
+            System.out.println("Precision perfect Ner: " + PrecisionPerfectNerOnly);
             System.out.println("===================================");
         }
     }
@@ -80,6 +117,9 @@ public class ExternalExperiment2 {
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
+            if (file.getName().equals("ner_successful_only_questions.txt")) {
+                continue;
+            }
             evalModels.put(file.getName(), readEvalFile(folderPath, file.getName()));
         }
 

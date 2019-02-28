@@ -13,7 +13,8 @@ import com.crtomirmajer.wmd4j.WordMovers;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import gr.forth.ics.isl.demo.models.WordnetWord2vecModel;
+import gr.forth.ics.isl.demo.models.WordnetWord2vecModel_III;
+import gr.forth.ics.isl.demoCombined.main.combinedDemoMain;
 import gr.forth.ics.isl.main.demo_main;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
@@ -23,9 +24,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -47,7 +50,7 @@ public class OnFocusRRR {
     public static String filePath_gr = "/stoplists/stopwordsGr.txt";
 
     //Model instance
-    public static WordnetWord2vecModel combination;
+    public static WordnetWord2vecModel_III combination;
     public static QAInfoBase KB;
     public static StanfordCoreNLP pipeline;
 
@@ -96,14 +99,24 @@ public class OnFocusRRR {
         wordnetResources.add("antonyms");
         wordnetResources.add("hypernyms");
 
+        ArrayList<String> cw_list = new ArrayList<>();
+        cw_list.add("problem");
+        cw_list.add("issue");
+        cw_list.add("report");
+        cw_list.add("hotel");
+        cw_list.add("complaint");
+        cw_list.add("anyone");
+        cw_list.add("complain");
+
         Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
         // Instantiate model
-        combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
+        combination = new WordnetWord2vecModel_III("Word2vec and Wordnet with SQE and CW", dict, wordnetResources, wm, vec, model_weights);
+        combination.setContextWords(cw_list);
 
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
         props.put("tokenize.language", "en");
-        pipeline = new StanfordCoreNLP(props);
+        combinedDemoMain.pipeline = new StanfordCoreNLP(props);
     }
     /**
      *
@@ -115,59 +128,58 @@ public class OnFocusRRR {
      * @throws FileNotFoundException
      * @throws ClassNotFoundException
      */
-    public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException {
+    public static void main(String[] args) throws RepositoryException, IOException, MalformedQueryException, QueryEvaluationException, FileNotFoundException, ClassNotFoundException, JSONException {
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading KB...");
-        KB = new QAInfoBase();
+        Properties properties = new Properties();
+        properties.load(OnFocusRRR.class.getResourceAsStream("/configuration/hotelDemoConfig.properties"));
 
-        StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
+        String gModelPath = properties.getProperty("gModelPath");
+        String wnhomePath = properties.getProperty("wnhomePath");
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading word2vec...");
-        File gModel = new File(args[0] + "GoogleNews-vectors-negative300.bin.gz");
-        Word2Vec vec = WordVectorSerializer.readWord2VecModel(gModel);
-        WordMovers wm = WordMovers.Builder().wordVectors(vec).build();
+        initialize(gModelPath, wnhomePath);
 
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...loading wordnet...");
-        String wnhome = System.getenv(args[1]);
-        String path = wnhome + File.separator + "dict";
-        URL url = new URL("file", null, path);
-        // construct the dictionary object and open it
-        IDictionary dict = new Dictionary(url);
-        dict.open();
+        while (true) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Provide hotel ids");
+                String urisAsString = scanner.nextLine();
+                ArrayList<String> uris = new ArrayList<>(Arrays.asList(urisAsString.split(",")));
 
-        // Retrieve hyperparameters
-        //ModelHyperparameters bestModel = (ModelHyperparameters) Utils.getSavedObject("AVEPbased_BestModel");
-        //float word2vec_w = bestModel.getWord2vecWeight();
-        //float wordNet_w = bestModel.getWordNetWeight();
-        float word2vec_w = 0.4f;
-        float wordNet_w = 0.6f;
-        // Choose weights to be used in model IV
-        HashMap<String, Float> model_weights = new HashMap<>();
-        model_weights.put("wordnet", wordNet_w);
-        model_weights.put("word2vec", word2vec_w);
+                System.out.println("Ask question");
+                String question = scanner.nextLine();
 
-        // Choose wordnet sources to be used
-        ArrayList<String> wordnetResources = new ArrayList<>();
-        wordnetResources.add("synonyms");
-        wordnetResources.add("antonyms");
-        wordnetResources.add("hypernyms");
-
-        Logger.getLogger(OnFocusRRR.class.getName()).log(Level.INFO, "...initializing model...");
-        // Instantiate model
-        combination = new WordnetWord2vecModel("Word2vec and Wordnet", dict, wordnetResources, wm, vec, model_weights);
-
+                JSONObject resultListAsJASON = getTopKComments(uris, question, 10);
+                System.out.println(resultListAsJASON.get("maxSentences"));
+            } catch (JSONException ex) {
+                Logger.getLogger(OnFocusRRR.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
-    public JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
-        //System.out.println(KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris));
-        // Get hotels on focus
-        //HashSet<Subject> hotels = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", uris);
-        // Get their comments
+    public static JSONObject getTopKComments(ArrayList<String> uris, String question, int k) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+
+        // Get comments for objects on focus
         ArrayList<Comment> comments = demo_main.getCommentsOnFocus(KB, uris);
+        System.out.println(comments);
         // Score them
-        ArrayList<Comment> scoredComments = combination.scoreComments(question, comments);
+        combination.setComments(comments);
+        combination.scoreComments(question);
         // Get top 2 comments and create JASON object
-        JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(2, scoredComments));
+        JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(k));
+
+        return resultListAsJASON;
+    }
+
+    public static JSONObject getTop2Comments(ArrayList<String> uris, String question) throws RepositoryException, MalformedQueryException, QueryEvaluationException, JSONException {
+
+        // Get comments for objects on focus
+        ArrayList<Comment> comments = demo_main.getCommentsOnFocus(KB, uris);
+        System.out.println(comments);
+        // Score them
+        combination.setComments(comments);
+        combination.scoreComments(question);
+        // Get top 2 comments and create JASON object
+        JSONObject resultListAsJASON = getJASONObject(combination.getTopComments(2));
 
         return resultListAsJASON;
         //return null;

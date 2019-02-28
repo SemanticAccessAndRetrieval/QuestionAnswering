@@ -133,6 +133,10 @@ public class Experiment3 extends JFrame {
                 modelNameAbr = "III";
             } else if (modelName.equals("Word2vec and Wordnet")) {
                 modelNameAbr = "IV";
+            } else if (modelName.equals("Word2vec model III Context Words")) {
+                modelNameAbr = "V";
+            } else if (modelName.equals("Word2vec model IV Context Words")) {
+                modelNameAbr = "VI";
             }
 
             // create data series
@@ -158,14 +162,16 @@ public class Experiment3 extends JFrame {
 
                 // ArrayList for all models to be ploted
                 ArrayList<String> allModelsNames = new ArrayList<>();
-                allModelsNames.add("Baseline model (Jaccard Similarity)");
-                allModelsNames.add("Wordnet model");
-                allModelsNames.add("Word2vec model");
+//                allModelsNames.add("Baseline model (Jaccard Similarity)");
+//                allModelsNames.add("Wordnet model");
+//                allModelsNames.add("Word2vec model");
                 //allModelsNames.add("Word2vec model II");
-                allModelsNames.add("Word2vec and Wordnet");
-                //allModelsNames.add("Word2vec and Wordnet II");
-                allModelsNames.add("Word2vec model III");
                 allModelsNames.add("Word2vec model III Context Words");
+                allModelsNames.add("Word2vec model IV Context Words");
+//                allModelsNames.add("Word2vec and Wordnet");
+                //allModelsNames.add("Word2vec and Wordnet II");
+//                allModelsNames.add("Word2vec model III");
+//                allModelsNames.add("Word2vec model III Context Words");
 
                 // Precision chart
                 Experiment3 Precision = new Experiment3("Precision over different R cut-offs", allModelsNames, "R-Precision", collectionName);

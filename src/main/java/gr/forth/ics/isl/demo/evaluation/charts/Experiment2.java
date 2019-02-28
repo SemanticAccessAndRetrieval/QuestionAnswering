@@ -108,6 +108,12 @@ public class Experiment2 extends JFrame {
                 word2vec.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 word2vec.setVisible(true);
 
+//                Experiment2 word2vec_IV_CW = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec model IV Context Words");
+//                word2vec_IV_CW.setSize(800, 400);
+//                word2vec_IV_CW.setLocationRelativeTo(null);
+//                word2vec_IV_CW.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//                word2vec_IV_CW.setVisible(true);
+
 //                Experiment2 wordnetNoHyp_word2vec = new Experiment2("Japanese Hotel Reviews: Estimated vs True Relevance", "Word2vec and WordnetNoHyp");
 //                wordnetNoHyp_word2vec.setSize(800, 400);
 //                wordnetNoHyp_word2vec.setLocationRelativeTo(null);

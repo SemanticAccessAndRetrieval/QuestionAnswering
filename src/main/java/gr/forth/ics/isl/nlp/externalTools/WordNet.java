@@ -46,7 +46,7 @@ public class WordNet {
      * @param pos part of speech tag of the input word
      * @throws IOException
      */
-    public static HashSet<String> getAntonyms(IDictionary dict, String inputWord, POS pos) throws IOException {
+    public static synchronized HashSet<String> getAntonyms(IDictionary dict, String inputWord, POS pos) throws IOException {
 
         HashSet<String> antonyms = new HashSet<>();
 
@@ -87,7 +87,7 @@ public class WordNet {
      * @param pos part of speech tag of the input word
      * @throws IOException
      */
-    public static HashSet<String> getHypernyms(IDictionary dict, String inputWord, POS pos) {
+    public static synchronized HashSet<String> getHypernyms(IDictionary dict, String inputWord, POS pos) {
 
         HashSet<String> hypernyms = new HashSet<>();
 
@@ -124,7 +124,7 @@ public class WordNet {
      * @param pos part of speech tag of the input word
      * @throws IOException
      */
-    public static HashSet<String> getSynonyms(IDictionary dict, String inputWord, POS pos) {
+    public static synchronized HashSet<String> getSynonyms(IDictionary dict, String inputWord, POS pos) {
 
         HashSet<String> synonyms = new HashSet<>();
 
@@ -149,7 +149,7 @@ public class WordNet {
     }
 
     //Get the wordnet POS based on coreNLP POS
-    public static POS getWordNetPos(String pos) {
+    public static synchronized POS getWordNetPos(String pos) {
         if (pos.startsWith("J")) {
             return POS.ADJECTIVE;
         } else if (pos.startsWith("R")) {

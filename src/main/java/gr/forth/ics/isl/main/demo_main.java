@@ -9,6 +9,7 @@
  */
 package gr.forth.ics.isl.main;
 
+import static gr.forth.ics.isl.demo.evaluation.EvalCollectionManipulator.readEvaluationSet;
 import gr.forth.ics.isl.demo.evaluation.models.EvaluationPair;
 import gr.forth.ics.isl.nlp.models.Comment;
 import gr.forth.ics.isl.sailInfoBase.QAInfoBase;
@@ -18,11 +19,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import mitos.stemmer.trie.Trie;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.openrdf.query.MalformedQueryException;
@@ -38,7 +40,7 @@ public class demo_main {
     //Number of top comments to retrieve
     static int topK = 10;
 
-    static String evalFileName = "FRUCE_v2";
+    static String evalFileName = "WebAP";
     //static String evalFileName = "webAP";
     //static String evalFileName = "BookingEvalCollection";
     static String evalCollection = evalFileName + ".csv";
@@ -50,15 +52,115 @@ public class demo_main {
     //A hashMap that contains two Trie, one for the English stopList and one for the Greek
     public static HashMap<String, Trie> stopLists = new HashMap<>();
 
+    public static boolean contain(Set<EvaluationPair> evalPairs, EvaluationPair pair) {
+        String pairText = pair.getQuery().getText().trim() + " - " + pair.getComment().getText().trim();
+        boolean containsPair = false;
+        for (EvaluationPair ep : evalPairs) {
+            String epText = ep.getQuery().getText().trim() + " - " + ep.getComment().getText().trim();
+
+            if (epText.equals(pairText)) {
+//                System.out.println(pairText);
+//                System.out.println(epText);
+//                System.out.println("\n");
+                containsPair = true;
+                break;
+            }
+        }
+        return containsPair;
+    }
+
     public static void main(String[] args) throws IOException, ParseException, FileNotFoundException, ClassNotFoundException, RepositoryException, MalformedQueryException, QueryEvaluationException {
 
-        QAInfoBase KB = new QAInfoBase();
-        ArrayList<String> targetSelection = new ArrayList<>(Arrays.asList("http://ics.forth.gr/isl/hippalus/#tazuru",
-                "http://ics.forth.gr/isl/hippalus/#arima_onsen_tosen_goshobo",
-                "http://ics.forth.gr/isl/hippalus/#the_b_kobe"));
+        ArrayList<Comment> comments = getCleanCommentsFromWebAP();
 
-        HashSet<Subject> lala = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", targetSelection);
-        System.out.println(getCommentsOnFocus(KB, targetSelection));
+        HashMap<String, HashMap<String, EvaluationPair>> gt = readEvaluationSet(evalCollection);
+        Set<EvaluationPair> evalPairs = new HashSet<EvaluationPair>();
+        for (String id : gt.keySet()) {
+            Collection<EvaluationPair> tmpEvalPairs = gt.get(id).values();
+            for (EvaluationPair pair : tmpEvalPairs) {
+                if (evalPairs.isEmpty()) {
+                    evalPairs.add(pair);
+                } else {
+                    if (!contain(evalPairs, pair)) {
+                        evalPairs.add(pair);
+                    }
+                }
+            }
+        }
+        System.out.println("Num of pairs (without queries 715 and 752)");
+        System.out.println(evalPairs.size());
+        System.out.println("");
+
+        HashMap<String, ArrayList<String>> queryMap = new HashMap<>();
+        HashMap<String, ArrayList<Integer>> relevanceMap = new HashMap<>();
+
+        for (EvaluationPair ep : evalPairs) {
+            if (queryMap.keySet().contains(ep.getQuery().getText())) {
+                ArrayList<String> tmpComments = queryMap.get(ep.getQuery().getText());
+                tmpComments.add(ep.getComment().getText());
+                queryMap.put(ep.getQuery().getText(), tmpComments);
+            } else {
+                ArrayList<String> tmpComments = new ArrayList<>();
+                tmpComments.add(ep.getQuery().getText());
+                queryMap.put(ep.getQuery().getText(), tmpComments);
+            }
+
+            if (relevanceMap.keySet().contains(ep.getQuery().getText())) {
+                ArrayList<Integer> tmpRelScores = relevanceMap.get(ep.getQuery().getText());
+                tmpRelScores.add(ep.getRelevance());
+                relevanceMap.put(ep.getQuery().getText(), tmpRelScores);
+            } else {
+                ArrayList<Integer> tmpRelScores = new ArrayList<>();
+                tmpRelScores.add(ep.getRelevance());
+                relevanceMap.put(ep.getQuery().getText(), tmpRelScores);
+            }
+        }
+
+        for (String query : relevanceMap.keySet()) {
+            ArrayList<Integer> crntQueryPairSet = relevanceMap.get(query);
+            if ((crntQueryPairSet.contains(4) || crntQueryPairSet.contains(3) || crntQueryPairSet.contains(2)) && !(crntQueryPairSet.contains(1))) {
+                queryMap.remove(query);
+            }
+            if (!(crntQueryPairSet.contains(4) || crntQueryPairSet.contains(3) || crntQueryPairSet.contains(2)) && (crntQueryPairSet.contains(1))) {
+                queryMap.remove(query);
+            }
+        }
+
+
+        int sum = 0;
+        Set<String> passages = new HashSet<String>();
+
+        for (String query : queryMap.keySet()) {
+            passages.addAll(queryMap.get(query));
+            ArrayList<String> tmpComments = queryMap.get(query);
+            sum += tmpComments.size();
+        }
+        double avgComs = (double) sum / (double) queryMap.size();
+
+        System.out.println("Num of passages");
+        //System.out.println(commentsToFilter.size());
+        System.out.println(passages.size());
+        System.out.println("");
+
+        System.out.println("Num of Pairs");
+        System.out.println(sum);
+        System.out.println("");
+
+        System.out.println("Num of queries");
+        System.out.println(queryMap.size());
+        System.out.println("");
+
+        System.out.println("Avg Num of Comments per Query");
+        System.out.println(avgComs);
+        System.out.println("");
+
+//        QAInfoBase KB = new QAInfoBase();
+//        ArrayList<String> targetSelection = new ArrayList<>(Arrays.asList("http://ics.forth.gr/isl/hippalus/#tazuru",
+//                "http://ics.forth.gr/isl/hippalus/#arima_onsen_tosen_goshobo",
+//                "http://ics.forth.gr/isl/hippalus/#the_b_kobe"));
+//
+//        HashSet<Subject> lala = KB.getAllSubjectsOfTypeWithURIs("owl", "NamedIndividual", targetSelection);
+//        System.out.println(getCommentsOnFocus(KB, targetSelection));
 //        HashSet<Subject> hotels = KB.getAllSubjectsOfType("hippalus", "hippalusID");
 //        ArrayList<Comment> comments = getComments(hotels, KB);
 //
@@ -326,7 +428,50 @@ public class demo_main {
                 continue;
             }
         }*/
+    }
 
+    public static ArrayList<Comment> getCleanCommentsFromWebAP() {
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        String corpusPath = "src/main/resources/corpus/";
+        String csvFile = corpusPath + "webAP.txt";
+
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ";;";
+
+        try {
+
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] comment = line.split(cvsSplitBy);
+
+                String commentId = comment[0];
+                String commentText = comment[1];
+
+                Comment tmpComment = new Comment("", "", commentId, commentText);
+                boolean contains = false;
+                for (Comment com : comments) {
+                    if (com.getText().equals(tmpComment.getText())) {
+                        contains = true;
+                        break;
+                    }
+                }
+                if (!contains) {
+                    comments.add(tmpComment);
+                }
+
+            }
+
+            //System.out.println(comments.size());
+            return comments;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static ArrayList<Comment> getCommentsFromWebAP() {
@@ -400,6 +545,7 @@ public class demo_main {
 
         return comments;
     }
+
     public static String getLabelOfUri(String uri) {
         String[] uriParts = uri.split("/");
         String[] location = uriParts[uriParts.length - 1].split("#");
