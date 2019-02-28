@@ -32,6 +32,11 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 /**
+ * This is the main class for the execution of the QA process. The constructor
+ * of the class is responsible to initialize all the required resources and
+ * tools. Using the created instance, the user can use the methods
+ * "getAnswerAsJson", to submit a question in Natural Language and retrieve an
+ * answer in JSON format.
  *
  * @author Lefteris Dimitrakis
  */
@@ -41,15 +46,19 @@ public class ExternalKnowledgeDemoMain {
     public static String filePath_en = "/stoplists/stopwordsEn.txt";
     public static String filePath_gr = "/stoplists/stopwordsGr.txt";
 
-    //Core Nlp pipeline instance
+    //Core Nlp pipeline instance (for question analysis)
     public static StanfordCoreNLP split_pipeline;
+    //Core Nlp pipeline instance (for answer extraction)
     public static StanfordCoreNLP lemma_pipeline;
+    //Core Nlp pipeline instance (for entities detection)
     public static StanfordCoreNLP entityMentions_pipeline;
     public static StanfordCoreNLP compounds_pipeline;
     public static IDictionary wordnet_dict;
+    //DBPedia Spotlight instance
     public static Spotlight spotlight;
     public static ArrayList<String> wordnetResources = new ArrayList<>();
 
+    // LODSyndesisChanel instance, for accessing the provided rest api.
     public static LODSyndesisChanel chanel;
 
     public static void main(String[] args) {
@@ -92,9 +101,15 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
-    // Appropriate method for the Toshiba demo.
-    // Avoid initializing all the common resources/tool with the user comments demo
-    // Specifically, avoid initiliaze wordnet and stop-words.
+    /**
+     * Function for the initialization of the required resources. Appropriate
+     * method for the Toshiba demo: Avoid initializing all the common
+     * resources/tools with the user reviews demo (i.e. wordnet and stop-words)
+     *
+     * @param dict
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     public static void initializeToolsAndResourcesForDemo(IDictionary dict) throws MalformedURLException, IOException {
         wordnet_dict = dict;
         wordnet_dict.open();
@@ -135,28 +150,20 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
+    /**
+     * Function for the initialization of the required resources. i.e. all the
+     * coreNLP properties, stop-words, spotlight, lodsyndesis chanel etc.
+     *
+     * @param wordnetPath
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     public static void initializeToolsAndResources(String wordnetPath) throws MalformedURLException, IOException {
 
         Logger.getLogger(ExternalKnowledgeDemoMain.class.getName()).log(Level.INFO, "...Generating stop-words lists...");
         StringUtils.generateStopListsFromExternalSource(filePath_en, filePath_gr);
 
-        /*
-        Logger.getLogger(QuestionAnalysis.class.getName()).log(Level.INFO, "...loading wordnet...");
-        String wnhome = System.getenv(wordnetPath);
-        String path = wnhome + File.separator + "dict";
-        URL url = new URL("file", null, path);
-        // construct the dictionary object and open it
-        wordnet_dict = new Dictionary(url);
-        wordnet_dict.open();
-
-        // Choose wordnet sources to be used
-        wordnetResources.add("synonyms");
-        //wordnetResources.add("antonyms");
-        //wordnetResources.add("hypernyms");
-*/
         Properties split_props = new Properties();
-        //Properties including lemmatization
-        //props.put("annotators", "tokenize, ssplit, pos, lemma");
         //Properties without lemmatization
         split_props.put("annotators", "tokenize, ssplit, pos");
         split_props.put("tokenize.language", "en");
@@ -185,6 +192,20 @@ public class ExternalKnowledgeDemoMain {
 
     }
 
+    /**
+     * Function for submitting a question in Natural Language and retrieve an
+     * answer in JSON format. This function executes the whole QA pipeline, to
+     * analyze the input question and retrieve an answer. The JSON contains
+     * information like: question type, question entities, answer triple,
+     * provenance, confidence score etc.
+     *
+     * This function is being exploited for the online demo, which takes an
+     * additional input "format" with value "plain" or "triple".
+     *
+     * @param query
+     * @param format
+     * @return
+     */
     public static JSONObject getAnswerAsJson(String query, String format) {
         try {
             JSONObject obj = new JSONObject();
@@ -278,6 +299,16 @@ public class ExternalKnowledgeDemoMain {
         return null;
     }
 
+    /**
+     * Function for submitting a question in Natural Language and retrieve an
+     * answer in JSON format. This function executes the whole QA pipeline, to
+     * analyze the input question and retrieve an answer. The JSON contains
+     * information like: question type, question entities, answer triple,
+     * provenance, confidence score etc.
+     *
+     * @param query
+     * @return
+     */
     public static JSONObject getAnswerAsJson(String query) {
         try {
             JSONObject obj = new JSONObject();
@@ -363,9 +394,23 @@ public class ExternalKnowledgeDemoMain {
         return null;
     }
 
+    /**
+     * This function is responsible to handle a possible error and depending the
+     * module the error occurred include as many information as possible in the
+     * answer JSON to return to the user.
+     *
+     *
+     * @param current_answer
+     * @param error
+     * @param module
+     * @return
+     */
     private static JSONObject constructErrorJson(JSONObject current_answer, JSONObject error, String module) {
+        // All the json tags used for the Question Analysis module
         ArrayList<String> qA_tags = new ArrayList<>(Arrays.asList("question_type"));
+        // All the json tags used for the Entities Detection module
         ArrayList<String> eD_tags = new ArrayList<>(Arrays.asList("question_entities", "retrievedEntities"));
+        // All the json tags used for the Answer Extraction module
         ArrayList<String> aE_tags = new ArrayList<>(Arrays.asList("useful_words", "answer", "plain_answer"));
 
         try {

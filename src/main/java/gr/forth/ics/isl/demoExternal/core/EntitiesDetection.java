@@ -36,6 +36,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class contains the implementation of the Entities Detection module. It
+ * performs the main steps of: (1) Named Entity Recognition using Stanford
+ * coreNLP and DBPedia Spotlight. (2) Perform entity linking using the
+ * keywordToEntity service of LODsyndesis, (3) combine the results of the 2
+ * tools and extract the final entities along with their URIs from LODsyndesis.
+ *
  *
  * @author Lefteris Dimitrakis
  */
@@ -45,8 +51,11 @@ public class EntitiesDetection {
     private Set<String> corenlp_entities;
     // Store the text and the uri of the NE (recognized by DBPediaSpotlight)
     private HashMap<String, String> spotlight_entities_uris;
+    // Store the text and the candidate uris of the NE (recognized by SCNLP)
     private HashMap<String, ArrayList<String>> corenlp_entities_cand_URIs;
+    // Store the text and the uri of the NE (recognized by SCNLP)
     private HashMap<String, String> corenlp_entities_uris;
+    // Store the text and the uri of the final NEs 
     private HashMap<String, String> final_entities_uris;
 
     private ArrayList<String> dbpedia_blacklist = new ArrayList<>(Arrays.asList("time zone", "city", "area code"));
@@ -91,6 +100,14 @@ public class EntitiesDetection {
         this.final_entities_uris = entities_final_URIs;
     }
 
+    /**
+     * Function responsible to perform Named entity recognition using SCNLP and
+     * DBpedia spotlight.
+     *
+     * @param question
+     * @param tool The different values are: "scnlp", "dbpedia", "both" (i.e.
+     * use only scnlp for the recognition etc.)
+     */
     public void identifyNamedEntities(String question, String tool) {
 
         if (tool.equalsIgnoreCase("scnlp")) {
@@ -121,6 +138,15 @@ public class EntitiesDetection {
         }
     }
 
+    /**
+     * Function responsible to perform Named entity recognition using Stanford
+     * CoreNLP. It also exploits the compound relations between the question
+     * words. It returns a map of entity names and their type e.g. Person,
+     * location etc.
+     *
+     * @param question
+     * @return
+     */
     public HashMap<String, String> extractCorenlpEntitiesWithType(String question) {
         // Extract the Named Entities from the question with their type e.g. Location, Person etc.
         HashMap<String, String> word_NamedEntity = getCorenlpEntityMentionsWithNer(question);
@@ -177,6 +203,14 @@ public class EntitiesDetection {
         return entityMention_ner;
     }
 
+    /**
+     * Function responsible to extract the compound relations between the words
+     * in the input text. The extraction is perform using the Stanford CoreNLP
+     * provided capabilities.
+     *
+     * @param text
+     * @return
+     */
     public static HashMap<String, String> extractCorenlpCompoundWords(String text) {
 
         HashMap<String, String> word_pos = getTokensWithPos(text);
@@ -274,6 +308,16 @@ public class EntitiesDetection {
         return null;
     }
 
+    /**
+     * Function responsible to perform Named entity recognition, linking and
+     * disambiguation using DBPedia Spotlight.
+     *
+     * We perform an annotation over the input question, and we retrieve a map
+     * of question entities and and associated URI from DBPedia KB.
+     *
+     * @param question
+     * @return
+     */
     public HashMap<String, String> extractEntitiesWithSpotlight(String question) {
         try {
             AnnotationUnit annotationUnit; // keeps the returned annotations
@@ -302,6 +346,19 @@ public class EntitiesDetection {
         return false;
     }
 
+    /**
+     * Function responsible for the final extraction of the entities names and
+     * their URIs from LODsyndesis, by combining the results of SCNLP and
+     * DBPedia Spotlight.
+     *
+     * If an entity is recognized by both tools, we select the best uri based on
+     * the maximum jaccard similarity, between the uri suffix and the input
+     * question.
+     *
+     * @param question
+     * @param tool
+     * @return
+     */
     public HashMap<String, String> extractEntitiesWithUris(String question, String tool) {
         // if both sets are empty, then return as final an empty set
         if (this.corenlp_entities.isEmpty() && this.spotlight_entities_uris.isEmpty()) {
@@ -387,6 +444,16 @@ public class EntitiesDetection {
         return this.final_entities_uris;
     }
 
+    /**
+     * Function responsible to find the best matching URI for each entity
+     * recognized by SCNLP.
+     *
+     * The URI selection, is based on the Levenshtein distance, between the uri
+     * suffix and the recognized entity name.
+     *
+     * @param question_entities
+     * @return
+     */
     public HashMap<String, String> getMatchingCorenlpURIs(Set<String> question_entities) {
 
         // Hashmap to store each entity and the selected URI (the highest scored)
@@ -403,6 +470,13 @@ public class EntitiesDetection {
         return entity_URI;
     }
 
+    /**
+     * Function responsible to retrieve candidate URIs for the entities
+     * recognized by SCNLP. We exploit the getEntityFromKeyWord service of
+     * LODsyndesis, for retrieving candidates based on the entity names
+     *
+     * @param question_entities
+     */
     public void retrieveCorenlpEntitiesCandidateURIs(Set<String> question_entities) {
         // Hashmap to store entities along with their candidate URIs
         HashMap<String, ArrayList<String>> entity_candidateURIs = new HashMap<>();
@@ -417,6 +491,13 @@ public class EntitiesDetection {
         this.corenlp_entities_cand_URIs = entity_candidateURIs;
     }
 
+    /**
+     * Retrieve sameAs URIs for a given set of entities, by exploiting the
+     * ObjectCoreference service of LODsyndesis.
+     *
+     * @param entity_URI
+     * @return
+     */
     public static HashMap<String, ArrayList<String>> retrieveEquivalentEntityURIs(HashMap<String, String> entity_URI) {
         // Hashmap to store entities along with their equivalent URIs
         HashMap<String, ArrayList<String>> entity_equivalentURIs = new HashMap<>();
@@ -510,6 +591,15 @@ public class EntitiesDetection {
         return final_entities;
     }
 
+    /**
+     * Function responsible to combine the results from the two tools SCNLP and
+     * DBPedia Spotlight for selecting the best URI for each entity.
+     *
+     * @param question
+     * @param corenlp_entity_uri
+     * @param spotlight_entity_uri
+     * @return
+     */
     public static TreeMap<String, String> extractBestMatchingEntitiesURIs(String question, HashMap<String, String> corenlp_entity_uri, HashMap<String, String> spotlight_entity_uri) {
 
         TreeMap<String, String> insensitive_corenlp_entity_uri = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);

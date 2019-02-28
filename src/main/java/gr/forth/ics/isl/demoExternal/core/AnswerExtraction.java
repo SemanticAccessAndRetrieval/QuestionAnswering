@@ -30,6 +30,11 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 /**
+ * This class contains the implementation of the Answer Extraction module. It
+ * performs the main steps of: (1) extraction of an expanded set of question
+ * words for the triples retrieval (2) retrieve cand. triples based on the
+ * recognized entities and the expanded set of question words, (3) analyze the
+ * cand. triples and based on question type extract the final answer.
  *
  * @author Lefteris Dimitrakis
  */
@@ -57,6 +62,22 @@ public class AnswerExtraction {
         this.candidate_triples = triples;
     }
 
+    /**
+     * Function responsible to extract a set of useful words from the set of the
+     * question words.
+     *
+     * At first, we remove from the set of question words, the recognized entity
+     * names. Then, we perform an expansion of this initial set by exploiting
+     * the two tools: (1) SCNLP, for extracting the lemmas of the words (2)
+     * Wordnet, for extracting derived nouns and verbs based on the
+     * Part-of-Speech tags of the words.
+     *
+     * @param question
+     * @param question_type
+     * @param entities
+     * @param expansionResources
+     * @return
+     */
     public HashSet<String> extractUsefulWords(String question, String question_type, Set<String> entities, ArrayList<String> expansionResources) {
 
         // For definition question we search for certain tags e.g. comment, description, abstract
@@ -83,6 +104,15 @@ public class AnswerExtraction {
         return usef_words;
     }
 
+    /**
+     * Function responsible to remove from the initial set of question words,
+     * all the recognized entity names, extracted from the Entities Detection
+     * step.
+     *
+     * @param question
+     * @param entities
+     * @return
+     */
     public HashSet<String> extractUsefulWordsWithoutEntityWords(String question, Set<String> entities) {
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
@@ -118,6 +148,18 @@ public class AnswerExtraction {
 
     }
 
+    /**
+     * Function responsible to perform the expansion of the question words using
+     * SCNLP and Wordnet.
+     *
+     * Specifically we include the lemmas of the question words. Include derived
+     * nouns for each verb in the question. Include derived verbs for each noun
+     * in the question
+     *
+     * @param words
+     * @param expansionResources
+     * @return
+     */
     private HashSet<String> extractExpandedUsefulWordsWithWordnet(HashSet<String> words, ArrayList<String> expansionResources) {
         String tmp_fact = extractFact(words);
 
@@ -150,6 +192,16 @@ public class AnswerExtraction {
         return fact_str;
     }
 
+    /**
+     * Function responsible to retrieve candidate triples, based on the
+     * recognized entities and a the expanded set of question words.
+     *
+     * @param question_type
+     * @param entity_URI
+     * @param fact
+     * @param numOfUsefulWords
+     * @param cardinal
+     */
     public void retrieveCandidateTriplesOptimized(String question_type, HashMap<String, String> entity_URI, String fact, int numOfUsefulWords, String cardinal) {
         String tmp_cand_facts = "";
         ArrayList<JSONObject> cand_facts = new ArrayList<>();
@@ -198,6 +250,19 @@ public class AnswerExtraction {
 
     }
 
+    /**
+     * Function responsible for the extraction of the final answer. It includes
+     * the steps of: (1) Extraction of cand. relation from the cand. triples (2)
+     * Extract matching properties/relations based on the question words (3)
+     * Extract matching triples based on the above (4) Extract the final answer
+     * based on the matched triples
+     *
+     * @param useful_words
+     * @param fact
+     * @param entity_URI
+     * @param question_type
+     * @return
+     */
     public JSONObject extractAnswer(Set<String> useful_words, String fact, HashMap<String, String> entity_URI, String question_type) {
 
         if (question_type.equalsIgnoreCase("definition")) {
@@ -221,6 +286,14 @@ public class AnswerExtraction {
 
     }
 
+    /**
+     * Function responsible for the extraction of cand. relations based on an
+     * input set of candidate triples. It basically extracts all the unique
+     * properties from the input triples.
+     *
+     * @param cand_triples
+     * @return
+     */
     public static ArrayList<String> extractCandidateRelations(ArrayList<JSONObject> cand_triples) {
         ArrayList<String> cand_relations = new ArrayList<>();
         String tmp_pred;
@@ -240,6 +313,14 @@ public class AnswerExtraction {
         return cand_relations;
     }
 
+    /**
+     * Function responsible for the extraction of matching relations/properties
+     * based on a set of candidate relations and a set of questions words.
+     *
+     * @param useful_words
+     * @param candidate_predicates
+     * @return
+     */
     public static ArrayList<String> extractMatchingProperties(ArrayList<String> useful_words, ArrayList<String> candidate_predicates) {
         // Filter the predicates that contain at least one useful word
         ArrayList<String> restricted_candidate_predicates = new ArrayList<>();
@@ -259,7 +340,14 @@ public class AnswerExtraction {
         return restricted_candidate_predicates;
     }
 
-    // Retrieve the max scored triples based on the LODSyndesis 'threshold' score
+    /**
+     * Function responsible retrieve only those triples that have the maximum
+     * confidence score, based on the 'threshold' score contained in each triple
+     * from LODsyndesis
+     *
+     * @param triples
+     * @return
+     */
     public static ArrayList<JSONObject> getMaxScoredTriples(ArrayList<JSONObject> triples) {
         float max_score = Float.MIN_VALUE;
         float tmp_score = Float.MIN_VALUE;
@@ -282,6 +370,14 @@ public class AnswerExtraction {
         return top_triples;
     }
 
+    /**
+     * Function responsible for the extraction of the matching triples, based on
+     * a set of matched relation and a set of candidate triples to filter.
+     *
+     * @param matched_relations
+     * @param cand_triples
+     * @return
+     */
     public static ArrayList<JSONObject> extractMatchedTriples(ArrayList<String> matched_relations, ArrayList<JSONObject> cand_triples) {
         ArrayList<JSONObject> matched_triples = new ArrayList<>();
 
@@ -302,8 +398,19 @@ public class AnswerExtraction {
         return matched_triples;
     }
 
-    //TODO: To update to more sophisticated answer selection
-    // Factoid: Check number of provenance sources for verification?
+    /**
+     * Function responsible for the extraction of the final answer, based on a
+     * set of matched triples, the question type, and the set of recognized
+     * question entities.
+     *
+     * For each question type, a different approach is followed, which is
+     * implemented as a distinct function.
+     *
+     * @param matched_triples
+     * @param question_type
+     * @param entity_URI
+     * @return
+     */
     public static JSONObject extractAnswerText(ArrayList<JSONObject> matched_triples, String question_type, HashMap<String, String> entity_URI) {
 
         if (matched_triples.isEmpty()) {
@@ -325,6 +432,17 @@ public class AnswerExtraction {
         }
     }
 
+    /**
+     * Function responsible for the extraction of Factoid answer.
+     *
+     * At first, we filter the triples based on the number of matching question
+     * entities. Filter the triples based on the maximum number of provenance
+     * datasets. Extraction of the final answer.
+     *
+     * @param matched_triples
+     * @param entity_URI
+     * @return
+     */
     private static JSONObject extractFactoidAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
 
         int numOfEntities = entity_URI.keySet().size();
@@ -389,6 +507,17 @@ public class AnswerExtraction {
         return null;
     }
 
+    /**
+     * Function responsible for the extraction of Confirmation answer.
+     *
+     * At first, we filter the triples based on the number of matching question
+     * entities. We extract the final answer. (i.e. yes, no, or i cannot answer
+     * directly...)
+     *
+     * @param matched_triples
+     * @param entity_URI
+     * @return
+     */
     private static JSONObject extractConfirmationAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
         ArrayList<JSONObject> triplesWithCorrectEntities = getTriplesWithMatchingEntities(matched_triples, entity_URI);
         triplesWithCorrectEntities = getMaxScoredTriples(triplesWithCorrectEntities);
@@ -452,6 +581,16 @@ public class AnswerExtraction {
         }
     }
 
+    /**
+     * Function responsible for the extraction of Definition answer.
+     *
+     * We extract the final answer, based on the rdf labels (comment, abstract,
+     * description) and the recognized question entities
+     *
+     * @param matched_triples
+     * @param entity_URI
+     * @return
+     */
     private static JSONObject extractDefinitionAnswer(ArrayList<JSONObject> matched_triples, HashMap<String, String> entity_URI) {
 
         JSONObject tmp_ans = new JSONObject();
@@ -487,6 +626,13 @@ public class AnswerExtraction {
         return tmp_ans;
     }
 
+    /**
+     * Function for retrieving only these triples with maximum number of
+     * provenance datasets
+     *
+     * @param triples
+     * @return
+     */
     private static JSONObject getTripleWithMaxProvenanceDatasets(ArrayList<JSONObject> triples) {
         try {
             TreeMap<Integer, JSONObject> numOfProvenanceDatasets_triple = new TreeMap<>();
@@ -507,6 +653,14 @@ public class AnswerExtraction {
         return null;
     }
 
+    /**
+     * Function for retrieving only these triples with matching question
+     * entities
+     *
+     * @param triples
+     * @param entity_URI
+     * @return
+     */
     private static ArrayList<JSONObject> getTriplesWithMatchingEntities(ArrayList<JSONObject> triples, HashMap<String, String> entity_URI) {
         HashMap<String, ArrayList<String>> entity_equivalentURIs = getCleanSameAsUris(EntitiesDetection.retrieveEquivalentEntityURIs(entity_URI));
 
@@ -643,6 +797,15 @@ public class AnswerExtraction {
         return clean_uri;
     }
 
+    /**
+     * Function for comparing the recognized entities and retrieve the one with
+     * the (a) minimum or (b) maximum cardinality, based on the value of
+     * cardinal i.e. ("min" or "max")
+     *
+     * @param entity_URI
+     * @param cardinal
+     * @return
+     */
     public static String getEntityWithMaxCardinality(HashMap<String, String> entity_URI, String cardinal) {
         String final_entity = "";
         if (cardinal.equalsIgnoreCase("max")) {

@@ -32,6 +32,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class contains the implementation of the Question Analysis module. It
+ * performs the main steps of: (1) Question tokenization and cleaning (i.e.
+ * stop-words removal), (2) Question type identification.
+ *
+ * It also includes useful functions for NLP analysis using the Stanford CoreNLP
+ * capabilities for tokenization, lemmatization, pos tagging etc.
  *
  * @author Lefteris Dimitrakis
  */
@@ -61,6 +67,13 @@ public class QuestionAnalysis {
         this.question_type = q_type;
     }
 
+    /**
+     * Function responsible for the analysis of the input question.
+     * Specifically, includes the cleaning of the question as well as the
+     * identification of the question type.
+     *
+     * @param question
+     */
     public void analyzeQuestion(String question) {
 
         this.question = extractCleanQuestion(question);
@@ -82,6 +95,13 @@ public class QuestionAnalysis {
         return question;
     }
 
+    /**
+     * Function responsible to tokenize and clean the input question (removal of
+     * stop-words).
+     *
+     * @param question
+     * @return
+     */
     public static HashSet<String> extractOtherWords(String question) {
         // Get clean question words with PartOfSpeech tags
         HashMap<String, String> clean_query_with_POS = getCleanTokensWithPos(question);
@@ -103,6 +123,17 @@ public class QuestionAnalysis {
         return final_useful_words;
     }
 
+    /**
+     * Function responsible to identify the question type. This is achieved
+     * based on simple heuristics i.e. indicative starting words
+     *
+     * The question type can be: (1) factoid, (2) confirmation, (3) definition,
+     * (4) none (i.e. unrecognized type)
+     *
+     * @param question
+     * @param usef_words
+     * @return
+     */
     public String identifyQuestionType(String question, Set<String> usef_words) {
 
         ArrayList<String> definition_words = new ArrayList<>(Arrays.asList("mean", "meaning", "definition"));
@@ -143,6 +174,13 @@ public class QuestionAnalysis {
         return "none";
     }
 
+    /**
+     * Function which takes as input a text and performs the following:
+     * tokenization, stop-word removal, Part-of-Speech tagging
+     *
+     * @param text
+     * @return
+     */
     public static HashMap<String, String> getCleanTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
@@ -169,6 +207,13 @@ public class QuestionAnalysis {
 
     }
 
+    /**
+     * Function which takes as input a text and returns a set of all the
+     * contained nouns or adjectives
+     *
+     * @param text
+     * @return
+     */
     public static HashSet<String> getNounsAndAdjectives(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
@@ -197,6 +242,13 @@ public class QuestionAnalysis {
 
     }
 
+    /**
+     * Function which takes as input a text and returns a set of all the
+     * lemmatized question words
+     *
+     * @param text
+     * @return
+     */
     public static HashMap<String, String> getLemmatizedTokens(String text) {
         Annotation document = new Annotation(text);
         lemma_pipeline.annotate(document);
@@ -221,6 +273,13 @@ public class QuestionAnalysis {
 
     }
 
+    /**
+     * Function which takes as input a text and returns a set of all question
+     * words along with their Part-of-Speech tag.
+     *
+     * @param text
+     * @return
+     */
     public static HashMap<String, String> getTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         split_pipeline.annotate(document);
@@ -246,6 +305,15 @@ public class QuestionAnalysis {
 
     }
 
+    /**
+     * Function which takes as input a text and returns a set of all the
+     * lemmatized question words along with their POS tag.
+     *
+     * It also performs stop-words removal.
+     *
+     * @param text
+     * @return
+     */
     public static HashMap<String, String> getCleanLemmatizedTokensWithPos(String text) {
         Annotation document = new Annotation(text);
         lemma_pipeline.annotate(document);

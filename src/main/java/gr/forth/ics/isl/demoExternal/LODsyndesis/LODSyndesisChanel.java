@@ -32,7 +32,7 @@ import org.codehaus.jettison.json.JSONObject;
  *
  * @author Sgo
  *
- * This Class is used to send requests and receive requests form LODsyndesis
+ * This Class is used to send requests and receive requests from LODsyndesis
  * rest API. It supports Object Coreference, Fact Validation, All Facts for An
  * Entity and LODsyndesis keyword search services.
  */

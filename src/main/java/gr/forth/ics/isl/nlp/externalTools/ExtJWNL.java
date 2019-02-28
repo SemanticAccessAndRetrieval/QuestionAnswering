@@ -78,6 +78,16 @@ public class ExtJWNL {
         return null;
     }
 
+    /**
+     * Returns derived words based on the Part-of-Speech tags of the words.
+     *
+     * Specifically, extracts derived nouns for each verb and extracts derived
+     * verbs for each noun.
+     *
+     * @param word_pos
+     * @param expansionResources
+     * @return
+     */
     public HashMap<String, ArrayList<String>> getDerived(HashMap<String, String> word_pos, ArrayList<String> expansionResources) {
 
         HashMap<String, ArrayList<String>> word_synset = new HashMap<>();

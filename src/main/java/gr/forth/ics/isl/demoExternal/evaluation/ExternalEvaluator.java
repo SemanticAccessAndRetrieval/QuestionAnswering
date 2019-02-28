@@ -83,6 +83,19 @@ public class ExternalEvaluator {
         //getStatsForUnansweredQuestions("simpleQuestions_OurMethod_Detailed300");
     }
 
+    /**
+     * Used to extract useful statistics regarding the question words of the
+     * evaluation datasets used.
+     *
+     * It computes average, min and max question words. The statistics are based
+     * with and without removal of stop-words.
+     *
+     * @param datasetName
+     * @param numOfQuestions
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     public static JSONObject extractQuestionStatistics(String datasetName, int numOfQuestions) throws IOException, JSONException {
         JSONObject stats = new JSONObject();
 
@@ -141,6 +154,15 @@ public class ExternalEvaluator {
         return stats;
     }
 
+    /**
+     * Method for answer validation between the gold answer and the system
+     * answer. Partially used, due to mapping problem arised with the use of
+     * multiple datasets.
+     *
+     * @param system_ans_filename
+     * @param gold_ans_filename
+     * @throws JSONException
+     */
     public static void validateAnswers(String system_ans_filename, String gold_ans_filename) throws JSONException {
 
         TreeMap<Integer, JSONObject> qID_answers = readAnswersFiles(system_ans_filename, gold_ans_filename);
@@ -202,6 +224,17 @@ public class ExternalEvaluator {
         return questionId_systemAnswer;
     }
 
+    /**
+     * Method for retrieving system answers for a specific number of questions
+     * of a given evaluation collection. The result is a map with question id
+     * and a corresponding JSON object which is the answer of the system.
+     *
+     * @param questionId_question
+     * @param start_question_id
+     * @param num_of_questions
+     * @return
+     * @throws JSONException
+     */
     public static TreeMap<Integer, JSONObject> partialPipelineEvaluation(TreeMap<Integer, String> questionId_question, int start_question_id, int num_of_questions) throws JSONException {
 
         TreeMap<Integer, JSONObject> questionId_systemAnswer = new TreeMap<>();
@@ -233,6 +266,15 @@ public class ExternalEvaluator {
         return questionId_systemAnswer;
     }
 
+    /**
+     * Used for writing into a file, the system answers .
+     * The question id as
+     * well the answer triple
+     *
+     * @param questionId_systemAnswer
+     * @param filename
+     * @throws JSONException
+     */
     public static void writeSystemAnswersToFile(TreeMap<Integer, JSONObject> questionId_systemAnswer, String filename) throws JSONException {
         BufferedWriter bw = null;
         try {
@@ -264,6 +306,14 @@ public class ExternalEvaluator {
         }
     }
 
+    /**
+     * Used for writing into a file, the system answers . In this case we save
+     * the whole JSON object, for more detailed info of the answers.
+     *
+     * @param questionId_systemAnswer
+     * @param filename
+     * @throws JSONException
+     */
     public static void writeSystemAnswersAsJsonToFile(TreeMap<Integer, JSONObject> questionId_systemAnswer, String filename) throws JSONException {
         BufferedWriter bw = null;
         try {
@@ -312,6 +362,16 @@ public class ExternalEvaluator {
         return questionId_question;
     }
 
+    /**
+     * Used to extract statistics based on the JSON object (answers of the
+     * system). We extract statistics for problematic cases, i.e. which problem
+     * cased the inability of the system to deliver an answer.
+     *
+     * @param system_ans_filename
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws JSONException
+     */
     public static void getStatsForUnansweredQuestions(String system_ans_filename) throws FileNotFoundException, IOException, JSONException {
         TreeMap<Integer, JSONObject> result = new TreeMap<>();
 
@@ -365,6 +425,14 @@ public class ExternalEvaluator {
         System.out.println("No retrieved triples: " + no_triples);
     }
 
+    /**
+     * Used for reading the answers from a given file, for using it in the
+     * evaluation.
+     *
+     * @param system_ans_filename
+     * @param gold_ans_filename
+     * @return
+     */
     public static TreeMap<Integer, JSONObject> readAnswersFiles(String system_ans_filename, String gold_ans_filename) {
         TreeMap<Integer, JSONObject> result = new TreeMap<>();
         try {

@@ -19,11 +19,21 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 /**
+ * This class is responsible to handle any possible error in the QA pipeline.
+ * Contains a distinct error handling and error checking for each module of the
+ * pipeline. (a) Question Analysis, (b) Entities Detection, (c) Answer
+ * Extraction.
  *
  * @author Lefteris Dimitrakis
  */
 public class ModulesErrorHandling {
 
+    /**
+     * Responsible to handle any error for the Question Analysis module.
+     *
+     * @param q_a
+     * @return
+     */
     public static JSONObject questionAnalysisErrorHandling(QuestionAnalysis q_a) {
         JSONObject answer = new JSONObject();
 
@@ -53,6 +63,12 @@ public class ModulesErrorHandling {
         return answer;
     }
 
+    /**
+     * Responsible to handle any error for the Entities Detection module.
+     *
+     * @param e_d
+     * @return
+     */
     public static JSONObject entitiesDetectionErrorHandling(EntitiesDetection e_d) {
         JSONObject answer = new JSONObject();
 
@@ -100,6 +116,14 @@ public class ModulesErrorHandling {
 
     }
 
+    /**
+     * Responsible to handle any error for the Answer Extraction module.
+     *
+     * @param a_e
+     * @param question_type
+     * @param entity_URI
+     * @return
+     */
     public static JSONObject answerExtractionErrorHandling(AnswerExtraction a_e, String question_type, HashMap<String, String> entity_URI) {
         JSONObject answer = new JSONObject();
 
