@@ -131,22 +131,28 @@ public class WebAPTestSuit implements Runnable {
         contextWords.add("information");
         contextWords.add("discribe");
         contextWords.add("state");
+        // new
+        //contextWords.add("identify");
+        //contextWords.add("example");
+        //contextWords.add("examples");
+        //contextWords.add("way");
+        //contextWords.add("ways");
 
         System.out.println("Context words were loaded successfully");
 
         // models to be evaluated
         ArrayList<String> models = new ArrayList<String>();
-        models.add("BSL");
-//        models.add("WQE_woAH");
-//        models.add("WQE_woH");
-        models.add("WQE");
-        models.add("W2V");
+        //models.add("BSL");
+        //models.add("WQE_woAH");
+        //models.add("WQE_woH");
+        //models.add("WQE");
+        //models.add("W2V");
         models.add("W2V_cw");
-        models.add("W2V_sqe");
+        //models.add("W2V_sqe");
         models.add("W2V_cw_sqe");
-        models.add("CMB");
+        //models.add("CMB");
         models.add("CMB_cw");
-        models.add("CMB_sqe");
+        //models.add("CMB_sqe");
         models.add("CMB_cw_sqe");
 
         System.out.println("Model Names were loaded successfully");
@@ -641,7 +647,7 @@ public class WebAPTestSuit implements Runnable {
 
             Word2vecModel m = new Word2vecModel(model.getDescription(), ((Word2vecModel) model).getWordMovers(), ((Word2vecModel) model).getWord2Vec());
             m.setComments(model.getComments());
-            if (((Word2vecModel) model).getContextWords() == null) {
+            if (((Word2vecModel) model).getContextWords() != null) {
                 m.setContextWords(((Word2vecModel) model).getContextWords());
                 return m;
             } else {
@@ -652,7 +658,7 @@ public class WebAPTestSuit implements Runnable {
 
             Word2vecModel_III m = new Word2vecModel_III(model.getDescription(), ((Word2vecModel_III) model).getWordMovers(), ((Word2vecModel_III) model).getWord2Vec());
             m.setComments(model.getComments());
-            if (((Word2vecModel_III) model).getContextWords() == null) {
+            if (((Word2vecModel_III) model).getContextWords() != null) {
                 m.setContextWords(((Word2vecModel_III) model).getContextWords());
                 return m;
             } else {
@@ -663,7 +669,7 @@ public class WebAPTestSuit implements Runnable {
 
             WordnetWord2vecModel m = new WordnetWord2vecModel(model.getDescription(), ((WordnetWord2vecModel) model).getDictionary(), ((WordnetWord2vecModel) model).getResourcesToRetrieve(), ((WordnetWord2vecModel) model).getWordMovers(), ((WordnetWord2vecModel) model).getWord2Vec(), ((WordnetWord2vecModel) model).getModelWeights());
             m.setComments(model.getComments());
-            if (((WordnetWord2vecModel) model).getContextWords() == null) {
+            if (((WordnetWord2vecModel) model).getContextWords() != null) {
                 m.setContextWords(((WordnetWord2vecModel) model).getContextWords());
                 return m;
             } else {
@@ -674,7 +680,7 @@ public class WebAPTestSuit implements Runnable {
 
             WordnetWord2vecModel_III m = new WordnetWord2vecModel_III(model.getDescription(), ((WordnetWord2vecModel_III) model).getDictionary(), ((WordnetWord2vecModel_III) model).getResourcesToRetrieve(), ((WordnetWord2vecModel_III) model).getWordMovers(), ((WordnetWord2vecModel_III) model).getWord2Vec(), ((WordnetWord2vecModel_III) model).getModelWeights());
             m.setComments(model.getComments());
-            if (((WordnetWord2vecModel_III) model).getContextWords() == null) {
+            if (((WordnetWord2vecModel_III) model).getContextWords() != null) {
                 m.setContextWords(((WordnetWord2vecModel_III) model).getContextWords());
                 return m;
             } else {

@@ -75,6 +75,7 @@ public class ModelStats implements Serializable {
         for (String qID : allQueriesTestSet.keySet()) {
             // Get the ground truth for the current query
             HashMap<String, EvaluationPair> evalPairsWithCrntQueryId = gt.get(qID);
+            System.out.println(qID + "   " + evalPairsWithCrntQueryId.size());
 
             // Set R parameters of evaluation metrics
             int R2 = 2;

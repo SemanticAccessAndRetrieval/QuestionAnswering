@@ -90,7 +90,7 @@ public class HotelDemoTestSuit2 {
             relThreshold = 0;
         } else if (evalCollection.contains("webAP")) {
             System.out.println("KB subject retrieval bypassed.");
-            relThreshold = 2;
+            relThreshold = 3;
         } else {
             relThreshold = 0;
             reviews = KB.getAllSubjectsOfType("hip", "review");
