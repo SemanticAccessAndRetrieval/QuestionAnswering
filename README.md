@@ -53,11 +53,14 @@ The model can be instantiated with the provided rdf in-domain KB (a set of produ
 At run time it accepts as input: 
  1) uris, which can be reffered to products or other real world entities that are associated with a set of user reviews/comments.
  2) Natural Language Posed Question.
+
 The model scores the provided reviews and responds with a sorted list of reviews based on their relevance with the input question.
 The scoring procedure is done by a combinatorial model based on Wordnet dictionary and Word2vec model. Additionally, functionallities for
 a greedy Statistical Query Expansion technique and a Query Reweightening technique based on a set of user provided words that describe the general context of the domain is also supported and can be used or not by setting the required properties.  
 
 ## Demo
+Demo request to web service:
+http://139.91.183.46:8080/QuestionAnswering/service/find/get?query=Is%20the%20hotel%20staff%20helpful?&target_selection=http://ics.forth.gr/isl/hippalus/%23hotel_monte_hermana_kobe_amalie,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_grasmere_osaka,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_hanzomon,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_osaka
 
 ## Source code
 
