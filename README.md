@@ -97,5 +97,14 @@ The information include:
  - Word2vec Pre-trained Model:https://deeplearning4jblob.blob.core.windows.net/resources/wordvectors/GoogleNews-vectors-negative300.bin.gz
  - Minimum RAM requirement: 11 GB
 
+### Properties
+ - gModelPath=<path-toword2vec-model/model.gz.zip>
+ - wnhomePath=<wordnet-homepath-as-enviromental-variable>
+ - cwList=<list-of-context-words-seperated-by-comma> (use cwList^=/Constants.null if you wish no context words to be taken into account)
+ - word2vec_w=<word2vec-weight> (e.g. 0.4)
+ - wordNet_w=<wordnet-weight> (e.g. 0.6)
+ - sqe=<boolean-value> (use true to applay Statistical Query Expansion false otherwise)
+ - wordnet_resources=<resource-to-use-in-wordnet-query-expansion> (e.g. synonyms,antonyms,hypernyms)
+	
 ### Note
 The jar will retrieve the rdf (.ttl, .owl, .rdf etc.) data from the src/main/resources/warehouse/ folder’s files and the model will use the properties directly from the src/main/resources/configuration/onFocusRRRConfig.properties file. To change these values, replacement of the warehouse and the onFocusRRRConfig.properties content should be done and rebuild the project. Instead of changing the content of onFocusRRRConfig.properties the user can also pass to the OnFocusRRR constructor the desired properties programmatically via a Properties object.
