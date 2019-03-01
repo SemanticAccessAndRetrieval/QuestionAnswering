@@ -47,3 +47,18 @@ for submitting a question in Natural Language and retrieve an answer in JSON for
 The information include: question type, question entities, answer triple, provenance, confidence score, etc.
  
 
+# On Ahcieving High Quality User Reviews Retrieval in the context of Conversational Faceted Search
+A User Review Retrieval model for reviews in Focus (input uris).
+The model can be instantiated with the provided rdf in-domain KB (a set of products with their associated reviews/comments).
+At run time it accepts as input: 
+ 1) uris, which can be reffered to products or other real world entities that are associated with a set of user reviews/comments.
+ 2) Natural Language Posed Question.
+The model scores the provided reviews and responds with a sorted list of reviews based on their relevance with the input question.
+The scoring procedure is done by a combinatorial model based on Wordnet dictionary and Word2vec model. Additionally, functionallities for
+a greedy Statistical Query Expansion technique and a Query Reweightening technique based on a set of user provided words that describe the general context of the domain is also supported and can be used or not by setting the required properties.  
+
+## Demo
+
+## Source code
+
+## Installation
