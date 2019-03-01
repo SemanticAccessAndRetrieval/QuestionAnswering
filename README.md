@@ -63,5 +63,32 @@ Demo request to web service:
 http://139.91.183.46:8080/QuestionAnswering/service/find/get?query=Is%20the%20hotel%20staff%20helpful?&target_selection=http://ics.forth.gr/isl/hippalus/%23hotel_monte_hermana_kobe_amalie,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_grasmere_osaka,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_hanzomon,http://ics.forth.gr/isl/hippalus/%23hotel_monterey_osaka
 
 ## Source code
-
+The main implementation of the system is under the following path: /src/main/java/gr/forth/ics/isl/demo
+Its main components are:
+ 1) models: folder the holds all the main review retrieval models
+ 2) main: folder which holds the Review Retrieval model based on user defined properties (based on the models in the previous folder "models").
+ 3) evaluation: folder which holds the test suits for the experiments as well as the java classes needed to support them.
+ 
 ## Installation
+The project is organized as a maven project and can be downloaded and installed using the maven commands.
+The project can be exploited as a .jar file either as an executable or as a library. 
+
+In order to run the project, the user has to use the .java file in the path:
+src/main/java/gr/forth/ics/isl/demo/main/OnFocusRRR.java
+
+By creating an instance of OnFocusRRR, the user can exploit the provided functions (getTopKComments, getTop2Comments),
+for submitting a question in Natural Language as well as an ArrayList of string uris of interest and retrieve an answer in JSON format containing relevant information.
+
+The information include:
+ 1) maxSentences: a JSONArray that contains the maxed scored sentence of each retrieved review sorted with respect to the result list. (used in the example above)
+ 2) commentIds: a JSONArray that contains  a unique identifier of each retrieved review sorted with respect to the result list.
+ 3) dates: a JSONArray that contains the publication date of each retrieved review sorted with respect to the result list.
+ 4) fullReview: a JSONArray that contains the full text of each retrieved review sorted with respect to the result list.
+ 5) posParts: a JSONArray that contains the positive part of each retrieved review sorted with respect to the result list.
+ 6) negParts: a JSONArray that contains the negative part  of each retrieved review sorted with respect to the result list.
+ 7) scores: a JSONArray that contains the score of each retrieved review based on its maxed scored sentence and sorted with respect to the result list.
+ 8) hotelIds: a JSONArray that contains the hotel id of each retrieved review sorted with respect to the result list.
+ 9) hotelNames: a JSONArray that contains the hotel name of each retrieved review sorted with respect to the result list.
+
+ 
+
